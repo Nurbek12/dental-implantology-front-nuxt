@@ -5,7 +5,7 @@
             <h1 class="mt-4 font-medium text-lg">John Doe</h1>
             <span class="text-sm">Marketing Manager</span>
         </div>
-        <div class="w-[400px]">
+        <div class="w-[400px] hidden md:block">
             <img src="/images/bg-2-image.jpg" class="h-full w-full object-cover" alt="">
         </div>
     </div>

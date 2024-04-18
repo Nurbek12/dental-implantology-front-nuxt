@@ -5,17 +5,17 @@
             <span class="text-sm text-gray-500">{{ props.label }}</span>
         </div>
         <div class="border rounded overflow-hidden">
-            <input @input="emits('inputed', $event)" class="w-full outline-none h-full px-4 py-2" :required="!!props.required" :type="props.type||'text'" :placeholder="props.placeholder||''" v-model="model">
+            <textarea @input="emits('inputed', $event)" class="w-full outline-none h-full px-4 py-2 resize-none" :required="!!props.required" :rows="props.rows||4" :placeholder="props.placeholder||''" v-model="model"></textarea>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 const emits = defineEmits(['inputed'])
-const model = defineModel()
+const model = defineModel<any>()
 const props = defineProps<{
     icon?: any
-    type?: string
+    rows?: number
     label?: string
     disabled?: boolean
     placeholder?: string
