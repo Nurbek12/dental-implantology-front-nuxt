@@ -1,16 +1,19 @@
 <template>
     <div>
         <div class="flex items-center gap-2 mb-2" v-show="!!props.label || props.icon">
-            <component class="text-blue-500 w-5 h-5" :is="props.icon"></component>
-            <span class="text-sm text-gray-500">{{ props.label }}</span>
+            <component class="text-blue-500 w-4 h-4" :is="props.icon"></component>
+            <label :for="randomid" class="text-xs text-gray-500 font-medium">{{ props.label }}</label>
         </div>
         <div class="border rounded overflow-hidden">
-            <input @input="emits('inputed', $event)" class="w-full outline-none h-full px-4 py-2" :required="!!props.required" :type="props.type||'text'" :placeholder="props.placeholder||''" v-model="model">
+            <input :id="randomid" @input="emits('inputed', $event)" class="w-full outline-none h-full px-4 py-2" :required="!!props.required" :type="props.type||'text'" :placeholder="props.placeholder||''" v-model="model">
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+import { v4 } from 'uuid'
+
+const randomid = v4()
 const emits = defineEmits(['inputed'])
 const model = defineModel()
 const props = defineProps<{

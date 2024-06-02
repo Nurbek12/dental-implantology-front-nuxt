@@ -1,3 +1,157 @@
+export interface IUser {}
+
+export interface IDoctor {
+    id?: number
+    last_login?: null | string
+    username?: string
+    first_name: string
+    last_name: string
+    is_active: boolean
+    date_joined?: string
+    avatar?: string | null
+    phone: string
+    middle_name: string
+    birth_date: string
+    created_at?: string
+    updated_at?: string
+    user_type: "DOCTOR"
+    licences: string
+    experience: number
+    experiences: string
+    educations: string
+    certificates: string
+    content?: string
+    rating?: number
+    appointments?: IAppointment[]
+    is_published: boolean
+}
+
+export interface IPatient {
+    id?: number
+    last_login?: null | string
+    username?: string
+    first_name: string
+    last_name: string
+    is_active: boolean
+    date_joined?: string
+    avatar?: string | null
+    phone: string
+    middle_name: string
+    birth_date: string
+    created_at?: string
+    updated_at?: string
+    user_type?: "PATIENT"
+}
+
+export interface IAdmin extends IPatient {
+    
+}
+
+export interface IUser extends IPatient {
+    
+}
+
+export interface ISpecialtie {
+    id: number
+    name_en: string
+    name_ru: string
+    name_uz: string
+    image: string
+    is_published: boolean
+    created_at: string
+    updated_at: string
+    doctor: number
+}
+
+export interface IServiceCategory {
+    id: number
+    name_en: string
+    name_ru: string
+    name_uz: string
+    image: string
+    is_published: boolean
+    created_at: string
+    updated_at: string
+}
+
+export interface IService {
+    id?: number
+    image?: string
+    slug: string
+    name_en: string
+    name_ru: string
+    name_uz: string
+    description_en: string
+    description_ru: string
+    description_uz: string
+    price_start: number
+    price_end: number
+    content: string
+    is_published: boolean
+    created_at?: string
+    updated_at?: string
+    category?: number | IServiceCategory
+}
+
+export interface IInitialRecord {
+    id?: number,
+    first_name: string,
+    last_name: string,
+    phone: string,
+    comment: string,
+    created_at?: string
+}
+
+export interface IRatings {
+    id?: number
+    first_name: string
+    last_name: string
+    rate: number
+    review: string
+    created_at?: string
+    updated_at?: string
+    doctor?: null | IDoctor | string
+}
+
+export interface IAppointment {
+    id?: number
+    doctor: IUser | number | null
+    patient: IUser | number | null
+    service: IService | number | null
+    price: number
+    start_time: string
+    end_time: string
+    created_at?: string
+    updated_at?: string
+}
+
+export interface IReport {
+    id?: number,
+    profits: {
+        id: number,
+        amount: number,
+        created_at: string,
+        updated_at: string,
+        report: number,
+        appointment: number
+    }[],
+    consumptions: {
+        id: number,
+        title: string,
+        description: string,
+        amount: number,
+        created_at: string,
+        updated_at: string,
+        report: number
+    }[],
+    date: string,
+    total_profit: number,
+    total_consumption: number,
+    net_profit: number,
+}
+
+
+
 export interface Stock {
     id?: number
     name?: string
@@ -98,6 +252,8 @@ export interface Service_Category {
     name_uz: string
     image?: string
     thumb?: string
+    
+    is_published?: boolean
   
     services?: Service[]
   

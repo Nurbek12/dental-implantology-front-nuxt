@@ -1,8 +1,8 @@
 <template>
     <div class="fixed bg-white z-50 w-full transition-all" :class="{'shadow-md':isScrolled}">
 
-        <div class="shadow">
-            <div class="container mx-auto py-2 md:py-4">
+        <div>
+            <div class="container mx-auto py-2">
                 <div class="w-full flex justify-between items-center">
                     <div class="items-center gap-4  hidden md:flex">
                         <site-link class="text-sm" title="+01234 567 890" link="http://localhost" :icon="MdSharpPhone" />
@@ -21,11 +21,9 @@
                     </div>
                 </nuxt-link>
                 <div class="hidden md:flex gap-8">
-                    <nuxt-link class="hover:text-blue-500 font-medium" to="/">Главная</nuxt-link>
-                    <nuxt-link class="hover:text-blue-500 font-medium" to="/about">О нас</nuxt-link>
-                    <nuxt-link class="hover:text-blue-500 font-medium" to="/services">Услуги</nuxt-link>
-                    <nuxt-link class="hover:text-blue-500 font-medium" to="/reviews">Отзывы</nuxt-link>
-                    <nuxt-link class="hover:text-blue-500 font-medium" to="/contact">Контакты</nuxt-link>
+                    <nuxt-link v-for="link in site_links" :key="link.url" class="hover:text-blue-500 font-medium" :to="link.url">
+                        {{ link.title }}
+                    </nuxt-link>
                 </div>
                 <site-button class="hidden md:block">Записаться на прием</site-button>
                 <site-button @click="isOpen=true" class="block md:hidden" size="square">
@@ -56,6 +54,7 @@
 </template>
 
 <script setup lang="ts">
+import { site_links } from '~/constants'
 import { MdSharpPhone, BsMap, CdCalendar, ChMenuHamburger, CgClose } from '@kalimahapps/vue-icons'
 
 const isOpen = ref(false)

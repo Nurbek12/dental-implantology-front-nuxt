@@ -1,5 +1,5 @@
 <template>
-    <div class="border z-30 bg-white fixed md:sticky top-0 h-[100vh] transition-all flex flex-col" :class="isOpen ? 'w-[220px]' : 'w-[57px]'">
+    <div class="border z-30 bg-white fixed md:sticky top-0 h-[100vh] transition-all flex flex-col" :class="isOpen ? 'w-[250px]' : 'w-[57px]'">
         <div class="p-2 flex flex-col gap-1">
             <nuxt-link v-for="link, i in admin_links.ADMIN" :key="i" :to="link.url">
                 <div class="px-2 py-2 rounded w-full overflow-hidden flex whitespace-nowrap items-center gap-6 transition-all"

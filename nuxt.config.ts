@@ -28,6 +28,11 @@ export default defineNuxtConfig({
       redirectOn: 'root',
     },
   },
+  runtimeConfig: {
+    public: {
+      api_url: process.env.NUXT_API_URL
+    }
+  },
   postcss: {
     plugins: {
       tailwindcss: {},

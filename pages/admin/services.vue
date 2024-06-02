@@ -4,6 +4,7 @@
             :count="count"
             :items="items"
             :headers="headers"
+            :loading="loading"
 
             @fetching="getItems">
             <template #table-top>
@@ -13,7 +14,7 @@
             </template>
             <template #table-item-image="{tableItem}">
                 <div class="w-[40px] h-[40px] rounded overflow-hidden">
-                    <img :src="tableItem.thumb||'/icons/crown.png'" class="w-full h-full object-cover" alt="">
+                    <img :src="tableItem.image||'/images/nophoto.jpg'" class="w-full h-full object-cover" alt="">
                 </div>
             </template>
             <template #table-item-created_at="{tableItem}">
@@ -21,10 +22,6 @@
             </template>
             <template #table-item-actions="{tableItem,index,openTr,isOpened}">
                 <div class="flex gap-1">
-                    <button @click="update(index, { id: tableItem.id, publish: !tableItem.publish })" class="text-white text-xs px-3 py-2 rounded" :class="tableItem.publish?'bg-green-500 hover:bg-green-400':'bg-red-500 hover:bg-red-400'">
-                        <GlEye v-show="tableItem.publish" class="w-4 h-4" />
-                        <ChEyeSlash v-show="!tableItem.publish" class="w-4 h-4" />
-                    </button>
                     <button @click="editItem(tableItem, index)" class="bg-[#23408e] hover:bg-[#385399] active:bg-[#3c67d5] disabled:bg-[#1b2e63] text-white text-xs px-3 py-2 rounded">Изменить</button>
                     <button @click="deleteItem(tableItem.id!, index)" class="bg-[#23408e] hover:bg-[#385399] active:bg-[#3c67d5] disabled:bg-[#1b2e63] text-white text-xs px-3 py-2 rounded">Удалить</button>
                 </div>
@@ -40,30 +37,26 @@
                     </div>
                 </label>
             </div>
+            <site-input required v-model="service.name_ru" placeholder="Название (RU)" />
+            <site-input required v-model="service.name_uz" placeholder="Название (UZ)" />
+            <site-input required v-model="service.name_en" placeholder="Название (EN)" />
+            <site-input required v-model="service.price_start" placeholder="Цена" type="nubmer" />
+            <site-input required v-model="service.price_end" placeholder="Цена" type="nubmer" />
+        
+            <site-textarea required v-model="service.description_ru" placeholder="Описание (RU)" />
+            <site-textarea required v-model="service.description_uz" placeholder="Описание (UZ)" />
+            <site-textarea required v-model="service.description_en" placeholder="Описание (EN)" />
+            
+            <!-- <site-select -->
             <div class="w-full border overflow-hidden rounded">
-                <input required v-model="service.name_ru" class="text-sm px-3 py-2 w-full outline-none" type="text" placeholder="Название">
-            </div>
-            <div class="w-full border overflow-hidden rounded">
-                <input required v-model="service.name_uz" class="text-sm px-3 py-2 w-full outline-none" type="text" placeholder="Название (UZ)">
-            </div>
-            <div class="w-full border overflow-hidden rounded">
-                <input required v-model="service.price" class="text-sm px-3 py-2 w-full outline-none" type="number" min="0" placeholder="Цена">
-            </div>
-            <div class="w-full border overflow-hidden rounded">
-                <textarea required v-model="service.description_ru" class="text-sm px-3 py-2 w-full outline-none resize-none" rows="4" type="text" placeholder="Описание" />
-            </div>
-            <div class="w-full border overflow-hidden rounded">
-                <textarea required v-model="service.description_uz" class="text-sm px-3 py-2 w-full outline-none resize-none" rows="4" type="text" placeholder="Описание (UZ)" />
-            </div>
-            <div class="w-full border overflow-hidden rounded">
-                <select required v-model="service.category_id" class="text-sm px-3 py-2 w-full outline-none resize-none">
-                    <option :value="null" disabled>Категория</option>
+                <select required v-model="service.category" class="text-sm px-3 py-2 w-full outline-none resize-none">
+                    <option :value="undefined" disabled>Категория</option>
                     <option v-for="c in categories" :value="c.id" :key="c.id">{{ c.name_ru }}</option>
                 </select>
             </div>
-            <div style="all: unset;">
+            <!-- <div style="all: unset;">
                 <editor v-model="service.content" />
-            </div>
+            </div> -->
             <div class="w-full" hidden>
                 <input @change="onFileChange" id="file-input" accept="image/*" type="file" placeholder="Фото для ава">
             </div>
@@ -75,29 +68,36 @@
 </template>
 
 <script setup lang="ts">
-import type { Service, Service_Category } from '@/types'
-import { ChEyeSlash, GlEye, FaAngleDown } from '@kalimahapps/vue-icons'
+import type { IService, Service, Service_Category } from '@/types'
 
 definePageMeta({
   layout: 'admin-layout',
-  middleware: ['auth'],
+//   middleware: ['auth'],
 })
 
+const { getCategories } = useServiceCategories()
+const { createService, deleteService, getServices, updateService } = useServices()
+
 const dialog = ref(false)
+const loading = ref(false)
 const file = ref<any>(null)
 const count = ref<number>(0)
-const items = ref<Service[]>([])
+const items = ref<IService[]>([])
 const itemIndex = ref<number|null>(null)
 const createLoading = ref<boolean>(false)
 const categories = ref<Service_Category[]>([])
-const service = reactive<Service>({
-    category_id: null,
+const service = reactive<IService>({
+    content: "text",
+    description_en: "",
     description_ru: "",
     description_uz: "",
+    is_published: false,
+    name_en: "",
     name_ru: "",
     name_uz: "",
-    publish: false,
-    price: "" as any,
+    price_end: 0,
+    price_start: 0,
+    slug: "",
 })
 
 const headers = [
@@ -116,10 +116,16 @@ const currentImage = computed(() => {
 })
 
 const getItems = async (params: any) => {
-    const data = await $fetch(`/api/services`, { params })
-    count.value = data.count
-    console.log(data.count)
-    items.value = data.result as any
+    try {
+        loading.value = true
+        const data = await getServices(params)
+        count.value = data.count
+        items.value = data.results
+    } catch (error) {
+        console.log(error)
+    } finally {
+        loading.value = false
+    }
 }
 
 const onFileChange = (e: any) => {
@@ -136,34 +142,25 @@ const editItem = (item: Service, index: number) => {
 
 const deleteItem = async (id: number, index: number) => {
     if(!confirm('Вы хотите удалить это?')) return
-    await $fetch(`/api/services/delete/${id}`, {
-        method: 'delete'
-    })
-    console.log('Deleted', id)
+    await deleteService(id)
     items.value.splice(index, 1)
 }
 
 const uploadImage = async (file: any) => {
-    const body = new FormData()
-    body.append('file', file)
-    return $fetch<{url: string, thumbnailUrl: string}>('/api/media/upload', {
-        method: 'post', body
-    })
+    // const body = new FormData()
+    // body.append('file', file)
+    // return $fetch<{url: string, thumbnailUrl: string}>('/api/media/upload', {
+    //     method: 'post', body
+    // })
 }
 
 const create = async (body: any) => {
-    const data = await $fetch('/api/services', {
-        method: 'POST',
-        body: JSON.stringify(body)
-    })
+    const data = await createService(body)
     items.value.push(data as any)
 }
 
-const update = async (index: number, body: any) => {
-    const data = await $fetch(`/api/services/update/${body.id}`, {
-        method: 'put',
-        body: JSON.stringify(body)
-    })
+const update = async (index: number, body: any, id: any) => {
+    const data = await updateService(id, body)
     Object.assign(items.value[index], data)
 }
 
@@ -171,14 +168,16 @@ const save = async () => {
     try {
         createLoading.value = true
     
-        if(file.value) {
-            const { url, thumbnailUrl } = await uploadImage(file.value)
-            service.image = url
-            service.thumb = thumbnailUrl
-        }
+        var form_data = new FormData()
     
-        if(itemIndex.value !== null) update(itemIndex.value, service)
-        else create(service)
+        Object.keys(service).map((key: any) => {
+            form_data.append(key, service[key as keyof typeof service] as string)
+            
+        })
+        if(file.value) form_data.append('image', file.value)
+    
+        if(itemIndex.value !== null) update(itemIndex.value, form_data, service.id)
+        else create(form_data)
 
         close()
     } catch (error) {
@@ -191,13 +190,16 @@ const save = async () => {
 const close = () => {
     delete service.id
     Object.assign(service, {
-        category_id: null,
+        content: "text",
+        description: "",
         description_ru: "",
         description_uz: "",
+        is_published: false,
+        name: "",
         name_ru: "",
         name_uz: "",
-        publish: false,
-        price: "" as any,
+        price: 0,
+        slug: "",
     })
     file.value = null
     dialog.value = false
@@ -205,8 +207,8 @@ const close = () => {
 }
 
 const init = async () => {
-    const data = await $fetch('/api/service-category', { params: { page: 1, limit: 1000 } })
-    categories.value = data.result as any
+    const data = await getCategories({ params: { page: 1, limit: 1000 } })
+    categories.value = data.results
 }
 
 init()

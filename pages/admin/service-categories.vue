@@ -4,6 +4,7 @@
             :count="count"
             :items="items"
             :headers="headers"
+            :loading="loading"
             
             @fetching="getItems">
             <template #table-top>
@@ -13,7 +14,7 @@
             </template>
             <template #table-item-image="{tableItem}">
                 <div class="w-[40px] h-[40px] rounded overflow-hidden">
-                    <img :src="tableItem.image||'/icons/crown.png'" class="w-full h-full object-cover" alt="">
+                    <img :src="tableItem.image||'/images/nophoto.jpg'" class="w-full h-full object-cover" alt="">
                 </div>
             </template>
             <template #table-item-created_at="{tableItem}">
@@ -21,7 +22,8 @@
             </template>
             <template #table-item-actions="{tableItem,index}">
                 <div class="flex gap-1">
-                    <button @click="update(index, { id: tableItem.id, publish: !tableItem.publish })" class="text-white text-xs px-3 py-2 rounded" :class="tableItem.publish?'bg-green-500 hover:bg-green-400':'bg-red-500 hover:bg-red-400'">
+                    <!-- @click="update(index, { id: tableItem.id, publish: !tableItem.publish })" -->
+                    <button class="text-white text-xs px-3 py-2 rounded" :class="tableItem.publish?'bg-green-500 hover:bg-green-400':'bg-red-500 hover:bg-red-400'">
                         <GlEye v-show="tableItem.publish" class="w-4 h-4" />
                         <ChEyeSlash v-show="!tableItem.publish" class="w-4 h-4" />
                     </button>
@@ -40,12 +42,14 @@
                     </div>
                 </label>
             </div>
-            <div class="w-full border overflow-hidden rounded">
-                <input required v-model="service.name_ru" class="text-sm px-3 py-2 w-full outline-none" type="text" placeholder="Название">
+            <site-input required v-model="service.name" placeholder="Название EN" />
+            <site-input required v-model="service.name_uz" placeholder="Название UZ" />
+            <site-input required v-model="service.name_ru" placeholder="Название RU" />
+            <div class="flex items-center gap-2">
+                <input type="checkbox" v-model="service.is_published" id="is_active">
+                <label for="is_active">Активность</label>
             </div>
-            <div class="w-full border overflow-hidden rounded">
-                <input required v-model="service.name_uz" class="text-sm px-3 py-2 w-full outline-none" type="text" placeholder="Название (UZ)">
-            </div>
+
             <div class="w-full" hidden>
                 <input @change="onFileChange" id="file-input" accept="image/*" type="file" placeholder="Фото для ава">
             </div>
@@ -62,10 +66,12 @@ import { ChEyeSlash, GlEye, FaAngleDown } from '@kalimahapps/vue-icons'
 
 definePageMeta({
   layout: 'admin-layout',
-  middleware: ['auth'],
+//   middleware: ['auth'],
 })
 
+const { createCategory, deleteCategory, getCategories, updateCategory } = useServiceCategories()
 const dialog = ref(false)
+const loading = ref(false)
 const file = ref<any>(null)
 const count = ref<number>(0)
 const items = ref<Service_Category[]>([])
@@ -73,7 +79,9 @@ const itemIndex = ref<number|null>(null)
 const createLoading = ref<boolean>(false)
 const service = reactive<Service_Category>({
     name_ru: "",
-    name_uz: ""
+    name_uz: "",
+    name: "",
+    is_published: false,
 })
 
 const headers = [
@@ -91,10 +99,16 @@ const currentImage = computed(() => {
 })
 
 const getItems = async (params: any) => {
-    const data = await $fetch(`/api/service-category`, { params })
-    count.value = data.count
-    console.log(data.count)
-    items.value = data.result as any
+    try {
+        loading.value = true
+        const data = await getCategories(params)
+        count.value = data.count
+        items.value = data.results
+    } catch (error) {
+        console.log(error)
+    } finally {
+        loading.value = false
+    }
 }
 
 const onFileChange = (e: any) => {
@@ -111,34 +125,25 @@ const editItem = (item: Service_Category, index: number) => {
 
 const deleteItem = async (id: number, index: number) => {
     if(!confirm('Вы хотите удалить это?')) return
-    await $fetch(`/api/service-category/delete/${id}`, {
-        method: 'delete'
-    })
-    console.log('Deleted', id)
+    deleteCategory(id)
     items.value.splice(index, 1)
 }
 
 const uploadImage = async (file: any) => {
-    const body = new FormData()
-    body.append('file', file)
-    return $fetch<{url: string, thumbnailUrl: string}>('/api/media/upload', {
-        method: 'post', body
-    })
+    // const body = new FormData()
+    // body.append('file', file)
+    // return $fetch<{url: string, thumbnailUrl: string}>('/api/media/upload', {
+    //     method: 'post', body
+    // })
 }
 
 const create = async (body: any) => {
-    const data = await $fetch('/api/service-category', {
-        method: 'POST',
-        body: JSON.stringify(body)
-    })
+    const data = await createCategory(body)
     items.value.push(data as any)
 }
 
-const update = async (index: number, body: any) => {
-    const data = await $fetch(`/api/service-category/update/${body.id}`, {
-        method: 'put',
-        body: JSON.stringify(body)
-    })
+const update = async (index: number, body: any, id: any) => {
+    const data = await updateCategory(id, body)
     Object.assign(items.value[index], data)
 }
 
@@ -146,13 +151,16 @@ const save = async () => {
     try {
         createLoading.value = true
     
-        if(file.value) {
-            const { url } = await uploadImage(file.value)
-            service.image = url
-        }
+        var form_data = new FormData()
     
-        if(itemIndex.value !== null) update(itemIndex.value, service)
-        else create(service)
+        Object.keys(service).map((key: any) => {
+            form_data.append(key, service[key as keyof typeof service] as string)
+            
+        })
+        if(file.value) form_data.append('image', file.value)
+    
+        if(itemIndex.value !== null) update(itemIndex.value, form_data, form_data.get('id'))
+        else create(form_data)
 
         close()
     } catch (error) {

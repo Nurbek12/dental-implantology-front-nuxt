@@ -4,6 +4,7 @@
             :count="count"
             :items="items"
             :headers="headers"
+            :loading="loading"
             
             @fetching="getItems">
             <template #table-top>
@@ -13,18 +14,17 @@
             </template>
             <template #table-item-image="{tableItem}">
                 <div class="w-[40px] h-[40px] rounded-full overflow-hidden">
-                    <img :src="tableItem.thumb||'/images/nophoto.jpg'" alt="">
+                    <img :src="tableItem.avatar||'/images/nophoto.jpg'" alt="" class="w-full h-full object-cover">
                 </div>
+            </template>
+            <template #table-item-name="{tableItem}">
+                <span class="text-xs text-balance">{{ tableItem.first_name }} {{ tableItem.middle_name }} {{ tableItem.last_name }}</span>
             </template>
             <template #table-item-created_at="{tableItem}">
                 <span class="text-xs text-balance">{{ new Date(tableItem.created_at!).toLocaleString() }}</span>
             </template>
             <template #table-item-actions="{tableItem,index}">
                 <div class="flex gap-1">
-                    <button @click="update(index, { id: tableItem.id, publish: !tableItem.publish })" class="text-white text-xs px-3 py-2 rounded" :class="tableItem.publish?'bg-green-500 hover:bg-green-400':'bg-red-500 hover:bg-red-400'">
-                        <GlEye v-show="tableItem.publish" class="w-4 h-4" />
-                        <ChEyeSlash v-show="!tableItem.publish" class="w-4 h-4" />
-                    </button>
                     <button @click="editItem(tableItem, index)" class="bg-[#23408e] hover:bg-[#385399] active:bg-[#3c67d5] disabled:bg-[#1b2e63] text-white text-xs px-3 py-2 rounded">Изменить</button>
                     <button @click="deleteItem(tableItem.id!, index)" class="bg-[#23408e] hover:bg-[#385399] active:bg-[#3c67d5] disabled:bg-[#1b2e63] text-white text-xs px-3 py-2 rounded">Удалить</button>
                 </div>
@@ -41,86 +41,38 @@
                     </div>
                 </label>
             </div>
-            <div class="w-full border rounded overflow-hidden">
-                <input required v-model="doctor.name" class="text-sm py-2 px-3 w-full outline-none" type="text" placeholder="Имя и фамилия">
-            </div>
-            <div class="w-full border rounded overflow-hidden">
-                <input required v-model="doctor.phone" class="text-sm py-2 px-3 w-full outline-none" type="text" placeholder="Телефон">
-            </div>
-
+           
+            <site-input required v-model="doctor.first_name" placeholder="First Name" />
+            <site-input required v-model="doctor.middle_name" placeholder="Middle Name" />
+            <site-input required v-model="doctor.last_name" placeholder="Last Name" />
             
-            <div class="w-full border rounded overflow-hidden">
-                <input @keypress.enter.prevent="doctor.certificates.push(($event as any).target.value),($event as any).target.value=''" class="text-sm py-2 px-3 w-full outline-none" type="text" placeholder="Сертификаты">
-            </div>
-            <div class="w-full border rounded overflow-hidden p-2" v-show="doctor.certificates.length>0">
-                <p>Сертификаты:</p>
-                <ul class="list-decimal pl-4">
-                    <li class="text-sm" v-for="e,i in doctor.certificates">
-                        <span>{{ e }}</span>
-                        <button class="ml-2" type="button" @click="doctor.certificates.splice(i,1)">x</button>
-                    </li>
-                </ul>
-            </div>
+            <site-input required v-model="doctor.phone" placeholder="Phone" />
+            <site-input required v-model="doctor.birth_date" placeholder="Birth Date" type="date" />
 
-            <div class="w-full border rounded overflow-hidden">
-                <input required v-model="doctor.experience" type="number" class="text-sm py-2 px-3 w-full outline-none" placeholder="Опыт года">
-            </div>
-            <div class="w-full border rounded overflow-hidden">
-                <input @keypress.enter.prevent="doctor.experiences.push(($event as any).target.value),($event as any).target.value=''" class="text-sm py-2 px-3 w-full outline-none" type="text" placeholder="Опыт работы">
-            </div>
-            <div class="w-full border rounded overflow-hidden p-2" v-show="doctor.experiences.length>0">
-                <p>Опыт работы:</p>
-                <ul class="list-decimal pl-4">
-                    <li class="text-sm" v-for="e,i in doctor.experiences">
-                        <span>{{ e }}</span>
-                        <button class="ml-2" type="button" @click="doctor.experiences.splice(i,1)">x</button>
-                    </li>
-                </ul>
-            </div>
+            <site-textarea required v-model="doctor.educations" placeholder="Education" />
+            <site-textarea required v-model="doctor.experiences" placeholder="Expreince" />
+            <site-textarea required v-model="doctor.licences" placeholder="Licence" />
+            <site-textarea required v-model="doctor.certificates" placeholder="Certificates" />
 
-            <div class="w-full border rounded overflow-hidden">
-                <input @keypress.enter.prevent="doctor.educations.push(($event as any).target.value),($event as any).target.value=''" class="text-sm py-2 px-3 w-full outline-none" type="text" placeholder="Образование">
-            </div>
-            <div class="w-full border rounded overflow-hidden p-2" v-show="doctor.educations.length>0">
-                <p>Образование:</p>
-                <ul class="list-decimal pl-4">
-                    <li class="text-sm" v-for="e,i in doctor.educations">
-                        <span>{{ e }}</span>
-                        <button class="ml-2" type="button" @click="doctor.educations.splice(i,1)">x</button>
-                    </li>
-                </ul>
-            </div>
+            <!-- <div class="w-full border overflow-hidden rounded">
+                <select required v-model="doctor.experience" class="text-sm px-3 py-2 w-full outline-none resize-none">
+                    <option :value="undefined" disabled>Специальность</option>
+                    <option v-for="c in speciality_list" :value="c.id" :key="c.id">{{ c.name_ru }}</option>
+                </select>
+            </div> -->
 
-            <div class="w-full border rounded overflow-hidden">
-                <input v-model="doctor.tg" class="text-sm py-2 px-3 w-full outline-none" type="text" placeholder="Telegram">
-            </div>
-            <div class="w-full border rounded overflow-hidden">
-                <input v-model="doctor.inst" class="text-sm py-2 px-3 w-full outline-none" type="text" placeholder="Instagram">
-            </div>
-            <div class="w-full border rounded overflow-hidden">
-                <input v-model="doctor.fb" class="text-sm py-2 px-3 w-full outline-none" type="text" placeholder="Facebook">
-            </div>
-            <div class="w-full border rounded overflow-hidden">
-                <input v-model="doctor.in" class="text-sm py-2 px-3 w-full outline-none" type="text" placeholder="Linkedin">
-            </div>
-            <div class="w-full h-full border rounded p-2">
-                <p class="mb-2">Специалисты</p>
-                <div v-for="s,i in speciality_list" :key="i" class="flex items-center gap-2">
-                    <input v-model="doctor.speciality_id" type="checkbox" :value="s.id" :id="`spec_item_${i}`">
-                    <label class="text-sm mb-0.5" :for="`spec_item_${i}`">{{ s.name_ru }}</label>
-                </div>
-            </div>
-            <div class="w-full border rounded overflow-hidden flex items-center gap-2 px-2">
-                <input v-model="doctor.laboratory" id="lab-checkbox" type="checkbox">
-                <label for="lab-checkbox" class="cursor-pointer">Показать в лаборатории</label>
-            </div>
-            <div style="all: unset;">
-                <editor v-model="doctor.content" />
-            </div>
             <div class="w-full" hidden>
                 <input @change="onFileChange" id="file-input" accept="image/*" type="file" placeholder="Фото для ава">
             </div>
-            <button :disabled="createLoading" type="submit" class="dbg-[#23408e] hover:bg-[#385399] active:bg-[#3c67d5] disabled:bg-[#1b2e63] rounded text-white text-sm px-3 py-2">
+            <div class="flex items-center gap-2">
+                <input type="checkbox" v-model="doctor.is_active" id="is_active">
+                <label for="is_active">Активность</label>
+            </div>
+            <div class="flex items-center gap-2">
+                <input type="checkbox" v-model="doctor.is_published" id="is_active">
+                <label for="is_active">Публичность</label>
+            </div>
+            <button :disabled="createLoading" type="submit" class="bg-[#23408e] hover:bg-[#385399] active:bg-[#3c67d5] disabled:bg-[#1b2e63] rounded text-white text-sm px-3 py-2">
                 {{ createLoading?'Загружается':'Сохранить' }}
             </button>
         </form>
@@ -128,46 +80,47 @@
 </template>
 
 <script setup lang="ts">
-import type { Doctor, Specialty } from '@/types'
-import { ChEyeSlash, GlEye } from '@kalimahapps/vue-icons'
+import type { IDoctor, Specialty } from '@/types'
 
 definePageMeta({
   layout: 'admin-layout',
-  middleware: ['auth'],
+//   middleware: ['auth'],
 })
 
+const { createDoctor, deleteDoctor, getDoctors, updateDoctor } = useDoctors()
 const dialog = ref(false)
+const loading = ref(false)
 const file = ref<any>(null)
 const count = ref<number>(0)
-const items = ref<Doctor[]>([])
+const items = ref<IDoctor[]>([])
 const itemIndex = ref<number|null>(null)
 const createLoading = ref<boolean>(false)
 const speciality_list = ref<Specialty[]>([])
-const doctor = reactive<Doctor>({
-    name: "",
-    educations: [],
-    experiences: [],
-    certificates: [],
-    licences: [],
-    experience: '',
+const doctor = reactive<IDoctor>({
+    avatar: "",
+    birth_date: "",
+    certificates: "",
+    content: "<b>bold text</b>",
+    educations: "",
+    experience: 0,
+    experiences: "",
+    first_name: "",
     rating: 0,
-    fb: "",
-    in: "",
-    tg: "",
-    inst: "",
+    is_active: false,
+    is_published: false,
+    last_name: "",
+    licences: "",
+    middle_name: "",
     phone: "",
-    publish: false,
-    laboratory: false,
-    content: '',
-    speciality_id: [],
+    user_type: "DOCTOR",
 })
                            
 const headers = [
     { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
     { name: "Фото", value: "image", sortable: true, balancedText: false, custom: true },
-    { name: "Имя и фамилия", value: "name", sortable: true, balancedText: false, custom: false },
-    { name: "Опыт", value: "experience", sortable: true, balancedText: false, custom: false },
-    { name: "Образование", value: "education", sortable: true, balancedText: false, custom: false },
+    { name: "Имя и фамилия", value: "name", sortable: true, balancedText: false, custom: true },
+    { name: "Опыт", value: "experiences", sortable: true, balancedText: false, custom: false },
+    { name: "Образование", value: "educations", sortable: true, balancedText: false, custom: false },
     // { name: "Специальность", value: "specialty", sortable: true, balancedText: false, custom: false },
     { name: "Дата", value: "created_at", sortable: true, balancedText: false, custom: true },
     { name: "Управлять", value: "actions", sortable: true, balancedText: false, custom: true },
@@ -175,17 +128,20 @@ const headers = [
 
 const currentImage = computed(() => {
     if(file.value) return URL.createObjectURL(file.value)
-    else if(itemIndex.value!==null) return items.value[itemIndex.value]?.thumb || '/images/nophoto.jpg'
+    else if(itemIndex.value!==null) return items.value[itemIndex.value]?.avatar || '/images/nophoto.jpg'
     else return '/images/nophoto.jpg'
 })
 
 const getItems = async (params: any) => {
     try {
-        const data = await $fetch(`/api/doctors`, { params })
-        items.value = data.result as any
+        loading.value = true
+        const data = await getDoctors(params)
+        items.value = data.results
         count.value = data.count
     } catch (error) {
         console.log(error)
+    } finally {
+        loading.value = false
     }
 }
 
@@ -195,7 +151,7 @@ const onFileChange = (e: any) => {
   return file.value = files[0]
 }
 
-const editItem = (item: Doctor, index: number) => {
+const editItem = (item: IDoctor, index: number) => {
     Object.assign(doctor, item)
     itemIndex.value = index
     dialog.value = true
@@ -203,49 +159,37 @@ const editItem = (item: Doctor, index: number) => {
 
 const deleteItem = async (id: number, index: number) => {
     if(!confirm('Вы хотите удалить это?')) return
-    await $fetch(`/api/doctors/delete/${id}`, {
-        method: 'delete'
-    })
+    await deleteDoctor(id)
     items.value.splice(index, 1)
 }
 
-const uploadImage = async (file: any) => {
-    const body = new FormData()
-    body.append('file', file)
-    return $fetch<{url: string, thumbnailUrl: string}>('/api/media/upload', {
-        method: 'post', body
-    })
-}
-
 const create = async (body: any) => {
-    const data = await $fetch('/api/doctors', {
-        method: 'POST',
-        body: JSON.stringify(body)
-    })
+    const data = await createDoctor(body)
     items.value.push(data as any)
 }
 
-const update = async (index: number, body: any) => {
-    delete body.speciality_id
-    const data = await $fetch(`/api/doctors/update/${body.id}`, {
-        method: 'put',
-        body: JSON.stringify(body)
-    })
+const update = async (index: number, body: any, id: any) => {
+    const data = await updateDoctor(id, body)
     Object.assign(items.value[index], data)
+    
 }
 
 const save = async () => {
     createLoading.value = true
 
-    if(file.value) {
-        const { url, thumbnailUrl } = await uploadImage(file.value)
-        doctor.image = url
-        doctor.thumb = thumbnailUrl
-    }
+    var form_data = new FormData()
     
-    if(itemIndex.value !== null) update(itemIndex.value, doctor)
+    Object.keys(doctor).map((key: any) => {
+        form_data.append(key, doctor[key as keyof typeof doctor] as string)
         
-    else create(doctor)
+    })
+    if(file.value) form_data.append('avatar', file.value)
+    else form_data.delete('avatar')
+    form_data.delete('specialties')
+    
+    if(itemIndex.value !== null) await update(itemIndex.value, form_data, doctor.id)
+        
+    else await create(form_data)
 
     createLoading.value = false
     close()
@@ -274,8 +218,8 @@ const close = () => {
 }
 
 const init = async () => {
-    const data = await $fetch('/api/speciality', { params: {page: 1, limit: 1000} })
-    speciality_list.value = data.result as any
+    // const data = await $fetch('/api/speciality', { params: {page: 1, limit: 1000} })
+    // speciality_list.value = data.result as any
 }
 
 init()

@@ -1,16 +1,13 @@
 <template>
-    <div class="relative">
-        <div class="container h-[50vh] relative z-10">
-            <div class="h-full flex items-center pt-16">
-                <div class="w-full md:w-[60%] mx-auto text-center">
-                    <h1 class="font-medium text-3xl">
-                        <nuxt-link to="/" class="text-lg text-gray-600 font-normal">Home /</nuxt-link> 
-                        About Us
-                    </h1>
-                </div>
+    <section class="text-gray-600 body-font">
+        <div class="container px-5 pt-24 mx-auto">
+            <div class="flex flex-col text-center w-full mt-20">
+                <h2 class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">Узнайте о нас больше</h2>
+                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">О нашей клинике</h1>
+                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Добро пожаловать в нашу стоматологическую клинику, где ваши улыбки - наш приоритет. Мы предлагаем современные методы лечения и заботу на высшем уровне. Узнайте больше о наших ценностях и миссии.</p>
             </div>
         </div>
-    </div>
+    </section>
 
     <div class="relative py-8">
         <div class="container">

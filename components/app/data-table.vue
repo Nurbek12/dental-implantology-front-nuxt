@@ -1,5 +1,5 @@
 <template>
-    <div class="p-2 rounded border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 bg-white">
+    <div v-show="!props.hideTop" class="p-2 rounded border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 bg-white">
         <site-input v-show="!props.hideSearch" @inputed="search_items" placeholder="Поиск" />
         <slot name="table-top" :handleFetch="handleFetching" />
     </div>
@@ -7,7 +7,7 @@
 
     <div class="border w-full rounded mt-2 overflow-hidden">
         <div class="relative overflow-x-auto">
-            <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+            <table class="w-full text-[13px] text-left rtl:text-right text-gray-500">
                 <thead class="text-gray-700 bg-gray-50">
                     <tr>
                         <template v-for="header in props.headers" :key="header.value">
@@ -37,7 +37,7 @@
                         <tr @click="emits('row-click', i)" class="bg-white hover:bg-gray-50 border-b" :class="{'cursor-pointer active:bg-gray-200':props.cursoredRow}">
                             <template v-for="h in props.headers" :key="h.value">
                                 <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap">
-                                    <slot v-if="h.custom" :name="`table-item-${h.value}`" :table-item="item" :index="i" :open-tr="() => openRow(item.id)" :is-opened="item.id == expandRow" />
+                                    <slot v-if="h.custom" :name="`table-item-${h.value}`" :table-item="item"  :table-value="h.value" :index="i" :open-tr="() => openRow(item.id)" :is-opened="item.id == expandRow" />
                                     <div v-else class="text-xs" :class="{'text-balance line-clamp-3':h.balancedText}">{{ item[h.value]||'Нет' }}</div>
                                 </th>
                             </template>
@@ -67,7 +67,12 @@
                 <site-button size="small" :disabled="page===1" @click="page--,handleFetching()">
                     <AkChevronLeft />
                 </site-button>
-                <site-button size="small" :disabled="page >= Math.ceil(count / limit)" @click="page++,handleFetching()">
+
+                <site-button  v-if="totalPages===undefined" size="small" :disabled="page >= Math.ceil(count / limit)" @click="page++,handleFetching()">
+                    <AkChevronRight />
+                </site-button>
+
+                <site-button  v-else size="small" :disabled="page >= totalPages" @click="page++,handleFetching()">
                     <AkChevronRight />
                 </site-button>
             </div>
@@ -95,16 +100,18 @@ interface Props {
     expanded?: boolean,
     loading?: boolean,
     hideSearch?: boolean,
+    hideTop?: boolean,
     customFilters?: any[],
     hideBottom?: boolean,
-    cursoredRow?: boolean
+    cursoredRow?: boolean,
+    totalPages?: number
 }
 
 const { debounce } = lodash
 
 const emits = defineEmits(['fetching','searched','row-click'])
 const props = defineProps<Props>()
-const { count, items, loading } = toRefs(props)
+const { count, items, loading, totalPages } = toRefs(props)
 
 const page = ref(1)
 const limit = ref(20)
@@ -124,7 +131,7 @@ const queryfilter = computed(() => {
         if(filtering[cf.name]) qry[cf.name] = filtering[cf.name]
     })
 
-    return { ...qry, sorting }
+    return { ...qry }
 })
 
 const set_sorting = debounce((key: string) => {

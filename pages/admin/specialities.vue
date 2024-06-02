@@ -1,6 +1,6 @@
 <template>
     <div class="w-full p-2">
-        <app-data-table :count="count" :items="items" :headers="headers" @fetching="getItems">
+        <app-data-table :count="count" :items="items" :headers="headers" :loading="loading" @fetching="getItems">
             <template #table-top>
                 <div class="hidden lg:block"></div>
                 <div class="hidden lg:block"></div>
@@ -9,7 +9,7 @@
             </template>
             <template #table-item-image="{ tableItem }">
                 <div class="w-[40px] h-[40px] rounded overflow-hidden">
-                    <img :src="tableItem.thumb || '/images/nophoto.jpg'" class="w-full h-full object-cover">
+                    <img :src="tableItem.image || '/images/nophoto.jpg'" class="w-full h-full object-cover">
                 </div>
             </template>
             <template #table-item-created_at="{ tableItem }">
@@ -30,7 +30,7 @@
         </app-data-table>
     </div>
 
-    <app-dialog rounded :title="itemIndex == null ? 'Добавить доктор' : 'Изменить доктор'" :open="dialog" @close-dialog="close">
+    <app-dialog rounded :title="itemIndex == null ? 'Добавить специализация' : 'Изменить специализацию'" :open="dialog" @close-dialog="close">
         <form @submit.prevent="save" class="mt-4 flex flex-col gap-4">
             <div class="flex items-center justify-start w-full">
                 <label for="file-input" class="cursor-pointer w-full">
@@ -39,14 +39,10 @@
                     </div>
                 </label>
             </div>
-            <div class="w-full border rounded overflow-hidden">
-                <input required v-model="editedItem.name_uz" class="text-sm py-2 px-3 w-full outline-none" type="text"
-                    placeholder="Загаловок (UZ)">
-            </div>
-            <div class="w-full border rounded overflow-hidden">
-                <input required v-model="editedItem.name_ru" class="text-sm py-2 px-3 w-full outline-none" type="text"
-                    placeholder="Загаловок (RU)">
-            </div>
+            <site-input required v-model="editedItem.name_uz" placeholder="Загаловок (UZ)" />
+            <site-input required v-model="editedItem.name_ru" placeholder="Загаловок (RU)" />
+            <site-input required v-model="editedItem.name" placeholder="Загаловок (EN)" />
+            
             <div class="w-full" hidden>
                 <input @change="onFileChange" id="file-input" accept="image/*" type="file" placeholder="Фото для ава">
             </div>
@@ -64,10 +60,13 @@ import type { Specialty } from '@/types'
 
 definePageMeta({
     layout: 'admin-layout',
-    middleware: ['auth'],
+    // middleware: ['auth'],
 })
 
+const { createSpecalisation, deleteSpecalisation, getSpecalisations, updateSpecalisation } = useSpecalisations()
+
 const dialog = ref(false)
+const loading = ref(false)
 const file = ref<any>(null)
 const count = ref<number>(0)
 const items = ref<Specialty[]>([])
@@ -76,6 +75,7 @@ const createLoading = ref<boolean>(false)
 const editedItem = reactive<Specialty>({
     name_ru: "",
     name_uz: "",
+    name: "",
 })
 
 const headers = [
@@ -94,11 +94,14 @@ const currentImage = computed(() => {
 
 const getItems = async (params: any) => {
     try {
-        const data = await $fetch(`/api/speciality`, { params })
-        items.value = data.result as any
+        loading.value = true
+        const data = await getSpecalisations(params)
+        items.value = data.results
         count.value = data.count
     } catch (error) {
         console.log(error)
+    } finally {
+        loading.value = false
     }
 }
 
@@ -116,57 +119,48 @@ const editItem = (item: Specialty, index: number) => {
 
 const deleteItem = async (id: number, index: number) => {
     if (!confirm('Вы хотите удалить это?')) return
-    await $fetch(`/api/speciality/delete/${id}`, {
-        method: 'delete'
-    })
+    await deleteSpecalisation(id)
     items.value.splice(index, 1)
 }
 
-const uploadImage = async (file: any) => {
-    const body = new FormData()
-    body.append('file', file)
-    return $fetch<{ url: string, thumbnailUrl: string }>('/api/media/upload', {
-        method: 'post', body
-    })
-}
-
 const create = async (body: any) => {
-    const data = await $fetch('/api/speciality', {
-        method: 'POST',
-        body: JSON.stringify(body)
-    })
+    const data = await createSpecalisation(body)
     items.value.push(data as any)
 }
 
-const update = async (index: number, body: any) => {
-    const data = await $fetch(`/api/speciality/update/${body.id}`, {
-        method: 'put',
-        body: JSON.stringify(body)
-    })
+const update = async (id: number, index: number, body: any) => {
+    const data = await updateSpecalisation(id, body)
     Object.assign(items.value[index], data)
 }
 
 const save = async () => {
-    createLoading.value = true
+    try {
+        createLoading.value = true
+    
+        const formdata = new FormData()
+        Object.keys(editedItem).map(key => {
+            formdata.append(key, editedItem[key as keyof typeof editedItem] as string)
+        })
+        formdata.delete('id')
+        if(file.value) formdata.append('image', file.value)
 
-    if (file.value) {
-        const { url, thumbnailUrl } = await uploadImage(file.value)
-        editedItem.image = url
-        editedItem.thumb = thumbnailUrl
+        if (itemIndex.value !== null) await update(editedItem.id!, itemIndex.value, formdata)
+    
+        else await create(formdata)
+    
+        close()
+    } catch (error) {
+        console.log(error)
+    } finally {
+        createLoading.value = false
     }
-
-    if (itemIndex.value !== null) update(itemIndex.value, editedItem)
-
-    else create(editedItem)
-
-    createLoading.value = false
-    close()
 }
 
 const close = () => {
     Object.assign(editedItem, {
         name_ru: "",
         name_uz: "",
+        name: ""
     })
     file.value = null
     dialog.value = false
