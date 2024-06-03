@@ -2,22 +2,22 @@
     <div class="relative">
         <div class="container h-screen relative z-10">
             <div class="flex items-center h-screen md:h-full">
-                <div class="w-full md:w-[50%]">
+                <div class="w-full md:w-[50%] pr-2">
                     <site-content
-                        subtitle="👋Hey! We Are Dentic"
-                        title="Helping You to <br> Bring Back Your <br> <span>Happy Smile</span>"
-                        description="Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Дорогу собрал языком страна рот несколько сих инициал lorem силуэт! Всеми, своих щеке." />
+                        subtitle="👋Здоровая улыбка с нашей помощью!"
+                        title="Квалифицированные специалисты и современное оборудование"
+                        description="В нашей клинике вы можете пройти диагностику и лечение заболеваний зубов и десен, а также провести профилактические процедуры, которые помогут избежать проблем в будущем. Кроме того, мы предлагаем услуги по эстетической стоматологии, которые помогут вам улучшить внешний вид вашей улыбки." />
                 </div>
             </div>
 
-            <div class="relative h-[140px] md:h-0">
+            <!-- <div class="relative h-[140px] md:h-0">
                 <div class="absolute bottom-8 rounded-md p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end shadow-xl shadow-[#0001] bg-white w-full">
                     <site-input :icon="MdRoundAlternateEmail" label="Почта" placeholder="Почта" />
                     <site-input :icon="FePhone" label="Телефон" placeholder="Телефон" />
                     <site-input :icon="BsCalendarWeek" label="Дата" type="date" />
                     <site-button>Забронируйте сейчас</site-button>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="absolute h-full w-0 md:w-[50%] top-0 right-0 bg-blue-50"></div>
     </div>
@@ -26,6 +26,7 @@
         <div class="container mx-auto">
 
             <div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
+
                 <div class="p-4 md:w-1/3 flex flex-col text-center items-center"  v-for="c,i in index_cards" :key="i">
                     <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
                         <component class="text-blue-600 w-10 h-10 group-hover:text-white" :is="c.icon"></component>
@@ -33,13 +34,9 @@
                     <div class="flex-grow">
                         <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ c.title }}</h2>
                         <p class="leading-relaxed text-base">{{ c.description }}</p>
-                        <!-- <a class="mt-3 text-indigo-500 inline-flex items-center">Learn More
-                            <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
-                            <path d="M5 12h14M12 5l7 7-7 7"></path>
-                            </svg>
-                        </a> -->
                     </div>
                 </div>
+
             </div>
 
         </div>
@@ -47,27 +44,29 @@
 
     <div class="relative py-8">
         <div class="container">
-            <div class="h-full flex items-center">
-                <div class="w-0 md:w-[50%]"></div>
+            <div class="h-full flex items-center gap-4">
+                <div class="w-0 md:w-[50%]">
+                    <img src="/images/nophoto.jpg" class="w-[90%] h-[90%] object-cover">
+                </div>
                 <div class="w-full md:w-[50%]">
                     <site-content
-                        subtitle="More About Us"
-                        title="The Best Dental Clinic <br> That You Can Trust"
-                        description="Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Дорогу собрал языком страна рот несколько сих инициал lorem силуэт! Всеми, своих щеке.">
+                        subtitle="Подробнее о нас"
+                        title="Добро пожаловать в нашу стоматологическую клинику!"
+                        description="Мы рады, что вы выбрали нас для ухода за вашим здоровьем и красотой улыбки. Наша клиника является одной из ведущих в отрасли, и мы гордимся тем, что предоставляем нашим пациентам качественные услуги и индивидуальный подход.">
                         <br>
-                        <p class="text-gray-700">Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Дорогу собрал языком страна рот несколько сих.</p>
+                        <p class="text-gray-700">Наша команда состоит из высококвалифицированных стоматологов и медсестер, которые имеют обширный опыт работы и постоянно совершенствуют свои профессиональные навыки. Мы используем только современное оборудование и инновационные технологии, чтобы гарантировать наилучшие результаты и комфорт во время процедур.</p>
                         <br>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="flex items-center gap-2" v-for="i in 4" :key="i">
+                            <div class="flex items-center gap-2" v-for="item,i in index_about_items" :key="i">
                                 <BxSolidBadgeCheck class="text-blue-500 w-6 h-6" />
-                                <span class="font-medium">Modern Equipment</span>
+                                <span class="font-medium">{{ item }}</span>
                             </div>
                         </div>
                         <br>
-                        <div class="flex flex-col md:flex-row gap-4 items-start md:items-center">
+                        <!-- <div class="flex flex-col md:flex-row gap-4 items-start md:items-center">
                             <site-button>Узнать больше</site-button>
                             <site-button>Записаться на прием</site-button>
-                        </div>
+                        </div> -->
                     </site-content>
                 </div>
             </div>
@@ -79,10 +78,12 @@
             <div class="h-full flex flex-col md:flex-row items-center justify-between gap-4">
                 <div class="w-full md:w-[50%]">
                     <site-content
-                        subtitle="Why Choose Us"
-                        title="Helping Your <br>Dental Problem"
-                        description="Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Дорогу собрал языком страна рот несколько сих инициал lorem силуэт! Всеми, своих щеке.">
+                        subtitle="Почему выбрать нас"
+                        title="Качество, профессионализм и индивидуальный подход"
+                        description="Наша стоматологическая клиника предлагает широкий спектр услуг для поддержания здоровья и красоты вашей улыбки. Мы используем только современное оборудование и материалы, которые обеспечивают безопасность и комфорт во время процедур.">
                         <br>
+                        <p>Наша команда квалифицированных специалистов имеет большой опыт работы и постоянно совершенствует свои навыки, чтобы предоставлять услуги на самом высоком уровне. Мы ценим доверие наших пациентов и стараемся превзойти их ожидания. Выберите нас и наслаждайтесь здоровой и красивой улыбкой!</p>
+                        <!-- <br>
                         <div class="flex flex-col gap-6">
                             <div v-for="i in 2" key="i">
                                 <div class="flex items-center justify-between gap-4">
@@ -93,7 +94,7 @@
                                     <div class="absolute left-0 bg-blue-500 rounded-lg w-[95%] h-full"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </site-content>
                 </div>
                 <div class="max-w-[350px] rounded-lg p-6 shadow-lg shadow-[#0001]">
@@ -142,9 +143,11 @@
             <div class="flex justify-center mb-8">
                 <div class="text-center">
                     <site-content
-                        title="Услуги"
-                        subtitle="Our Services"
-                        description="Далеко-далеко за словесными, горами в стране гласных и согласных живут рыбные."/>
+                        title="Комплексный уход за зубами для всех возрастов"
+                        subtitle="Наши услуги"
+                        description="Наша стоматологическая клиника предлагает широкий спектр услуг для поддержания здоровья и красоты ваших зубов и десен.">
+                        <br>
+                    </site-content>
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -226,8 +229,8 @@
 </template>
 
 <script setup lang="ts">
-import { index_cards, index_statistics } from '~/constants'
-import { MdRoundAlternateEmail, FePhone, BsCalendarWeek, BxSolidBadgeCheck, LaToothSolid } from '@kalimahapps/vue-icons'
+import { BxSolidBadgeCheck } from '@kalimahapps/vue-icons'
+import { index_cards, index_statistics, index_about_items } from '~/constants'
 
 definePageMeta({
     layout: 'home-layout'

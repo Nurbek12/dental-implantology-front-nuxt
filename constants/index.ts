@@ -20,12 +20,14 @@ import {
     FaUserInjured,
     CaReportData,
     AnOutlinedComment,
+    PhTooth,
+    ReStarSmileLine,
 } from '@kalimahapps/vue-icons'
 
 export const index_cards = [
-    { icon: FlClipboardTextLtr, title: "Далеко-далеко, за словесными.", description: "Далеко-далеко за словесными горами, в стране гласных и согласных живут рыбные тексты." },
-    { icon: FlClipboardTextLtr, title: "Далеко-далеко, за словесными.", description: "Далеко-далеко за словесными горами, в стране гласных и согласных живут рыбные тексты." },
-    { icon: FlClipboardTextLtr, title: "Далеко-далеко, за словесными.", description: "Далеко-далеко за словесными горами, в стране гласных и согласных живут рыбные тексты." },
+    { icon: PhTooth, title: 'Профилактическое обследование', description: 'Регулярные профилактические осмотры помогают поддерживать здоровье ваших зубов и десен, а также предотвращать развитие серьезных заболеваний' },
+    { icon: MaDoctor, title: 'Имплантация', description: 'Восстановите свою уверенность с помощью имплантатов - прочного и надежного решения для замены отсутствующих зубов.' },
+    { icon: ReStarSmileLine, title: 'Эстетическая стоматология', description: 'Улучшите внешний вид вашей улыбки с помощью наших услуг по эстетической стоматологии, включая отбеливание зубов, люминейры и коррекцию формы зубов.' },
 ]
 
 export const index_statistics = [
@@ -33,6 +35,13 @@ export const index_statistics = [
     { icon: BsHospital, title: "Year Experience", count: 15 },
     { icon: HeOutlineDoctorMale, title: "Doctor & Staff", count: 70 },
     { icon: BsCalendar2Week, title: "Online Appointment", count: 40 },
+]
+
+export const index_about_items = [
+    'Квалифицированные специалисты и постоянное совершенствование',
+    '20 лет опыта в стоматологии',
+    'Современное оборудование, индивидуальный подход, гибкое расписание',
+    'Доверие и превосходство',
 ]
 
 export const admin_links = {

@@ -43,22 +43,10 @@ definePageMeta({
 const { getRatings, createRating } = useRatings()
 
 const dialog = ref(false)
-const items = ref<IRatings[]>([
-    { id: 1, created_at: new Date().toString(), first_name: 'John', last_name: 'Doe', rate: 4, review: 'This product exceeded my expectations. I was hesitant at first, but after using it for a few days, I can confidently say that it is worth the investment. The quality is top-notch, and the customer service is exceptional.' },
-    { id: 2, created_at: new Date().toString(), first_name: 'Jane', last_name: 'Doe', rate: 5, review: 'I am absolutely in love with this product! It has completely transformed my life. The design is sleek and modern, and the features are incredible. I would highly recommend it to anyone looking for a high-quality product.' },
-    { id: 3, created_at: new Date().toString(), first_name: 'Bob', last_name: 'Smith', rate: 3, review: 'I was excited to try this product, but it didn\'t quite meet my expectations. The quality is decent, but there are a few features that are missing. It\'s a good product, but it could be better.' },
-    { id: 4, created_at: new Date().toString(), first_name: 'Alice', last_name: 'Smith', rate: 4, review: 'This product is pretty good. I have been using it for a few weeks now, and I am satisfied with the results. The customer service is also very helpful and responsive.' },
-    { id: 5, created_at: new Date().toString(), first_name: 'Charlie', last_name: 'Brown', rate: 2, review: 'I was disappointed with this product. It didn\'t work as advertised, and the quality is not great. I would not recommend it to others.' },
-    { id: 6, created_at: new Date().toString(), first_name: 'Emma', last_name: 'Brown', rate: 5, review: 'This is the best product I have ever used! It is easy to use, and the results are amazing. The customer service is also outstanding. I would highly recommend it to anyone.' },
-    { id: 7, created_at: new Date().toString(), first_name: 'Tom', last_name: 'Taylor', rate: 3, review: 'This product is okay. It does what it is supposed to do, but there is nothing exceptional about it. The quality is decent, but there are better products out there.' },
-    { id: 8, created_at: new Date().toString(), first_name: 'Sophie', last_name: 'Taylor', rate: 4, review: 'I am happy with this product. It has some great features, and the quality is good. The customer service is also very helpful. Overall, it is a good product.' },
-    { id: 9, created_at: new Date().toString(), first_name: 'Daniel', last_name: 'Wilson', rate: 2, review: 'This product needs improvement. The design is outdated, and the features are limited. The quality is also not great. I would not recommend it to others.' },
-    { id: 10, created_at: new Date().toString(), first_name: 'Grace', last_name: 'Wilson', rate: 5, review: 'This product is perfect! It has everything I need, and the quality is exceptional. The customer service is also very responsive and helpful. I would highly recommend it to anyone.' },
-])
+const items = ref<IRatings[]>([])
 const rating = reactive<IRatings>({
     rate: 1,
     review: "",
-    // doctor: null,
     last_name: "",
     first_name: "",
 })
@@ -70,8 +58,9 @@ const getItems = async () => {
 
 const handleReview = async () => {
     await createRating(rating)
+    dialog.value = false
     alert('Successfully sended')
 }
 
-// getItems()
+getItems()
 </script>

@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed bg-white z-50 w-full transition-all" :class="{'shadow-md':isScrolled}">
+    <div class="fixed bg-white z-50 w-full transition-all" :class="{'shadow-md shadow-black/5':isScrolled}">
 
         <div>
             <div class="container mx-auto py-2">
