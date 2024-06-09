@@ -1,5 +1,5 @@
 <template>
-    <div class="relative h-[400px] rounded overflow-hidden shadow-sm">
+    <div class="relative h-[400px] rounded overflow-hidden shadow-lg shadow-black/5">
         <!-- <div class="bg-gray-100 h-full w-full"> -->
             <img :src="item?.image || '/images/nophoto.jpg'" class="w-full h-full object-cover">
         <!-- </div> -->

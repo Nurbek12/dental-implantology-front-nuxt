@@ -7,7 +7,10 @@
         <div class="border rounded overflow-hidden">
             <select :id="randomid" :disabled="!!props.disabled" :required="required" v-model="model" @change="emits('changed', $event)" class="text-sm py-2 px-3 w-full outline-none">
                 <option :value="nullvalue" disabled selected v-if="props.placeholder">{{ props.placeholder }}</option>
-                <option v-for="item,i in items" :key="i" :value="item[value||'value']">{{ item[name||'name'] }}</option>
+                <option v-for="item,i in items" :key="i" :value="item[value||'value']">
+                    <span v-if="item[name||'name']">{{ item[name||'name'] }}</span>
+                    <slot v-else name="item" :item="item" />
+                </option>
             </select>
         </div>
     </div>

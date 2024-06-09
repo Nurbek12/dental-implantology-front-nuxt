@@ -115,7 +115,7 @@
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                <card-service  v-for="i in 6" :key="i" />
+                <card-service v-for="item,i in items" :item="item" :key="i" />
 
             </div>
         </div>
@@ -161,6 +161,7 @@
 </template>
 
 <script setup lang="ts">
+import type { IService } from '~/types'
 import { BxSolidBadgeCheck } from '@kalimahapps/vue-icons'
 import { index_cards, index_statistics, index_about_items, index_blogs } from '~/constants'
 
@@ -175,4 +176,14 @@ useHead({
         { name: "keywords", content: "стоматология, стоматологическая клиника, зубной врач, лечение зубов, Samarkand" },
     ]
 })
+
+const { getServices } = useServices()
+const items = ref<IService[]>([])
+
+const init = async () => {
+    const data = await getServices({page: 1, limit: 12})
+    items.value = data.results
+}
+
+init()
 </script>

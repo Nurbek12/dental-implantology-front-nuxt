@@ -1,7 +1,7 @@
 <template>
     <div class="w-full p-2">
         <div class="p-2 rounded border flex justify-between items-center gap-2 bg-white">
-            <site-input type="date" placeholder="Поиск" />
+            <site-input v-model="filterdate" type="date" placeholder="Поиск" @changed="console.log($event)" />
             <div class="flex items-center gap-2">
                 <app-btn @click="dialog1=true">Добавить прибыль</app-btn>
                 <app-btn @click="dialog2=true">Добавить расход</app-btn>
@@ -12,14 +12,12 @@
 
             <div class="flex flex-col gap-2 items-start w-full md:w-[70%] lg:flex-1">
                 <app-data-table
-                    :count="test?.profits?.length||0"
-                    :items="test?.profits||[]"
+                    :count="item?.profits?.length||0"
+                    :items="item?.profits||[]"
                     :headers="headers"
                     :loading="loading"
                     hide-bottom
-                    hide-top
-                    
-                    @fetching="getItems">
+                    hide-top>
     
                     <template #table-item-patient="{tableItem}">
                         <span class="text-xs text-balance">{{ tableItem?.appointment?.patient?.first_name }} {{ tableItem?.appointment?.patient?.last_name }}</span>
@@ -46,15 +44,14 @@
                         <span class="text-xs text-balance">{{ new Date(tableItem.created_at!).toLocaleString() }}</span>
                     </template>
                 </app-data-table>
+
                 <app-data-table
-                    :count="test?.consumptions?.length||0"
-                    :items="test?.consumptions||[]"
+                    :count="item?.consumptions?.length||0"
+                    :items="item?.consumptions||[]"
                     :headers="headers1"
                     :loading="loading"
                     hide-bottom
-                    hide-top
-                    
-                    @fetching="getItems">
+                    hide-top>
                     <template #table-item-created_at="{tableItem}">
                         <span class="text-xs text-balance">{{ new Date(tableItem.created_at!).toLocaleString() }}</span>
                     </template>
@@ -68,35 +65,37 @@
             </div>
     
             <div class="mt-2 flex flex-col text-center flex-wrap gap-2  w-full md:w-[30%] lg:w-[250px]">
-                <div class="text-sm rounded border bg-white px-4 py-2 text-blue-700">Общая прибыль: {{ (test?.total_profit)?.toLocaleString('ru-RU') || 0 }} сумов</div>
-                <div class="text-sm rounded border bg-white px-4 py-2 text-red-600">Общая расход: {{ (test?.total_consumption)?.toLocaleString('ru-RU') || 0 }} сумов</div>
-                <div class="text-sm rounded border bg-white px-4 py-2 text-green-700">Чистая прибыль: {{ (test?.net_profit)?.toLocaleString('ru-RU') || 0 }} сумов</div>
+                <div class="text-sm rounded border bg-white px-4 py-2 text-blue-700">Общая прибыль: {{ (item?.total_profit)?.toLocaleString('ru-RU') || 0 }} сумов</div>
+                <div class="text-sm rounded border bg-white px-4 py-2 text-red-600">Общая расход: {{ (item?.total_consumption)?.toLocaleString('ru-RU') || 0 }} сумов</div>
+                <div class="text-sm rounded border bg-white px-4 py-2 text-green-700">Чистая прибыль: {{ (item?.net_profit)?.toLocaleString('ru-RU') || 0 }} сумов</div>
             </div>
 
         </div>
 
     </div>
     
-    <app-dialog rounded title="Добавить прибыль" :open="dialog1" @close-dialog="close1">
-        <form @submit.prevent="save" class="mt-4 flex flex-col gap-4">
-            <site-input required v-model="profit.date" type="date" label="Дата прибыла" />
+    <app-dialog rounded title="Добавить прибыль" :open="dialog1" @close-dialog="close">
+        <form @submit.prevent="saveProfit" class="mt-4 flex flex-col gap-4">
+            <site-input readonly required v-model="profit.date" type="date" label="Дата прибыла" />
             <site-input required v-model="profit.amount" type="number" label="Выплаченная сумма" placeholder="Выплаченная сумма" />
-            <site-input required v-model="profit.appointment" label="Прием" placeholder="Прием" />
+            <site-select required v-model="profit.appointment" :items="appointments" name="none" value="id" label="Прием" :nullvalue="null" placeholder="Прием">
+                <template #item="$i">{{ $i.item?.patient?.first_name }} - {{ $i.item?.service?.name_ru }}</template>
+            </site-select>
             
-            <app-btn disabled="createLoading" type="submit">
+            <app-btn :disabled="createLoading" type="submit">
                 {{ createLoading?'Загружается':'Сохранить' }}
             </app-btn>
         </form>
     </app-dialog>
 
-    <app-dialog rounded title="Добавить расход" :open="dialog2" @close-dialog="close1">
-        <form @submit.prevent="save" class="mt-4 flex flex-col gap-4">
-            <site-input required v-model="consumption.date" type="date" label="Дата расхода" />
+    <app-dialog rounded title="Добавить расход" :open="dialog2" @close-dialog="close">
+        <form @submit.prevent="saveConsumption" class="mt-4 flex flex-col gap-4">
+            <site-input readonly required v-model="consumption.date" type="date" label="Дата расхода" />
             <site-input required v-model="consumption.title" label="Название расхода" placeholder="Название расхода" />
             <site-input required v-model="consumption.amount" type="number" label="Выплаченная сумма" placeholder="Выплаченная сумма" />
             <site-textarea required v-model="consumption.description" label="Описание расхода" placeholder="Описание расхода" />
             
-            <app-btn disabled="createLoading" type="submit">
+            <app-btn :disabled="createLoading" type="submit">
                 {{ createLoading?'Загружается':'Сохранить' }}
             </app-btn>
         </form>
@@ -104,39 +103,23 @@
 </template>
 
 <script setup lang="ts">
-import type { IDoctor, IReport } from '@/types'
+import type { IAppointment, IReport } from '@/types'
 
 definePageMeta({
   layout: 'admin-layout',
 //   middleware: ['auth'],
 })
 
-const { getReports } = useReports()
+const { getAppointments } = useAppointments()
+const { getReports, addConsumption, addProfit } = useReports()
 
+const filterdate = ref('')
 const dialog1 = ref(false)
 const dialog2 = ref(false)
 const loading = ref(false)
-const test = ref<IReport|null>(null)
-const itemIndex = ref<number|null>(null)
+const item = ref<IReport|null>(null)
 const createLoading = ref<boolean>(false)
-const doctor = reactive<IDoctor>({
-    avatar: "",
-    birth_date: "",
-    certificates: "",
-    content: "<b>bold text</b>",
-    educations: "",
-    experience: 0,
-    experiences: "",
-    first_name: "",
-    rating: 0,
-    is_active: false,
-    is_published: false,
-    last_name: "",
-    licences: "",
-    middle_name: "",
-    phone: "",
-    user_type: "DOCTOR",
-})
+const appointments = ref<IAppointment[]>([])
 
 const consumption = reactive({
     date: '',
@@ -172,11 +155,23 @@ const headers1 = [
     // { name: "Дата", value: "created_at", sortable: false, balancedText: false, custom: true },
 ]
 
+const initToday = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+
+    const todaydate = `${year}-${month}-${day}`;
+    filterdate.value = todaydate
+    consumption.date = todaydate
+    profit.date = todaydate
+}
+
 const getItems = async (params: any) => {
     try {
         loading.value = true
         const data = await getReports({})
-        test.value = data.results[0]
+        item.value = data.results[0]
         // const data = await getDoctors(params)
         // items.value = data.results
         // count.value = data.count
@@ -186,75 +181,38 @@ const getItems = async (params: any) => {
         loading.value = false
     }
 }
-const editItem = (item: IDoctor, index: number) => {
-    Object.assign(doctor, item)
-    itemIndex.value = index
-    dialog1.value = true
-}
 
-const deleteItem = async (id: number, index: number) => {
-    // if(!confirm('Вы хотите удалить это?')) return
-    // await deleteDoctor(id)
-    // items.value.splice(index, 1)
-}
-
-const create = async (body: any) => {
-    // const data = await createDoctor(body)
-    // items.value.push(data as any)
-}
-
-const update = async (index: number, body: any, id: any) => {
-    // const data = await updateDoctor(id, body)
-    // Object.assign(items.value[index], data)
-    
-}
-
-const save = async () => {
-    createLoading.value = true
-
-    // var form_data = new FormData()
-    
-    // Object.keys(doctor).map((key: any) => {
-    //     form_data.append(key, doctor[key as keyof typeof doctor] as string)
-        
-    // })
-    // if(file.value) form_data.append('avatar', file.value)
-    // else form_data.delete('avatar')
-    // form_data.delete('specialties')
-    
-    // if(itemIndex.value !== null) await update(itemIndex.value, form_data, doctor.id)
-        
-    // else await create(form_data)
-
-    createLoading.value = false
+const saveConsumption = async () => {
+    const data = await addConsumption(consumption)
+    item.value = data
     close()
 }
 
-const close1 = () => {
-    // delete doctor.id
-    // Object.assign(doctor, {
-    //     name: "",
-    //     education: "",
-    //     experience: "",
-    //     phone: "",
-    //     image: "",
-    //     thumb: "",
-    //     fb: "",
-    //     in: "",
-    //     tg: "",
-    //     inst: "",
-    //     publish: false,
-    //     laboratory: false,
-    //     speciality_id: [],
-    // })
+const saveProfit = async () => {
+    const data = await addProfit(profit)
+    item.value = data
+    close()
+}
+
+const close = () => {
+    dialog1.value && Object.assign(profit, {
+        amount: 0,
+        appointment: null,
+    })
+    dialog2.value && Object.assign(consumption, {
+        amount: 0,
+        title: '',
+        description: '',
+    })
     dialog1.value = false
     dialog2.value = false
-    itemIndex.value = null
 }
 
 const init = async () => {
-    // const data = await $fetch('/api/speciality', { params: {page: 1, limit: 1000} })
-    // speciality_list.value = data.result as any
+    initToday()
+    getItems({})
+    const data = await getAppointments({})
+    appointments.value = data.results
 }
 
 init()

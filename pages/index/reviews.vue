@@ -14,7 +14,7 @@
             <div class="mb-4">
                 <site-button @click="dialog=true">Create an Review</site-button>
             </div>
-            <div class="grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+            <div class="grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 <card-review v-for="item,i in items" :item="item" :key="i" />
             </div>
         </div>

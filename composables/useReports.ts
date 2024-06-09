@@ -7,16 +7,22 @@ export default function useAppointments() {
         results: IReport[]
     }>(`/reports/`, { params })
 
-    const createReport = (data: any) => $fetch(`/reports/`, { method: 'post', body: data })
+    const createReport = (body: any) => $fetch(`/reports/`, { method: 'post', body })
 
-    const updateReport = (id: number, data: any) => $fetch(`/reports/${id}/`, { method: 'put', body: data })
+    const updateReport = (id: number, body: any) => $fetch(`/reports/${id}/`, { method: 'put', body })
 
     const deleteReport = (id: any) => $fetch(`/reports/${id}/`, { method: 'delete' })
 
+    const addConsumption = (body: any) => $fetch<IReport>('/reports/add_consumption/', { method: 'post', body })
+
+    const addProfit = (body: any) => $fetch<IReport>('/reports/add_profit/', { method: 'post', body })
+
     return {
+        addProfit,
         getReports,
         createReport,
         updateReport,
         deleteReport,
+        addConsumption,
     }
 }
