@@ -31,10 +31,10 @@ export const index_cards = [
 ]
 
 export const index_statistics = [
-    { icon: LaToothSolid, title: "Happy Clients", count: 1200 },
-    { icon: BsHospital, title: "Year Experience", count: 15 },
-    { icon: HeOutlineDoctorMale, title: "Doctor & Staff", count: 70 },
-    { icon: BsCalendar2Week, title: "Online Appointment", count: 40 },
+    { icon: LaToothSolid, title: "Счастливые клиенты", count: 1200 },
+    { icon: BsHospital, title: "Год опыта", count: 15 },
+    { icon: HeOutlineDoctorMale, title: "Врачи", count: 70 },
+    { icon: BsCalendar2Week, title: "Онлайн запись", count: 40 },
 ]
 
 export const index_about_items = [
@@ -42,6 +42,12 @@ export const index_about_items = [
     '20 лет опыта в стоматологии',
     'Современное оборудование, индивидуальный подход, гибкое расписание',
     'Доверие и превосходство',
+]
+
+export const index_blogs = [
+    { title: 'Советы по уходу за зубами', description: 'Чистка зубов два раза в день и регулярное использование зубной нити — это лишь начало. В нашем блоге вы найдете профессиональные советы по уходу за полостью рта, которые помогут сохранить вашу улыбку здоровой и красивой на долгие годы.', image: 'https://img.freepik.com/free-photo/smiling-young-male-dentist-holding-toothbrush_171337-15748.jpg?t=st=1717832995~exp=1717836595~hmac=4b96b353a94dcf4aa121028b0f4c3312240347ac3f964c2d80adb00b2891d1aa&w=900' },
+    { title: 'Современные технологии', description: 'Мир стоматологии постоянно развивается, и мы стремимся использовать самые передовые технологии для лечения наших пациентов. Узнайте больше о новейших достижениях и инновациях в стоматологической сфере, которые делают лечение более эффективным и комфортным.', image: 'https://img.freepik.com/free-photo/close-up-hand-wearing-protective-glove_23-2149164346.jpg?t=st=1717833060~exp=1717836660~hmac=c41feb23efc1a71ef318331a879253660fad1a73b6d2e3fa8ff80ae39cf554e1&w=900' },
+    { title: 'Часто задаваемые вопросы', description: 'Почему нужно удалять зубы мудрости? Что такое имплантация зубов и как она проходит? В этом разделе мы отвечаем на самые популярные вопросы наших пациентов, чтобы вы могли чувствовать себя уверенно и информированно перед визитом к стоматологу.', image: 'https://img.freepik.com/premium-photo/person-holding-pair-scissors-with-question-marks-it_646443-2521.jpg?w=900' },
 ]
 
 export const admin_links = {

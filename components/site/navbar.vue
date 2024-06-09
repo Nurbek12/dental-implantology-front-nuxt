@@ -5,10 +5,10 @@
             <div class="container mx-auto py-2">
                 <div class="w-full flex justify-between items-center">
                     <div class="items-center gap-4  hidden md:flex">
-                        <site-link class="text-sm" title="+01234 567 890" link="http://localhost" :icon="MdSharpPhone" />
-                        <site-link class="text-sm" title="Jl. Patimura II No. 18, Denpasar" link="http://localhost" :icon="BsMap" />
+                        <site-link class="text-sm" title="+998 66 235 00 05" link="tel:+998662350005" :icon="MdSharpPhone" />
+                        <site-link class="text-sm" title="Самарканд, улица Дахбед, 168А" link="https://maps.app.goo.gl/jvA5nAwTy3jL4oe2A" :icon="BsMap" />
                     </div>
-                    <site-link title="Monday - Saturday: 9 am - 11.30 pm" link="" :icon="CdCalendar" class="text-sm" />
+                    <site-link title="Пн - Сб: 9.00 - 18.30" link="" :icon="CdCalendar" class="text-sm" />
                 </div>
             </div>
         </div>
@@ -16,8 +16,8 @@
         <div class="container mx-auto py-2 md:py-5">
             <div class="flex items-center justify-between">
                 <nuxt-link to="/">
-                    <div class="text-blue-600 font-bold text-xl">
-                        Dental Emplament
+                    <div class="text-blue-600 font-medium text-xl">
+                        Dental Implantology
                     </div>
                 </nuxt-link>
                 <div class="hidden md:flex gap-8">

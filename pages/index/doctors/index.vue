@@ -1,6 +1,6 @@
 <template>
     <section class="text-gray-600 body-font">
-        <div class="container px-5 pt-24 mx-auto">
+        <div class="container px-5 pt-24 pb-12 mx-auto">
             <div class="flex flex-col text-center w-full mt-20">
                 <h2 class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">Встречайте наших докторов</h2>
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Наша команда специалистов</h1>
@@ -53,6 +53,14 @@ import type { IDoctor } from '~/types'
 
 definePageMeta({
     layout: 'home-layout'
+})
+
+useHead({
+    title: "Профессионалы стоматологии \"Dental Implantology\"",
+    meta: [
+        { name: "description", content: "Познакомьтесь с нашей командой опытных и квалифицированных стоматологов. Каждый врач в \"Dental Implantology\" стремится к наивысшему качеству лечения." },
+        { name: "keywords", content: "стоматологи, врачи, стоматологическая клиника, профессионалы" },
+    ]
 })
 
 const { getDoctors } = useDoctors()

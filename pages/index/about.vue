@@ -1,6 +1,6 @@
 <template>
     <section class="text-gray-600 body-font">
-        <div class="container px-5 pt-24 mx-auto">
+        <div class="container px-5 pt-24 pb-12 mx-auto">
             <div class="flex flex-col text-center w-full mt-20">
                 <h2 class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">Узнайте о нас больше</h2>
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">О нашей клинике</h1>
@@ -32,5 +32,13 @@
 <script setup lang="ts">
 definePageMeta({
     layout: 'home-layout'
+})
+
+useHead({
+    title: "О нас - Стоматология \"Dental Implantology\"",
+    meta: [
+        { name: "description", content: "Узнайте больше о нашей стоматологической клинике \"Dental Implantology\", нашей миссии, ценностях и команде профессионалов." },
+        { name: "keywords", content: "о нас, стоматология, наша команда, стоматологическая клиника" },
+    ]
 })
 </script>

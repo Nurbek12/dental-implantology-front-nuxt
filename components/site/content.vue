@@ -1,6 +1,6 @@
 <template>
     <div>
-        <span class="rounded border text-blue-500 px-3 py-1.5 text-sm" v-html="subtitle"></span>
+        <span class="rounded border border-blue-200 text-blue-500 px-3 py-1.5 text-sm" v-html="subtitle"></span>
         <h1 class="text-2xl md:text-4xl font-medium my-6" v-html="title"></h1>
         <p class="text-gray-700 text-sm md:text-base" v-html="description"></p>
         <slot />

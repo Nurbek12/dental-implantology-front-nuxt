@@ -10,16 +10,7 @@
                 </div>
             </div>
 
-            <!-- <div class="relative h-[140px] md:h-0">
-                <div class="absolute bottom-8 rounded-md p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end shadow-xl shadow-[#0001] bg-white w-full">
-                    <site-input :icon="MdRoundAlternateEmail" label="Почта" placeholder="Почта" />
-                    <site-input :icon="FePhone" label="Телефон" placeholder="Телефон" />
-                    <site-input :icon="BsCalendarWeek" label="Дата" type="date" />
-                    <site-button>Забронируйте сейчас</site-button>
-                </div>
-            </div> -->
         </div>
-        <div class="absolute h-full w-0 md:w-[50%] top-0 right-0 bg-blue-50"></div>
     </div>
 
     <div class="relative py-36">
@@ -44,9 +35,9 @@
 
     <div class="relative py-8">
         <div class="container">
-            <div class="h-full flex items-center gap-4">
+            <div class="h-full flex items-center justify-between gap-8">
                 <div class="w-0 md:w-[50%]">
-                    <img src="/images/nophoto.jpg" class="w-[90%] h-[90%] object-cover">
+                    <img src="https://img.freepik.com/free-photo/orthodontist-with-latex-glove-handling-dental-equipment_23-2148985840.jpg?t=st=1717834896~exp=1717838496~hmac=4e0b454948a2c0f393dbc65fa8d551a9f367db3ca6f0776466054d1daad84bb4&w=996" class="w-full h-[480px] object-cover rounded">
                 </div>
                 <div class="w-full md:w-[50%]">
                     <site-content
@@ -75,7 +66,7 @@
     
     <div class="relative py-36">
         <div class="container">
-            <div class="h-full flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="h-full flex flex-col md:flex-row items-center justify-between gap-8">
                 <div class="w-full md:w-[50%]">
                     <site-content
                         subtitle="Почему выбрать нас"
@@ -83,38 +74,10 @@
                         description="Наша стоматологическая клиника предлагает широкий спектр услуг для поддержания здоровья и красоты вашей улыбки. Мы используем только современное оборудование и материалы, которые обеспечивают безопасность и комфорт во время процедур.">
                         <br>
                         <p>Наша команда квалифицированных специалистов имеет большой опыт работы и постоянно совершенствует свои навыки, чтобы предоставлять услуги на самом высоком уровне. Мы ценим доверие наших пациентов и стараемся превзойти их ожидания. Выберите нас и наслаждайтесь здоровой и красивой улыбкой!</p>
-                        <!-- <br>
-                        <div class="flex flex-col gap-6">
-                            <div v-for="i in 2" key="i">
-                                <div class="flex items-center justify-between gap-4">
-                                    <span class="font-medium">Dental and Mounth Care</span>
-                                    <span class="text-sm text-gray-700">95%</span>
-                                </div>
-                                <div class="mt-2 relative w-full flex items-center bg-blue-100 rounded-lg overflow-hidden h-[12px]">
-                                    <div class="absolute left-0 bg-blue-500 rounded-lg w-[95%] h-full"></div>
-                                </div>
-                            </div>
-                        </div> -->
                     </site-content>
                 </div>
-                <div class="max-w-[350px] rounded-lg p-6 shadow-lg shadow-[#0001]">
-                    <h1 class="text-3xl font-bold">Don't Hesitate to Do <br> Consultation</h1>
-                    <p class="my-2 text-sm text-gray-600">Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Себя, вершину коварный?</p>
-                    <div class="space-y-2 my-4">
-                        <div class="flex gap-2 items-center justify-between">
-                            <span class="font-medium">Monday-Friday</span>
-                            <span>8AM-10PM</span>
-                        </div>
-                        <div class="flex gap-2 items-center justify-between">
-                            <span class="font-medium">Saturday</span>
-                            <span>8AM-10PM</span>
-                        </div>
-                        <div class="flex gap-2 items-center justify-between">
-                            <span class="font-medium">Sunday</span>
-                            <span>8AM-10PM</span>
-                        </div>
-                    </div>
-                    <site-button class="w-full">Call +998 90 123 45 67</site-button>
+                <div class="w-0 md:w-[50%]">
+                    <img src="https://img.freepik.com/free-photo/crop-doctor-with-clipboard_23-2147896195.jpg?t=st=1717834925~exp=1717838525~hmac=0c3fb706eb533f74aab08af08fe68b719fa97d5eadd5336b1fc997cbbac93d17&w=996" class="w-full h-[400px] object-cover rounded">
                 </div>
             </div>
         </div>
@@ -159,49 +122,18 @@
     </div>
 
     <div class="relative py-36">
-        <div class="container">
-            <div class="h-full grid grid-cols-1 md:grid-cols-2 gap-4">
-                <site-content
-                    subtitle="Our Testimonals"
-                    title="The Honest Review <br> From Our Client"
-                    description="Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Дорогу собрал языком страна рот несколько сих инициал lorem силуэт! Всеми, своих щеке.">
-                    <br>
-                    <site-button>Посмотреть все отзывы</site-button>
-                </site-content>
-                <div class="space-y-6">
-                    <card-testimonal v-for="i in 2" :key="i" />
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="relative py-36 bg-blue-50">
-        <div class="container">
-            <div class="h-full grid grid-cols-1 md:grid-cols-2 gap-4">
-                <site-content
-                    subtitle="Our Testimonals"
-                    title="Dedicated to Give You <br> The Best Services"
-                    description="Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Дорогу собрал языком страна рот несколько сих инициал lorem силуэт! Всеми, своих щеке.">
-                    <br>
-                    <site-button>Связаться с нами</site-button>
-                </site-content>
-            </div>
-        </div>
-    </div>
-
-    <div class="relative py-36">
         <div class="container mx-auto">
             <div class="flex justify-center mb-8">
                 <div class="text-center">
                     <site-content
-                        subtitle="Our Blogs"
+                        subtitle="Наш блог"
                         title="Блог"
-                        description="Далеко-далеко за словесными, горами в стране гласных и согласных живут рыбные." />
+                        description="Добро пожаловать в наш блог! Здесь мы делимся полезной информацией и новостями из мира стоматологии." />
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                <card-blog  v-for="i in 3" :key="i" />
+                <card-blog  v-for="blog,i in index_blogs" :blog="blog" :key="i" />
 
             </div>
         </div>
@@ -211,12 +143,12 @@
         <div class="container mx-auto">
             <div class="bg-blue-50 rounded-lg p-8">
 
-                <div class="w-full md:w-[50%]">
+                <div class="w-full">
                     
                     <site-content
-                        subtitle="Contact Us"
-                        title="Become The Next <br> Our"
-                        description="Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Дорогу собрал языком страна рот несколько сих инициал lorem силуэт! Всеми, своих щеке.">
+                        subtitle="Регулярные осмотры — залог здоровья вашей улыбки"
+                        title="Почему важно регулярно посещать стоматолога?"
+                        description="Регулярные визиты к стоматологу играют ключевую роль в поддержании здоровья полости рта и профилактике серьезных заболеваний. В этом блоге мы расскажем, почему регулярные осмотры так важны, как часто стоит посещать стоматолога и какие преимущества это приносит. Вы узнаете, как своевременное выявление проблем может предотвратить их развитие и сэкономить вам время, деньги и нервы в будущем. Прочитайте наши советы и будьте уверены в здоровье своей улыбки!">
                         <br>
                         <site-button>Записаться на прием</site-button>
                     </site-content>
@@ -230,9 +162,17 @@
 
 <script setup lang="ts">
 import { BxSolidBadgeCheck } from '@kalimahapps/vue-icons'
-import { index_cards, index_statistics, index_about_items } from '~/constants'
+import { index_cards, index_statistics, index_about_items, index_blogs } from '~/constants'
 
 definePageMeta({
     layout: 'home-layout'
+})
+
+useHead({
+    title: "Стоматология \"Dental Implantology\" - Ваш путь к здоровой и красивой улыбке",
+    meta: [
+        { name: "description", content: "Добро пожаловать в стоматологическую клинику \"Dental Implantology\". Мы предлагаем широкий спектр стоматологических услуг для всей семьи в Самарканд." },
+        { name: "keywords", content: "стоматология, стоматологическая клиника, зубной врач, лечение зубов, Samarkand" },
+    ]
 })
 </script>

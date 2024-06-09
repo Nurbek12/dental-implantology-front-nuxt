@@ -3,14 +3,14 @@
         <div class="p-2 rounded border flex justify-between items-center gap-2 bg-white">
             <site-input type="date" placeholder="Поиск" />
             <div class="flex items-center gap-2">
-                <app-btn>Добавить прибыль</app-btn>
-                <app-btn>Добавить расход</app-btn>
+                <app-btn @click="dialog1=true">Добавить прибыль</app-btn>
+                <app-btn @click="dialog2=true">Добавить расход</app-btn>
             </div>
         </div>
 
-        <div class="flex items-start gap-2">
+        <div class="flex flex-col md:flex-row items-start gap-2">
 
-            <div class="flex flex-col gap-2 items-start w-full md:w-[50%] lg:flex-1">
+            <div class="flex flex-col gap-2 items-start w-full md:w-[70%] lg:flex-1">
                 <app-data-table
                     :count="test?.profits?.length||0"
                     :items="test?.profits||[]"
@@ -67,54 +67,40 @@
                 </app-data-table>
             </div>
     
-            <div class="mt-2 flex flex-col text-center flex-wrap gap-2  w-full md:w-[50%] lg:w-[250px]">
-                <div class="text-sm rounded border bg-white px-4 py-2 text-blue-700">Общая прибыль: {{ (test?.total_profit)?.toLocaleString('ru-RU') }} сумов</div>
-                <div class="text-sm rounded border bg-white px-4 py-2 text-red-600">Общая расход: {{ (test?.total_consumption)?.toLocaleString('ru-RU') }} сумов</div>
-                <div class="text-sm rounded border bg-white px-4 py-2 text-green-700">Чистая прибыль: {{ (test?.net_profit)?.toLocaleString('ru-RU') }} сумов</div>
+            <div class="mt-2 flex flex-col text-center flex-wrap gap-2  w-full md:w-[30%] lg:w-[250px]">
+                <div class="text-sm rounded border bg-white px-4 py-2 text-blue-700">Общая прибыль: {{ (test?.total_profit)?.toLocaleString('ru-RU') || 0 }} сумов</div>
+                <div class="text-sm rounded border bg-white px-4 py-2 text-red-600">Общая расход: {{ (test?.total_consumption)?.toLocaleString('ru-RU') || 0 }} сумов</div>
+                <div class="text-sm rounded border bg-white px-4 py-2 text-green-700">Чистая прибыль: {{ (test?.net_profit)?.toLocaleString('ru-RU') || 0 }} сумов</div>
             </div>
 
         </div>
 
     </div>
     
-    <!-- <app-dialog rounded :title="itemIndex==null?'Добавить доктор':'Изменить доктор'" :open="dialog" @close-dialog="close">
+    <app-dialog rounded title="Добавить прибыль" :open="dialog1" @close-dialog="close1">
         <form @submit.prevent="save" class="mt-4 flex flex-col gap-4">
-            <div class="flex items-center justify-start">
-                <label for="file-input" class="cursor-pointer">
-                    <div class="w-[120px] h-[120px] border-2 hover:bg-[#23408e20] border-[#23408e] p-1 overflow-hidden rounded-full">
-                        <img :src="currentImage" class="w-full rounded-full h-full object-cover" alt="">
-                    </div>
-                </label>
-            </div>
-           
-            <site-input required v-model="doctor.first_name" placeholder="First Name" />
-            <site-input required v-model="doctor.middle_name" placeholder="Middle Name" />
-            <site-input required v-model="doctor.last_name" placeholder="Last Name" />
+            <site-input required v-model="profit.date" type="date" label="Дата прибыла" />
+            <site-input required v-model="profit.amount" type="number" label="Выплаченная сумма" placeholder="Выплаченная сумма" />
+            <site-input required v-model="profit.appointment" label="Прием" placeholder="Прием" />
             
-            <site-input required v-model="doctor.phone" placeholder="Phone" />
-            <site-input required v-model="doctor.birth_date" placeholder="Birth Date" type="date" />
-
-            <site-textarea required v-model="doctor.educations" placeholder="Education" />
-            <site-textarea required v-model="doctor.experiences" placeholder="Expreince" />
-            <site-textarea required v-model="doctor.licences" placeholder="Licence" />
-            <site-textarea required v-model="doctor.certificates" placeholder="Certificates" />
-
-            <div class="w-full" hidden>
-                <input @change="onFileChange" id="file-input" accept="image/*" type="file" placeholder="Фото для ава">
-            </div>
-            <div class="flex items-center gap-2">
-                <input type="checkbox" v-model="doctor.is_active" id="is_active">
-                <label for="is_active">Активность</label>
-            </div>
-            <div class="flex items-center gap-2">
-                <input type="checkbox" v-model="doctor.is_published" id="is_active">
-                <label for="is_active">Публичность</label>
-            </div>
-            <button :disabled="createLoading" type="submit" class="bg-[#23408e] hover:bg-[#385399] active:bg-[#3c67d5] disabled:bg-[#1b2e63] rounded text-white text-sm px-3 py-2">
+            <app-btn disabled="createLoading" type="submit">
                 {{ createLoading?'Загружается':'Сохранить' }}
-            </button>
+            </app-btn>
         </form>
-    </app-dialog> -->
+    </app-dialog>
+
+    <app-dialog rounded title="Добавить расход" :open="dialog2" @close-dialog="close1">
+        <form @submit.prevent="save" class="mt-4 flex flex-col gap-4">
+            <site-input required v-model="consumption.date" type="date" label="Дата расхода" />
+            <site-input required v-model="consumption.title" label="Название расхода" placeholder="Название расхода" />
+            <site-input required v-model="consumption.amount" type="number" label="Выплаченная сумма" placeholder="Выплаченная сумма" />
+            <site-textarea required v-model="consumption.description" label="Описание расхода" placeholder="Описание расхода" />
+            
+            <app-btn disabled="createLoading" type="submit">
+                {{ createLoading?'Загружается':'Сохранить' }}
+            </app-btn>
+        </form>
+    </app-dialog>
 </template>
 
 <script setup lang="ts">
@@ -127,7 +113,8 @@ definePageMeta({
 
 const { getReports } = useReports()
 
-const dialog = ref(false)
+const dialog1 = ref(false)
+const dialog2 = ref(false)
 const loading = ref(false)
 const test = ref<IReport|null>(null)
 const itemIndex = ref<number|null>(null)
@@ -149,6 +136,19 @@ const doctor = reactive<IDoctor>({
     middle_name: "",
     phone: "",
     user_type: "DOCTOR",
+})
+
+const consumption = reactive({
+    date: '',
+    title: '',
+    description: '',
+    amount: 0,
+})
+
+const profit = reactive({
+    date: '',
+    amount: 0,
+    appointment: null,
 })
 
 const headers = [
@@ -189,7 +189,7 @@ const getItems = async (params: any) => {
 const editItem = (item: IDoctor, index: number) => {
     Object.assign(doctor, item)
     itemIndex.value = index
-    dialog.value = true
+    dialog1.value = true
 }
 
 const deleteItem = async (id: number, index: number) => {
@@ -230,7 +230,7 @@ const save = async () => {
     close()
 }
 
-const close = () => {
+const close1 = () => {
     // delete doctor.id
     // Object.assign(doctor, {
     //     name: "",
@@ -247,7 +247,8 @@ const close = () => {
     //     laboratory: false,
     //     speciality_id: [],
     // })
-    dialog.value = false
+    dialog1.value = false
+    dialog2.value = false
     itemIndex.value = null
 }
 

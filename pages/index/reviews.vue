@@ -1,6 +1,6 @@
 <template>
     <section class="text-gray-600 body-font">
-        <div class="container px-5 pt-24 mx-auto">
+        <div class="container px-5 pt-24 pb-12 mx-auto">
             <div class="flex flex-col text-center w-full mt-20">
                 <h2 class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">Ваши мнения важны</h2>
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Отзывы наших пациентов</h1>
@@ -38,6 +38,14 @@ import type { IRatings } from '@/types'
 
 definePageMeta({
     layout: 'home-layout'
+})
+
+useHead({
+    title: "Отзывы наших пациентов - Стоматология \"Dental Implantology\"",
+    meta: [
+        { name: "description", content: "Прочитайте отзывы наших довольных пациентов. Узнайте, почему они выбирают стоматологическую клинику \"Dental Implantology\"" },
+        { name: "keywords", content: "отзывы, пациенты, стоматология, опыт пациентов" },
+    ]
 })
 
 const { getRatings, createRating } = useRatings()
