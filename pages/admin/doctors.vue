@@ -22,6 +22,9 @@
             <template #table-item-name="{tableItem}">
                 <span class="text-xs text-balance">{{ tableItem.first_name }} {{ tableItem.middle_name }} {{ tableItem.last_name }}</span>
             </template>
+            <template #table-item-spec="{tableItem}">
+                <span class="text-xs text-balance">{{ specs[tableItem.content as keyof typeof specs] }}</span>
+            </template>
             <template #table-item-created_at="{tableItem}">
                 <span class="text-xs text-balance">{{ new Date(tableItem.created_at!).toLocaleString() }}</span>
             </template>
@@ -51,17 +54,12 @@
             <site-input required v-model="doctor.phone" placeholder="Phone" />
             <site-input required v-model="doctor.birth_date" placeholder="Birth Date" type="date" />
 
+            <site-select required v-model="doctor.content" :items="Object.keys(specs).map(k => ({name: specs[k as keyof typeof specs], value: k}))" placeholder="Спецализатция" :nullvalue="''" />
+
             <site-textarea required v-model="doctor.educations" placeholder="Education" />
             <site-textarea required v-model="doctor.experiences" placeholder="Expreince" />
             <site-textarea required v-model="doctor.licences" placeholder="Licence" />
             <site-textarea required v-model="doctor.certificates" placeholder="Certificates" />
-
-            <!-- <div class="w-full border overflow-hidden rounded">
-                <select required v-model="doctor.experience" class="text-sm px-3 py-2 w-full outline-none resize-none">
-                    <option :value="undefined" disabled>Специальность</option>
-                    <option v-for="c in speciality_list" :value="c.id" :key="c.id">{{ c.name_ru }}</option>
-                </select>
-            </div> -->
 
             <div class="w-full" hidden>
                 <input @change="onFileChange" id="file-input" accept="image/*" type="file" placeholder="Фото для ава">
@@ -82,7 +80,8 @@
 </template>
 
 <script setup lang="ts">
-import type { IDoctor, Specialty } from '@/types'
+import { specs } from '@/constants'
+import type { IDoctor } from '@/types'
 
 definePageMeta({
   layout: 'admin-layout',
@@ -97,12 +96,11 @@ const count = ref<number>(0)
 const items = ref<IDoctor[]>([])
 const itemIndex = ref<number|null>(null)
 const createLoading = ref<boolean>(false)
-const speciality_list = ref<Specialty[]>([])
 const doctor = reactive<IDoctor>({
     avatar: "",
     birth_date: "",
     certificates: "",
-    content: "<b>bold text</b>",
+    content: "",
     educations: "",
     experience: 0,
     experiences: "",
@@ -123,6 +121,7 @@ const headers = [
     { name: "Имя и фамилия", value: "name", sortable: true, balancedText: false, custom: true },
     { name: "Опыт", value: "experiences", sortable: true, balancedText: false, custom: false },
     { name: "Образование", value: "educations", sortable: true, balancedText: false, custom: false },
+    { name: "Спецализатция", value: "spec", sortable: true, balancedText: false, custom: true },
     // { name: "Специальность", value: "specialty", sortable: true, balancedText: false, custom: false },
     { name: "Дата", value: "created_at", sortable: true, balancedText: false, custom: true },
     { name: "Управлять", value: "actions", sortable: true, balancedText: false, custom: true },
@@ -200,19 +199,22 @@ const save = async () => {
 const close = () => {
     delete doctor.id
     Object.assign(doctor, {
-        name: "",
-        education: "",
-        experience: "",
+        avatar: "",
+        birth_date: "",
+        certificates: "",
+        content: "",
+        educations: "",
+        experience: 0,
+        experiences: "",
+        first_name: "",
+        rating: 0,
+        is_active: false,
+        is_published: false,
+        last_name: "",
+        licences: "",
+        middle_name: "",
         phone: "",
-        image: "",
-        thumb: "",
-        fb: "",
-        in: "",
-        tg: "",
-        inst: "",
-        publish: false,
-        laboratory: false,
-        speciality_id: [],
+        user_type: "DOCTOR",
     })
     file.value = null
     dialog.value = false

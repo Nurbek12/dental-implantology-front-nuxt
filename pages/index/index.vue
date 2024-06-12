@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <div class="relative py-36">
+    <div class="relative py-16 md:py-36">
         <div class="container mx-auto">
 
             <div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
@@ -69,7 +69,7 @@
         </div>
     </div>
     
-    <div class="relative py-36">
+    <div class="relative py-10 md:py-36">
         <div class="container">
             <div class="h-full flex flex-col md:flex-row items-center justify-between gap-8">
                 <div class="w-full md:w-[50%]">
@@ -106,7 +106,7 @@
         </div>
     </div>
 
-    <div class="relative py-36">
+    <div class="relative py-10 md:py-36">
         <div class="container mx-auto">
             <div class="flex justify-center mb-8">
                 <div class="text-center">
@@ -144,7 +144,7 @@
         </div>
     </div>
 
-    <div class="relative py-36">
+    <div class="relative py-10 md:py-36">
         <div class="container mx-auto">
             <div class="bg-blue-50 rounded-lg p-8">
 

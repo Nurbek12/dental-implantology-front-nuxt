@@ -5,17 +5,19 @@
             <label :for="randomid" class="text-xs text-gray-500 font-medium">{{ props.label }}</label>
         </div>
         <div class="border rounded overflow-hidden">
-            <input :id="randomid" @input="emits('inputed', $event)" class="w-full outline-none h-full px-4 py-2" :required="!!props.required" :type="props.type||'text'" :placeholder="props.placeholder||''" v-model="model">
+            <input :id="randomid" @input="emits('inputed', $event);isOpen=true" class="w-full outline-none h-full px-4 py-2" :required="!!props.required" :type="props.type||'text'" :placeholder="props.placeholder||''" v-model="str">
         </div>
-        <div class="absolute w-full" v-show="!!model?.trim()">
+        <div class="absolute w-full border shadow-md" v-show="isOpen">
             <div v-show="items.length===0" class="flex items-center justify-center gap-1 w-full bg-white py-2">
-                <span v-show="!loading">Пусто</span>
+                <span v-show="!loading" class="text-xs">Пусто</span>
                 <McLoading2Line class="w-6 h-6 animate-spin" v-show="loading" />
-                <span v-show="loading" class="mb-0.5">Загрузка...</span>
+                <span v-show="loading" class="mb-0.5 text-xs">Загрузка...</span>
             </div>
 
             <div class="w-full">
-                <p v-for="i in items" class="cursor-pointer px-4 py-2 bg-white hover:bg-gray-50 active:bg-gray-100">{{ i }}</p>
+                <p v-for="item,i in items" :key="item" class="cursor-pointer px-4 py-2 bg-white hover:bg-gray-50 active:bg-gray-100 border-b">
+                    <slot name="item" :item="item" :index="i" @selected="(e1, e2) => {str=e1;model=e2;isOpen=false}" />
+                </p>
             </div>
         </div>
     </div>
@@ -25,9 +27,11 @@
 import { v4 } from 'uuid'
 import { McLoading2Line } from '@kalimahapps/vue-icons'
 
+const str = ref('')
+const isOpen = ref(false)
 const randomid = v4()
 const emits = defineEmits(['inputed'])
-const model = defineModel<string>()
+const model = defineModel<string|number|null>()
 const props = defineProps<{
     icon?: any
     type?: string

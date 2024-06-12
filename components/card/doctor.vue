@@ -9,7 +9,7 @@
         <div class="pt-14">
             <div class="px-4 pb-2 text-center space-y-2">
                 <div>
-                    <span class="text-sm text-primary-600 font-medium">{{ props?.doctor?.experience }} лет опыта</span>
+                    <span class="text-sm text-primary-600 font-medium">{{ specs[props?.doctor?.content as keyof typeof specs] }} - {{ props?.doctor?.experience }} лет опыта</span>
                     <p class="text-lg font-bold">{{ props?.doctor?.first_name }} {{ props?.doctor?.middle_name }} {{ props?.doctor?.last_name }}</p>
                     <!-- <router-link :to="`/user/${user.id}`" class="text-lg font-bold">{{ props.user.first_name }} {{ props.user.last_name }}</router-link> -->
                 </div>
@@ -34,6 +34,7 @@
 </template>
 
 <script setup lang="ts">
+import { specs } from '@/constants'
 import type { IDoctor } from '~/types'
 
 const emits = defineEmits(['logout', 'edit-profile'])

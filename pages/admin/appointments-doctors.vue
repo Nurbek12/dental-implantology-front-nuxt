@@ -55,7 +55,22 @@
         <form @submit.prevent="save" class="bg-white w-full space-y-4 mt-4">
             <site-input @inputed="console.log($event.target.value)" v-model="$item.start_time" label="Start Time" type="datetime-local" />
             <site-input v-model="$item.end_time" label="End Time" type="datetime-local" />
-            <site-select v-model="$item.patient" :items="patients" name="first_name" value="id" label="Patient" placeholder="Patient" :nullvalue="null" />
+            
+            <site-auto-complete v-if="!$item.id" v-model="$item.patient" @inputed="searching" :loading="patientLoading" :items="patients" label="Пациент" placeholder="Пациент" :nullvalue="null">
+                <template #item="acItem">
+                    <div class="flex items-center gap-2" @click="acItem.onSelected(`${acItem.item.first_name} ${acItem.item.middle_name } ${acItem.item.last_name}`, acItem.item.id)">
+                        <div>
+                            <img srcset="/images/nophoto.jpg" :src="acItem.item?.avatar||'/images/nophoto.jpg'" class="w-[35px] h-[35px] rounded-full object-cover">
+                        </div>
+                        <div class="mb-2">
+                            <span class="text-sm">{{acItem.item.first_name}} {{ acItem.item.middle_name }} {{acItem.item.last_name}}</span>
+                            <p class="text-xs text-gray-700">{{ acItem.item.phone }}</p>
+                        </div>
+                    </div>
+                </template>
+            </site-auto-complete>
+                
+            
             <site-select v-model="$item.service" :items="services" @changed="changePrice" name="name_ru" value="id" label="Service" placeholder="Service" :nullvalue="null" />
             <site-input v-model="$item.price" label="Price" type="number" placeholder="Priced" />
             <site-btn type="submit" :disabled="loading||!!$item.id">Create an Appointment</site-btn>
@@ -64,6 +79,7 @@
 </template>
 
 <script setup lang="ts">
+import lodash from 'lodash'
 import { todayDate, formatDate } from '@/constants'
 import type { IAppointment, IPatient, IService } from '@/types'
 
@@ -81,6 +97,7 @@ const filterdate = ref('')
 const user = useUserData()
 const loading = ref(false)
 const count = ref<number>(0)
+const patientLoading = ref(false)
 const items = ref<IAppointment[]>([])
 const itemIndex = ref<number|null>(null)
 const createLoading = ref<boolean>(false)
@@ -183,10 +200,8 @@ const close = () => {
 const init = async () => {
     initToday()
     
-    const p = await getPatients({page: 1, limit: 1000})
     const s = await getServices({page: 1, limit: 1000})
 
-    patients.value = p.results
     services.value = s.results
 }
 
@@ -194,6 +209,14 @@ const initToday = () => {
     const todaydate = todayDate()
     filterdate.value = todaydate
 }
+
+const searching = lodash.debounce(async (e) => {
+    if(!e.target.value?.trim()) return patients.value = []
+    patientLoading.value = true
+    const p = await getPatients({page: 1, limit: 1000, search: e.target.value})
+    patients.value = p.results
+    patientLoading.value = false
+}, 500)
 
 init()
 </script>

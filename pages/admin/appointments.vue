@@ -33,9 +33,22 @@
 
         <app-dialog :open="dialog" @close-dialog="close" title="Подробности приема" rounded>
             <form @submit.prevent="createItem" class="bg-white w-full space-y-4 mt-4">
-                <site-input @inputed="console.log($event.target.value)" v-model="$item.start_time" label="Время начала" type="datetime-local" />
-                <site-input v-model="$item.end_time" label="Время окончания" type="datetime-local" />
-                <site-select v-model="$item.patient" :items="patients" name="first_name" value="id" label="Пациент" placeholder="Пациент" :nullvalue="null" />
+                <site-input readonly v-model="$item.start_time" label="Время начала" type="datetime-local" />
+                <site-input readonly v-model="$item.end_time" label="Время окончания" type="datetime-local" />
+                <site-auto-complete v-if="!$item.id" v-model="$item.patient" @inputed="searching" :loading="patientLoading" :items="patients" label="Пациент" placeholder="Пациент" :nullvalue="null">
+                    <template #item="acItem">
+                        <div class="flex items-center gap-2" @click="acItem.onSelected(`${acItem.item.first_name} ${acItem.item.middle_name } ${acItem.item.last_name}`, acItem.item.id)">
+                            <div>
+                                <img srcset="/images/nophoto.jpg" :src="acItem.item?.avatar||'/images/nophoto.jpg'" class="w-[35px] h-[35px] rounded-full object-cover">
+                            </div>
+                            <div class="mb-2">
+                                <span class="text-sm">{{acItem.item.first_name}} {{ acItem.item.middle_name }} {{acItem.item.last_name}}</span>
+                                <p class="text-xs text-gray-700">{{ acItem.item.phone }}</p>
+                            </div>
+                        </div>
+                    </template>
+                </site-auto-complete>
+                
                 <site-select v-model="$item.doctor" :items="doctors" name="first_name" value="id" label="Врач" placeholder="Врач" :nullvalue="null" />
                 <site-select v-model="$item.service" :items="services" @changed="changePrice" name="name_ru" value="id" label="Услуга" placeholder="Услуга" :nullvalue="null" />
                 <site-input v-model="$item.price" label="Price" type="number" placeholder="Price" />
@@ -46,6 +59,7 @@
 </template>
 
 <script setup lang="ts">
+import lodash from 'lodash'
 import { todayDate, formatDate, formatDateJson } from '@/constants'
 import type { IAppointment, IDoctor, IPatient, IService, } from '@/types'
 
@@ -58,6 +72,7 @@ const itemIndex = ref(-1)
 const dialog = ref(false)
 const loading = ref(false)
 const items = ref<IDoctor[]>([])
+const patientLoading = ref(false)
 const doctors = ref<IDoctor[]>([])
 const services = ref<IService[]>([])
 const patients = ref<IPatient[]>([])
@@ -127,11 +142,13 @@ const selectItem = (index: number, hour: string, doctor: IDoctor | null, app?: I
     })
 }
 
-// const deleteItem = async (id: number, index: number) => {
-    // if(!confirm('Вы хотите удалить это?')) return
-    // console.log('Deleted', id)
-    // items.value.splice(index, 1)
-// }
+const searching = lodash.debounce(async (e) => {
+    if(!e.target.value?.trim()) return patients.value = []
+    patientLoading.value = true
+    const p = await getPatients({page: 1, limit: 1000, search: e.target.value})
+    patients.value = p.results
+    patientLoading.value = false
+}, 500)
 
 const changePrice = (e: any) => {
     const service = services.value.find(s => s.id === +e.target.value)
@@ -158,11 +175,7 @@ const createItem = async () => {
 }
 
 const init = async () => {
-    const a = await getAppointments({start_time:todayDate()})
-    const d = await getDoctors({page: 1, limit: 1000})
-
-    const p = await getPatients({page: 1, limit: 1000})
-    const s = await getServices({page: 1, limit: 1000})
+    const [a,d,s] = await Promise.all([getAppointments({start_time:todayDate()}),getDoctors({page: 1, limit: 1000}),getServices({page: 1, limit: 1000})])
 
     items.value = d.results.map(di => {
         const appointments = a.results.filter(ai => (ai.doctor as any).id === di.id)
@@ -170,7 +183,6 @@ const init = async () => {
         return di
     })
     doctors.value = d.results
-    patients.value = p.results
     services.value = s.results
 }
 

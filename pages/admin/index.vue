@@ -23,7 +23,6 @@
       </div>
 
       <div class="mt-4"></div>
-      <site-auto-complete @inputed="searching" :loading="loading" :items="items" />
     </div>
     <div class="hidden">
       <span class="bg-red-500/20 text-red-500"></span>
@@ -34,11 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import lodash from 'lodash'
-
 const tab_data = reactive<any>({})
-const items = ref<any[]>([])
-const loading = ref(false)
 
 definePageMeta({
   layout: 'admin-layout',
@@ -49,15 +44,6 @@ const init = async () => {
   // const data = await $fetch('/api/info/admin')
   // Object.assign(tab_data, data)
 }
-
-const searching = lodash.debounce((e) => {
-  loading.value = true
-  setTimeout(() => {
-    items.value = Array(Math.floor(Math.random()*4 + 3)).fill(0).map(() => Math.floor(Math.random()*20 + 30))
-    loading.value = false
-    // items
-  }, 500)
-}, 500)
 
 init()
 </script>

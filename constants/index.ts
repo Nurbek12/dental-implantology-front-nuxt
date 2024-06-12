@@ -54,7 +54,7 @@ export const admin_links = {
     "ADMIN": [
         { title: 'Главная', icon: AkDashboard, url: '/admin' },
         { title: 'Записи на прием', icon: CaDataTable, url: '/admin/appointments' },
-        { title: 'Специализации', icon: MaDoctor, url: '/admin/specialities' },
+        // { title: 'Специализации', icon: MaDoctor, url: '/admin/specialities' },
         { title: 'Докторы', icon: HeFilledDoctorMale, url: '/admin/doctors' },
         { title: 'Пациенты', icon: FaUserInjured, url: '/admin/patients' },
         { title: 'Услуги', icon: GlWork, url: '/admin/services' },
@@ -81,7 +81,6 @@ export const site_links = [
     // { title: 'Отзывы', url: '/reviews' },
     { title: 'Контакты', url: '/contact' },
 ]
-
 
 // export const formatDate = (dateString: string, prefix1: ', ' | 'T' = ', ') => {
     
@@ -155,4 +154,11 @@ export const todayDate = () => {
     const day = String(today.getDate()).padStart(2, '0');
 
     return `${year}-${month}-${day}`;
+}
+
+export const specs = {
+    therapy: 'Терапия',
+    surgery: 'Хирургия',
+    orthodontics: 'Ортодонтия',
+    orthopedics: 'Ортопедия'
 }
