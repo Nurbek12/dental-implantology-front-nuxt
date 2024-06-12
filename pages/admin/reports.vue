@@ -1,7 +1,7 @@
 <template>
     <div class="w-full p-2">
         <div class="p-2 rounded border flex justify-between items-center gap-2 bg-white">
-            <site-input v-model="filterdate" type="date" placeholder="Поиск" @changed="console.log($event)" />
+            <site-input v-model="filterdate" type="date" placeholder="Поиск" @changed="getItems({date:$event.target.value})" />
             <div class="flex items-center gap-2">
                 <app-btn @click="dialog1=true">Добавить прибыль</app-btn>
                 <app-btn @click="dialog2=true">Добавить расход</app-btn>
@@ -103,6 +103,7 @@
 </template>
 
 <script setup lang="ts">
+import { todayDate } from '~/constants'
 import type { IAppointment, IReport } from '@/types'
 
 definePageMeta({
@@ -156,21 +157,17 @@ const headers1 = [
 ]
 
 const initToday = () => {
-    const today = new Date();
-    const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0');
-    const day = String(today.getDate()).padStart(2, '0');
-
-    const todaydate = `${year}-${month}-${day}`;
+    const todaydate = todayDate()
     filterdate.value = todaydate
     consumption.date = todaydate
     profit.date = todaydate
+    
 }
 
 const getItems = async (params: any) => {
     try {
         loading.value = true
-        const data = await getReports({})
+        const data = await getReports(params)
         item.value = data.results[0]
         // const data = await getDoctors(params)
         // items.value = data.results
@@ -210,7 +207,7 @@ const close = () => {
 
 const init = async () => {
     initToday()
-    getItems({})
+    getItems({date: filterdate.value})
     const data = await getAppointments({})
     appointments.value = data.results
 }

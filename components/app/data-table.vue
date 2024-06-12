@@ -64,17 +64,17 @@
         <div class="border rounded flex items-center justify-between gap-4 bg-white p-2">
             <span class="text-sm">{{ limit*(page-1)+1 }}-{{ limit*(page-1)+items.length }} / {{ count }}</span>
             <div class="flex items-center gap-2">
-                <site-button size="small" :disabled="page===1" @click="page--,handleFetching()">
+                <site-btn size="small" :disabled="page===1" @click="page--,handleFetching()">
                     <AkChevronLeft />
-                </site-button>
+                </site-btn>
 
-                <site-button  v-if="totalPages===undefined" size="small" :disabled="page >= Math.ceil(count / limit)" @click="page++,handleFetching()">
+                <site-btn  v-if="totalPages===undefined" size="small" :disabled="page >= Math.ceil(count / limit)" @click="page++,handleFetching()">
                     <AkChevronRight />
-                </site-button>
+                </site-btn>
 
-                <site-button  v-else size="small" :disabled="page >= totalPages" @click="page++,handleFetching()">
+                <site-btn  v-else size="small" :disabled="page >= totalPages" @click="page++,handleFetching()">
                     <AkChevronRight />
-                </site-button>
+                </site-btn>
             </div>
         </div>
     </div>

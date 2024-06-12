@@ -39,7 +39,7 @@
                     </div>
                     <site-input required v-model="review.phone" placeholder="example@mail.com" label="Электронная почта" />
                     <site-textarea required v-model="review.comment" placeholder="Напишите..." label="Сообщения" />
-                    <site-button type="submit" class="w-full">Отправить</site-button>
+                    <site-btn type="submit" class="w-full">Отправить</site-btn>
                 </div>
                 <p class="text-xs text-gray-500 mt-3">Наши специалисты свяжутся с вами в ближайшее время. Пожалуйста, укажите свои контактные данные и кратко опишите ваш запрос. Мы ценим ваше время и стремимся ответить на все обращения как можно быстрее.</p>
             </form>

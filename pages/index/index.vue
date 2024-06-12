@@ -1,5 +1,8 @@
 <template>
     <div class="relative">
+        <div class="absolute z-0 w-full h-full">
+            <nuxt-img class="w-full h-full object-cover opacity-30" src="https://img.freepik.com/free-photo/woman-patient-dentist_1303-9355.jpg?t=st=1718099008~exp=1718102608~hmac=e651b7e9b4e19a5c709c8e724e92910bcf52a60f2e00a9020993763c5f677eed&w=996" width="600" height="600" alt="image" />
+        </div>
         <div class="container h-screen relative z-10">
             <div class="flex items-center h-screen md:h-full">
                 <div class="w-full md:w-[50%] pr-2">
@@ -24,7 +27,7 @@
                     </div>
                     <div class="flex-grow">
                         <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ c.title }}</h2>
-                        <p class="leading-relaxed text-base">{{ c.description }}</p>
+                        <p class="leading-relaxed text-sm">{{ c.description }}</p>
                     </div>
                 </div>
 
@@ -36,8 +39,8 @@
     <div class="relative py-8">
         <div class="container">
             <div class="h-full flex items-center justify-between gap-8">
-                <div class="w-0 md:w-[50%]">
-                    <img src="https://img.freepik.com/free-photo/orthodontist-with-latex-glove-handling-dental-equipment_23-2148985840.jpg?t=st=1717834896~exp=1717838496~hmac=4e0b454948a2c0f393dbc65fa8d551a9f367db3ca6f0776466054d1daad84bb4&w=996" class="w-full h-[480px] object-cover rounded">
+                <div class="hidden md:block w-0 md:w-[50%]">
+                    <nuxt-img src="https://img.freepik.com/free-photo/orthodontist-with-latex-glove-handling-dental-equipment_23-2148985840.jpg?t=st=1717834896~exp=1717838496~hmac=4e0b454948a2c0f393dbc65fa8d551a9f367db3ca6f0776466054d1daad84bb4&w=996" class="w-full h-[550px] object-cover rounded" />
                 </div>
                 <div class="w-full md:w-[50%]">
                     <site-content
@@ -49,14 +52,16 @@
                         <br>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="flex items-center gap-2" v-for="item,i in index_about_items" :key="i">
-                                <BxSolidBadgeCheck class="text-blue-500 w-6 h-6" />
+                                <div>
+                                    <BxSolidBadgeCheck class="text-blue-500 w-6 h-6" />
+                                </div>
                                 <span class="font-medium">{{ item }}</span>
                             </div>
                         </div>
                         <br>
                         <!-- <div class="flex flex-col md:flex-row gap-4 items-start md:items-center">
-                            <site-button>Узнать больше</site-button>
-                            <site-button>Записаться на прием</site-button>
+                            <site-btn>Узнать больше</site-btn>
+                            <site-btn>Записаться на прием</site-btn>
                         </div> -->
                     </site-content>
                 </div>
@@ -76,23 +81,23 @@
                         <p>Наша команда квалифицированных специалистов имеет большой опыт работы и постоянно совершенствует свои навыки, чтобы предоставлять услуги на самом высоком уровне. Мы ценим доверие наших пациентов и стараемся превзойти их ожидания. Выберите нас и наслаждайтесь здоровой и красивой улыбкой!</p>
                     </site-content>
                 </div>
-                <div class="w-0 md:w-[50%]">
+                <div class="w-0 md:w-[50%] hidden md:block">
                     <img src="https://img.freepik.com/free-photo/crop-doctor-with-clipboard_23-2147896195.jpg?t=st=1717834925~exp=1717838525~hmac=0c3fb706eb533f74aab08af08fe68b719fa97d5eadd5336b1fc997cbbac93d17&w=996" class="w-full h-[400px] object-cover rounded">
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="relative py-16 bg-blue-50">
+    <div class="relative py-16">
         <div class="container mx-auto">
-            <div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class=" bg-blue-50 p-8 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 
                 <div class="flex items-center gap-4" v-for="c,i in index_statistics" :key="i">
                     <div class="bg-blue-500 rounded p-4">
                         <component class="text-white w-9 h-9" :is="c.icon"></component>
                     </div>
                     <div>
-                        <h1 class="font-bold text-3xl">{{ (c.count).toLocaleString('en-US') }} <span class="text-blue-500">+</span></h1>
+                        <h1 class="font-bold text-3xl">{{ (c.count).toLocaleString('en-US') }}<span class="text-blue-500">+</span></h1>
                         <p class="text-gray-600">{{ c.title }}</p>
                     </div>
                 </div>
@@ -121,7 +126,7 @@
         </div>
     </div>
 
-    <div class="relative py-36">
+    <div class="relative">
         <div class="container mx-auto">
             <div class="flex justify-center mb-8">
                 <div class="text-center">
@@ -150,7 +155,7 @@
                         title="Почему важно регулярно посещать стоматолога?"
                         description="Регулярные визиты к стоматологу играют ключевую роль в поддержании здоровья полости рта и профилактике серьезных заболеваний. В этом блоге мы расскажем, почему регулярные осмотры так важны, как часто стоит посещать стоматолога и какие преимущества это приносит. Вы узнаете, как своевременное выявление проблем может предотвратить их развитие и сэкономить вам время, деньги и нервы в будущем. Прочитайте наши советы и будьте уверены в здоровье своей улыбки!">
                         <br>
-                        <site-button>Записаться на прием</site-button>
+                        <site-btn>Записаться на прием</site-btn>
                     </site-content>
                     
                 </div>

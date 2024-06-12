@@ -2,12 +2,12 @@
     <div class="h-[100vh] flex items-center justify-center px-2">
         <div class="max-w-[420px] w-full p-4 border rounded overflow-hidden">
             <form @submit.prevent="" class="w-full">
-                <h1 class="text-2xl text-center font-medium text-blue-600">Войти в систему</h1>
+                <h1 class="text-2xl text-center font-medium text-primary-600">Войти в систему</h1>
                 <p v-show="err" class="text-center text-sm text-red-600">Логин или пароль неправилный!</p>
                 <div class="space-y-4 pt-4">
                     <site-input required v-model="form_data.login" placeholder="Логин" />
                     <site-input required v-model="form_data.password" placeholder="Пароль" type="password" />
-                    <site-button type="submit" :disabled="loading" class="w-full">Отправить</site-button>
+                    <site-btn type="submit" :disabled="loading" class="w-full">Отправить</site-btn>
                 </div>
             </form>
         </div>

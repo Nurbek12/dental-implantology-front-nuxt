@@ -12,7 +12,7 @@
     <div class="relative py-8">
         <div class="container">
             <div class="mb-4">
-                <site-button @click="dialog=true">Create an Review</site-button>
+                <site-btn @click="dialog=true">Create an Review</site-btn>
             </div>
             <div class="grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 <card-review v-for="item,i in items" :item="item" :key="i" />
@@ -28,7 +28,7 @@
             </div>
             <site-textarea v-model="rating.review" required label="Message" placeholder="Message of Appointment" :rows="6" />
             <site-rating v-model="rating.rate" />
-            <site-button type="submit">Create an Review</site-button>
+            <site-btn type="submit">Create an Review</site-btn>
         </form>
     </app-dialog>
 </template>

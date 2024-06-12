@@ -78,26 +78,61 @@ export const site_links = [
     { title: 'О нас', url: '/about' },
     { title: 'Докторы', url: '/doctors' },
     { title: 'Услуги', url: '/services' },
-    { title: 'Отзывы', url: '/reviews' },
+    // { title: 'Отзывы', url: '/reviews' },
     { title: 'Контакты', url: '/contact' },
 ]
 
 
-export const formatDate = (dateString: string, prefix1: ', ' | 'T' = ', ', prefix2: '-' | '.' = '.') => {
-    let year, month, day
+// export const formatDate = (dateString: string, prefix1: ', ' | 'T' = ', ') => {
+    
+//     const [date, time] = dateString.split(prefix1)
+//     const [hours, minutes] = time.split(":")
+//     const dateSplit = new Date(date)
+    
+//     let year = dateSplit.getFullYear(),
+//         month = dateSplit.getMonth()+1,
+//         day = dateSplit.getDate()
 
+//     return `${year}-${month>9?month:'0'+month}-${day>9?day:'0'+day}T${hours}:${minutes}`
+// }
+
+export const formatDate = (dateString: string, prefix1: ', ' | 'T' | '-' = ', ') => {
     const [date, time] = dateString.split(prefix1);
-    const [hours, minutes] = time.split(":")
-    const dateSplit = date.split(prefix2)
-    
-    if(prefix2 === '.')
-        [year, month, day] = [dateSplit[2], dateSplit[1], dateSplit[0]]
-    else
-        [year, month, day] = [dateSplit[0], dateSplit[1], dateSplit[2]]
-    
 
-    return `${year}-${month}-${day}T${hours}:${minutes}`
-}
+    let hours: number;
+    let minutes: string;
+    let period: string | undefined;
+
+    // Check if the time part contains AM or PM
+    if (time.includes('AM') || time.includes('PM')) {
+        [hours, minutes] = time.slice(0, -2).split(":").map(Number) as any;
+        period = time.slice(-2);
+
+        // Convert 12-hour time to 24-hour time
+        if (period === 'PM' && hours !== 12) {
+            hours += 12;
+        } else if (period === 'AM' && hours === 12) {
+            hours = 0;
+        }
+    } else {
+        [hours, minutes] = time.split(":").map(Number) as any;
+    }
+
+    const dateSplit = new Date(date);
+    let year = dateSplit.getFullYear(),
+        month = dateSplit.getMonth() + 1,
+        day = dateSplit.getDate();
+
+    // Ensure month and day are two digits
+    const formattedMonth = month > 9 ? month : '0' + month;
+    const formattedDay = day > 9 ? day : '0' + day;
+
+    // Ensure hours and minutes are two digits
+    const formattedHours = hours > 9 ? hours : '0' + hours;
+    const formattedMinutes = +minutes > 9 ? minutes : '0' + minutes;
+
+    return `${year}-${formattedMonth}-${formattedDay}T${formattedHours}:${formattedMinutes}`;
+};
 
 export const formatDateJson = (dateString: string) => {
     const [date, time] = dateString.split("T");
@@ -111,4 +146,13 @@ export const formatDateJson = (dateString: string) => {
         hours: +hours,
         minutes: +minutes
     }
+}
+
+export const todayDate = () => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+
+    return `${year}-${month}-${day}`;
 }

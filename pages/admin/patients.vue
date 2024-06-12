@@ -11,7 +11,7 @@
             <template #table-top>
                 <div class="hidden lg:block"></div>
                 <div class="hidden lg:block"></div>
-                <button @click="dialog=true" class="bg-[#23408e] hover:bg-[#385399] active:bg-[#3c67d5] disabled:bg-[#1b2e63] text-white rounded text-xs px-3 py-2">Добавить</button>
+                <site-btn @click="dialog=true" size="small">Добавить</site-btn>
             </template>
             <template #table-item-image="{tableItem}">
                 <div class="w-[40px] h-[40px] rounded-full overflow-hidden">
@@ -23,8 +23,8 @@
             </template>
             <template #table-item-actions="{tableItem,index}">
                 <div class="flex gap-1">
-                    <button @click="editItem(tableItem, index)" class="bg-[#23408e] hover:bg-[#385399] active:bg-[#3c67d5] disabled:bg-[#1b2e63] text-white text-xs px-3 py-2 rounded">Изменить</button>
-                    <button @click="deleteItem(tableItem.id!, index)" class="bg-[#23408e] hover:bg-[#385399] active:bg-[#3c67d5] disabled:bg-[#1b2e63] text-white text-xs px-3 py-2 rounded">Удалить</button>
+                    <site-btn @click="editItem(tableItem, index)" size="small">Изменить</site-btn>
+                    <site-btn @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
                 </div>
             </template>
         </app-data-table>
@@ -44,16 +44,13 @@
                 <label for="is_active">Активность</label>
             </div>
 
-            <button :disabled="createLoading" type="submit" class="bg-[#23408e] hover:bg-[#385399] active:bg-[#3c67d5] disabled:bg-[#1b2e63] rounded text-white text-sm px-3 py-2">
-                {{ createLoading?'Загружается':'Сохранить' }}
-            </button>
+            <site-btn :disabled="createLoading" type="submit" size="small">{{ createLoading?'Загружается':'Сохранить' }}</site-btn>
         </form>
     </app-dialog>
 </template>
 
 <script setup lang="ts">
 import type { IPatient } from '@/types'
-// import { ChEyeSlash, GlEye } from '@kalimahapps/vue-icons'
 
 definePageMeta({
   layout: 'admin-layout',

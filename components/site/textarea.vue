@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="flex items-center gap-2 mb-2" v-show="!!props.label || props.icon">
-            <component class="text-blue-500 w-5 h-5" :is="props.icon"></component>
+            <component class="text-primary-500 w-5 h-5" :is="props.icon"></component>
             <label :for="randomid" class="text-sm text-gray-500">{{ props.label }}</label>
         </div>
         <div class="border rounded overflow-hidden">

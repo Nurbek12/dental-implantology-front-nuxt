@@ -1,6 +1,7 @@
 <template>
     <div class="w-full p-2">
         <app-data-table
+            hide-search
             :count="count"
             :items="items"
             :headers="headers"
@@ -8,9 +9,11 @@
             
             @fetching="getItems">
             <template #table-top>
+                <site-input v-model="filterdate" type="date" placeholder="Поиск" @changed="getItems({date:$event.target.value})" />
                 <div class="hidden lg:block"></div>
                 <div class="hidden lg:block"></div>
-                <button @click="dialog=true" class="bg-[#23408e] hover:bg-[#385399] active:bg-[#3c67d5] disabled:bg-[#1b2e63] text-white rounded text-xs px-3 py-2">Добавить</button>
+                <site-btn @click="dialog=true" size="small">Добавить</site-btn>
+
             </template>
             <template #table-item-image="{tableItem}">
                 <div class="w-[40px] h-[40px] rounded-full overflow-hidden">
@@ -41,8 +44,8 @@
             </template>
             <template #table-item-actions="{tableItem,index}">
                 <div class="flex gap-1">
-                    <button @click="editItem(tableItem, index)" class="bg-[#23408e] hover:bg-[#385399] active:bg-[#3c67d5] disabled:bg-[#1b2e63] text-white text-xs px-3 py-2 rounded">Изменить</button>
-                    <button @click="deleteItem(tableItem.id!, index)" class="bg-[#23408e] hover:bg-[#385399] active:bg-[#3c67d5] disabled:bg-[#1b2e63] text-white text-xs px-3 py-2 rounded">Удалить</button>
+                    <site-btn @click="editItem(tableItem, index)" size="small">Изменить</site-btn>
+                    <site-btn @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
                 </div>
             </template>
         </app-data-table>
@@ -55,14 +58,14 @@
             <site-select v-model="$item.patient" :items="patients" name="first_name" value="id" label="Patient" placeholder="Patient" :nullvalue="null" />
             <site-select v-model="$item.service" :items="services" @changed="changePrice" name="name_ru" value="id" label="Service" placeholder="Service" :nullvalue="null" />
             <site-input v-model="$item.price" label="Price" type="number" placeholder="Priced" />
-            <site-button type="submit" :disabled="loading||!!$item.id">Create an Appointment</site-button>
+            <site-btn type="submit" :disabled="loading||!!$item.id">Create an Appointment</site-btn>
         </form>
     </app-dialog>
 </template>
 
 <script setup lang="ts">
-import { formatDate, formatDateJson } from '@/constants'
-import type { IAppointment, IDoctor, IPatient, IService } from '@/types'
+import { todayDate, formatDate } from '@/constants'
+import type { IAppointment, IPatient, IService } from '@/types'
 
 definePageMeta({
   layout: 'admin-layout',
@@ -72,9 +75,10 @@ definePageMeta({
 const { getPatients } = usePatients()
 const { getServices } = useServices()
 const { getAppointments, createAppointment, deleteAppointment, updateAppointment } = useAppointments()
-const user = useUserData()
 
 const dialog = ref(false)
+const filterdate = ref('')
+const user = useUserData()
 const loading = ref(false)
 const count = ref<number>(0)
 const items = ref<IAppointment[]>([])
@@ -112,7 +116,8 @@ const changePrice = (e: any) => {
 const getItems = async (params: any) => {
     try {
         loading.value = true
-        const data = await getAppointments(params)
+        const data = await getAppointments({...params, start_time: filterdate.value, ordering:'-created_at'})
+        // doctor=doctorid
         items.value = data.results
         count.value = data.count
     } catch (error) {
@@ -130,8 +135,8 @@ const editItem = (item: IAppointment, index: number) => {
         ...item,
         patient: (item?.patient as any).id,
         service: (item?.service as any).id,
-        end_time: formatDate(item?.end_time!, 'T', '-'),
-        start_time: formatDate(item?.start_time!, 'T', '-'),
+        end_time: formatDate(item?.end_time!, 'T'),
+        start_time: formatDate(item?.start_time!, 'T'),
     })
 }
 
@@ -143,7 +148,7 @@ const deleteItem = async (id: number, index: number) => {
 
 const create = async (body: any) => {
     const data = await createAppointment(body)
-    items.value.push(data as any)
+    items.value.unshift(data as any)
 }
 
 const update = async (index: number, body: any, id: any) => {
@@ -176,11 +181,18 @@ const close = () => {
 }
 
 const init = async () => {
+    initToday()
+    
     const p = await getPatients({page: 1, limit: 1000})
     const s = await getServices({page: 1, limit: 1000})
 
     patients.value = p.results
     services.value = s.results
+}
+
+const initToday = () => {
+    const todaydate = todayDate()
+    filterdate.value = todaydate
 }
 
 init()

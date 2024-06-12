@@ -3,7 +3,7 @@
         <div class="p-2 flex flex-col gap-1">
             <nuxt-link v-for="link, i in admin_links.ADMIN" :key="i" :to="link.url">
                 <div class="px-2 py-2 rounded w-full overflow-hidden flex whitespace-nowrap items-center gap-6 transition-all"
-                    :class="current_router === link.url ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'text-gray-500 hover:bg-gray-400/20'">
+                    :class="current_router === link.url ? 'bg-primary-600 hover:bg-primary-700 text-white' : 'text-gray-500 hover:bg-gray-400/20'">
                     <div>
                         <component :is="link.icon" class="text-2xl" />
                     </div>

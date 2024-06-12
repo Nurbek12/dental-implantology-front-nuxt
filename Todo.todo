@@ -1,3 +1,5 @@
-[-] Add filter for doctor appointment
-[-] Add profit in report and filter with date
-[-] Add doctor date
+[+] Add filter for doctor appointment
+[+] Add profit in report and filter with date
+[+] Add doctor date
+[+] Fix bug in appointments table with start,end itmes
+[-] Add autocomplete

@@ -27,7 +27,7 @@
     </div>
     <div class="hidden">
       <span class="bg-red-500/20 text-red-500"></span>
-      <span class="bg-blue-500/20 text-blue-500"></span>
+      <span class="bg-primary-500/20 text-primary-500"></span>
       <span class="bg-yellow-400/20 text-yellow-400"></span>
       <span class="bg-green-500/20 text-green-500"></span>
     </div>
