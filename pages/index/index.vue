@@ -1,10 +1,10 @@
 <template>
     <div class="relative">
         <div class="absolute z-0 w-full h-full">
-            <nuxt-img class="w-full h-full object-cover opacity-30" src="https://img.freepik.com/free-photo/woman-patient-dentist_1303-9355.jpg?t=st=1718099008~exp=1718102608~hmac=e651b7e9b4e19a5c709c8e724e92910bcf52a60f2e00a9020993763c5f677eed&w=996" width="600" height="600" alt="image" />
+            <nuxt-img class="w-full h-full object-cover opacity-20" src="/images/home-bg-1.jpg" width="600" height="600" alt="image" />
         </div>
         <div class="container h-screen relative z-10">
-            <div class="flex items-center h-screen md:h-full">
+            <div class="flex items-center h-full">
                 <div class="w-full md:w-[50%] pr-2">
                     <site-content
                         subtitle="👋Здоровая улыбка с нашей помощью!"
@@ -12,18 +12,18 @@
                         description="В нашей клинике вы можете пройти диагностику и лечение заболеваний зубов и десен, а также провести профилактические процедуры, которые помогут избежать проблем в будущем. Кроме того, мы предлагаем услуги по эстетической стоматологии, которые помогут вам улучшить внешний вид вашей улыбки." />
                 </div>
             </div>
-            <div class="relative h-[140px] md:h-0">
-                <div class="absolute bottom-8 rounded-md p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end shadow-xl shadow-[#0001] bg-white w-full">
-                    <site-input :icon="MdRoundAlternateEmail" label="Почта" placeholder="Почта" />
-                    <site-input :icon="FePhone" label="Телефон" placeholder="Телефон" />
-                    <site-input :icon="BsCalendarWeek" label="Дата" type="date" />
-                    <site-btn>Забронируйте сейчас</site-btn>
-                </div>
+            <div class="relative h-[140px]">
+                <form @submit.prevent="handleRecord" class="absolute bottom-8 rounded-md p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end shadow-xl shadow-[#0001] bg-white w-full">
+                    <site-input v-model="review.first_name" required :icon="MdRoundAlternateEmail" label="Имя и фамилия" placeholder="Имя и фамилия" />
+                    <site-input v-model="review.phone" required :icon="FePhone" label="Телефон" placeholder="Телефон" />
+                    <site-input v-model="review.comment" required :icon="BsCalendarWeek" label="Дата" type="date" />
+                    <site-btn type="submit">Записаться на прием</site-btn>
+                </form>
             </div>
         </div>
     </div>
 
-    <div class="relative py-16 md:py-36">
+    <div class="relative pb-20 pt-36 md:pb-36">
         <div class="container mx-auto">
 
             <div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
@@ -47,7 +47,7 @@
         <div class="container">
             <div class="h-full flex items-center justify-between gap-8">
                 <div class="hidden md:block w-0 md:w-[50%]">
-                    <nuxt-img src="https://img.freepik.com/free-photo/orthodontist-with-latex-glove-handling-dental-equipment_23-2148985840.jpg?t=st=1717834896~exp=1717838496~hmac=4e0b454948a2c0f393dbc65fa8d551a9f367db3ca6f0776466054d1daad84bb4&w=996" class="w-full h-[550px] object-cover rounded" />
+                    <nuxt-img src="/images/carousel-bg-2.jpg" class="w-full h-[550px] object-cover rounded" />
                 </div>
                 <div class="w-full md:w-[50%]">
                     <site-content
@@ -189,12 +189,37 @@ useHead({
     ]
 })
 
-const { getServices } = useServices()
 const items = ref<IService[]>([])
+const { getServices } = useServices()
+const { createRecord } = useInitialRecords()
 
 const init = async () => {
     const data = await getServices({page: 1, limit: 12})
     items.value = data.results
+}
+
+const review = reactive({
+    first_name: "",
+    last_name: "client",
+    phone: "",
+    email: "",
+    comment: ""
+})
+
+const handleRecord = async () => {
+    try {
+        await createRecord(JSON.stringify(review))
+        alert('Successfully sended')
+    } catch (error) {
+        alert('Wrong with sending!')
+    } finally {
+        Object.assign(review, {
+            first_name: "",
+            last_name: "",
+            phone: "",
+            comment: ""  
+        })
+    }
 }
 
 init()
