@@ -12,7 +12,14 @@
                         description="В нашей клинике вы можете пройти диагностику и лечение заболеваний зубов и десен, а также провести профилактические процедуры, которые помогут избежать проблем в будущем. Кроме того, мы предлагаем услуги по эстетической стоматологии, которые помогут вам улучшить внешний вид вашей улыбки." />
                 </div>
             </div>
-
+            <div class="relative h-[140px] md:h-0">
+                <div class="absolute bottom-8 rounded-md p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end shadow-xl shadow-[#0001] bg-white w-full">
+                    <site-input :icon="MdRoundAlternateEmail" label="Почта" placeholder="Почта" />
+                    <site-input :icon="FePhone" label="Телефон" placeholder="Телефон" />
+                    <site-input :icon="BsCalendarWeek" label="Дата" type="date" />
+                    <site-btn>Забронируйте сейчас</site-btn>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -167,8 +174,8 @@
 
 <script setup lang="ts">
 import type { IService } from '~/types'
-import { BxSolidBadgeCheck } from '@kalimahapps/vue-icons'
 import { index_cards, index_statistics, index_about_items, index_blogs } from '~/constants'
+import { BxSolidBadgeCheck, MdRoundAlternateEmail, FePhone, BsCalendarWeek } from '@kalimahapps/vue-icons'
 
 definePageMeta({
     layout: 'home-layout'
