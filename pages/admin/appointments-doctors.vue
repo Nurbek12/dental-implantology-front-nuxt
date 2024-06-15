@@ -85,7 +85,7 @@ import type { IAppointment, IPatient, IService } from '@/types'
 
 definePageMeta({
   layout: 'admin-layout',
-//   middleware: ['auth'],
+  middleware: ['auth'],
 })
 
 const { getPatients } = usePatients()

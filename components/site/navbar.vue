@@ -17,12 +17,12 @@
             <div class="flex items-center justify-between">
                 <nuxt-link to="/">
                     <!-- <nuxt-img src="/logo.jpg" class="w-full h-[70px] object-cover" /> -->
-                    <div class="text-black font-bold text-xl">
+                    <div class="text-black font-medium text-xl">
                         Dental Implantology
                     </div>
                 </nuxt-link>
                 <div class="hidden md:flex gap-8">
-                    <nuxt-link v-for="link in site_links" :key="link.url" class="hover:text-primary-500 font-medium text-gray-600" :to="link.url">
+                    <nuxt-link v-for="link in site_links" :key="link.url" class="hover:text-primary-500 font-normal text-gray-500" :to="link.url">
                         {{ link.title }}
                     </nuxt-link>
                 </div>

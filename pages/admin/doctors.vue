@@ -85,7 +85,7 @@ import type { IDoctor } from '@/types'
 
 definePageMeta({
   layout: 'admin-layout',
-//   middleware: ['auth'],
+  middleware: ['auth'],
 })
 
 const { createDoctor, deleteDoctor, getDoctors, updateDoctor } = useDoctors()

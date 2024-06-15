@@ -62,7 +62,7 @@
                             <nuxt-link to="/reviews" class="text-gray-300 transition hover:opacity-75">Отзывы</nuxt-link>
                         </li>
                         <li>
-                            <nuxt-link to="/contacts" class="text-gray-300 transition hover:opacity-75">Контакты</nuxt-link>
+                            <nuxt-link to="/contact" class="text-gray-300 transition hover:opacity-75">Контакты</nuxt-link>
                         </li>
                     </ul>
                 </div>

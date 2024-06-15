@@ -102,6 +102,7 @@ const hours = [
 
 definePageMeta({
   layout: 'admin-layout',
+  middleware: ['auth'],
 })
 
 const selectItem = (index: number, hour: string, doctor: IDoctor | null, app?: IAppointment) => {

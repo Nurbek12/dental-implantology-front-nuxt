@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="relative h-[140px]">
-                <form @submit.prevent="handleRecord" class="absolute bottom-8 rounded-md p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end shadow-xl shadow-[#0001] bg-white w-full">
+                <form @submit.prevent="handleRecord" class="absolute bottom-8 rounded-md p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end shadow-md shadow-black/5 bg-white w-full">
                     <site-input v-model="review.first_name" required :icon="MdRoundAlternateEmail" label="Имя и фамилия" placeholder="Имя и фамилия" />
                     <site-input v-model="review.phone" required :icon="FePhone" label="Телефон" placeholder="Телефон" />
                     <site-input v-model="review.comment" required :icon="BsCalendarWeek" label="Дата" type="date" />
@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div class="relative pb-20 pt-36 md:pb-36">
+    <div class="relative pb-20 pt-40 md:pb-24">
         <div class="container mx-auto">
 
             <div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
@@ -46,8 +46,9 @@
     <div class="relative py-8">
         <div class="container">
             <div class="h-full flex items-center justify-between gap-8">
-                <div class="hidden md:block w-0 md:w-[50%]">
-                    <nuxt-img src="/images/carousel-bg-2.jpg" class="w-full h-[550px] object-cover rounded" />
+                <div class="hidden md:flex gap-2 w-0 md:w-[50%]">
+                    <nuxt-img src="/images/carousel-bg-1.jpg" class="w-[50%] h-[450px] object-cover rounded" />
+                    <nuxt-img src="/images/carousel-bg-3.jpg" class="w-[50%] h-[450px] object-cover rounded" />
                 </div>
                 <div class="w-full md:w-[50%]">
                     <site-content
@@ -55,8 +56,8 @@
                         title="Добро пожаловать в нашу стоматологическую клинику!"
                         description="Мы рады, что вы выбрали нас для ухода за вашим здоровьем и красотой улыбки. Наша клиника является одной из ведущих в отрасли, и мы гордимся тем, что предоставляем нашим пациентам качественные услуги и индивидуальный подход.">
                         <br>
-                        <p class="text-gray-700">Наша команда состоит из высококвалифицированных стоматологов и медсестер, которые имеют обширный опыт работы и постоянно совершенствуют свои профессиональные навыки. Мы используем только современное оборудование и инновационные технологии, чтобы гарантировать наилучшие результаты и комфорт во время процедур.</p>
-                        <br>
+                        <!-- <p class="text-gray-700">Наша команда состоит из высококвалифицированных стоматологов и медсестер, которые имеют обширный опыт работы и постоянно совершенствуют свои профессиональные навыки. Мы используем только современное оборудование и инновационные технологии, чтобы гарантировать наилучшие результаты и комфорт во время процедур.</p>
+                        <br> -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="flex items-center gap-2" v-for="item,i in index_about_items" :key="i">
                                 <div>
@@ -76,7 +77,7 @@
         </div>
     </div>
     
-    <div class="relative py-10 md:py-36">
+    <div class="relative py-10 md:py-24">
         <div class="container">
             <div class="h-full flex flex-col md:flex-row items-center justify-between gap-8">
                 <div class="w-full md:w-[50%]">
@@ -85,7 +86,7 @@
                         title="Качество, профессионализм и индивидуальный подход"
                         description="Наша стоматологическая клиника предлагает широкий спектр услуг для поддержания здоровья и красоты вашей улыбки. Мы используем только современное оборудование и материалы, которые обеспечивают безопасность и комфорт во время процедур.">
                         <br>
-                        <p>Наша команда квалифицированных специалистов имеет большой опыт работы и постоянно совершенствует свои навыки, чтобы предоставлять услуги на самом высоком уровне. Мы ценим доверие наших пациентов и стараемся превзойти их ожидания. Выберите нас и наслаждайтесь здоровой и красивой улыбкой!</p>
+                        <p class="text-gray-700 text-sm md:text-base">Наша команда квалифицированных специалистов имеет большой опыт работы и постоянно совершенствует свои навыки, чтобы предоставлять услуги на самом высоком уровне. Мы ценим доверие наших пациентов и стараемся превзойти их ожидания. Выберите нас и наслаждайтесь здоровой и красивой улыбкой!</p>
                     </site-content>
                 </div>
                 <div class="w-0 md:w-[50%] hidden md:block">
@@ -95,7 +96,7 @@
         </div>
     </div>
 
-    <div class="relative py-16">
+    <div class="relative py-8">
         <div class="container mx-auto">
             <div class=" bg-blue-50 p-8 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 
@@ -113,7 +114,7 @@
         </div>
     </div>
 
-    <div class="relative py-10 md:py-36">
+    <div class="relative py-10 md:py-24">
         <div class="container mx-auto">
             <div class="flex justify-center mb-8">
                 <div class="text-center">
@@ -151,7 +152,7 @@
         </div>
     </div>
 
-    <div class="relative py-10 md:py-36">
+    <div class="relative py-10 md:py-24">
         <div class="container mx-auto">
             <div class="bg-blue-50 rounded-lg p-8">
 

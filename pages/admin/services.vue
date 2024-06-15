@@ -22,7 +22,13 @@
             <template #table-item-created_at="{tableItem}">
                 <span class="text-xs text-balance">{{ new Date(tableItem.created_at!).toLocaleString() }}</span>
             </template>
-            <template #table-item-actions="{tableItem,index,openTr,isOpened}">
+            <template #table-item-category="{tableItem}">
+                <span class="text-xs text-balance">{{ specs[tableItem.category as keyof typeof specs] || '-' }}</span>
+            </template>
+            <template #table-item-price="{tableItem}">
+                <span class="text-xs text-balance">{{ tableItem.price_start }} - {{ tableItem.price_end }}</span>
+            </template>
+            <template #table-item-actions="{tableItem,index}">
                 <div class="flex gap-1">
                     <site-btn @click="editItem(tableItem, index)" size="small">Изменить</site-btn>
                     <site-btn @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
@@ -49,13 +55,7 @@
             <site-textarea required v-model="service.description_uz" placeholder="Описание (UZ)" />
             <site-textarea required v-model="service.description_en" placeholder="Описание (EN)" />
             
-            <!-- <site-select -->
-            <div class="w-full border overflow-hidden rounded">
-                <select required v-model="service.category" class="text-sm px-3 py-2 w-full outline-none resize-none">
-                    <option :value="undefined" disabled>Категория</option>
-                    <option v-for="c in categories" :value="c.id" :key="c.id">{{ c.name_ru }}</option>
-                </select>
-            </div>
+            <site-select required v-model="service.category" :items="Object.keys(specs).map(k => ({name: specs[k as keyof typeof specs], value: k}))" placeholder="Категория" :nullvalue="null" />
             <!-- <div style="all: unset;">
                 <editor v-model="service.content" />
             </div> -->
@@ -69,14 +69,14 @@
 </template>
 
 <script setup lang="ts">
-import type { IService, Service, Service_Category } from '@/types'
+import { specs } from '@/constants'
+import type { IService, Service } from '@/types'
 
 definePageMeta({
   layout: 'admin-layout',
-//   middleware: ['auth'],
+  middleware: ['auth'],
 })
 
-const { getCategories } = useServiceCategories()
 const { createService, deleteService, getServices, updateService } = useServices()
 
 const dialog = ref(false)
@@ -86,9 +86,8 @@ const count = ref<number>(0)
 const items = ref<IService[]>([])
 const itemIndex = ref<number|null>(null)
 const createLoading = ref<boolean>(false)
-const categories = ref<Service_Category[]>([])
 const service = reactive<IService>({
-    content: "text",
+    content: "",
     description_en: "",
     description_ru: "",
     description_uz: "",
@@ -99,13 +98,15 @@ const service = reactive<IService>({
     price_end: 0,
     price_start: 0,
     slug: "",
+    category: null,
 })
 
 const headers = [
     { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
     { name: "Иконок", value: "image", sortable: true, balancedText: false, custom: true },
     { name: "Название", value: "name_ru", sortable: true, balancedText: false, custom: false },
-    { name: "Цена", value: "price", sortable: true, balancedText: false, custom: false },
+    { name: "Цена", value: "price", sortable: true, balancedText: false, custom: true },
+    { name: "Категория", value: "category", sortable: true, balancedText: false, custom: true },
     { name: "Дата", value: "created_at", sortable: true, balancedText: false, custom: true },
     { name: "Управлять", value: "actions", sortable: true, balancedText: false, custom: true },
 ]
@@ -147,14 +148,6 @@ const deleteItem = async (id: number, index: number) => {
     items.value.splice(index, 1)
 }
 
-const uploadImage = async (file: any) => {
-    // const body = new FormData()
-    // body.append('file', file)
-    // return $fetch<{url: string, thumbnailUrl: string}>('/api/media/upload', {
-    //     method: 'post', body
-    // })
-}
-
 const create = async (body: any) => {
     const data = await createService(body)
     items.value.push(data as any)
@@ -175,6 +168,7 @@ const save = async () => {
             form_data.append(key, service[key as keyof typeof service] as string)
             
         })
+        form_data.delete('image')
         if(file.value) form_data.append('image', file.value)
     
         if(itemIndex.value !== null) update(itemIndex.value, form_data, service.id)
@@ -191,26 +185,21 @@ const save = async () => {
 const close = () => {
     delete service.id
     Object.assign(service, {
-        content: "text",
-        description: "",
+        content: "",
+        description_en: "",
         description_ru: "",
         description_uz: "",
         is_published: false,
-        name: "",
+        name_en: "",
         name_ru: "",
         name_uz: "",
-        price: 0,
+        price_end: 0,
+        price_start: 0,
         slug: "",
+        category: null,
     })
     file.value = null
     dialog.value = false
     itemIndex.value = null
 }
-
-const init = async () => {
-    const data = await getCategories({ params: { page: 1, limit: 1000 } })
-    categories.value = data.results
-}
-
-init()
 </script>

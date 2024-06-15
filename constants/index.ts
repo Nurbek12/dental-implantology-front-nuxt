@@ -11,7 +11,7 @@ import {
     AkChatDots,
     HeFilledDoctorMale,
     MaDoctor,
-    GlStatusHealth,
+    CaCategory,
     GlWork,
     AkImage,
     HeOutlineMedicalRecords,
@@ -54,7 +54,6 @@ export const admin_links = {
     "ADMIN": [
         { title: 'Главная', icon: AkDashboard, url: '/admin' },
         { title: 'Записи на прием', icon: CaDataTable, url: '/admin/appointments' },
-        // { title: 'Специализации', icon: MaDoctor, url: '/admin/specialities' },
         { title: 'Докторы', icon: HeFilledDoctorMale, url: '/admin/doctors' },
         { title: 'Пациенты', icon: FaUserInjured, url: '/admin/patients' },
         { title: 'Услуги', icon: GlWork, url: '/admin/services' },

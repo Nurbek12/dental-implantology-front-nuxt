@@ -90,7 +90,7 @@ export interface IService {
     is_published: boolean
     created_at?: string
     updated_at?: string
-    category?: number | IServiceCategory
+    category?: string | null
 }
 
 export interface IInitialRecord {

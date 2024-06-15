@@ -6,7 +6,7 @@ interface DataValueType {
 }
 
 export default defineNuxtPlugin(async (nuxtApp) => {
-    globalThis.$fetch = await ofetch.create({
+    globalThis.$fetch = ofetch.create({
         onRequest: ({request, options}) => {
             const config = useRuntimeConfig()
             const token = useAuthAccessToken()
@@ -25,26 +25,28 @@ export default defineNuxtPlugin(async (nuxtApp) => {
                 options.baseURL = ''
             }
         },
-        onResponseError: ({response}) => {
+        onResponseError: ({response, request}) => {
+            console.log(request);
+            
             let tokenRef = useAuthAccessToken()
             let authToken = useAuthRefreshToken()
 
-            if(response.status === 401 || response.status === 419) {
-                useAsyncData(() => 
-                    $fetch<{access: string, refresh: string}>('/api/token/refresh/', {
-                        method: 'post',
-                        body: JSON.stringify({
-                            refresh: tokenRef.value
-                        })
-                    })
-                ).then(({data}) => {
-                    const typeofData = data.value as DataValueType
-                    authToken.value = typeofData.access
-                }).catch((error) => {
-                    console.log(error)
-                    useLogout()
-                })
-            }
+            // if((response.status === 401 || response.status === 419) && authToken.value) {
+            //     useAsyncData(() => 
+            //         $fetch<{access: string, refresh: string}>('/api/token/refresh/', {
+            //             method: 'post',
+            //             body: JSON.stringify({
+            //                 refresh: authToken.value
+            //             })
+            //         })
+            //     ).then(({data}) => {
+            //         const typeofData = data.value as DataValueType
+            //         tokenRef.value = typeofData.access
+            //     }).catch((error) => {
+            //         console.log(error)
+            //         useLogout()
+            //     })
+            // }
         } 
     })
 })

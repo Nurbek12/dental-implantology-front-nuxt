@@ -1,23 +1,29 @@
 export const useAuth = () => {
-    const token = useAuthAccessToken()
+    const accessToken = useAuthAccessToken()
+    const refreshToken = useAuthRefreshToken()
     
-    const setToken = (tk: string | null) => {
-        token.value = tk
+    const setTokens = (a: string | null, r: string) => {
+        accessToken.value = a
+        refreshToken.value = r
     }
     
     const handleLogin = async (body: any) => {
-        const data = await $fetch<{access: string}>('/api/token/', {
+        const data = await $fetch<{access: string, refresh: string}>('/api/token/', {
             method: 'post',
             body
         })
+        console.log(data);
+        
         if(data.access) {
-            setToken(data.access)
-            navigateTo('/admin')
+            setTokens(data.access, data.refresh)
+            setTimeout(() => {
+                navigateTo('/admin')
+            }, 100);
         }
     }
 
     return {
-        token,
+        accessToken,
         handleLogin,
     }
 }

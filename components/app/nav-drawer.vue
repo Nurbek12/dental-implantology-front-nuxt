@@ -35,16 +35,21 @@
 import { admin_links } from '@/constants'
 import { BxSolidChevronRight, BxLogOut } from "@kalimahapps/vue-icons"
 
-const isOpen = ref(false)
+const token = useAuthAccessToken()
+const rtoken = useAuthRefreshToken()
+
 const route = useRoute()
-const router = useRouter()
+const isOpen = ref(false)
+
 const current_router = computed(() => {
     if(route.fullPath.endsWith('/')) return route.fullPath.slice(0, -1)
     return route.fullPath
 })
 
 const logout = () => {
-    // token.value = null
-    router.push('/login')
+    if(!confirm('Logout?')) return
+    token.value = null
+    rtoken.value = null
+    navigateTo('/login')
 }
 </script>

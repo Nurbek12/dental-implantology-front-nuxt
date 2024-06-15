@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="space-y-4">
         <div>
             <span class="rounded border border-blue-200 text-primary-500 px-3 py-1.5 text-sm" v-html="subtitle"></span>
         </div>
