@@ -7,17 +7,17 @@
             <div class="flex items-center h-full">
                 <div class="w-full md:w-[50%] pr-2">
                     <site-content
-                        subtitle="👋Здоровая улыбка с нашей помощью!"
-                        title="Квалифицированные специалисты и современное оборудование"
-                        description="В нашей клинике вы можете пройти диагностику и лечение заболеваний зубов и десен, а также провести профилактические процедуры, которые помогут избежать проблем в будущем. Кроме того, мы предлагаем услуги по эстетической стоматологии, которые помогут вам улучшить внешний вид вашей улыбки." />
+                        :subtitle="$t('home.header-subtitle')"
+                        :title="$t('home.header-title')"
+                        :description="$t('home.header-description')" />
                 </div>
             </div>
             <div class="relative h-[140px]">
                 <form @submit.prevent="handleRecord" class="absolute bottom-8 rounded-md p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end shadow-md shadow-black/5 bg-white w-full">
-                    <site-input v-model="review.first_name" required :icon="MdRoundAlternateEmail" label="Имя и фамилия" placeholder="Имя и фамилия" />
-                    <site-input v-model="review.phone" required :icon="FePhone" label="Телефон" placeholder="Телефон" />
-                    <site-input v-model="review.comment" required :icon="BsCalendarWeek" label="Дата" type="date" />
-                    <site-btn type="submit">Записаться на прием</site-btn>
+                    <site-input v-model="review.first_name" required :icon="MdRoundAlternateEmail" :label="$t('form.name')" :placeholder="$t('form.name')" />
+                    <site-input v-model="review.phone" required :icon="FePhone" :label="$t('form.phone')" :placeholder="$t('form.phone')" />
+                    <site-input v-model="review.comment" required :icon="BsCalendarWeek" :label="$t('form.date')" type="date" />
+                    <site-btn type="submit">{{ $t('form.create-appointment') }}</site-btn>
                 </form>
             </div>
         </div>
@@ -33,8 +33,8 @@
                         <component class="text-blue-600 w-10 h-10 group-hover:text-white" :is="c.icon"></component>
                     </div>
                     <div class="flex-grow">
-                        <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ c.title }}</h2>
-                        <p class="leading-relaxed text-sm">{{ c.description }}</p>
+                        <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ $t(c.title) }}</h2>
+                        <p class="leading-relaxed text-sm">{{ $t(c.description) }}</p>
                     </div>
                 </div>
 
@@ -52,18 +52,18 @@
                 </div>
                 <div class="w-full md:w-[50%]">
                     <site-content
-                        subtitle="Подробнее о нас"
-                        title="Добро пожаловать в нашу стоматологическую клинику!"
-                        description="Мы рады, что вы выбрали нас для ухода за вашим здоровьем и красотой улыбки. Наша клиника является одной из ведущих в отрасли, и мы гордимся тем, что предоставляем нашим пациентам качественные услуги и индивидуальный подход.">
+                        :subtitle="$t('home.home-about-us-subtitle')"
+                        :title="$t('home.home-about-us-title')"
+                        :description="$t('home.home-about-us-description')">
                         <br>
                         <!-- <p class="text-gray-700">Наша команда состоит из высококвалифицированных стоматологов и медсестер, которые имеют обширный опыт работы и постоянно совершенствуют свои профессиональные навыки. Мы используем только современное оборудование и инновационные технологии, чтобы гарантировать наилучшие результаты и комфорт во время процедур.</p>
                         <br> -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="flex items-center gap-2" v-for="item,i in index_about_items" :key="i">
+                            <div class="flex items-center gap-2" v-for="i in 4" :key="i">
                                 <div>
                                     <BxSolidBadgeCheck class="text-blue-500 w-6 h-6" />
                                 </div>
-                                <span class="font-medium">{{ item }}</span>
+                                <span class="font-medium">{{ $t('home.home-about-us-item-'+i) }}</span>
                             </div>
                         </div>
                         <br>
@@ -82,11 +82,11 @@
             <div class="h-full flex flex-col md:flex-row items-center justify-between gap-8">
                 <div class="w-full md:w-[50%]">
                     <site-content
-                        subtitle="Почему выбрать нас"
-                        title="Качество, профессионализм и индивидуальный подход"
-                        description="Наша стоматологическая клиника предлагает широкий спектр услуг для поддержания здоровья и красоты вашей улыбки. Мы используем только современное оборудование и материалы, которые обеспечивают безопасность и комфорт во время процедур.">
-                        <br>
-                        <p class="text-gray-700 text-sm md:text-base">Наша команда квалифицированных специалистов имеет большой опыт работы и постоянно совершенствует свои навыки, чтобы предоставлять услуги на самом высоком уровне. Мы ценим доверие наших пациентов и стараемся превзойти их ожидания. Выберите нас и наслаждайтесь здоровой и красивой улыбкой!</p>
+                        :subtitle="$t('home.home-why-choice-us-subtitle')"
+                        :title="$t('home.home-why-choice-us-title')"
+                        :description="$t('home.home-why-choice-us-description-1')">
+                        <!-- <br> -->
+                        <p class="text-gray-700 text-sm md:text-base">{{$t('home.home-why-choice-us-description-2')}}</p>
                     </site-content>
                 </div>
                 <div class="w-0 md:w-[50%] hidden md:block">
@@ -106,7 +106,7 @@
                     </div>
                     <div>
                         <h1 class="font-bold text-3xl">{{ (c.count).toLocaleString('en-US') }}<span class="text-blue-500">+</span></h1>
-                        <p class="text-gray-600">{{ c.title }}</p>
+                        <p class="text-gray-600">{{ $t(c.title) }}</p>
                     </div>
                 </div>
 
@@ -119,9 +119,9 @@
             <div class="flex justify-center mb-8">
                 <div class="text-center">
                     <site-content
-                        title="Комплексный уход за зубами для всех возрастов"
-                        subtitle="Наши услуги"
-                        description="Наша стоматологическая клиника предлагает широкий спектр услуг для поддержания здоровья и красоты ваших зубов и десен.">
+                        :title="$t('home.home-services-title')"
+                        :subtitle="$t('home.home-services-subtitle')"
+                        :description="$t('home.home-services-description')">
                         <br>
                     </site-content>
                 </div>
@@ -139,9 +139,9 @@
             <div class="flex justify-center mb-8">
                 <div class="text-center">
                     <site-content
-                        subtitle="Наш блог"
-                        title="Блог"
-                        description="Добро пожаловать в наш блог! Здесь мы делимся полезной информацией и новостями из мира стоматологии." />
+                        :title="$t('home.home-blog-title')"
+                        :subtitle="$t('home.home-blog-subtitle')"
+                        :description="$t('home.home-blog-description')" />
                 </div>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -159,11 +159,11 @@
                 <div class="w-full">
                     
                     <site-content
-                        subtitle="Регулярные осмотры — залог здоровья вашей улыбки"
-                        title="Почему важно регулярно посещать стоматолога?"
-                        description="Регулярные визиты к стоматологу играют ключевую роль в поддержании здоровья полости рта и профилактике серьезных заболеваний. В этом блоге мы расскажем, почему регулярные осмотры так важны, как часто стоит посещать стоматолога и какие преимущества это приносит. Вы узнаете, как своевременное выявление проблем может предотвратить их развитие и сэкономить вам время, деньги и нервы в будущем. Прочитайте наши советы и будьте уверены в здоровье своей улыбки!">
+                        :subtitle="$t('home.home-jumbotron-subtitle')"
+                        :title="$t('home.home-jumbotron-title')"
+                        :description="$t('home.home-jumbotron-description')">
                         <br>
-                        <site-btn>Записаться на прием</site-btn>
+                        <!-- <site-btn>Записаться на прием</site-btn> -->
                     </site-content>
                     
                 </div>
@@ -175,7 +175,7 @@
 
 <script setup lang="ts">
 import type { IService } from '~/types'
-import { index_cards, index_statistics, index_about_items, index_blogs } from '~/constants'
+import { index_cards, index_statistics, index_blogs } from '~/constants'
 import { BxSolidBadgeCheck, MdRoundAlternateEmail, FePhone, BsCalendarWeek } from '@kalimahapps/vue-icons'
 
 definePageMeta({

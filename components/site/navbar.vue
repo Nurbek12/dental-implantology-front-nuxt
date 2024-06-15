@@ -22,11 +22,12 @@
                     </div>
                 </nuxt-link>
                 <div class="hidden md:flex gap-8">
-                    <nuxt-link v-for="link in site_links" :key="link.url" class="hover:text-primary-500 font-normal text-gray-500" :to="link.url">
-                        {{ link.title }}
+                    <nuxt-link v-for="link in site_links" :key="link.url" class="hover:text-primary-500 font-normal text-gray-500 text-sm" :to="link.url">
+                        {{ $t(link.title) }}
                     </nuxt-link>
                 </div>
-                <site-btn class="hidden md:block">Записаться на прием</site-btn>
+                <site-language class="hidden md:block" />
+                <!-- <site-btn class="hidden md:block">Записаться на прием</site-btn> -->
                 <site-btn @click="isOpen=true" class="block md:hidden" size="square">
                     <ChMenuHamburger class="w-5 h-5" />
                 </site-btn>
@@ -43,10 +44,11 @@
             <div class="container py-4 flex-1 flex flex-col">
                 <div class="flex flex-col items-center gap-8 flex-1 px-4">
                     <nuxt-link @click="isOpen=false" v-for="link in site_links" :key="link.url" class="hover:text-primary-500 font-medium" :to="link.url">
-                        {{ link.title }}
+                        {{ $t(link.title) }}
                     </nuxt-link>
                 </div>
-                <site-btn>Записаться на прием</site-btn>
+                <site-language />
+                <!-- <site-btn>Записаться на прием</site-btn> -->
             </div>
         </div>
     </div>

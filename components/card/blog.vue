@@ -7,7 +7,7 @@
         <div class="py-4">
             <h1 class="text-lg font-medium">{{ blog.title }}</h1>
             <p class="mb-6 text-sm">{{ blog.description }}</p>
-            <site-btn>Читать далее &rightarrow;</site-btn>
+            <!-- <site-btn>Читать далее &rightarrow;</site-btn> -->
         </div>
     </div>
 </template>

@@ -2,9 +2,9 @@
     <section class="text-gray-600 body-font">
         <div class="container px-5 pt-24 pb-12 mx-auto">
             <div class="flex flex-col text-center w-full mt-20">
-                <h2 class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">Мы на связи</h2>
-                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Свяжитесь с нами</h1>
-                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Мы всегда готовы ответить на ваши вопросы и записать вас на прием. Здесь вы найдете нашу контактную информацию, адрес и часы работы. Ждем вас в нашей клинике!</p>
+                <h2 class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">{{ $t('contacts.subtitle') }}</h2>
+                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">{{ $t('contacts.title') }}</h1>
+                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">{{ $t('contacts.description') }}</p>
             </div>
         </div>
     </section>
@@ -18,30 +18,30 @@
             </iframe>
             <div class="bg-white relative flex flex-wrap py-6 rounded shadow-md">
                 <div class="lg:w-1/2 px-6">
-                    <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs">Адрес</h2>
-                    <p class="mt-1">Самарканд, улица Дахбед, 168А</p>
+                    <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs">{{ $t('form.address') }}</h2>
+                    <p class="mt-1">{{ $t('footer.address') }}</p>
                 </div>
                 <div class="lg:w-1/2 px-6 mt-4 lg:mt-0">
-                    <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs">Эл. Почта</h2>
+                    <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs">{{ $t('form.email') }}</h2>
                         <a class="text-indigo-500 leading-relaxed">dental@email.com</a>
-                    <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs mt-4">Телефон</h2>
+                    <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs mt-4">{{ $t('form.phone') }}</h2>
                         <p class="leading-relaxed">+998 66 235 00 05</p>
                 </div>
             </div>
             </div>
             <form @submit.prevent="handleRecord" class="lg:w-1/3 md:w-1/2 bg-white flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
-                <h2 class="text-gray-900 text-lg mb-1 font-medium title-font">Свяжитесь с нами</h2>
-                <p class="leading-relaxed mb-5 text-gray-600">Мы всегда рады помочь вам</p>
+                <h2 class="text-gray-900 text-lg mb-1 font-medium title-font">{{ $t('contacts.form-title') }}</h2>
+                <p class="leading-relaxed mb-5 text-gray-600">{{ $t('contacts.form-description') }}</p>
                 <div class="space-y-4">
                     <div class="flex flex-col md:flex-row gap-2">
-                        <site-input required v-model="review.first_name" placeholder="Имя" label="Имя" />
-                        <site-input required v-model="review.last_name" placeholder="Фамилия" label="Фамилия" />
+                        <site-input required v-model="review.first_name" :placeholder="$t('form.first-name')" :label="$t('form.first-name')" />
+                        <site-input required v-model="review.last_name" :placeholder="$t('form.last-name')" :label="$t('form.last-name')" />
                     </div>
-                    <site-input required v-model="review.phone" placeholder="example@mail.com" label="Электронная почта" />
-                    <site-textarea required v-model="review.comment" placeholder="Напишите..." label="Сообщения" />
-                    <site-btn type="submit" class="w-full">Отправить</site-btn>
+                    <site-input required v-model="review.phone" placeholder="example@mail.com" :label="$t('form.email')" />
+                    <site-textarea required v-model="review.comment" :placeholder="$t('form.message-of-review')" :label="$t('form.message')" />
+                    <site-btn type="submit" class="w-full">{{ $t('form.send') }}</site-btn>
                 </div>
-                <p class="text-xs text-gray-500 mt-3">Наши специалисты свяжутся с вами в ближайшее время. Пожалуйста, укажите свои контактные данные и кратко опишите ваш запрос. Мы ценим ваше время и стремимся ответить на все обращения как можно быстрее.</p>
+                <p class="text-xs text-gray-500 mt-3">{{ $t('contacts.form-description-1') }}</p>
             </form>
         </div>
     </section>

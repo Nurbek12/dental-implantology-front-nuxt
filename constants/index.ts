@@ -25,23 +25,16 @@ import {
 } from '@kalimahapps/vue-icons'
 
 export const index_cards = [
-    { icon: PhTooth, title: 'Профилактическое обследование', description: 'Регулярные профилактические осмотры помогают поддерживать здоровье ваших зубов и десен, а также предотвращать развитие серьезных заболеваний' },
-    { icon: MaDoctor, title: 'Имплантация', description: 'Восстановите свою уверенность с помощью имплантатов - прочного и надежного решения для замены отсутствующих зубов.' },
-    { icon: ReStarSmileLine, title: 'Эстетическая стоматология', description: 'Улучшите внешний вид вашей улыбки с помощью наших услуг по эстетической стоматологии, включая отбеливание зубов, люминейры и коррекцию формы зубов.' },
+    { icon: PhTooth, title: 'home.home-card-1-title', description: 'home.home-card-1-description' },
+    { icon: MaDoctor, title: 'home.home-card-2-title', description: 'home.home-card-2-description' },
+    { icon: ReStarSmileLine, title: 'home.home-card-3-title', description: 'home.home-card-3-description' },
 ]
 
 export const index_statistics = [
-    { icon: LaToothSolid, title: "Счастливые клиенты", count: 1200 },
-    { icon: BsHospital, title: "Год опыта", count: 15 },
-    { icon: HeOutlineDoctorMale, title: "Врачи", count: 70 },
-    { icon: BsCalendar2Week, title: "Онлайн запись", count: 40 },
-]
-
-export const index_about_items = [
-    'Квалифицированные специалисты и постоянное совершенствование',
-    '20 лет опыта в стоматологии',
-    'Современное оборудование, индивидуальный подход, гибкое расписание',
-    'Доверие и превосходство',
+    { icon: LaToothSolid, title: "home.home-counst-info-1", count: 1200 },
+    { icon: BsHospital, title: "home.home-counst-info-2", count: 15 },
+    { icon: HeOutlineDoctorMale, title: "home.home-counst-info-3", count: 70 },
+    { icon: BsCalendar2Week, title: "home.home-counst-info-4", count: 40 },
 ]
 
 export const index_blogs = [
@@ -73,12 +66,11 @@ export const languages = [
 ]
 
 export const site_links = [
-    { title: 'Главная', url: '/' },
-    { title: 'О нас', url: '/about' },
-    { title: 'Докторы', url: '/doctors' },
-    { title: 'Услуги', url: '/services' },
-    // { title: 'Отзывы', url: '/reviews' },
-    { title: 'Контакты', url: '/contact' },
+    { title: 'nav.home', url: '/' },
+    { title: 'nav.about', url: '/about' },
+    { title: 'nav.doctors', url: '/doctors' },
+    { title: 'nav.services', url: '/services' },
+    { title: 'nav.contacts', url: '/contact' },
 ]
 
 // export const formatDate = (dateString: string, prefix1: ', ' | 'T' = ', ') => {

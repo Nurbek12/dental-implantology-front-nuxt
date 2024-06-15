@@ -2,9 +2,9 @@
     <section class="text-gray-600 body-font">
         <div class="container px-5 pt-24 pb-12 mx-auto">
             <div class="flex flex-col text-center w-full mt-20">
-                <h2 class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">Широкий спектр лечения</h2>
-                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">Наши услуги</h1>
-                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Мы предлагаем широкий спектр стоматологических услуг, от профилактических осмотров до сложных хирургических вмешательств. Узнайте больше о том, как мы можем помочь вам сохранить здоровую и красивую улыбку.</p>
+                <h2 class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">{{ $t('services.subtitle') }}</h2>
+                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">{{ $t('services.title') }}</h1>
+                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">{{ $t('doctors.description') }}</p>
             </div>
         </div>
     </section>
