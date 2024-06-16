@@ -12,7 +12,7 @@
     <div class="relative py-8">
         <div class="container">
             <div class="h-full flex items-center gap-4">
-                <div class="w-full md:w-[50%]">
+                <div class="w-full md:w-[50%] text-center sm:text-left">
                     <site-content
                         :title="$t('about.title-1')"
                         :subtitle="$t('about.subtitle-1')"

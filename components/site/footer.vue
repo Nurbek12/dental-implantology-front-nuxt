@@ -12,7 +12,7 @@
                 </div>
 
                 <div>
-                    <p class="font-medium text-gray-200">{{ $t('footer.contacts') }}:</p>
+                    <p class="font-medium text-gray-200">{{ $t('footer.concats-title') }}:</p>
 
                     <ul class="mt-6 space-y-4 text-sm">
                         <li class="text-gray-300 transition hover:opacity-75 text-nowrap">

@@ -3,18 +3,18 @@
         <div class="absolute z-0 w-full h-full">
             <nuxt-img class="w-full h-full object-cover opacity-20" src="/images/home-bg-1.jpg" width="600" height="600" alt="image" />
         </div>
-        <div class="container h-screen relative z-10">
-            <div class="flex items-center h-full">
-                <div class="w-full md:w-[50%] pr-2">
+        <div class="container min-h-screen relative z-10">
+            <div class="flex items-center h-screen">
+                <div class="w-full mb-20 md:mb-0 md:w-[50%] pr-2 text-center sm:text-left">
                     <site-content
                         :subtitle="$t('home.header-subtitle')"
                         :title="$t('home.header-title')"
                         :description="$t('home.header-description')" />
                 </div>
             </div>
-            <div class="relative h-[140px]">
-                <form @submit.prevent="handleRecord" class="absolute bottom-8 rounded-md p-4 md:p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end shadow-md shadow-black/5 bg-white w-full">
-                    <site-input v-model="review.first_name" required :icon="MdRoundAlternateEmail" :label="$t('form.name')" :placeholder="$t('form.name')" />
+            <div class="relative h-[140px] md:h-0 mt-10 md:-translate-y-5 lg:-translate-y-20">
+                <form @submit.prevent="handleRecord" class="absolute bottom-8 rounded-md p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end shadow shadow-black/5 bg-white w-full">
+                    <site-input v-model="review.first_name" required :icon="BxUser" :label="$t('form.name')" :placeholder="$t('form.name')" />
                     <site-input v-model="review.phone" required :icon="FePhone" :label="$t('form.phone')" :placeholder="$t('form.phone')" />
                     <site-input v-model="review.comment" required :icon="BsCalendarWeek" :label="$t('form.date')" type="date" />
                     <site-btn type="submit">{{ $t('form.create-appointment') }}</site-btn>
@@ -23,7 +23,7 @@
         </div>
     </div>
 
-    <div class="relative pb-20 pt-40 md:pb-24">
+    <div class="relative py-20">
         <div class="container mx-auto">
 
             <div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
@@ -50,7 +50,7 @@
                     <nuxt-img src="/images/carousel-bg-1.jpg" class="w-[50%] h-[450px] object-cover rounded" />
                     <nuxt-img src="/images/carousel-bg-3.jpg" class="w-[50%] h-[450px] object-cover rounded" />
                 </div>
-                <div class="w-full md:w-[50%]">
+                <div class="w-full md:w-[50%] text-center sm:text-left">
                     <site-content
                         :subtitle="$t('home.home-about-us-subtitle')"
                         :title="$t('home.home-about-us-title')"
@@ -59,7 +59,7 @@
                         <!-- <p class="text-gray-700">Наша команда состоит из высококвалифицированных стоматологов и медсестер, которые имеют обширный опыт работы и постоянно совершенствуют свои профессиональные навыки. Мы используем только современное оборудование и инновационные технологии, чтобы гарантировать наилучшие результаты и комфорт во время процедур.</p>
                         <br> -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="flex items-center gap-2" v-for="i in 4" :key="i">
+                            <div class="text-left flex items-center gap-2" v-for="i in 4" :key="i">
                                 <div>
                                     <BxSolidBadgeCheck class="text-blue-500 w-6 h-6" />
                                 </div>
@@ -80,7 +80,7 @@
     <div class="relative py-10 md:py-24">
         <div class="container">
             <div class="h-full flex flex-col md:flex-row items-center justify-between gap-8">
-                <div class="w-full md:w-[50%]">
+                <div class="w-full md:w-[50%] text-center sm:text-left">
                     <site-content
                         :subtitle="$t('home.home-why-choice-us-subtitle')"
                         :title="$t('home.home-why-choice-us-title')"
@@ -101,11 +101,11 @@
             <div class=" bg-blue-50 p-8 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 
                 <div class="flex items-center gap-4" v-for="c,i in index_statistics" :key="i">
-                    <div class="bg-blue-500 rounded p-4">
+                    <div class="bg-primary-400 rounded p-4">
                         <component class="text-white w-9 h-9" :is="c.icon"></component>
                     </div>
                     <div>
-                        <h1 class="font-bold text-3xl">{{ (c.count).toLocaleString('en-US') }}<span class="text-blue-500">+</span></h1>
+                        <h1 class="font-bold text-2xl md:text-3xl">{{ (c.count).toLocaleString('en-US') }}<span class="text-blue-500">+</span></h1>
                         <p class="text-gray-600">{{ $t(c.title) }}</p>
                     </div>
                 </div>
@@ -157,12 +157,11 @@
             <div class="bg-blue-50 rounded-lg p-8">
 
                 <div class="w-full">
-                    
+                    <!-- $t('home.home-jumbotron-subtitle') -->
                     <site-content
-                        :subtitle="$t('home.home-jumbotron-subtitle')"
+                        :subtitle="''"
                         :title="$t('home.home-jumbotron-title')"
                         :description="$t('home.home-jumbotron-description')">
-                        <br>
                         <!-- <site-btn>Записаться на прием</site-btn> -->
                     </site-content>
                     
@@ -176,7 +175,7 @@
 <script setup lang="ts">
 import type { IService } from '~/types'
 import { index_cards, index_statistics, index_blogs } from '~/constants'
-import { BxSolidBadgeCheck, MdRoundAlternateEmail, FePhone, BsCalendarWeek } from '@kalimahapps/vue-icons'
+import { BxSolidBadgeCheck, BxUser, FePhone, BsCalendarWeek } from '@kalimahapps/vue-icons'
 
 definePageMeta({
     layout: 'home-layout'

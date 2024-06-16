@@ -53,6 +53,7 @@
             
             <site-input required v-model="doctor.phone" placeholder="Phone" />
             <site-input required v-model="doctor.birth_date" placeholder="Birth Date" type="date" />
+            <!-- <site-input required v-model="doctor.experience" placeholder="Expreince Year" type="number" /> -->
 
             <site-select required v-model="doctor.content" :items="Object.keys(specs).map(k => ({name: specs[k as keyof typeof specs], value: k}))" placeholder="Спецализатция" :nullvalue="''" />
 
@@ -119,8 +120,8 @@ const headers = [
     { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
     { name: "Фото", value: "image", sortable: true, balancedText: false, custom: true },
     { name: "Имя и фамилия", value: "name", sortable: true, balancedText: false, custom: true },
-    { name: "Опыт", value: "experiences", sortable: true, balancedText: false, custom: false },
-    { name: "Образование", value: "educations", sortable: true, balancedText: false, custom: false },
+    { name: "Опыт", value: "experiences", sortable: true, balancedText: true, custom: false },
+    { name: "Образование", value: "educations", sortable: true, balancedText: true, custom: false },
     { name: "Спецализатция", value: "spec", sortable: true, balancedText: false, custom: true },
     // { name: "Специальность", value: "specialty", sortable: true, balancedText: false, custom: false },
     { name: "Дата", value: "created_at", sortable: true, balancedText: false, custom: true },
@@ -176,24 +177,25 @@ const update = async (index: number, body: any, id: any) => {
 }
 
 const save = async () => {
-    createLoading.value = true
-
-    var form_data = new FormData()
-    
-    Object.keys(doctor).map((key: any) => {
-        form_data.append(key, doctor[key as keyof typeof doctor] as string)
+    try {
+        createLoading.value = true
+        var form_data = new FormData()
+        Object.keys(doctor).map((key: any) => {
+            form_data.append(key, doctor[key as keyof typeof doctor] as string)
+        })
+        if(file.value) form_data.append('avatar', file.value)
+        else form_data.delete('avatar')
+        form_data.delete('specialties')
         
-    })
-    if(file.value) form_data.append('avatar', file.value)
-    else form_data.delete('avatar')
-    form_data.delete('specialties')
+        if(itemIndex.value !== null) await update(itemIndex.value, form_data, doctor.id)
+        else await create(form_data)
     
-    if(itemIndex.value !== null) await update(itemIndex.value, form_data, doctor.id)
-        
-    else await create(form_data)
-
-    createLoading.value = false
-    close()
+        close()
+    } catch (error) {
+        console.log(error);
+    } finally {
+        createLoading.value = false
+    }
 }
 
 const close = () => {
