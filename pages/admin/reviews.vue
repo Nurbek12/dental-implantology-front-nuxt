@@ -1,6 +1,7 @@
 <template>
     <div class="w-full p-2">
         <app-data-table
+            hide-top
             :count="count"
             :items="items"
             :headers="headers"

@@ -45,17 +45,17 @@
                     </div>
                 </label>
             </div>
-            <site-input required v-model="service.name_ru" placeholder="Название (RU)" />
-            <site-input required v-model="service.name_uz" placeholder="Название (UZ)" />
-            <site-input required v-model="service.name_en" placeholder="Название (EN)" />
-            <site-input required v-model="service.price_start" placeholder="Цена" type="nubmer" />
-            <site-input required v-model="service.price_end" placeholder="Цена" type="nubmer" />
+            <site-input required v-model="service.name_ru" label="Название (RU)" placeholder="Название (RU)" />
+            <site-input required v-model="service.name_uz" label="Название (UZ)" placeholder="Название (UZ)" />
+            <site-input required v-model="service.name_en" label="Название (EN)" placeholder="Название (EN)" />
+            <site-input required v-model="service.price_start"  label="Начальная цена" placeholder="Начальная цена" type="nubmer" />
+            <site-input required v-model="service.price_end"  label="Конечная цена" placeholder="Конечная цена" type="nubmer" />
         
-            <site-textarea required v-model="service.description_ru" placeholder="Описание (RU)" />
-            <site-textarea required v-model="service.description_uz" placeholder="Описание (UZ)" />
-            <site-textarea required v-model="service.description_en" placeholder="Описание (EN)" />
+            <site-textarea required v-model="service.description_ru" label="Описание (RU)" placeholder="Описание (RU)" />
+            <site-textarea required v-model="service.description_uz" label="Описание (UZ)" placeholder="Описание (UZ)" />
+            <site-textarea required v-model="service.description_en" label="Описание (EN)" placeholder="Описание (EN)" />
             
-            <site-select required v-model="service.category" :items="Object.keys(specs).map(k => ({name: specs[k as keyof typeof specs], value: k}))" placeholder="Категория" :nullvalue="null" />
+            <site-select required v-model="service.category" :items="Object.keys(specs).map(k => ({name: specs[k as keyof typeof specs], value: k}))" label="Категория" placeholder="Категория" :nullvalue="null" />
             <!-- <div style="all: unset;">
                 <editor v-model="service.content" />
             </div> -->

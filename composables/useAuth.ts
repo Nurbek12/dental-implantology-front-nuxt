@@ -17,7 +17,7 @@ export const useAuth = () => {
         if(data.access) {
             setTokens(data.access, data.refresh)
             setTimeout(() => {
-                navigateTo('/admin')
+                navigateTo('/admin/appointments')
             }, 100);
         }
     }

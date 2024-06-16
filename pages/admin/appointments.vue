@@ -9,7 +9,7 @@
                 <div class="flex-1 overflow-auto scrollbar-hide">
                     <div class="flex w-max">
                         <div v-for="item,i in items" :key="i" class="relative">
-                            <div class="relative z-10 h-[30px] flex px-6 items-center justify-center bg-gray-50 border-b border-r">{{ item?.first_name }} {{ item?.last_login }}</div>
+                            <div class="relative z-10 h-[30px] flex px-8 items-center justify-center bg-gray-50 border-b border-r">{{ item?.first_name }} {{ item?.last_login }}</div>
                             <div>
                                 <div v-for="hour in hours" :key="hour" @click="selectItem(i, hour, item)" :class="{'bg-gray-300 pointer-events-none':hour==='Обед'}" class="hover:bg-gray-50 active:bg-gray-100 cursor-pointer h-[30px] flex items-center justify-center text-sm border-b border-r"></div>
                             </div>
@@ -19,9 +19,9 @@
                                     (formatDateJson(ap.start_time).hours-9)*60-30:
                                     (formatDateJson(ap.start_time).hours-9)*60}px`}"
                                     class="absolute w-full">
-                                    <div @click="selectItem(i, '', item, ap)" class="w-full h-full border flex items-center justify-center cursor-pointer bg-primary-600 hover:bg-primary-500 active:bg-primary-400 text-white text-center text-xs px-4">
+                                    <div @click="selectItem(i, '', item, ap)" class="w-full h-full border flex items-center justify-center cursor-pointer bg-primary-600 hover:bg-primary-500 active:bg-primary-400 text-white text-center text-sm">
                                         {{ (ap.patient as IPatient).first_name }} {{ (ap.patient as IPatient).last_name }}
-                                        {{ formatDateJson(ap.start_time).hours }}
+                                        <!-- {{ formatDateJson(ap.start_time).hours }} -->
                                     </div>
                                 </div>
                             </div>

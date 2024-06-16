@@ -14,6 +14,7 @@ import {
     CaCategory,
     GlWork,
     AkImage,
+    CdTable,
     HeOutlineMedicalRecords,
     MiArticle,
     CaDataTable,
@@ -45,14 +46,15 @@ export const index_blogs = [
 
 export const admin_links = {
     "ADMIN": [
-        { title: 'Главная', icon: AkDashboard, url: '/admin' },
-        { title: 'Записи на прием', icon: CaDataTable, url: '/admin/appointments' },
+        // { title: 'Главная', icon: AkDashboard, url: '/admin' },
         { title: 'Докторы', icon: HeFilledDoctorMale, url: '/admin/doctors' },
         { title: 'Пациенты', icon: FaUserInjured, url: '/admin/patients' },
         { title: 'Услуги', icon: GlWork, url: '/admin/services' },
         { title: 'Отзывы', icon: AnOutlinedComment, url: '/admin/reviews' },
+        
         { title: 'Первоначальные записи', icon: HeOutlineMedicalRecords, url: '/admin/initial-records' },
-        { title: 'Записи на прием', icon: CaDataTable, url: '/admin/appointments-doctors' },
+        { title: 'Записи на прием', icon: CaDataTable, url: '/admin/appointments' },
+        { title: 'Записи (для докторов)', icon: CdTable, url: '/admin/appointments-doctors' },
         { title: 'Первоначальные записи', icon: CaReportData, url: '/admin/reports' },
     ],
     "USER": {},

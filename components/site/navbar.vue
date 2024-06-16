@@ -1,9 +1,10 @@
 <template>
     <div class="fixed z-50 w-full transition-all" :class="isScrolled?'shadow-md shadow-black/5 bg-white':'bg-transparent'">
-        <div class="container mx-auto py-4">
+        <div class="container mx-auto py-2">
             <div class="flex items-center justify-between">
                 <nuxt-link to="/">
-                    <span class="text-black font-medium text-xl">Dental Implantology</span>
+                    <img src="/logo.svg" width="180" alt="">
+                    <!-- <span class="text-black font-medium text-xl">Dental Implantology</span> -->
                 </nuxt-link>
                 <div class="hidden md:flex gap-8">
                     <nuxt-link v-for="link in site_links" :key="link.url" class="hover:text-primary-500 font-normal text-gray-500 text-sm" :class="{'text-primary-600':link.url===route.path}" :to="link.url">

@@ -3,8 +3,8 @@
         <div class="p-2 rounded border flex justify-between items-center gap-2 bg-white">
             <site-input v-model="filterdate" type="date" placeholder="Поиск" @changed="getItems({date:$event.target.value})" />
             <div class="flex items-center gap-2">
-                <app-btn @click="dialog1=true">Добавить прибыль</app-btn>
-                <app-btn @click="dialog2=true">Добавить расход</app-btn>
+                <site-btn @click="dialog1=true" size="small">Добавить прибыль</site-btn>
+                <site-btn @click="dialog2=true" size="small">Добавить расход</site-btn>
             </div>
         </div>
 
@@ -82,9 +82,9 @@
                 <template #item="$i">{{ $i.item?.patient?.first_name }} - {{ $i.item?.service?.name_ru }}</template>
             </site-select>
             
-            <app-btn :disabled="createLoading" type="submit">
+            <site-btn :disabled="createLoading" type="submit">
                 {{ createLoading?'Загружается':'Сохранить' }}
-            </app-btn>
+            </site-btn>
         </form>
     </app-dialog>
 
@@ -95,9 +95,9 @@
             <site-input required v-model="consumption.amount" type="number" label="Выплаченная сумма" placeholder="Выплаченная сумма" />
             <site-textarea required v-model="consumption.description" label="Описание расхода" placeholder="Описание расхода" />
             
-            <app-btn :disabled="createLoading" type="submit">
+            <site-btn :disabled="createLoading" type="submit">
                 {{ createLoading?'Загружается':'Сохранить' }}
-            </app-btn>
+            </site-btn>
         </form>
     </app-dialog>
 </template>

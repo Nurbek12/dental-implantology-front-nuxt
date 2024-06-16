@@ -4,7 +4,7 @@
             <nuxt-img class="w-full h-full object-cover opacity-20" src="/images/home-bg-1.jpg" width="600" height="600" alt="image" />
         </div>
         <div class="container min-h-screen relative z-10">
-            <div class="flex items-center h-screen">
+            <div class="flex items-center h-[80vh] md:h-screen">
                 <div class="w-full mb-20 md:mb-0 md:w-[50%] pr-2 text-center sm:text-left">
                     <site-content
                         :subtitle="$t('home.header-subtitle')"
@@ -12,7 +12,7 @@
                         :description="$t('home.header-description')" />
                 </div>
             </div>
-            <div class="relative h-[140px] md:h-0 mt-10 md:-translate-y-5 lg:-translate-y-20">
+            <div class="relative h-[140px] md:h-0 mt-5 md:mt-10 md:-translate-y-5 lg:-translate-y-20">
                 <form @submit.prevent="handleRecord" class="absolute bottom-8 rounded-md p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end shadow shadow-black/5 bg-white w-full">
                     <site-input v-model="review.first_name" required :icon="BxUser" :label="$t('form.name')" :placeholder="$t('form.name')" />
                     <site-input v-model="review.phone" required :icon="FePhone" :label="$t('form.phone')" :placeholder="$t('form.phone')" />

@@ -2,7 +2,7 @@
     <div>
         <div class="flex items-center gap-2 mb-2" v-show="!!props.label || props.icon">
             <component class="text-primary-500 w-4 h-4" :is="props.icon"></component>
-            <label :for="randomid" class="text-xs text-gray-500 font-medium">{{ props.label }}</label>
+            <label :for="randomid" class="text-sm text-gray-500 font-medium">{{ props.label }}</label>
         </div>
         <div class="border rounded overflow-hidden">
             <select :id="randomid" :disabled="!!props.disabled" :required="required" v-model="model" @change="emits('changed', $event)" class="text-sm py-2 px-3 w-full outline-none cursor-pointer">

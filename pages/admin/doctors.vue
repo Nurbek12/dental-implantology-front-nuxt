@@ -47,20 +47,19 @@
                 </label>
             </div>
            
-            <site-input required v-model="doctor.first_name" placeholder="First Name" />
-            <site-input required v-model="doctor.middle_name" placeholder="Middle Name" />
-            <site-input required v-model="doctor.last_name" placeholder="Last Name" />
+            <site-input required v-model="doctor.first_name" label="Имя" placeholder="Имя" />
+            <site-input required v-model="doctor.last_name" label="Фамилия" placeholder="Фамилия" />
+            <site-input required v-model="doctor.middle_name" label="Отчество" placeholder="Отчество" />
             
-            <site-input required v-model="doctor.phone" placeholder="Phone" />
-            <site-input required v-model="doctor.birth_date" placeholder="Birth Date" type="date" />
-            <!-- <site-input required v-model="doctor.experience" placeholder="Expreince Year" type="number" /> -->
+            <site-input required v-model="doctor.phone" label="Телефон" placeholder="Телефон" />
+            <site-input required v-model="doctor.birth_date" label="Дата рождения" placeholder="Дата рождения" type="date" />
+      
+            <site-select required v-model="doctor.content" :items="Object.keys(specs).map(k => ({name: specs[k as keyof typeof specs], value: k}))" label="Спецализатция" placeholder="Спецализатция" :nullvalue="''" />
 
-            <site-select required v-model="doctor.content" :items="Object.keys(specs).map(k => ({name: specs[k as keyof typeof specs], value: k}))" placeholder="Спецализатция" :nullvalue="''" />
-
-            <site-textarea required v-model="doctor.educations" placeholder="Education" />
-            <site-textarea required v-model="doctor.experiences" placeholder="Expreince" />
-            <site-textarea required v-model="doctor.licences" placeholder="Licence" />
-            <site-textarea required v-model="doctor.certificates" placeholder="Certificates" />
+            <site-textarea required v-model="doctor.educations" label="Образование" placeholder="Образование" />
+            <site-textarea required v-model="doctor.experiences" label="Опыт" placeholder="Опыт" />
+            <site-textarea required v-model="doctor.licences" label="Лицензия" placeholder="Лицензия" />
+            <site-textarea required v-model="doctor.certificates" label="Сертификаты" placeholder="Сертификаты" />
 
             <div class="w-full" hidden>
                 <input @change="onFileChange" id="file-input" accept="image/*" type="file" placeholder="Фото для ава">
