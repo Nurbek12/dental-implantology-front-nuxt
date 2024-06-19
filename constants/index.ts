@@ -1,22 +1,13 @@
 import {
-    FlClipboardTextLtr,
     LaToothSolid,
     HeOutlineDoctorMale,
     BsHospital,
     BsCalendar2Week,
-    AkDashboard,
-    HuGift,
-    GlBullhorn,
-    BsJournalText,
-    AkChatDots,
     HeFilledDoctorMale,
     MaDoctor,
-    CaCategory,
     GlWork,
-    AkImage,
     CdTable,
     HeOutlineMedicalRecords,
-    MiArticle,
     CaDataTable,
     FaUserInjured,
     CaReportData,
@@ -55,7 +46,7 @@ export const admin_links = {
         { title: 'Первоначальные записи', icon: HeOutlineMedicalRecords, url: '/admin/initial-records' },
         { title: 'Записи на прием', icon: CaDataTable, url: '/admin/appointments' },
         { title: 'Записи (для докторов)', icon: CdTable, url: '/admin/appointments-doctors' },
-        { title: 'Первоначальные записи', icon: CaReportData, url: '/admin/reports' },
+        { title: 'Приходы/Расходы', icon: CaReportData, url: '/admin/reports' },
     ],
     "USER": {},
     "DOCTOR": {}
@@ -114,7 +105,10 @@ export const formatDate = (dateString: string, prefix1: ', ' | 'T' | '-' = ', ')
     let year = dateSplit.getFullYear(),
         month = dateSplit.getMonth() + 1,
         day = dateSplit.getDate();
-
+    console.log(`day: ${day}, month: ${month}, year: ${year}`);
+    console.log(`hour: ${hours}, minutes: ${minutes}`);
+    
+    
     // Ensure month and day are two digits
     const formattedMonth = month > 9 ? month : '0' + month;
     const formattedDay = day > 9 ? day : '0' + day;
@@ -122,7 +116,8 @@ export const formatDate = (dateString: string, prefix1: ', ' | 'T' | '-' = ', ')
     // Ensure hours and minutes are two digits
     const formattedHours = hours > 9 ? hours : '0' + hours;
     const formattedMinutes = +minutes > 9 ? minutes : '0' + minutes;
-
+    console.log(`result: ${year}-${formattedMonth}-${formattedDay}T${formattedHours}:${formattedMinutes}`);
+    
     return `${year}-${formattedMonth}-${formattedDay}T${formattedHours}:${formattedMinutes}`;
 };
 

@@ -1,5 +1,9 @@
 <template>
     <div class="w-full p-2">
+        <div class="p-2 rounded border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 bg-white">
+            <site-input v-model="filterdate" type="date" placeholder="Поиск" @changed="getItems({start_time:$event.target.value})" />
+        </div>
+
         <div class="border w-full rounded mt-2 overflow-hidden">
             <div class="relative overflow-x-auto flex bg-white">
                 <div class="w-[150px] border-r">
@@ -33,8 +37,8 @@
 
         <app-dialog :open="dialog" @close-dialog="close" title="Подробности приема" rounded>
             <form @submit.prevent="createItem" class="bg-white w-full space-y-4 mt-4">
-                <site-input readonly v-model="$item.start_time" label="Время начала" type="datetime-local" />
-                <site-input readonly v-model="$item.end_time" label="Время окончания" type="datetime-local" />
+                <site-input v-model="$item.start_time" label="Время начала" type="datetime-local" />
+                <site-input v-model="$item.end_time" label="Время окончания" type="datetime-local" />
                 <site-auto-complete v-if="!$item.id" v-model="$item.patient" @inputed="searching" :loading="patientLoading" :items="patients" label="Пациент" placeholder="Пациент" :nullvalue="null">
                     <template #item="acItem">
                         <div class="flex items-center gap-2" @click="acItem.onSelected(`${acItem.item.first_name} ${acItem.item.middle_name } ${acItem.item.last_name}`, acItem.item.id)">
@@ -71,11 +75,13 @@ const { getAppointments, createAppointment } = useAppointments()
 const itemIndex = ref(-1)
 const dialog = ref(false)
 const loading = ref(false)
+const filterdate = ref('')
 const items = ref<IDoctor[]>([])
 const patientLoading = ref(false)
 const doctors = ref<IDoctor[]>([])
 const services = ref<IService[]>([])
 const patients = ref<IPatient[]>([])
+const appointments = ref<IAppointment[]>([])
 const $item = ref<IAppointment>({
     doctor: null,
     patient: null,
@@ -175,16 +181,47 @@ const createItem = async () => {
     }
 }
 
-const init = async () => {
-    const [a,d,s] = await Promise.all([getAppointments({start_time:todayDate()}),getDoctors({page: 1, limit: 1000}),getServices({page: 1, limit: 1000})])
+const getItems = async (params: any) => {
+    try {
+        loading.value = true
+        const a = await getAppointments(params)
+        // doctor=doctorid
+        // appointments.value = data.results
+        items.value = doctors.value.map(di => {
+            const appointments = a.results.filter(ai => (ai.doctor as any).id === di.id)
+            di.appointments = appointments
+            return di
+        })
+    } catch (error) {
+        console.log(error)
+    } finally {
+        loading.value = false
+    }
+}
 
-    items.value = d.results.map(di => {
-        const appointments = a.results.filter(ai => (ai.doctor as any).id === di.id)
-        di.appointments = appointments
-        return di
-    })
+const init = async () => {
+    initToday()
+
+    const [d,s] = await Promise.all([
+        // getAppointments({start_time:todayDate()}),
+        getDoctors({page: 1, limit: 1000}),
+        getServices({page: 1, limit: 1000})
+    ])
+
+    // items.value = d.results.map(di => {
+    //     const aps = appointments.value.filter(ai => (ai.doctor as any).id === di.id)
+    //     di.appointments = aps
+    //     return di
+    // })
     doctors.value = d.results
     services.value = s.results
+
+    await getItems({start_time:todayDate()});
+}
+
+const initToday = () => {
+    const todaydate = todayDate()
+    filterdate.value = todaydate
 }
 
 const close = () => {
