@@ -1,7 +1,6 @@
 <template>
     <div class="w-full p-2">
         <app-data-table
-            hide-search
             :count="count"
             :items="items"
             :headers="headers"
@@ -9,10 +8,9 @@
             
             @fetching="getItems">
             <template #table-top>
+                <div class="hidden lg:block"></div>
+                <div class="hidden lg:block"></div>
                 <site-btn @click="dialog=true" size="small">Добавить</site-btn>
-                <div class="hidden lg:block"></div>
-                <div class="hidden lg:block"></div>
-                <div class="hidden lg:block"></div>
             </template>
             <template #table-item-image="{tableItem}">
                 <div class="w-[40px] h-[40px] rounded-full overflow-hidden">
@@ -65,10 +63,6 @@
                 <input @change="onFileChange" id="file-input" accept="image/*" type="file" placeholder="Фото для ава">
             </div>
             <div class="flex items-center gap-2">
-                <input type="checkbox" v-model="doctor.is_active" id="is_active">
-                <label for="is_active">Активность</label>
-            </div>
-            <div class="flex items-center gap-2">
                 <input type="checkbox" v-model="doctor.is_published" id="is_active">
                 <label for="is_active">Публичность</label>
             </div>
@@ -106,7 +100,6 @@ const doctor = reactive<IDoctor>({
     experiences: "",
     first_name: "",
     rating: 0,
-    is_active: false,
     is_published: false,
     last_name: "",
     licences: "",
@@ -209,7 +202,6 @@ const close = () => {
         experiences: "",
         first_name: "",
         rating: 0,
-        is_active: false,
         is_published: false,
         last_name: "",
         licences: "",

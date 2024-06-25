@@ -23,9 +23,9 @@
                                     (formatDateJson(ap.start_time).hours-9)*60-30:
                                     (formatDateJson(ap.start_time).hours-9)*60}px`}"
                                     class="absolute w-full">
-                                    <div @click="selectItem(i, '', item, ap)" class="w-full h-full border flex items-center justify-center cursor-pointer bg-primary-600 hover:bg-primary-500 active:bg-primary-400 text-white text-center text-sm">
+                                    <div @click="selectItem(i, '', item, ap)" class="w-full h-full border flex items-center justify-center cursor-pointer text-white text-center text-sm"
+                                        :class="appointment_statuses[ap.status||'PN'][1]">
                                         {{ (ap.patient as IPatient).first_name }} {{ (ap.patient as IPatient).last_name }}
-                                        <!-- {{ formatDateJson(ap.start_time).hours }} -->
                                     </div>
                                 </div>
                             </div>
@@ -53,10 +53,14 @@
                     </template>
                 </site-auto-complete>
                 
+                <site-select v-model="$item.status" :items="Object.keys(appointment_statuses).map(k => ({name:appointment_statuses[k as keyof typeof appointment_statuses][0], value:k}))" label="Статус" placeholder="Статус" :nullvalue="null" />
                 <site-select v-model="$item.doctor" :items="doctors" name="first_name" value="id" label="Врач" placeholder="Врач" :nullvalue="null" />
                 <site-select v-model="$item.service" :items="services" @changed="changePrice" name="name_ru" value="id" label="Услуга" placeholder="Услуга" :nullvalue="null" />
                 <site-input v-model="$item.price" label="Price" type="number" placeholder="Price" />
-                <site-btn type="submit" :disabled="loading||!!$item.id">Создать прием</site-btn>
+                <div class="flex items-center gap-2">
+                    <site-btn type="submit" :disabled="loading||!!$item.id">Создать прием</site-btn>
+                    <site-btn type="button">Оплатить</site-btn>
+                </div>
             </form>
         </app-dialog>
     </div>
@@ -64,7 +68,7 @@
 
 <script setup lang="ts">
 import lodash from 'lodash'
-import { todayDate, formatDate, formatDateJson } from '@/constants'
+import { todayDate, formatDate, formatDateJson, appointment_statuses } from '@/constants'
 import type { IAppointment, IDoctor, IPatient, IService, } from '@/types'
 
 const { getDoctors } = useDoctors()
@@ -81,12 +85,12 @@ const patientLoading = ref(false)
 const doctors = ref<IDoctor[]>([])
 const services = ref<IService[]>([])
 const patients = ref<IPatient[]>([])
-const appointments = ref<IAppointment[]>([])
 const $item = ref<IAppointment>({
     doctor: null,
     patient: null,
     service: null,
     price: 0,
+    status: "PN",
     end_time: '',
     start_time: '',
 })
@@ -230,6 +234,7 @@ const close = () => {
         patient: null,
         service: null,
         price: 0,
+        status: "PN",
         end_time: '',
         start_time: '',
     }

@@ -105,6 +105,10 @@ export const formatDate = (dateString: string, prefix1: ', ' | 'T' | '-' = ', ')
     let year = dateSplit.getFullYear(),
         month = dateSplit.getMonth() + 1,
         day = dateSplit.getDate();
+    console.log(`%c=====================================`, 'color: yellow');
+
+    console.log(`date string: ${dateString}`);
+    console.log(`date: ${date}`);
     console.log(`day: ${day}, month: ${month}, year: ${year}`);
     console.log(`hour: ${hours}, minutes: ${minutes}`);
     
@@ -112,11 +116,12 @@ export const formatDate = (dateString: string, prefix1: ', ' | 'T' | '-' = ', ')
     // Ensure month and day are two digits
     const formattedMonth = month > 9 ? month : '0' + month;
     const formattedDay = day > 9 ? day : '0' + day;
-
+    
     // Ensure hours and minutes are two digits
     const formattedHours = hours > 9 ? hours : '0' + hours;
     const formattedMinutes = +minutes > 9 ? minutes : '0' + minutes;
     console.log(`result: ${year}-${formattedMonth}-${formattedDay}T${formattedHours}:${formattedMinutes}`);
+    console.log(`%c=====================================`, 'color: yellow');
     
     return `${year}-${formattedMonth}-${formattedDay}T${formattedHours}:${formattedMinutes}`;
 };
@@ -149,4 +154,11 @@ export const specs = {
     surgery: 'Хирургия',
     orthodontics: 'Ортодонтия',
     orthopedics: 'Ортопедия'
+}
+
+export const appointment_statuses = {
+    "PN": ["В ожидании", "bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-300"],
+    "PD": ["Оплачено", "bg-green-500 hover:bg-green-400 active:bg-green-300"],
+    "UP": ["Неоплачено", "bg-red-500 hover:bg-red-400 active:bg-red-300"],
+    "CD": ["Отменено", "bg-gray-600 hover:bg-gray-500 active:bg-gray-400"],
 }

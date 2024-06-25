@@ -1,7 +1,6 @@
 <template>
     <div class="w-full p-2">
         <app-data-table
-            hide-search
             :count="count"
             :items="items"
             :headers="headers"
@@ -9,10 +8,9 @@
 
             @fetching="getItems">
             <template #table-top>
+                <div class="hidden lg:block"></div>
+                <div class="hidden lg:block"></div>
                 <site-btn @click="dialog=true" size="small">Добавить</site-btn>
-                <div class="hidden lg:block"></div>
-                <div class="hidden lg:block"></div>
-                <div class="hidden lg:block"></div>
             </template>
             <template #table-item-image="{tableItem}">
                 <div class="w-[40px] h-[40px] rounded overflow-hidden">

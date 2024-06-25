@@ -6,7 +6,6 @@ export interface IDoctor {
     username?: string
     first_name: string
     last_name: string
-    is_active: boolean
     date_joined?: string
     avatar?: string | null
     phone: string
@@ -32,7 +31,6 @@ export interface IPatient {
     username?: string
     first_name: string
     last_name: string
-    is_active: boolean
     date_joined?: string
     avatar?: string | null
     phone: string
@@ -119,6 +117,7 @@ export interface IAppointment {
     patient: IUser | number | null
     service: IService | number | null
     price: number
+    status: "PN" | "PD" | "UP" | "CD"
     start_time: string
     end_time: string
     created_at?: string

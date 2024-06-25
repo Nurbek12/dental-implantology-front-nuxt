@@ -39,11 +39,6 @@
 
             <site-input required v-model="$item.birth_date" label="Дата рождения" type="date" />
 
-            <div class="flex items-center gap-2">
-                <input type="checkbox" v-model="$item.is_active" id="is_active">
-                <label for="is_active">Активность</label>
-            </div>
-
             <site-btn :disabled="createLoading" type="submit" size="small">{{ createLoading?'Загружается':'Сохранить' }}</site-btn>
         </form>
     </app-dialog>
@@ -71,8 +66,7 @@ const $item = reactive<IPatient>({
     last_name: "",
     birth_date: "",
     first_name: "",
-    middle_name: "",
-    is_active: false
+    middle_name: ""
 })
                            
 const headers = [
@@ -154,8 +148,7 @@ const close = () => {
         last_name: "",
         birth_date: "",
         first_name: "",
-        middle_name: "",
-        is_active: false
+        middle_name: ""
     })
     dialog.value = false
     itemIndex.value = null
