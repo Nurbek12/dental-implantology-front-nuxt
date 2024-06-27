@@ -2,12 +2,12 @@
     <div class="relative">
         <div class="flex items-center gap-2 mb-2" v-show="!!props.label || props.icon">
             <component class="text-primary-500 w-4 h-4" :is="props.icon"></component>
-            <label :for="randomid" class="text-xs text-gray-500 font-medium">{{ props.label }}</label>
+            <label :for="randomid" class="text-sm text-gray-500 font-medium">{{ props.label }}</label>
         </div>
         <div class="border rounded overflow-hidden">
             <input :id="randomid" @input="emits('inputed', $event);isOpen=true" class="w-full outline-none h-full px-4 py-2" :required="!!props.required" :type="props.type||'text'" :placeholder="props.placeholder||''" v-model="str">
         </div>
-        <div class="absolute w-full border shadow-md" v-show="isOpen">
+        <div class="absolute w-full border shadow-md max-h-[200px] overflow-auto" v-show="isOpen">
             <div v-show="items.length===0" class="flex items-center justify-center gap-1 w-full bg-white py-2">
                 <span v-show="!loading" class="text-xs">Пусто</span>
                 <McLoading2Line class="w-6 h-6 animate-spin" v-show="loading" />

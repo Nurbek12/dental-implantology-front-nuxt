@@ -59,10 +59,16 @@
                 <site-input v-model="$item.price" label="Price" type="number" placeholder="Price" />
                 <div class="flex items-center gap-2">
                     <site-btn type="submit" :disabled="loading||!!$item.id">Создать прием</site-btn>
-                    <site-btn type="button">Оплатить</site-btn>
+                    <site-btn type="button" @click="handlePay()">Оплатить</site-btn>
                 </div>
             </form>
         </app-dialog>
+    </div>
+    <div hidden>
+        <span class="bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-300"></span>
+        <span class="bg-green-500 hover:bg-green-400 active:bg-green-300"></span>
+        <span class="bg-red-500 hover:bg-red-400 active:bg-red-300"></span>
+        <span class="bg-gray-600 hover:bg-gray-500 active:bg-gray-400"></span>
     </div>
 </template>
 
@@ -71,6 +77,7 @@ import lodash from 'lodash'
 import { todayDate, formatDate, formatDateJson, appointment_statuses } from '@/constants'
 import type { IAppointment, IDoctor, IPatient, IService, } from '@/types'
 
+const { addProfit } = useReports()
 const { getDoctors } = useDoctors()
 const { getPatients } = usePatients()
 const { getServices } = useServices()
@@ -170,19 +177,34 @@ const changePrice = (e: any) => {
 const createItem = async () => {
     try {
         loading.value = true
-        const data: any = await createAppointment($item.value)
-        items.value[itemIndex.value].appointments?.push({
+        const data = await createAppointment($item.value)
+        const newItem = {
             ...data,
             doctor: doctors.value.find(d => d.id === data.doctor),
             patient: patients.value.find(p => p.id === data.patient),
             service: services.value.find(s => s.id === data.service),
-        })
+        } as any
+        items.value[itemIndex.value].appointments?.push(newItem)
         close()
+        loading.value = false
+        return newItem
     } catch (error) {
         console.log(error)
-    } finally {
         loading.value = false
+        return null
     }
+}
+
+const handlePay = async () => {
+    $item.value.status = 'PD'
+    const newItem: IAppointment | null = await createItem()
+    if(!newItem) return
+
+    await addProfit(JSON.stringify({
+        date: new Date(newItem.created_at!).toDateString(),
+        amount: newItem.price,
+        appointment: newItem.id,
+    }))
 }
 
 const getItems = async (params: any) => {

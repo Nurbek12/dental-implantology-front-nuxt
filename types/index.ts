@@ -149,6 +149,16 @@ export interface IReport {
     net_profit: number,
 }
 
+export interface ISalary {
+    id?: number
+    amount: number
+    comment: string
+    doctor: null | number | IDoctor
+    created_at?: string
+    updated_at?: string
+}
+
+
 
 
 export interface Stock {

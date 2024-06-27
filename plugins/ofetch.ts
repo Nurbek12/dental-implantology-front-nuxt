@@ -31,22 +31,23 @@ export default defineNuxtPlugin(async (nuxtApp) => {
             let tokenRef = useAuthAccessToken()
             let authToken = useAuthRefreshToken()
 
-            // if((response.status === 401 || response.status === 419) && authToken.value) {
-            //     useAsyncData(() => 
-            //         $fetch<{access: string, refresh: string}>('/api/token/refresh/', {
-            //             method: 'post',
-            //             body: JSON.stringify({
-            //                 refresh: authToken.value
-            //             })
-            //         })
-            //     ).then(({data}) => {
-            //         const typeofData = data.value as DataValueType
-            //         tokenRef.value = typeofData.access
-            //     }).catch((error) => {
-            //         console.log(error)
-            //         useLogout()
-            //     })
-            // }
+            if((response.status === 401 || response.status === 419  || response.status === 403) && authToken.value) {
+                useAsyncData(() => 
+                    $fetch<{access: string, refresh: string}>('/api/token/refresh/', {
+                        method: 'post',
+                        body: JSON.stringify({
+                            refresh: authToken.value
+                        })
+                    })
+                ).then(({data}) => {
+                    const typeofData = data.value as DataValueType
+                    tokenRef.value = typeofData.access
+                }).catch((error) => {
+                    console.log(error)
+                    // useLogout()
+                    navigateTo('/login')
+                })
+            }
         } 
     })
 })

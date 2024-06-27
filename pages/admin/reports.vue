@@ -1,7 +1,7 @@
 <template>
     <div class="w-full p-2">
         <div class="p-2 rounded border flex justify-between items-center gap-2 bg-white">
-            <site-input v-model="filterdate" type="date" placeholder="Поиск" @changed="getItems({date:$event.target.value})" />
+            <site-input v-model="filterdate" type="date" placeholder="Поиск" @changed="getItems($event.target.value)" />
             <div class="flex items-center gap-2">
                 <site-btn @click="dialog1=true" size="small">Добавить прибыль</site-btn>
                 <site-btn @click="dialog2=true" size="small">Добавить расход</site-btn>
@@ -76,11 +76,22 @@
     
     <app-dialog rounded title="Добавить прибыль" :open="dialog1" @close-dialog="close">
         <form @submit.prevent="saveProfit" class="mt-4 flex flex-col gap-4">
+            <site-auto-complete v-model="profit.appointment" @inputed="searching" :loading="appoinmentLoading" :items="appointments" label="Прием" placeholder="Прием">
+                <template #item="acItem">
+                    <div class="flex items-center gap-2 text-sm" @click="acItem.onSelected(`${acItem.item?.patient?.first_name} ${acItem.item?.patient?.last_name } - ${acItem.item?.service?.name_ru} : ${appointment_statuses[acItem.item?.status as keyof typeof appointment_statuses]?.[0]} . ${new Date(acItem.item?.created_at).toLocaleDateString()}`, acItem.item.id)">
+                        <span>{{ acItem.item?.patient?.first_name }} {{ acItem.item?.patient?.last_name }} - {{ acItem.item?.service?.name_ru }} : </span>
+                        <span :class="appointment_statuses[acItem.item?.status as keyof typeof appointment_statuses]?.[2]">
+                            {{ appointment_statuses[acItem.item?.status as keyof typeof appointment_statuses]?.[0] }}
+                        </span>
+                        <span>. {{ new Date(acItem.item?.created_at).toLocaleDateString() }}</span>
+                    </div>
+                </template>
+            </site-auto-complete>
             <site-input readonly required v-model="profit.date" type="date" label="Дата прибыла" />
             <site-input required v-model="profit.amount" type="number" label="Выплаченная сумма" placeholder="Выплаченная сумма" />
-            <site-select required v-model="profit.appointment" :items="appointments" name="none" value="id" label="Прием" :nullvalue="null" placeholder="Прием">
+            <!-- <site-select required v-model="profit.appointment" :items="appointments" name="none" value="id" label="Прием" :nullvalue="null" placeholder="Прием">
                 <template #item="$i">{{ $i.item?.patient?.first_name }} - {{ $i.item?.service?.name_ru }}</template>
-            </site-select>
+            </site-select> -->
             
             <site-btn :disabled="createLoading" type="submit">
                 {{ createLoading?'Загружается':'Сохранить' }}
@@ -100,11 +111,19 @@
             </site-btn>
         </form>
     </app-dialog>
+
+    <div hidden>
+        <span class="text-yellow-400"></span>
+        <span class="text-green-500"></span>
+        <span class="text-red-500"></span>
+        <span class="text-gray-600"></span>
+    </div>
 </template>
 
 <script setup lang="ts">
-import { todayDate } from '~/constants'
+import lodash from 'lodash'
 import type { IAppointment, IReport } from '@/types'
+import { todayDate, appointment_statuses } from '~/constants'
 
 definePageMeta({
   layout: 'admin-layout',
@@ -119,6 +138,7 @@ const dialog1 = ref(false)
 const dialog2 = ref(false)
 const loading = ref(false)
 const item = ref<IReport|null>(null)
+const appoinmentLoading = ref(false)
 const createLoading = ref<boolean>(false)
 const appointments = ref<IAppointment[]>([])
 
@@ -207,10 +227,18 @@ const close = () => {
 
 const init = async () => {
     initToday()
-    getItems({date: filterdate.value})
+    getItems(filterdate.value)
     const data = await getAppointments({})
     appointments.value = data.results
 }
+
+const searching = lodash.debounce(async (e) => {
+    if(!e.target.value?.trim()) return appointments.value = []
+    appoinmentLoading.value = true
+    const p = await getAppointments({page: 1, limit: 1000, search: e.target.value, ordering: '-created_at'})
+    appointments.value = p.results
+    appoinmentLoading.value = false
+}, 500)
 
 init()
 </script>

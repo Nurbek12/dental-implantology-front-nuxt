@@ -7,7 +7,7 @@ export default function useAppointments() {
         results: IAppointment[]
     }>(`/appointments/`, { params })
 
-    const createAppointment = (data: any) => $fetch(`/appointments/`, { method: 'post', body: data })
+    const createAppointment = (data: any) => $fetch<IAppointment>(`/appointments/`, { method: 'post', body: data })
 
     const updateAppointment = (id: number, data: any) => $fetch(`/appointments/${id}/`, { method: 'put', body: data })
 

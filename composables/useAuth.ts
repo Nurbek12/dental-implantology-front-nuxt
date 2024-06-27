@@ -12,7 +12,7 @@ export const useAuth = () => {
             method: 'post',
             body
         })
-        console.log(data);
+        // console.log(data);
         
         if(data.access) {
             setTokens(data.access, data.refresh)

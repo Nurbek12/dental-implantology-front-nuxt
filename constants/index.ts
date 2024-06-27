@@ -14,6 +14,7 @@ import {
     AnOutlinedComment,
     PhTooth,
     ReStarSmileLine,
+    ReMoneyDollarCircleLine,
 } from '@kalimahapps/vue-icons'
 
 export const index_cards = [
@@ -47,6 +48,7 @@ export const admin_links = {
         { title: 'Записи на прием', icon: CaDataTable, url: '/admin/appointments' },
         { title: 'Записи (для докторов)', icon: CdTable, url: '/admin/appointments-doctors' },
         { title: 'Приходы/Расходы', icon: CaReportData, url: '/admin/reports' },
+        { title: 'Зарплата', icon: ReMoneyDollarCircleLine, url: '/admin/salaries' },
     ],
     "USER": {},
     "DOCTOR": {}
@@ -101,16 +103,16 @@ export const formatDate = (dateString: string, prefix1: ', ' | 'T' | '-' = ', ')
         [hours, minutes] = time.split(":").map(Number) as any;
     }
 
-    const dateSplit = new Date(date);
+    const dateSplit = new Date(dateString);
     let year = dateSplit.getFullYear(),
         month = dateSplit.getMonth() + 1,
         day = dateSplit.getDate();
-    console.log(`%c=====================================`, 'color: yellow');
+    // console.log(`%c=====================================`, 'color: yellow');
 
-    console.log(`date string: ${dateString}`);
-    console.log(`date: ${date}`);
-    console.log(`day: ${day}, month: ${month}, year: ${year}`);
-    console.log(`hour: ${hours}, minutes: ${minutes}`);
+    // console.log(`date string: ${dateString}`);
+    // console.log(`date: ${date}`);
+    // console.log(`day: ${day}, month: ${month}, year: ${year}`);
+    // console.log(`hour: ${hours}, minutes: ${minutes}`);
     
     
     // Ensure month and day are two digits
@@ -120,8 +122,8 @@ export const formatDate = (dateString: string, prefix1: ', ' | 'T' | '-' = ', ')
     // Ensure hours and minutes are two digits
     const formattedHours = hours > 9 ? hours : '0' + hours;
     const formattedMinutes = +minutes > 9 ? minutes : '0' + minutes;
-    console.log(`result: ${year}-${formattedMonth}-${formattedDay}T${formattedHours}:${formattedMinutes}`);
-    console.log(`%c=====================================`, 'color: yellow');
+    // console.log(`result: ${year}-${formattedMonth}-${formattedDay}T${formattedHours}:${formattedMinutes}`);
+    // console.log(`%c=====================================`, 'color: yellow');
     
     return `${year}-${formattedMonth}-${formattedDay}T${formattedHours}:${formattedMinutes}`;
 };
@@ -157,8 +159,8 @@ export const specs = {
 }
 
 export const appointment_statuses = {
-    "PN": ["В ожидании", "bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-300"],
-    "PD": ["Оплачено", "bg-green-500 hover:bg-green-400 active:bg-green-300"],
-    "UP": ["Неоплачено", "bg-red-500 hover:bg-red-400 active:bg-red-300"],
-    "CD": ["Отменено", "bg-gray-600 hover:bg-gray-500 active:bg-gray-400"],
+    "PN": ["В ожидании", "bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-300", "text-yellow-400"],
+    "PD": ["Оплачено", "bg-green-500 hover:bg-green-400 active:bg-green-300", "text-green-500"],
+    "UP": ["Неоплачено", "bg-red-500 hover:bg-red-400 active:bg-red-300", "text-red-500"],
+    "CD": ["Отменено", "bg-gray-600 hover:bg-gray-500 active:bg-gray-400", "text-gray-600"],
 }
