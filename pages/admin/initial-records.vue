@@ -13,6 +13,7 @@
             </template>
             <template #table-item-actions="{tableItem,index}">
                 <div class="flex gap-1">
+                    <site-btn @click="updateStatus(tableItem.id!, index)" size="small" :disabled="!tableItem.is_active">{{tableItem.is_active?'Заверщать':'Заверщено'}}</site-btn>
                     <site-btn @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
                 </div>
             </template>
@@ -29,7 +30,7 @@ definePageMeta({
   middleware: ['auth'],
 })
 
-const { getRecords, deleteRecord } = useInitialRecords()
+const { getRecords, deleteRecord, updateRecord } = useInitialRecords()
 
 const loading = ref(false)
 const count = ref<number>(0)
@@ -62,5 +63,11 @@ const deleteItem = async (id: number, index: number) => {
     if(!confirm('Вы хотите удалить это?')) return
     await deleteRecord(id)
     items.value.splice(index, 1)
+}
+
+const updateStatus = async (id: number, index: number) => {
+    if(!confirm('Вы хотите заверщать этот запись?')) return
+    await updateRecord(id, { is_active: false })
+    items.value[index].is_active = false
 }
 </script>

@@ -3,3 +3,5 @@
 [+] Add doctor date
 [+] Fix bug in appointments table with start,end itmes
 [+/+/-] Add autocomplete / fix bug model / testing
+[-] Need add appointments for not active doctors
+[-] NEed add hours for dinner

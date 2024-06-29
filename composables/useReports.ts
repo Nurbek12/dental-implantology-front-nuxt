@@ -1,11 +1,7 @@
 import type { IReport } from "~/types"
 
 export default function useReports() {
-    const getReports = (date: string) => $fetch<{
-        count: number
-        page_count: number
-        results: IReport[]
-    }>(`/reports/${date}/`,)
+    const getReports = (date: string) => $fetch<IReport>(`/reports/${date}/`,)
 
     const createReport = (body: any) => $fetch(`/reports/`, { method: 'post', body })
 

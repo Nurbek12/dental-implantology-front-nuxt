@@ -31,14 +31,12 @@
             <template #table-item-service="{tableItem}">
                 <span class="text-xs text-balance">{{ tableItem.service?.name_ru }}</span>
             </template>
+            <template #table-item-status="{tableItem}">
+                <span class="text-xs whitespace-nowrap" :class="appointment_statuses[tableItem.status as keyof typeof appointment_statuses]?.[2]">
+                    {{ appointment_statuses[tableItem.status as keyof typeof appointment_statuses]?.[0] }}
+                </span>
+            </template>
             
-            <template #table-item-end_time="{tableItem}">
-                <span class="text-xs text-balance">{{ new Date(tableItem.end_time!).toLocaleString() }}</span>
-            </template>
-            <template #table-item-start_time="{tableItem}">
-                <span class="text-xs text-balance">{{ new Date(tableItem.start_time!).toLocaleString() }}</span>
-            </template>
-
             <template #table-item-created_at="{tableItem}">
                 <span class="text-xs text-balance">{{ new Date(tableItem.created_at!).toLocaleString() }}</span>
             </template>
@@ -51,10 +49,10 @@
         </app-data-table>
     </div>
     
-    <app-dialog :open="dialog" @close-dialog="close" title="Appointment Details" rounded>
+    <app-dialog :open="dialog" @close-dialog="close" title="Подробности приема" rounded>
         <form @submit.prevent="save" class="bg-white w-full space-y-4 mt-4">
-            <site-input @inputed="console.log($event.target.value)" v-model="$item.start_time" label="Start Time" type="datetime-local" />
-            <site-input v-model="$item.end_time" label="End Time" type="datetime-local" />
+            <site-input v-model="$item.start_time" label="Дата начало" type="time" />
+            <site-input v-model="$item.end_time" label="Дата окончания" type="time" />
             
             <site-auto-complete v-if="!$item.id" v-model="$item.patient" @inputed="searching" :loading="patientLoading" :items="patients" label="Пациент" placeholder="Пациент" :nullvalue="null">
                 <template #item="acItem">
@@ -71,8 +69,8 @@
             </site-auto-complete>
                 
             
-            <site-select v-model="$item.service" :items="services" @changed="changePrice" name="name_ru" value="id" label="Service" placeholder="Service" :nullvalue="null" />
-            <site-input v-model="$item.price" label="Price" type="number" placeholder="Priced" />
+            <site-select v-model="$item.service" :items="services" @changed="changePrice" name="name_ru" value="id" label="Услуга" placeholder="Услуга" :nullvalue="null" />
+            <site-input v-model="$item.price" label="Цена" type="number" placeholder="Цена" />
             <site-btn type="submit" :disabled="loading||!!$item.id">Create an Appointment</site-btn>
         </form>
     </app-dialog>
@@ -80,7 +78,7 @@
 
 <script setup lang="ts">
 import lodash from 'lodash'
-import { todayDate, formatDate } from '@/constants'
+import { todayDate, appointment_statuses } from '@/constants'
 import type { IAppointment, IPatient, IService } from '@/types'
 
 definePageMeta({
@@ -110,6 +108,8 @@ const $item = ref<IAppointment>({
     price: 0,
     end_time: '',
     start_time: '',
+    date: todayDate(),
+    status: 'PN',
 })
 
 const headers = [
@@ -118,8 +118,9 @@ const headers = [
     { name: "Пациет", value: "patient", sortable: false, balancedText: false, custom: true },
     { name: "Услуга", value: "service", sortable: false, balancedText: false, custom: true },
     { name: "Цена", value: "price", sortable: true, balancedText: false, custom: false },
-    { name: "Дата начало", value: "start_time", sortable: true, balancedText: false, custom: true },
-    { name: "Дата окончания", value: "end_time", sortable: true, balancedText: false, custom: true },
+    { name: "Статус", value: "status", sortable: true, balancedText: false, custom: true },
+    { name: "Дата начало", value: "start_time", sortable: true, balancedText: false, custom: false },
+    { name: "Дата окончания", value: "end_time", sortable: true, balancedText: false, custom: false },
     { name: "Дата создания", value: "created_at", sortable: true, balancedText: false, custom: true },
     { name: "Управлять", value: "actions", sortable: true, balancedText: false, custom: true },
 ]
@@ -133,7 +134,7 @@ const changePrice = (e: any) => {
 const getItems = async (params: any) => {
     try {
         loading.value = true
-        const data = await getAppointments({...params, start_time: filterdate.value, ordering:'-created_at'})
+        const data = await getAppointments({...params,  ordering:'-created_at'})
         // doctor=doctorid
         items.value = data.results
         count.value = data.count
@@ -152,8 +153,6 @@ const editItem = (item: IAppointment, index: number) => {
         ...item,
         patient: (item?.patient as any).id,
         service: (item?.service as any).id,
-        end_time: formatDate(item?.end_time!, 'T'),
-        start_time: formatDate(item?.start_time!, 'T'),
     })
 }
 
@@ -192,6 +191,8 @@ const close = () => {
         price: 0,
         end_time: '',
         start_time: '',
+        date: todayDate(),
+        status: 'PN',
     }
     dialog.value = false
     itemIndex.value = null

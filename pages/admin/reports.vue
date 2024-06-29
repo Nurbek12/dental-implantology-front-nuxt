@@ -34,10 +34,10 @@
                     </template>
                     
                     <template #table-item-end_time="{tableItem}">
-                        <span class="text-xs text-balance">{{ new Date(tableItem?.appointment?.end_time!).toLocaleString() }}</span>
+                        <span class="text-xs text-balance">{{ tableItem?.appointment?.end_time }}</span>
                     </template>
                     <template #table-item-start_time="{tableItem}">
-                        <span class="text-xs text-balance">{{ new Date(tableItem?.appointment?.start_time!).toLocaleString() }}</span>
+                        <span class="text-xs text-balance">{{ tableItem?.appointment?.start_time }}</span>
                     </template>
     
                     <template #table-item-created_at="{tableItem}">
@@ -76,14 +76,14 @@
     
     <app-dialog rounded title="Добавить прибыль" :open="dialog1" @close-dialog="close">
         <form @submit.prevent="saveProfit" class="mt-4 flex flex-col gap-4">
-            <site-auto-complete v-model="profit.appointment" @inputed="searching" :loading="appoinmentLoading" :items="appointments" label="Прием" placeholder="Прием">
+            <site-auto-complete @updated="profit.amount = $event" v-model="profit.appointment" @inputed="searching" :loading="appoinmentLoading" :items="appointments" label="Прием" placeholder="Прием">
                 <template #item="acItem">
-                    <div class="flex items-center gap-2 text-sm" @click="acItem.onSelected(`${acItem.item?.patient?.first_name} ${acItem.item?.patient?.last_name } - ${acItem.item?.service?.name_ru} : ${appointment_statuses[acItem.item?.status as keyof typeof appointment_statuses]?.[0]} . ${new Date(acItem.item?.created_at).toLocaleDateString()}`, acItem.item.id)">
+                    <div class="flex items-center gap-2 text-sm" @click="acItem.onSelected(`${acItem.item?.patient?.first_name} ${acItem.item?.patient?.last_name } - ${acItem.item?.service?.name_ru} : ${appointment_statuses[acItem.item?.status as keyof typeof appointment_statuses]?.[0]} . ${new Date(acItem.item?.created_at).toLocaleDateString()}`, acItem.item.id, acItem.item.price)">
                         <span>{{ acItem.item?.patient?.first_name }} {{ acItem.item?.patient?.last_name }} - {{ acItem.item?.service?.name_ru }} : </span>
-                        <span :class="appointment_statuses[acItem.item?.status as keyof typeof appointment_statuses]?.[2]">
-                            {{ appointment_statuses[acItem.item?.status as keyof typeof appointment_statuses]?.[0] }}
+                        <span class="text-xs">{{ acItem.item?.date }}</span>
+                        <span class="text-xs" :class="appointment_statuses[acItem.item?.status as keyof typeof appointment_statuses]?.[2]">
+                            ({{ appointment_statuses[acItem.item?.status as keyof typeof appointment_statuses]?.[0] }})
                         </span>
-                        <span>. {{ new Date(acItem.item?.created_at).toLocaleDateString() }}</span>
                     </div>
                 </template>
             </site-auto-complete>
@@ -188,7 +188,7 @@ const getItems = async (params: any) => {
     try {
         loading.value = true
         const data = await getReports(params)
-        item.value = data.results[0]
+        item.value = data
         // const data = await getDoctors(params)
         // items.value = data.results
         // count.value = data.count

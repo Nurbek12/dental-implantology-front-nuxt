@@ -26,28 +26,38 @@ export default defineNuxtPlugin(async (nuxtApp) => {
             }
         },
         onResponseError: ({response, request}) => {
-            console.log(request);
             
             let tokenRef = useAuthAccessToken()
             let authToken = useAuthRefreshToken()
+            console.log(authToken.value);
+            
 
-            if((response.status === 401 || response.status === 419  || response.status === 403) && authToken.value) {
-                useAsyncData(() => 
-                    $fetch<{access: string, refresh: string}>('/api/token/refresh/', {
-                        method: 'post',
-                        body: JSON.stringify({
-                            refresh: authToken.value
+            if((response.status === 401 || response.status === 419  || response.status === 403)) {
+                if(authToken.value){
+                    useAsyncData(() => 
+                        $fetch<{access: string, refresh: string}>('/api/token/refresh/', {
+                            method: 'post',
+                            body: JSON.stringify({
+                                refresh: authToken.value
+                            })
                         })
+                    ).then(({data}) => {
+                        const typeofData = data.value as DataValueType
+                        tokenRef.value = typeofData.access
+                    }).catch((error) => {
+                        console.log('sd');
+                        
+                        console.log(error)
+                        // useLogout()
+                        navigateTo('/login')
                     })
-                ).then(({data}) => {
-                    const typeofData = data.value as DataValueType
-                    tokenRef.value = typeofData.access
-                }).catch((error) => {
-                    console.log(error)
-                    // useLogout()
+                } else {
                     navigateTo('/login')
-                })
+                }
             }
+            // else {
+            //     navigateTo('/login')
+            // }
         } 
     })
 })

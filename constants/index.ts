@@ -7,11 +7,12 @@ import {
     MaDoctor,
     GlWork,
     CdTable,
-    HeOutlineMedicalRecords,
+    CgList,
     CaDataTable,
     FaUserInjured,
     CaReportData,
-    AnOutlinedComment,
+    AnOutlinedMessage,
+    FaListCheck,
     PhTooth,
     ReStarSmileLine,
     ReMoneyDollarCircleLine,
@@ -42,9 +43,9 @@ export const admin_links = {
         { title: 'Докторы', icon: HeFilledDoctorMale, url: '/admin/doctors' },
         { title: 'Пациенты', icon: FaUserInjured, url: '/admin/patients' },
         { title: 'Услуги', icon: GlWork, url: '/admin/services' },
-        { title: 'Отзывы', icon: AnOutlinedComment, url: '/admin/reviews' },
+        { title: 'Отзывы', icon: AnOutlinedMessage, url: '/admin/reviews' },
         
-        { title: 'Первоначальные записи', icon: HeOutlineMedicalRecords, url: '/admin/initial-records' },
+        { title: 'Первоначальные записи', icon: CgList, url: '/admin/initial-records' },
         { title: 'Записи на прием', icon: CaDataTable, url: '/admin/appointments' },
         { title: 'Записи (для докторов)', icon: CdTable, url: '/admin/appointments-doctors' },
         { title: 'Приходы/Расходы', icon: CaReportData, url: '/admin/reports' },
@@ -141,6 +142,22 @@ export const formatDateJson = (dateString: string) => {
         minutes: +minutes
     }
 }
+
+export const getTimeDifferenceInMilliseconds = (time1: string, time2: string) => {
+    // Split the time strings into hours and minutes
+    const [hours1, minutes1] = time1.split(':').map(Number);
+    const [hours2, minutes2] = time2.split(':').map(Number);
+
+    // Create Date objects with the same date but different times
+    const date1: any = new Date();
+    date1.setHours(hours1, minutes1, 0, 0);
+
+    const date2: any = new Date();
+    date2.setHours(hours2, minutes2, 0, 0);
+
+    // Calculate the difference in milliseconds
+    return Math.abs(date2 - date1);
+  }
 
 export const todayDate = () => {
     const today = new Date();

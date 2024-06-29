@@ -115,7 +115,7 @@ const headers = [
     { name: "Опыт", value: "experiences", sortable: true, balancedText: true, custom: false },
     { name: "Образование", value: "educations", sortable: true, balancedText: true, custom: false },
     { name: "Спецализатция", value: "spec", sortable: true, balancedText: false, custom: true },
-    // { name: "Специальность", value: "specialty", sortable: true, balancedText: false, custom: false },
+    { name: "Баланс", value: "balance", sortable: true, balancedText: false, custom: false },
     { name: "Дата", value: "created_at", sortable: true, balancedText: false, custom: true },
     { name: "Управлять", value: "actions", sortable: true, balancedText: false, custom: true },
 ]

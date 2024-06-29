@@ -38,7 +38,7 @@
                             <template v-for="h in props.headers" :key="h.value">
                                 <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap">
                                     <slot v-if="h.custom" :name="`table-item-${h.value}`" :table-item="item"  :table-value="h.value" :index="i" :open-tr="() => openRow(item.id)" :is-opened="item.id == expandRow" />
-                                    <div v-else class="text-xs" :class="{'text-balance line-clamp-3':h.balancedText}">{{ item[h.value]||'Нет' }}</div>
+                                    <div v-else class="text-xs" :class="{'text-balance line-clamp-3':h.balancedText}">{{ ![null,undefined].includes(item[h.value])?item[h.value]:'Нет' }}</div>
                                 </th>
                             </template>
                         </tr>

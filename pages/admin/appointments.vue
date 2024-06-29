@@ -1,7 +1,7 @@
 <template>
     <div class="w-full p-2">
         <div class="p-2 rounded border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 bg-white">
-            <site-input v-model="filterdate" type="date" placeholder="Поиск" @changed="getItems({start_time:$event.target.value})" />
+            <site-input v-model="filterdate" type="date" placeholder="Поиск" @changed="getItems({date:$event.target.value})" />
         </div>
 
         <div class="border w-full rounded mt-2 overflow-hidden">
@@ -18,14 +18,15 @@
                                 <div v-for="hour in hours" :key="hour" @click="selectItem(i, hour, item)" :class="{'bg-gray-300 pointer-events-none':hour==='Обед'}" class="hover:bg-gray-50 active:bg-gray-100 cursor-pointer h-[30px] flex items-center justify-center text-sm border-b border-r"></div>
                             </div>
                             <div class="top-[30px] absolute left-0 w-full">
-                                <div v-for="ap,j in item.appointments" :key="j" :style="{'height': `${((new Date(ap.end_time) as any)-(new Date(ap.start_time) as any))*60/(60 * 60 * 1000)}px`, 'top':`${
-                                    (formatDateJson(ap.start_time).hours>=14)?
-                                    (formatDateJson(ap.start_time).hours-9)*60-30:
-                                    (formatDateJson(ap.start_time).hours-9)*60}px`}"
+                                <div v-for="ap,j in item.appointments" :key="j" :style="{'height': `${getTimeDifferenceInMilliseconds(ap.end_time, ap.start_time)*60/(60 * 60 * 1000)}px`, 'top':`${
+                                    ((+ap.start_time.split(':')[0])>=14)?
+                                    ((+ap.start_time.split(':')[0])-9)*60-30:
+                                    ((+ap.start_time.split(':')[0])-9)*60}px`}"
                                     class="absolute w-full">
-                                    <div @click="selectItem(i, '', item, ap)" class="w-full h-full border flex items-center justify-center cursor-pointer text-white text-center text-sm"
+                                    <div @click="selectItem(i, '', item, ap)" class="w-full h-full border flex items-center justify-center cursor-pointer text-white text-center text-xs"
                                         :class="appointment_statuses[ap.status||'PN'][1]">
-                                        {{ (ap.patient as IPatient).first_name }} {{ (ap.patient as IPatient).last_name }}
+                                        {{ (ap.patient as IPatient).first_name }} {{ (ap.patient as IPatient).last_name }}:
+                                        ({{ (ap.doctor as IPatient).first_name }} {{ (ap.doctor as IPatient).last_name }})
                                     </div>
                                 </div>
                             </div>
@@ -37,8 +38,8 @@
 
         <app-dialog :open="dialog" @close-dialog="close" title="Подробности приема" rounded>
             <form @submit.prevent="createItem" class="bg-white w-full space-y-4 mt-4">
-                <site-input v-model="$item.start_time" label="Время начала" type="datetime-local" />
-                <site-input v-model="$item.end_time" label="Время окончания" type="datetime-local" />
+                <site-input v-model="$item.start_time" label="Время начала" type="time" />
+                <site-input v-model="$item.end_time" label="Время окончания" type="time" />
                 <site-auto-complete v-if="!$item.id" v-model="$item.patient" @inputed="searching" :loading="patientLoading" :items="patients" label="Пациент" placeholder="Пациент" :nullvalue="null">
                     <template #item="acItem">
                         <div class="flex items-center gap-2" @click="acItem.onSelected(`${acItem.item.first_name} ${acItem.item.middle_name } ${acItem.item.last_name}`, acItem.item.id)">
@@ -59,7 +60,7 @@
                 <site-input v-model="$item.price" label="Price" type="number" placeholder="Price" />
                 <div class="flex items-center gap-2">
                     <site-btn type="submit" :disabled="loading||!!$item.id">Создать прием</site-btn>
-                    <site-btn type="button" @click="handlePay()">Оплатить</site-btn>
+                    <site-btn type="button" @click="handlePay()" :disabled="loading||!!$item.id">Оплатить</site-btn>
                 </div>
             </form>
         </app-dialog>
@@ -74,7 +75,7 @@
 
 <script setup lang="ts">
 import lodash from 'lodash'
-import { todayDate, formatDate, formatDateJson, appointment_statuses } from '@/constants'
+import { todayDate, appointment_statuses, getTimeDifferenceInMilliseconds } from '@/constants'
 import type { IAppointment, IDoctor, IPatient, IService, } from '@/types'
 
 const { addProfit } = useReports()
@@ -100,6 +101,7 @@ const $item = ref<IAppointment>({
     status: "PN",
     end_time: '',
     start_time: '',
+    date: todayDate(),
 })
 
 const hours = [
@@ -132,31 +134,36 @@ const selectItem = (index: number, hour: string, doctor: IDoctor | null, app?: I
             doctor: (app.doctor as any).id,
             patient: (app.patient as any).id,
             service: (app.service as any).id,
-            end_time: formatDate(app.end_time!, 'T'),
-            start_time: formatDate(app.start_time!, 'T'),
+            // end_time: hour,
+            // start_time: formatDate(app.start_time!, 'T'),
         })
         return
     }
     
-    const now = new Date()
-    const [hours, minutes] = hour.split(':').map(Number)
-    
-    now.setHours(hours)
-    now.setMinutes(minutes)
+    const [h, m] = hour.split(':'); // Split the input time into hours and minutes
 
-    now.setSeconds(0)
-    now.setMilliseconds(0)
+    // Create a new Date object with the current date and input time
+    const date = new Date();
+    date.setHours(parseInt(h, 10));
+    date.setMinutes(parseInt(m, 10));
 
-    const end = new Date(now.getTime());
-    end.setHours(end.getHours() + 1);
+    // Add one hour to the Date object
+    date.setHours(date.getHours() + 1);
+
+    // Format the new time as HH:MM
+    const newHours = String(date.getHours()).padStart(2, '0');
+    const newMinutes = String(date.getMinutes()).padStart(2, '0');
+
+    // Combine the new hours and minutes into a time string
+    const newTime = `${newHours}:${newMinutes}`;
     
     Object.assign($item.value, {
         doctor: doctor?.id,
         patient: null,
         service: null,
         price: 0,
-        end_time: formatDate(end.toLocaleString(), ', '),
-        start_time: formatDate(now.toLocaleString(), ', '),
+        end_time: newTime,
+        start_time: hour,
     })
 }
 
@@ -201,18 +208,18 @@ const handlePay = async () => {
     if(!newItem) return
 
     await addProfit(JSON.stringify({
-        date: new Date(newItem.created_at!).toDateString(),
+        date: todayDate(),
         amount: newItem.price,
         appointment: newItem.id,
     }))
+
+    close()
 }
 
 const getItems = async (params: any) => {
     try {
         loading.value = true
         const a = await getAppointments(params)
-        // doctor=doctorid
-        // appointments.value = data.results
         items.value = doctors.value.map(di => {
             const appointments = a.results.filter(ai => (ai.doctor as any).id === di.id)
             di.appointments = appointments
@@ -229,20 +236,13 @@ const init = async () => {
     initToday()
 
     const [d,s] = await Promise.all([
-        // getAppointments({start_time:todayDate()}),
         getDoctors({page: 1, limit: 1000}),
         getServices({page: 1, limit: 1000})
     ])
-
-    // items.value = d.results.map(di => {
-    //     const aps = appointments.value.filter(ai => (ai.doctor as any).id === di.id)
-    //     di.appointments = aps
-    //     return di
-    // })
     doctors.value = d.results
     services.value = s.results
 
-    await getItems({start_time:todayDate()});
+    await getItems({date:todayDate()});
 }
 
 const initToday = () => {
@@ -259,6 +259,7 @@ const close = () => {
         status: "PN",
         end_time: '',
         start_time: '',
+        date: todayDate(),
     }
     dialog.value = false
 }

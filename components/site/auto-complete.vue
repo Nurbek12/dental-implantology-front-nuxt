@@ -16,7 +16,7 @@
 
             <div class="w-full">
                 <p v-for="item,i in items" :key="item" class="cursor-pointer px-4 py-2 bg-white hover:bg-gray-50 active:bg-gray-100 border-b">
-                    <slot name="item" :item="item" :index="i" @selected="(e1, e2) => {str=e1;model=e2;isOpen=false}" />
+                    <slot name="item" :item="item" :index="i" @selected="(e1, e2, e3) => {str=e1;model=e2;isOpen=false;emits('updated', e3)}" />
                 </p>
             </div>
         </div>
@@ -30,7 +30,7 @@ import { McLoading2Line } from '@kalimahapps/vue-icons'
 const str = ref('')
 const isOpen = ref(false)
 const randomid = v4()
-const emits = defineEmits(['inputed'])
+const emits = defineEmits(['inputed','updated'])
 const model = defineModel<string|number|null>()
 const props = defineProps<{
     icon?: any

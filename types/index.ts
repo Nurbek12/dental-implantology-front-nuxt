@@ -17,6 +17,7 @@ export interface IDoctor {
     licences: string
     experience: number
     experiences: string
+    balance?: number
     educations: string
     certificates: string
     content?: string
@@ -97,6 +98,7 @@ export interface IInitialRecord {
     last_name: string,
     phone: string,
     comment: string,
+    is_active: boolean
     created_at?: string
 }
 
@@ -118,6 +120,7 @@ export interface IAppointment {
     service: IService | number | null
     price: number
     status: "PN" | "PD" | "UP" | "CD"
+    date: string
     start_time: string
     end_time: string
     created_at?: string

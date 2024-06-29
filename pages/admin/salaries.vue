@@ -14,6 +14,9 @@
                 <!-- <div class="hidden lg:block"></div>
                 <div class="hidden lg:block"></div> -->
             </template>
+            <template #table-item-doctor="{tableItem}">
+                <span class="text-xs text-balance">{{ tableItem.doctor?.first_name }} {{ tableItem.doctor?.last_name }}</span>
+            </template>
             <template #table-item-created_at="{tableItem}">
                 <span class="text-xs text-balance">{{ new Date(tableItem.created_at!).toLocaleString() }}</span>
             </template>
@@ -59,7 +62,7 @@ const $item = reactive<ISalary>({
                            
 const headers = [
     { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
-    { name: "Доктор", value: "doctor", sortable: true, balancedText: false, custom: false },
+    { name: "Доктор", value: "doctor", sortable: true, balancedText: false, custom: true },
     { name: "Сумма", value: "amount", sortable: false, balancedText: false, custom: false },
     // { name: "Очиство", value: "middle_name", sortable: false, balancedText: false, custom: false },
     // { name: "Активность", value: "is_active", sortable: false, balancedText: false, custom: true },

@@ -9,11 +9,14 @@ export const useInitialRecords = () => {
 
     const createRecord = (data: any) => $fetch(`/initial-records/`, { method: 'post', body: data })
 
+    const updateRecord = (id: number, data: Partial<IInitialRecord>) => $fetch(`/initial-records/${id}/`, { method: 'patch', body: data })
+
     const deleteRecord = (id: any) => $fetch(`/initial-records/${id}/`, { method: 'delete' })
 
     return {
         getRecords,
         createRecord,
-        deleteRecord
+        deleteRecord,
+        updateRecord,
     }
 }
