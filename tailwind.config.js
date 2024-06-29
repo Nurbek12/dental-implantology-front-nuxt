@@ -9,6 +9,16 @@ export default {
     "./app.vue",
     "./error.vue",
   ],
+  safelist: [
+    "bg-yellow-400", "bg-yellow-300", "bg-yellow-200", "text-yellow-400",
+    "bg-green-500", "bg-green-400", "bg-green-300", "text-green-500",
+    "bg-orange-500", "g-orange-400", "bg-orange-300", "text-orange-500",
+    "bg-red-500", "bg-red-400", "bg-red-300", "text-red-500",
+    "bg-gray-600", "bg-gray-500", "bg-gray-400", "text-gray-600",
+    "py-1", "p-1",
+    "py-2", "px-2",
+    "py-3", "px-5",
+  ],
   theme: {
     container: {
       center: true,

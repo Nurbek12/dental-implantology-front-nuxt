@@ -2,6 +2,13 @@
     <div class="w-full p-2">
         <div class="p-2 rounded border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 bg-white">
             <site-input v-model="filterdate" type="date" placeholder="Поиск" @changed="getItems({date:$event.target.value})" />
+            <div class="hidden lg:block"></div>
+            <div class="flex items-center justify-start md:justify-end gap-4 col-span-1 lg:col-span-2 flex-wrap">
+                <div v-for="aps,i of appointment_statuses" :key="i" class="text-xs text-nowrap flex items-center gap-1">
+                    <div :class="aps[1]" class="h-[14px] w-[14px] rounded border"></div>
+                    <span :class="aps[2]">{{ aps[0] }}</span>
+                </div>
+            </div>
         </div>
 
         <div class="border w-full rounded mt-2 overflow-hidden">
@@ -13,7 +20,7 @@
                 <div class="flex-1 overflow-auto scrollbar-hide">
                     <div class="flex w-max">
                         <div v-for="item,i in items" :key="i" class="relative">
-                            <div class="relative z-10 h-[30px] flex px-8 items-center justify-center bg-gray-50 border-b border-r">{{ item?.first_name }} {{ item?.last_login }}</div>
+                            <div class="relative z-10 h-[30px] flex px-8 items-center justify-center bg-gray-50 border-b border-r">{{ item?.first_name }} {{ item?.last_name }}</div>
                             <div>
                                 <div v-for="hour in hours" :key="hour" @click="selectItem(i, hour, item)" :class="{'bg-gray-300 pointer-events-none':hour==='Обед'}" class="hover:bg-gray-50 active:bg-gray-100 cursor-pointer h-[30px] flex items-center justify-center text-sm border-b border-r"></div>
                             </div>
@@ -23,10 +30,10 @@
                                     ((+ap.start_time.split(':')[0])-9)*60-30:
                                     ((+ap.start_time.split(':')[0])-9)*60}px`}"
                                     class="absolute w-full">
-                                    <div @click="selectItem(i, '', item, ap)" class="w-full h-full border flex items-center justify-center cursor-pointer text-white text-center text-xs"
-                                        :class="appointment_statuses[ap.status||'PN'][1]">
+                                    <div @click="selectItem(i, '', item, ap)" class="w-full h-full border flex items-center justify-center flex-col cursor-pointer text-white text-center text-sm"
+                                        :class="appointment_statuses[ap.status||'PN']?.[1]||'text-black'">
                                         {{ (ap.patient as IPatient).first_name }} {{ (ap.patient as IPatient).last_name }}:
-                                        ({{ (ap.doctor as IPatient).first_name }} {{ (ap.doctor as IPatient).last_name }})
+                                        <span class="text-xs">({{ (ap.service as IService)?.name_ru }})</span>
                                     </div>
                                 </div>
                             </div>
@@ -57,19 +64,27 @@
                 <site-select v-model="$item.status" :items="Object.keys(appointment_statuses).map(k => ({name:appointment_statuses[k as keyof typeof appointment_statuses][0], value:k}))" label="Статус" placeholder="Статус" :nullvalue="null" />
                 <site-select v-model="$item.doctor" :items="doctors" name="first_name" value="id" label="Врач" placeholder="Врач" :nullvalue="null" />
                 <site-select v-model="$item.service" :items="services" @changed="changePrice" name="name_ru" value="id" label="Услуга" placeholder="Услуга" :nullvalue="null" />
-                <site-input v-model="$item.price" label="Price" type="number" placeholder="Price" />
+                <site-input v-model="$item.price" label="Цена" type="number" placeholder="Цена" />
                 <div class="flex items-center gap-2">
-                    <site-btn type="submit" :disabled="loading||!!$item.id">Создать прием</site-btn>
-                    <site-btn type="button" @click="handlePay()" :disabled="loading||!!$item.id">Оплатить</site-btn>
+                    <site-btn type="submit" :disabled="loading||!!$item.id">Сохранить</site-btn>
                 </div>
             </form>
+            
+            <div v-if="$item.id" class="mt-6 pt-4 border-t border-gray-800 border-dashed">
+                <h1 class="my-4">Оплаты</h1>
+                <app-data-table :items="$item.profits!" :loading="false" :headers="profitHeaders" :count="0" hide-bottom hide-top>
+                    <template #table-top-extra>
+                        <form @submit.prevent="handlePay($item.id)" class="flex items-center justify-between">
+                            <site-input required v-model="profitPrice" label="Цена оплаты" type="number" :min="0" />
+                            <site-btn type="submit" :disabled="!profitPrice">Оплатить</site-btn>
+                        </form>
+                    </template>
+                    <template #table-item-created_at="{tableItem}">
+                        <span class="text-xs text-balance">{{ new Date(tableItem.created_at!).toLocaleString() }}</span>
+                    </template>
+                </app-data-table>
+            </div>
         </app-dialog>
-    </div>
-    <div hidden>
-        <span class="bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-300"></span>
-        <span class="bg-green-500 hover:bg-green-400 active:bg-green-300"></span>
-        <span class="bg-red-500 hover:bg-red-400 active:bg-red-300"></span>
-        <span class="bg-gray-600 hover:bg-gray-500 active:bg-gray-400"></span>
     </div>
 </template>
 
@@ -78,16 +93,16 @@ import lodash from 'lodash'
 import { todayDate, appointment_statuses, getTimeDifferenceInMilliseconds } from '@/constants'
 import type { IAppointment, IDoctor, IPatient, IService, } from '@/types'
 
-const { addProfit } = useReports()
 const { getDoctors } = useDoctors()
 const { getPatients } = usePatients()
 const { getServices } = useServices()
-const { getAppointments, createAppointment } = useAppointments()
+const { getAppointments, createAppointment, addProfitForAppointment } = useAppointments()
 
 const itemIndex = ref(-1)
 const dialog = ref(false)
 const loading = ref(false)
 const filterdate = ref('')
+const profitPrice = ref(0)
 const items = ref<IDoctor[]>([])
 const patientLoading = ref(false)
 const doctors = ref<IDoctor[]>([])
@@ -117,6 +132,12 @@ const hours = [
     "18:00", "18:30",
     "19:00", "19:30",
     "20:00", "20:30",
+]
+
+const profitHeaders = [
+    { name: "Прибыли", value: "id", sortable: false, balancedText: false, custom: false },
+    { name: "Цена", value: "amount", sortable: false, balancedText: false, custom: false },
+    { name: "Дата создания", value: "created_at", sortable: false, balancedText: false, custom: true },
 ]
 
 definePageMeta({
@@ -190,30 +211,28 @@ const createItem = async () => {
             doctor: doctors.value.find(d => d.id === data.doctor),
             patient: patients.value.find(p => p.id === data.patient),
             service: services.value.find(s => s.id === data.service),
+            profits: [],
         } as any
         items.value[itemIndex.value].appointments?.push(newItem)
         close()
-        loading.value = false
-        return newItem
     } catch (error) {
         console.log(error)
+    } finally {
         loading.value = false
-        return null
     }
 }
 
-const handlePay = async () => {
-    $item.value.status = 'PD'
-    const newItem: IAppointment | null = await createItem()
-    if(!newItem) return
-
-    await addProfit(JSON.stringify({
+const handlePay = async (id: any) => {
+    const data = await addProfitForAppointment(id, JSON.stringify({
         date: todayDate(),
-        amount: newItem.price,
-        appointment: newItem.id,
+        amount: profitPrice.value,
+        appointment: id,
     }))
 
-    close()
+    $item.value.profits?.push(data as any)
+    // const index = .value.findIndex(i => i.id === id)
+    // items.value[index].
+    profitPrice.value = 0
 }
 
 const getItems = async (params: any) => {

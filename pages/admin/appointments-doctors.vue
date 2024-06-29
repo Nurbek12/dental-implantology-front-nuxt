@@ -42,8 +42,8 @@
             </template>
             <template #table-item-actions="{tableItem,index}">
                 <div class="flex gap-1">
-                    <site-btn @click="editItem(tableItem, index)" size="small">Изменить</site-btn>
-                    <site-btn @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
+                    <site-btn class="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="editItem(tableItem, index)" size="small">Изменить</site-btn>
+                    <site-btn class="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
                 </div>
             </template>
         </app-data-table>
@@ -51,7 +51,7 @@
     
     <app-dialog :open="dialog" @close-dialog="close" title="Подробности приема" rounded>
         <form @submit.prevent="save" class="bg-white w-full space-y-4 mt-4">
-            <site-input v-model="$item.start_time" label="Дата начало" type="time" />
+            <site-input v-model="$item.start_time" label="Дата начала" type="time" />
             <site-input v-model="$item.end_time" label="Дата окончания" type="time" />
             
             <site-auto-complete v-if="!$item.id" v-model="$item.patient" @inputed="searching" :loading="patientLoading" :items="patients" label="Пациент" placeholder="Пациент" :nullvalue="null">
@@ -67,11 +67,11 @@
                     </div>
                 </template>
             </site-auto-complete>
-                
+            <site-select v-model="$item.status" :items="Object.keys(appointment_statuses).map(k => ({name:appointment_statuses[k as keyof typeof appointment_statuses][0], value:k}))" label="Статус" placeholder="Статус" :nullvalue="null" />
             
             <site-select v-model="$item.service" :items="services" @changed="changePrice" name="name_ru" value="id" label="Услуга" placeholder="Услуга" :nullvalue="null" />
             <site-input v-model="$item.price" label="Цена" type="number" placeholder="Цена" />
-            <site-btn type="submit" :disabled="loading||!!$item.id">Create an Appointment</site-btn>
+            <site-btn type="submit" :disabled="loading||!!$item.id">Сохранить</site-btn>
         </form>
     </app-dialog>
 </template>
@@ -115,14 +115,14 @@ const $item = ref<IAppointment>({
 const headers = [
     { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
     { name: "Доктор", value: "doctor", sortable: false, balancedText: false, custom: true },
-    { name: "Пациет", value: "patient", sortable: false, balancedText: false, custom: true },
+    { name: "Пациент", value: "patient", sortable: false, balancedText: false, custom: true },
     { name: "Услуга", value: "service", sortable: false, balancedText: false, custom: true },
     { name: "Цена", value: "price", sortable: true, balancedText: false, custom: false },
     { name: "Статус", value: "status", sortable: true, balancedText: false, custom: true },
-    { name: "Дата начало", value: "start_time", sortable: true, balancedText: false, custom: false },
+    { name: "Дата начала", value: "start_time", sortable: true, balancedText: false, custom: false },
     { name: "Дата окончания", value: "end_time", sortable: true, balancedText: false, custom: false },
     { name: "Дата создания", value: "created_at", sortable: true, balancedText: false, custom: true },
-    { name: "Управлять", value: "actions", sortable: true, balancedText: false, custom: true },
+    { name: "Управление", value: "actions", sortable: true, balancedText: false, custom: true },
 ]
 
 const changePrice = (e: any) => {
@@ -152,6 +152,7 @@ const editItem = (item: IAppointment, index: number) => {
     Object.assign($item.value, {
         ...item,
         patient: (item?.patient as any).id,
+        doctor: (item?.doctor as any).id,
         service: (item?.service as any).id,
     })
 }

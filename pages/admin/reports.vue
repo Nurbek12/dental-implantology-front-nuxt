@@ -3,8 +3,8 @@
         <div class="p-2 rounded border flex justify-between items-center gap-2 bg-white">
             <site-input v-model="filterdate" type="date" placeholder="Поиск" @changed="getItems($event.target.value)" />
             <div class="flex items-center gap-2">
-                <site-btn @click="dialog1=true" size="small">Добавить прибыль</site-btn>
-                <site-btn @click="dialog2=true" size="small">Добавить расход</site-btn>
+                <site-btn class="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="dialog1=true" size="small">Добавить прибыль</site-btn>
+                <site-btn class="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="dialog2=true" size="small">Добавить расход</site-btn>
             </div>
         </div>
 
@@ -89,10 +89,7 @@
             </site-auto-complete>
             <site-input readonly required v-model="profit.date" type="date" label="Дата прибыла" />
             <site-input required v-model="profit.amount" type="number" label="Выплаченная сумма" placeholder="Выплаченная сумма" />
-            <!-- <site-select required v-model="profit.appointment" :items="appointments" name="none" value="id" label="Прием" :nullvalue="null" placeholder="Прием">
-                <template #item="$i">{{ $i.item?.patient?.first_name }} - {{ $i.item?.service?.name_ru }}</template>
-            </site-select> -->
-            
+
             <site-btn :disabled="createLoading" type="submit">
                 {{ createLoading?'Загружается':'Сохранить' }}
             </site-btn>
@@ -111,13 +108,6 @@
             </site-btn>
         </form>
     </app-dialog>
-
-    <div hidden>
-        <span class="text-yellow-400"></span>
-        <span class="text-green-500"></span>
-        <span class="text-red-500"></span>
-        <span class="text-gray-600"></span>
-    </div>
 </template>
 
 <script setup lang="ts">
@@ -156,23 +146,21 @@ const profit = reactive({
 })
 
 const headers = [
-    { name: "Прибыли", value: "id", sortable: false, balancedText: false, custom: false },
+    { name: "Прибыль", value: "id", sortable: false, balancedText: false, custom: false },
     { name: "Доктор", value: "doctor", sortable: false, balancedText: false, custom: true },
-    { name: "Пациет", value: "patient", sortable: false, balancedText: false, custom: true },
+    { name: "Пациент", value: "patient", sortable: false, balancedText: false, custom: true },
     { name: "Услуга", value: "service", sortable: false, balancedText: false, custom: true },
     { name: "Цена", value: "price", sortable: false, balancedText: false, custom: true },
-    { name: "Оплачен", value: "amount", sortable: false, balancedText: false, custom: false },
-    { name: "Дата начало", value: "start_time", sortable: false, balancedText: false, custom: true },
+    { name: "Оплачено", value: "amount", sortable: false, balancedText: false, custom: false },
+    { name: "Дата начала", value: "start_time", sortable: false, balancedText: false, custom: true },
     { name: "Дата окончания", value: "end_time", sortable: false, balancedText: false, custom: true },
-    // { name: "Дата создания", value: "created_at", sortable: false, balancedText: false, custom: true },
-    // { name: "Управлять", value: "actions", sortable: false, balancedText: false, custom: true },
 ]
 
 const headers1 = [
-    { name: "Расходы", value: "id", sortable: false, balancedText: false, custom: false },
-    { name: "Называния", value: "title", sortable: false, balancedText: false, custom: false },
+    { name: "Расход", value: "id", sortable: false, balancedText: false, custom: false },
+    { name: "Названия", value: "title", sortable: false, balancedText: false, custom: false },
     { name: "Описания", value: "description", sortable: false, balancedText: false, custom: false },
-    { name: "Оплачен", value: "amount", sortable: false, balancedText: false, custom: false },
+    { name: "Оплачено", value: "amount", sortable: false, balancedText: false, custom: false },
     // { name: "Дата", value: "created_at", sortable: false, balancedText: false, custom: true },
 ]
 

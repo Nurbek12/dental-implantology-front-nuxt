@@ -11,12 +11,15 @@ export default function useAppointments() {
 
     const updateAppointment = (id: number, data: any) => $fetch(`/appointments/${id}/`, { method: 'put', body: data })
 
-    const deleteAppointment = (id: any) => $fetch(`/appointments/${id}/`, { method: 'delete' })
+    const deleteAppointment = (id: number) => $fetch(`/appointments/${id}/`, { method: 'delete' })
+
+    const addProfitForAppointment = (id: number, data: any) => $fetch(`/appointments/${id}/add_profit/`, { method: 'post', body: data }) 
 
     return {
         getAppointments,
         createAppointment,
         updateAppointment,
         deleteAppointment,
+        addProfitForAppointment,
     }
 }

@@ -11,14 +11,14 @@
                 <span class="text-xs">{{ tableItem.first_name }} {{ tableItem.last_name }}</span>
             </template>
             <template #table-item-doctor="{tableItem}">
-                <span class="text-xs text-balance">{{ tableItem.doctor?.name || 'None'}}</span>
+                <span class="text-xs text-balance">{{ tableItem.doctor?.name || 'Нет'}}</span>
             </template>
             <template #table-item-created_at="{tableItem}">
                 <span class="text-xs text-balance">{{ new Date(tableItem.created_at!).toLocaleString() }}</span>
             </template>
             <template #table-item-actions="{tableItem,index}">
                 <div class="flex gap-1">
-                    <site-btn @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
+                    <site-btn class="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
                 </div>
             </template>
         </app-data-table>
@@ -39,9 +39,9 @@ const headers = [
     { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
     { name: "Имя и фамилия", value: "name", sortable: true, balancedText: false, custom: true },
     { name: "Отзыв", value: "review", sortable: true, balancedText: true, custom: false },
-    { name: "Доктор?", value: "doctor", sortable: true, balancedText: false, custom: true },
+    { name: "Доктор", value: "doctor", sortable: true, balancedText: false, custom: true },
     { name: "Дата", value: "created_at", sortable: true, balancedText: false, custom: true },
-    { name: "Удалить", value: "actions", sortable: true, balancedText: false, custom: true },
+    { name: "Управление", value: "actions", sortable: true, balancedText: false, custom: true },
 ]
 
 const count = ref<number>(0)

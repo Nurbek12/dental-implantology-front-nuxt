@@ -3,9 +3,6 @@
         bg-primary-600 hover:bg-primary-700 active:bg-primary-800 disabled:bg-primary-300 disabled:opacity-50 disabled:pointer-events-none">
         <slot />
     </button>
-    <span hidden class="py-1 p-1"></span>
-    <span hidden class="py-2 px-2"></span>
-    <span hidden class="py-3 px-5"></span>
 </template>
 
 <script setup lang="ts">

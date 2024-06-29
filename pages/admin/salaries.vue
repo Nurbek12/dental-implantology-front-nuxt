@@ -23,10 +23,10 @@
         </app-data-table>
     </div>
     
-    <app-dialog rounded :title="itemIndex==null?'Добавить пациент':'Изменить пациента'" :open="dialog" @close-dialog="close">
+    <app-dialog rounded title="Выдача заплаты" :open="dialog" @close-dialog="close">
         <form @submit.prevent="save" class="mt-4 flex flex-col gap-4">
-            <site-input required v-model="$item.amount" label="Сумма" placeholder="Сумма" type="number" />
             <site-select required v-model="$item.doctor" :items="doctors" name="first_name" value="id" label="Доктор" placeholder="Доктор" :nullvalue="null" />
+            <site-input required v-model="$item.amount" label="Сумма" placeholder="Сумма" type="number" />
 
             <site-textarea required v-model="$item.comment" label="Комментарий" placeholder="Комментарий" />
 

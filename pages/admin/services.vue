@@ -28,13 +28,13 @@
             </template>
             <template #table-item-actions="{tableItem,index}">
                 <div class="flex gap-1">
-                    <site-btn @click="editItem(tableItem, index)" size="small">Изменить</site-btn>
-                    <site-btn @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
+                    <site-btn class="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="editItem(tableItem, index)" size="small">Изменить</site-btn>
+                    <site-btn class="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
                 </div>
             </template>
         </app-data-table>
     </div>
-    <app-dialog rounded :title="itemIndex==null?'Добавить услугу':'Изменить услугу'" :open="dialog" @close-dialog="close">
+    <app-dialog rounded :title="itemIndex==null?'Добавление услуга':'Редактирование услуга'" :open="dialog" @close-dialog="close">
         <form @submit.prevent="save" class="mt-4 flex flex-col gap-4">
             <div class="flex items-center justify-start w-full">
                 <label for="file-input" class="cursor-pointer w-full">
@@ -43,20 +43,17 @@
                     </div>
                 </label>
             </div>
+            <site-input required v-model="service.name_en" label="Название (EN)" placeholder="Название (EN)" />
             <site-input required v-model="service.name_ru" label="Название (RU)" placeholder="Название (RU)" />
             <site-input required v-model="service.name_uz" label="Название (UZ)" placeholder="Название (UZ)" />
-            <site-input required v-model="service.name_en" label="Название (EN)" placeholder="Название (EN)" />
+            <site-select required v-model="service.category" :items="Object.keys(specs).map(k => ({name: specs[k as keyof typeof specs], value: k}))" label="Категория" placeholder="Категория" :nullvalue="null" />
             <site-input required v-model="service.price_start"  label="Начальная цена" placeholder="Начальная цена" type="nubmer" />
             <site-input required v-model="service.price_end"  label="Конечная цена" placeholder="Конечная цена" type="nubmer" />
         
+            <site-textarea required v-model="service.description_en" label="Описание (EN)" placeholder="Описание (EN)" />
             <site-textarea required v-model="service.description_ru" label="Описание (RU)" placeholder="Описание (RU)" />
             <site-textarea required v-model="service.description_uz" label="Описание (UZ)" placeholder="Описание (UZ)" />
-            <site-textarea required v-model="service.description_en" label="Описание (EN)" placeholder="Описание (EN)" />
-            
-            <site-select required v-model="service.category" :items="Object.keys(specs).map(k => ({name: specs[k as keyof typeof specs], value: k}))" label="Категория" placeholder="Категория" :nullvalue="null" />
-            <!-- <div style="all: unset;">
-                <editor v-model="service.content" />
-            </div> -->
+
             <div class="w-full" hidden>
                 <input @change="onFileChange" id="file-input" accept="image/*" type="file" placeholder="Фото для ава">
             </div>
@@ -101,12 +98,12 @@ const service = reactive<IService>({
 
 const headers = [
     { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
-    { name: "Иконок", value: "image", sortable: true, balancedText: false, custom: true },
+    { name: "Фото", value: "image", sortable: true, balancedText: false, custom: true },
     { name: "Название", value: "name_ru", sortable: true, balancedText: false, custom: false },
     { name: "Цена", value: "price", sortable: true, balancedText: false, custom: true },
     { name: "Категория", value: "category", sortable: true, balancedText: false, custom: true },
     { name: "Дата", value: "created_at", sortable: true, balancedText: false, custom: true },
-    { name: "Управлять", value: "actions", sortable: true, balancedText: false, custom: true },
+    { name: "Управление", value: "actions", sortable: true, balancedText: false, custom: true },
 ]
 
 const currentImage = computed(() => {

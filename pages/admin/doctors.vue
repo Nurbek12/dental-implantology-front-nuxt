@@ -28,14 +28,14 @@
             </template>
             <template #table-item-actions="{tableItem,index}">
                 <div class="flex gap-1">
-                    <site-btn @click="editItem(tableItem, index)" size="small">Изменить</site-btn>
-                    <site-btn @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
+                    <site-btn class="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="editItem(tableItem, index)" size="small">Изменить</site-btn>
+                    <site-btn class="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
                 </div>
             </template>
         </app-data-table>
     </div>
     
-    <app-dialog rounded :title="itemIndex==null?'Добавить доктор':'Изменить доктор'" :open="dialog" @close-dialog="close">
+    <app-dialog rounded :title="itemIndex==null?'Добавление доктора':'Редактирование доктора'" :open="dialog" @close-dialog="close">
         <form @submit.prevent="save" class="mt-4 flex flex-col gap-4">
             <div class="flex items-center justify-start">
                 <label for="file-input" class="cursor-pointer">
@@ -52,7 +52,7 @@
             <site-input required v-model="doctor.phone" label="Телефон" placeholder="Телефон" />
             <site-input required v-model="doctor.birth_date" label="Дата рождения" placeholder="Дата рождения" type="date" />
       
-            <site-select required v-model="doctor.content" :items="Object.keys(specs).map(k => ({name: specs[k as keyof typeof specs], value: k}))" label="Спецализатция" placeholder="Спецализатция" :nullvalue="''" />
+            <site-select required v-model="doctor.content" :items="Object.keys(specs).map(k => ({name: specs[k as keyof typeof specs], value: k}))" label="Специализация" placeholder="Специализация" :nullvalue="''" />
 
             <site-textarea required v-model="doctor.educations" label="Образование" placeholder="Образование" />
             <site-textarea required v-model="doctor.experiences" label="Опыт" placeholder="Опыт" />
@@ -64,7 +64,7 @@
             </div>
             <div class="flex items-center gap-2">
                 <input type="checkbox" v-model="doctor.is_published" id="is_active">
-                <label for="is_active">Публичность</label>
+                <label for="is_active">Публиковать</label>
             </div>
             <site-btn :disabled="createLoading" type="submit">
                 {{ createLoading?'Загружается':'Сохранить' }}
@@ -114,10 +114,10 @@ const headers = [
     { name: "Имя и фамилия", value: "name", sortable: true, balancedText: false, custom: true },
     { name: "Опыт", value: "experiences", sortable: true, balancedText: true, custom: false },
     { name: "Образование", value: "educations", sortable: true, balancedText: true, custom: false },
-    { name: "Спецализатция", value: "spec", sortable: true, balancedText: false, custom: true },
+    { name: "Специализация", value: "spec", sortable: true, balancedText: false, custom: true },
     { name: "Баланс", value: "balance", sortable: true, balancedText: false, custom: false },
     { name: "Дата", value: "created_at", sortable: true, balancedText: false, custom: true },
-    { name: "Управлять", value: "actions", sortable: true, balancedText: false, custom: true },
+    { name: "Управление", value: "actions", sortable: true, balancedText: false, custom: true },
 ]
 
 const currentImage = computed(() => {

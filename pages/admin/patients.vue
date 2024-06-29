@@ -23,18 +23,18 @@
             </template>
             <template #table-item-actions="{tableItem,index}">
                 <div class="flex gap-1">
-                    <site-btn @click="editItem(tableItem, index)" size="small">Изменить</site-btn>
-                    <site-btn @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
+                    <site-btn class="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="editItem(tableItem, index)" size="small">Изменить</site-btn>
+                    <site-btn class="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
                 </div>
             </template>
         </app-data-table>
     </div>
     
-    <app-dialog rounded :title="itemIndex==null?'Добавить пациент':'Изменить пациента'" :open="dialog" @close-dialog="close">
+    <app-dialog rounded :title="itemIndex==null?'Добавление пациента':'Редактирование пациента'" :open="dialog" @close-dialog="close">
         <form @submit.prevent="save" class="mt-4 flex flex-col gap-4">
             <site-input required v-model="$item.first_name" label="Имя" placeholder="Имя" />
             <site-input required v-model="$item.last_name" label="Фамилия" placeholder="Фамилия" />
-            <site-input required v-model="$item.middle_name" label="Очиство" placeholder="Очиство" />
+            <site-input required v-model="$item.middle_name" label="Отчество" placeholder="Отчество" />
             <site-input required v-model="$item.phone" label="Телефон" placeholder="Телефон" />
 
             <site-input required v-model="$item.birth_date" label="Дата рождения" type="date" />
@@ -73,11 +73,11 @@ const headers = [
     { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
     { name: "Имя", value: "first_name", sortable: true, balancedText: false, custom: false },
     { name: "Фамилия", value: "last_name", sortable: false, balancedText: false, custom: false },
-    { name: "Очиство", value: "middle_name", sortable: false, balancedText: false, custom: false },
+    { name: "Отчество", value: "middle_name", sortable: false, balancedText: false, custom: false },
     // { name: "Активность", value: "is_active", sortable: false, balancedText: false, custom: true },
     { name: "Дата рождения", value: "birth_date", sortable: true, balancedText: false, custom: false },
     { name: "Добавлен", value: "created_at", sortable: true, balancedText: false, custom: true },
-    { name: "Управлять", value: "actions", sortable: false, balancedText: false, custom: true },
+    { name: "Управление", value: "actions", sortable: false, balancedText: false, custom: true },
 ]
 
 const getItems = async (params: any) => {

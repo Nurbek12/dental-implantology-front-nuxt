@@ -119,10 +119,18 @@ export interface IAppointment {
     patient: IUser | number | null
     service: IService | number | null
     price: number
-    status: "PN" | "PD" | "UP" | "CD"
+    status: "PN" | "FP" | "PP" | "UP" | "CD"
     date: string
     start_time: string
     end_time: string
+    profits?: {
+        id: number,
+        amount: number,
+        created_at: string,
+        updated_at: string,
+        report: number,
+        appointment: number
+    }[]
     created_at?: string
     updated_at?: string
 }

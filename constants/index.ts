@@ -175,9 +175,18 @@ export const specs = {
     orthopedics: 'Ортопедия'
 }
 
+// export const appointment_statuses = {
+//     "PN": ["В ожидании", "bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-300", "text-yellow-400"],
+//     "FP": ["Полностью оплачено", "bg-green-500 hover:bg-green-400 active:bg-green-300", "text-green-500"],
+//     "PP": ["Частично оплачено", "bg-green-500 hover:bg-green-400 active:bg-green-300", "text-green-500"],
+//     "UP": ["Неоплачено", "bg-red-500 hover:bg-red-400 active:bg-red-300", "text-red-500"],
+//     "CD": ["Отменено", "bg-gray-600 hover:bg-gray-500 active:bg-gray-400", "text-gray-600"],
+// }
+
 export const appointment_statuses = {
-    "PN": ["В ожидании", "bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-300", "text-yellow-400"],
-    "PD": ["Оплачено", "bg-green-500 hover:bg-green-400 active:bg-green-300", "text-green-500"],
+    "PN": ["В ожидании", "bg-yellow-400 hover:bg-yellow-300 active:bg-yellow-200", "text-yellow-400"],
+    "FP": ["Полностью оплачено", "bg-green-500 hover:bg-green-400 active:bg-green-300", "text-green-500"],
+    "PP": ["Частично оплачено", "bg-orange-500 hover:bg-orange-400 active:bg-orange-300", "text-orange-500"],
     "UP": ["Неоплачено", "bg-red-500 hover:bg-red-400 active:bg-red-300", "text-red-500"],
     "CD": ["Отменено", "bg-gray-600 hover:bg-gray-500 active:bg-gray-400", "text-gray-600"],
 }

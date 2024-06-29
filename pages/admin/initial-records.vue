@@ -13,8 +13,8 @@
             </template>
             <template #table-item-actions="{tableItem,index}">
                 <div class="flex gap-1">
-                    <site-btn @click="updateStatus(tableItem.id!, index)" size="small" :disabled="!tableItem.is_active">{{tableItem.is_active?'Заверщать':'Заверщено'}}</site-btn>
-                    <site-btn @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
+                    <site-btn class="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="updateStatus(tableItem.id!, index)" size="small" :disabled="!tableItem.is_active">{{tableItem.is_active?'Заверщать':'Заверщено'}}</site-btn>
+                    <site-btn class="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
                 </div>
             </template>
         </app-data-table>
@@ -41,9 +41,9 @@ const headers = [
     { name: "Имя", value: "first_name", sortable: true, balancedText: false, custom: false },
     { name: "Фамилия", value: "last_name", sortable: true, balancedText: false, custom: false },
     { name: "Телефон", value: "phone", sortable: true, balancedText: false, custom: false },
-    { name: "Комментария", value: "comment", sortable: true, balancedText: true, custom: false },
+    { name: "Комментарий", value: "comment", sortable: true, balancedText: true, custom: false },
     { name: "Дата", value: "created_at", sortable: true, balancedText: false, custom: true },
-    { name: "Управлять", value: "actions", sortable: true, balancedText: false, custom: true },
+    { name: "Управление", value: "actions", sortable: true, balancedText: false, custom: true },
 ]
 
 const getItems = async (params: any) => {

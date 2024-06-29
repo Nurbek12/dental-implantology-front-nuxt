@@ -5,7 +5,7 @@
             <label :for="randomid" class="text-gray-500 text-sm font-medium">{{ props.label }}</label>
         </div>
         <div class="border rounded overflow-hidden">
-            <input :id="randomid" @input="emits('inputed', $event)" @change="emits('changed', $event)" class="w-full outline-none h-full px-4 py-2 text-sm" :required="!!props.required" :readonly="!!props.readonly" :type="props.type||'text'" :placeholder="props.placeholder||''" v-model="model">
+            <input :id="randomid" @input="emits('inputed', $event)" @change="emits('changed', $event)" class="w-full outline-none h-full px-4 py-2 text-sm" :required="!!props.required" :readonly="!!props.readonly" :type="props.type||'text'" :placeholder="props.placeholder||''" v-model="model" :min="props?.min===undefined?-99999999999:props?.min">
         </div>
     </div>
 </template>
@@ -23,6 +23,7 @@ const props = defineProps<{
     disabled?: boolean
     placeholder?: string
     required?: boolean
-    readonly?: boolean
+    readonly?: boolean,
+    min?: number
 }>()
 </script>
