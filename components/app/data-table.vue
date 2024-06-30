@@ -12,9 +12,11 @@
                     <tr>
                         <template v-for="header in props.headers" :key="header.value">
                             <th v-if="header.sortable" scope="col" class="px-6 py-3 font-medium">
-                                <div class="select-none flex gap-1 cursor-pointer" @click="set_sorting(header.value)">
+                                <div class="select-none flex gap-1 items-center cursor-pointer" @click="set_sorting(header.value)">
                                     {{ header.name }}
-                                    <CaArrowDown v-show="sorting[header.value] !== undefined" class="w-4 h-4 mt-0.5" :class="{'rotate-180': sorting[header.value] === 'desc'}"/>
+                                    <div>
+                                        <CaArrowDown v-show="sorting[header.value] !== undefined" class="w-4 h-4" :class="{'rotate-180': sorting[header.value] === 'desc'}"/>
+                                    </div>
                                 </div>
                             </th>
                             <th v-else scope="col" class="px-6 py-3 font-medium">
@@ -116,9 +118,24 @@ const { count, items, loading, totalPages } = toRefs(props)
 const page = ref(1)
 const limit = ref(20)
 const search = ref('')
+const ordering = ref('')
 const sorting: any = reactive({})
 const filtering: any = reactive({})
 const expandRow = ref<number|null>(null)
+
+const sortToOrder = (sortObj: any) => {
+    const result: { ordering?: string } = {};
+    if (sortObj && Object.keys(sortObj).length > 0) {
+        for (const [key, value] of Object.entries(sortObj)) {
+            if (value === 'asc') {
+                result.ordering = key;
+            } else if (value === 'desc') {
+                result.ordering = `-${key}`;
+            }
+        }
+    }
+    return result;
+}
 
 const queryfilter = computed(() => {
     const qry: any = {}
@@ -131,7 +148,7 @@ const queryfilter = computed(() => {
         if(filtering[cf.name]) qry[cf.name] = filtering[cf.name]
     })
 
-    return { ...qry }
+    return { ...qry, ...sortToOrder(sorting) }
 })
 
 const set_sorting = debounce((key: string) => {

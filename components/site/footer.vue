@@ -50,6 +50,9 @@
                         <li v-for="l,i in site_links" :key="i">
                             <nuxt-link :to="l.url" class="text-gray-300 transition hover:opacity-75">{{ $t(l.title) }}</nuxt-link>
                         </li>
+                        <li>
+                            <nuxt-link to="/admin/appointments" class="text-gray-300 transition hover:opacity-75">Admin</nuxt-link>
+                        </li>
                     </ul>
                 </div>
             </div>

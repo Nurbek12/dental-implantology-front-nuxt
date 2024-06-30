@@ -7,7 +7,7 @@
             :headers="headers"
             
             @fetching="getItems">
-            <template #table-item-name="{tableItem}">
+            <template #table-item-first_name="{tableItem}">
                 <span class="text-xs">{{ tableItem.first_name }} {{ tableItem.last_name }}</span>
             </template>
             <template #table-item-doctor="{tableItem}">
@@ -18,7 +18,7 @@
             </template>
             <template #table-item-actions="{tableItem,index}">
                 <div class="flex gap-1">
-                    <site-btn class="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
+                    <site-btn customColor class="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
                 </div>
             </template>
         </app-data-table>
@@ -37,11 +37,11 @@ const { deleteRating, getRatings } = useRatings()
 
 const headers = [
     { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
-    { name: "Имя и фамилия", value: "name", sortable: true, balancedText: false, custom: true },
-    { name: "Отзыв", value: "review", sortable: true, balancedText: true, custom: false },
-    { name: "Доктор", value: "doctor", sortable: true, balancedText: false, custom: true },
+    { name: "Имя и фамилия", value: "first_name", sortable: true, balancedText: false, custom: true },
+    { name: "Отзыв", value: "review", sortable: false, balancedText: true, custom: false },
+    { name: "Доктор", value: "doctor", sortable: false, balancedText: false, custom: true },
     { name: "Дата", value: "created_at", sortable: true, balancedText: false, custom: true },
-    { name: "Управление", value: "actions", sortable: true, balancedText: false, custom: true },
+    { name: "Управление", value: "actions", sortable: false, balancedText: false, custom: true },
 ]
 
 const count = ref<number>(0)

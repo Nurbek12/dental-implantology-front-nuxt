@@ -69,80 +69,6 @@ export const site_links = [
     { title: 'nav.contacts', url: '/contact' },
 ]
 
-// export const formatDate = (dateString: string, prefix1: ', ' | 'T' = ', ') => {
-    
-//     const [date, time] = dateString.split(prefix1)
-//     const [hours, minutes] = time.split(":")
-//     const dateSplit = new Date(date)
-    
-//     let year = dateSplit.getFullYear(),
-//         month = dateSplit.getMonth()+1,
-//         day = dateSplit.getDate()
-
-//     return `${year}-${month>9?month:'0'+month}-${day>9?day:'0'+day}T${hours}:${minutes}`
-// }
-
-export const formatDate = (dateString: string, prefix1: ', ' | 'T' | '-' = ', ') => {
-    const [date, time] = dateString.split(prefix1);
-
-    let hours: number;
-    let minutes: string;
-    let period: string | undefined;
-
-    // Check if the time part contains AM or PM
-    if (time.includes('AM') || time.includes('PM')) {
-        [hours, minutes] = time.slice(0, -2).split(":").map(Number) as any;
-        period = time.slice(-2);
-
-        // Convert 12-hour time to 24-hour time
-        if (period === 'PM' && hours !== 12) {
-            hours += 12;
-        } else if (period === 'AM' && hours === 12) {
-            hours = 0;
-        }
-    } else {
-        [hours, minutes] = time.split(":").map(Number) as any;
-    }
-
-    const dateSplit = new Date(dateString);
-    let year = dateSplit.getFullYear(),
-        month = dateSplit.getMonth() + 1,
-        day = dateSplit.getDate();
-    // console.log(`%c=====================================`, 'color: yellow');
-
-    // console.log(`date string: ${dateString}`);
-    // console.log(`date: ${date}`);
-    // console.log(`day: ${day}, month: ${month}, year: ${year}`);
-    // console.log(`hour: ${hours}, minutes: ${minutes}`);
-    
-    
-    // Ensure month and day are two digits
-    const formattedMonth = month > 9 ? month : '0' + month;
-    const formattedDay = day > 9 ? day : '0' + day;
-    
-    // Ensure hours and minutes are two digits
-    const formattedHours = hours > 9 ? hours : '0' + hours;
-    const formattedMinutes = +minutes > 9 ? minutes : '0' + minutes;
-    // console.log(`result: ${year}-${formattedMonth}-${formattedDay}T${formattedHours}:${formattedMinutes}`);
-    // console.log(`%c=====================================`, 'color: yellow');
-    
-    return `${year}-${formattedMonth}-${formattedDay}T${formattedHours}:${formattedMinutes}`;
-};
-
-export const formatDateJson = (dateString: string) => {
-    const [date, time] = dateString.split("T");
-    const [day, month, year] = date.split("-");
-    const [hours, minutes] = time.split(":");
-
-    return {
-        day: +day,
-        month: +month,
-        year: +year,
-        hours: +hours,
-        minutes: +minutes
-    }
-}
-
 export const getTimeDifferenceInMilliseconds = (time1: string, time2: string) => {
     // Split the time strings into hours and minutes
     const [hours1, minutes1] = time1.split(':').map(Number);
@@ -157,7 +83,7 @@ export const getTimeDifferenceInMilliseconds = (time1: string, time2: string) =>
 
     // Calculate the difference in milliseconds
     return Math.abs(date2 - date1);
-  }
+}
 
 export const todayDate = () => {
     const today = new Date();
@@ -174,14 +100,6 @@ export const specs = {
     orthodontics: 'Ортодонтия',
     orthopedics: 'Ортопедия'
 }
-
-// export const appointment_statuses = {
-//     "PN": ["В ожидании", "bg-yellow-400 hover:bg-yellow-500 active:bg-yellow-300", "text-yellow-400"],
-//     "FP": ["Полностью оплачено", "bg-green-500 hover:bg-green-400 active:bg-green-300", "text-green-500"],
-//     "PP": ["Частично оплачено", "bg-green-500 hover:bg-green-400 active:bg-green-300", "text-green-500"],
-//     "UP": ["Неоплачено", "bg-red-500 hover:bg-red-400 active:bg-red-300", "text-red-500"],
-//     "CD": ["Отменено", "bg-gray-600 hover:bg-gray-500 active:bg-gray-400", "text-gray-600"],
-// }
 
 export const appointment_statuses = {
     "PN": ["В ожидании", "bg-yellow-400 hover:bg-yellow-300 active:bg-yellow-200", "text-yellow-400"],

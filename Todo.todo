@@ -5,3 +5,6 @@
 [+/+/-] Add autocomplete / fix bug model / testing
 [-] Need add appointments for not active doctors
 [+] Need add hours for dinner
+[+] Need not published doctors
+[+] Need sorting in table
+[-] Need add drag select appointment time

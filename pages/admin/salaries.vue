@@ -1,7 +1,6 @@
 <template>
     <div class="w-full p-2">
         <app-data-table
-            hide-search
             :count="count"
             :items="items"
             :headers="headers"
@@ -10,9 +9,9 @@
             
             @fetching="getItems">
             <template #table-top>
+                <div class="hidden lg:block"></div>
+                <div class="hidden lg:block"></div>
                 <site-btn @click="dialog=true" size="small">Добавить</site-btn>
-                <!-- <div class="hidden lg:block"></div>
-                <div class="hidden lg:block"></div> -->
             </template>
             <template #table-item-doctor="{tableItem}">
                 <span class="text-xs text-balance">{{ tableItem.doctor?.first_name }} {{ tableItem.doctor?.last_name }}</span>
@@ -62,11 +61,11 @@ const $item = reactive<ISalary>({
                            
 const headers = [
     { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
-    { name: "Доктор", value: "doctor", sortable: true, balancedText: false, custom: true },
-    { name: "Сумма", value: "amount", sortable: false, balancedText: false, custom: false },
+    { name: "Доктор", value: "doctor", sortable: false, balancedText: false, custom: true },
+    { name: "Сумма", value: "amount", sortable: true, balancedText: false, custom: false },
     // { name: "Очиство", value: "middle_name", sortable: false, balancedText: false, custom: false },
     // { name: "Активность", value: "is_active", sortable: false, balancedText: false, custom: true },
-    { name: "Комментарий", value: "comment", sortable: true, balancedText: false, custom: false },
+    { name: "Комментарий", value: "comment", sortable: false, balancedText: false, custom: false },
     { name: "Добавлен", value: "created_at", sortable: true, balancedText: false, custom: true },
     // { name: "Управлять", value: "actions", sortable: false, balancedText: false, custom: true },
 ]
@@ -74,7 +73,7 @@ const headers = [
 const getItems = async (params: any) => {
     try {
         loading.value = true
-        const data = await getSalaries({...params, ordering: '-created_at'})
+        const data = await getSalaries({ordering: '-created_at', ...params})
         pages.value = data.page_count
         items.value = data.results
         count.value = data.count
@@ -85,11 +84,6 @@ const getItems = async (params: any) => {
     }
 }
 
-const editItem = (item: ISalary, index: number) => {
-    Object.assign($item, item)
-    itemIndex.value = index
-    dialog.value = true
-}
 const create = async (body: any) => {
     const data = await createSalary(JSON.stringify(body))
     items.value.unshift(data as any)

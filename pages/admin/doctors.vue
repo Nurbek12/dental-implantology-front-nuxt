@@ -17,7 +17,7 @@
                     <img :src="tableItem.avatar||'/images/nophoto.jpg'" alt="" class="w-full h-full object-cover">
                 </div>
             </template>
-            <template #table-item-name="{tableItem}">
+            <template #table-item-fisrt_name="{tableItem}">
                 <span class="text-xs text-balance">{{ tableItem.first_name }} {{ tableItem.middle_name }} {{ tableItem.last_name }}</span>
             </template>
             <template #table-item-spec="{tableItem}">
@@ -28,8 +28,8 @@
             </template>
             <template #table-item-actions="{tableItem,index}">
                 <div class="flex gap-1">
-                    <site-btn class="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="editItem(tableItem, index)" size="small">Изменить</site-btn>
-                    <site-btn class="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
+                    <site-btn customColor class="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="editItem(tableItem, index)" size="small">Изменить</site-btn>
+                    <site-btn customColor class="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
                 </div>
             </template>
         </app-data-table>
@@ -110,14 +110,14 @@ const doctor = reactive<IDoctor>({
                            
 const headers = [
     { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
-    { name: "Фото", value: "image", sortable: true, balancedText: false, custom: true },
-    { name: "Имя и фамилия", value: "name", sortable: true, balancedText: false, custom: true },
-    { name: "Опыт", value: "experiences", sortable: true, balancedText: true, custom: false },
-    { name: "Образование", value: "educations", sortable: true, balancedText: true, custom: false },
-    { name: "Специализация", value: "spec", sortable: true, balancedText: false, custom: true },
+    { name: "Фото", value: "image", sortable: false, balancedText: false, custom: true },
+    { name: "Имя и фамилия", value: "fisrt_name", sortable: true, balancedText: false, custom: true },
+    { name: "Опыт", value: "experiences", sortable: false, balancedText: true, custom: false },
+    { name: "Образование", value: "educations", sortable: false, balancedText: true, custom: false },
+    { name: "Специализация", value: "spec", sortable: false, balancedText: false, custom: true },
     { name: "Баланс", value: "balance", sortable: true, balancedText: false, custom: false },
     { name: "Дата", value: "created_at", sortable: true, balancedText: false, custom: true },
-    { name: "Управление", value: "actions", sortable: true, balancedText: false, custom: true },
+    { name: "Управление", value: "actions", sortable: false, balancedText: false, custom: true },
 ]
 
 const currentImage = computed(() => {

@@ -23,8 +23,8 @@
             </template>
             <template #table-item-actions="{tableItem,index}">
                 <div class="flex gap-1">
-                    <site-btn class="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="editItem(tableItem, index)" size="small">Изменить</site-btn>
-                    <site-btn class="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
+                    <site-btn customColor class="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="editItem(tableItem, index)" size="small">Изменить</site-btn>
+                    <site-btn customColor class="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
                 </div>
             </template>
         </app-data-table>
@@ -72,8 +72,8 @@ const $item = reactive<IPatient>({
 const headers = [
     { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
     { name: "Имя", value: "first_name", sortable: true, balancedText: false, custom: false },
-    { name: "Фамилия", value: "last_name", sortable: false, balancedText: false, custom: false },
-    { name: "Отчество", value: "middle_name", sortable: false, balancedText: false, custom: false },
+    { name: "Фамилия", value: "last_name", sortable: true, balancedText: false, custom: false },
+    { name: "Отчество", value: "middle_name", sortable: true, balancedText: false, custom: false },
     // { name: "Активность", value: "is_active", sortable: false, balancedText: false, custom: true },
     { name: "Дата рождения", value: "birth_date", sortable: true, balancedText: false, custom: false },
     { name: "Добавлен", value: "created_at", sortable: true, balancedText: false, custom: true },

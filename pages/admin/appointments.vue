@@ -159,8 +159,6 @@ const selectItem = (index: number, hour: string, doctor: IDoctor | null, app?: I
             doctor: (app.doctor as any).id,
             patient: (app.patient as any).id,
             service: (app.service as any).id,
-            // end_time: hour,
-            // start_time: formatDate(app.start_time!, 'T'),
         })
         return
     }
