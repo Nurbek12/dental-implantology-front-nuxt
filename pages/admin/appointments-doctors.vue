@@ -72,6 +72,18 @@
             <site-select v-model="$item.service" :items="services" @changed="changePrice" name="name_ru" value="id" label="Услуга" placeholder="Услуга" :nullvalue="null" />
             <site-input v-model="$item.price" label="Цена" type="number" placeholder="Цена" />
             <site-btn type="submit" :disabled="loading||!!$item.id">Сохранить</site-btn>
+
+            <div v-if="$item.id" class="mt-6 border-t border-gray-800 border-dashed">
+                <h1 class="my-2">Оплаты</h1>
+                <app-data-table :items="$item.profits!" :loading="false" :headers="profitHeaders" :count="0" hide-bottom hide-top>
+                    <template #table-item-created_at="{tableItem}">
+                        <span class="text-xs text-balance">{{ new Date(tableItem.created_at!).toLocaleString() }}</span>
+                    </template>
+                </app-data-table>
+                <span class="text-sm mt-2" :class="appointment_statuses[$item.status][2]">
+                    Общая оплата: {{ $item.profits?.reduce((a,b) => a + b.amount, 0)?.toLocaleString('ru-RU') || 0 }}
+                </span>
+            </div>
         </form>
     </app-dialog>
 </template>
@@ -111,6 +123,12 @@ const $item = ref<IAppointment>({
     date: todayDate(),
     status: 'PN',
 })
+
+const profitHeaders = [
+    { name: "Прибыли", value: "id", sortable: false, balancedText: false, custom: false },
+    { name: "Цена", value: "amount", sortable: false, balancedText: false, custom: false },
+    { name: "Дата создания", value: "created_at", sortable: false, balancedText: false, custom: true },
+]
 
 const headers = [
     { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },

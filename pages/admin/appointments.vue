@@ -76,17 +76,21 @@
                     <template #table-top-extra>
                         <form @submit.prevent="handlePay($item.id)" class="flex items-center justify-between">
                             <site-input required v-model="profitPrice" label="Цена оплаты" type="number" :min="0" />
-                            <site-btn type="submit" :disabled="!profitPrice">Оплатить</site-btn>
+                            <site-btn type="submit" :disabled="!profitPrice||loading||($item.profits?.reduce((a,b) => a + b.amount, 0)!+profitPrice>$item.price)">Оплатить</site-btn>
                         </form>
                     </template>
                     <template #table-item-created_at="{tableItem}">
                         <span class="text-xs text-balance">{{ new Date(tableItem.created_at!).toLocaleString() }}</span>
                     </template>
                 </app-data-table>
+                <span class="text-sm mt-2" :class="appointment_statuses[$item.status][2]">
+                    Общая оплата: {{ $item.profits?.reduce((a,b) => a + b.amount, 0)?.toLocaleString('ru-RU') || 0 }}
+                </span>
             </div>
         </app-dialog>
     </div>
 </template>
+
 
 <script setup lang="ts">
 import lodash from 'lodash'
@@ -161,23 +165,24 @@ const selectItem = (index: number, hour: string, doctor: IDoctor | null, app?: I
         return
     }
     
-    const [h, m] = hour.split(':'); // Split the input time into hours and minutes
-
-    // Create a new Date object with the current date and input time
-    const date = new Date();
-    date.setHours(parseInt(h, 10));
-    date.setMinutes(parseInt(m, 10));
-
-    // Add one hour to the Date object
-    date.setHours(date.getHours() + 1);
-
-    // Format the new time as HH:MM
-    const newHours = String(date.getHours()).padStart(2, '0');
-    const newMinutes = String(date.getMinutes()).padStart(2, '0');
-
-    // Combine the new hours and minutes into a time string
-    const newTime = `${newHours}:${newMinutes}`;
+    let newTime
     
+    if(hour == "12:30") newTime = "13:00"
+    else if(hour == "20:30") newTime = "21:00"
+    else {
+        const date = new Date();
+        const [h, m] = hour.split(':')
+    
+        date.setHours(parseInt(h, 10));
+        date.setMinutes(parseInt(m, 10));
+        date.setHours(date.getHours() + 1);
+    
+        const newHours = String(date.getHours()).padStart(2, '0');
+        const newMinutes = String(date.getMinutes()).padStart(2, '0');
+
+        newTime = `${newHours}:${newMinutes}`;
+    }
+        
     Object.assign($item.value, {
         doctor: doctor?.id,
         patient: null,
@@ -223,16 +228,32 @@ const createItem = async () => {
 }
 
 const handlePay = async (id: any) => {
-    const data = await addProfitForAppointment(id, JSON.stringify({
-        date: todayDate(),
-        amount: profitPrice.value,
-        appointment: id,
-    }))
+    try {
+        loading.value = true
+        const data: any = await addProfitForAppointment(id, JSON.stringify({
+            date: todayDate(),
+            amount: profitPrice.value,
+            appointment: id,
+        }))
+        
+        profitPrice.value = 0
+        
+        const appindex = items.value[itemIndex.value].appointments?.findIndex(ap => ap.id === id)
+        const app = items.value[itemIndex.value].appointments![appindex!]
+        if(!app) return
+        
+        app.profits?.push(data)
+        
+        const d = app.profits?.reduce((a,b) => a + b.amount, 0)
+    
+        if(d === app.price) $item.value.status = app.status = 'FP'
+        else if(d! < app.price) $item.value.status = app.status = 'PP'
 
-    $item.value.profits?.push(data as any)
-    // const index = .value.findIndex(i => i.id === id)
-    // items.value[index].
-    profitPrice.value = 0
+    } catch (error) {
+        console.log(error)
+    } finally {
+        loading.value = false
+    }
 }
 
 const getItems = async (params: any) => {
