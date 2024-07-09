@@ -29,11 +29,11 @@ export default defineNuxtPlugin(async (nuxtApp) => {
             
             let tokenRef = useAuthAccessToken()
             let authToken = useAuthRefreshToken()
-            console.log(authToken.value);
+            // console.log(authToken.value);
             
 
             if((response.status === 401 || response.status === 419  || response.status === 403)) {
-                if(authToken.value){
+                if(authToken.value && tokenRef.value == null){
                     useAsyncData(() => 
                         $fetch<{access: string, refresh: string}>('/api/token/refresh/', {
                             method: 'post',
@@ -45,9 +45,9 @@ export default defineNuxtPlugin(async (nuxtApp) => {
                         const typeofData = data.value as DataValueType
                         tokenRef.value = typeofData.access
                     }).catch((error) => {
-                        console.log('sd');
+                        // console.log('sd');
                         
-                        console.log(error)
+                        // console.log(error)
                         // useLogout()
                         navigateTo('/login')
                     })

@@ -86,6 +86,7 @@ export interface IService {
     price_start: number
     price_end: number
     content: string
+    kpi_percent: number
     is_published: boolean
     created_at?: string
     updated_at?: string

@@ -49,6 +49,8 @@
             <site-select required v-model="service.category" :items="Object.keys(specs).map(k => ({name: specs[k as keyof typeof specs], value: k}))" label="Категория" placeholder="Категория" :nullvalue="null" />
             <site-input required v-model="service.price_start"  label="Начальная цена" placeholder="Начальная цена" type="nubmer" />
             <site-input required v-model="service.price_end"  label="Конечная цена" placeholder="Конечная цена" type="nubmer" />
+            <site-input required v-model="service.kpi_percent"  label="KPI процент" placeholder="KPI процент" type="nubmer" :min="0" :max="100" />
+            
         
             <site-textarea required v-model="service.description_en" label="Описание (EN)" placeholder="Описание (EN)" />
             <site-textarea required v-model="service.description_ru" label="Описание (RU)" placeholder="Описание (RU)" />
@@ -92,6 +94,7 @@ const service = reactive<IService>({
     name_uz: "",
     price_end: 0,
     price_start: 0,
+    kpi_percent: 0,
     slug: "",
     category: null,
 })
@@ -185,6 +188,7 @@ const close = () => {
         description_ru: "",
         description_uz: "",
         is_published: false,
+        kpi_percent: 0,
         name_en: "",
         name_ru: "",
         name_uz: "",

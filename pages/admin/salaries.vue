@@ -85,7 +85,8 @@ const getItems = async (params: any) => {
 }
 
 const create = async (body: any) => {
-    const data = await createSalary(JSON.stringify(body))
+    const data: any = await createSalary(JSON.stringify(body))
+    data.doctor = doctors.value.find(d => d.id === data.doctor)
     items.value.unshift(data as any)
 }
 

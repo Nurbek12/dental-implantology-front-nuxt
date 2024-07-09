@@ -16,7 +16,7 @@
         <div class="container px-5 py-24 mx-auto flex sm:flex-nowrap flex-wrap">
             <div class="w-full lg:w-2/3 md:w-1/2 min-h-[400px] bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative">
                 <iframe width="100%" height="100%" id="gmap_canvas" class="absolute inset-0"
-                    src="https://maps.google.com/maps?q=samarkand,dental+implant+clinic&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                    src="https://maps.google.com/maps?q=39.653814,66.970141&t=&z=18&ie=UTF8&iwloc=&output=embed"
                     frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
                 </iframe>
                 <div class="bg-white relative hidden md:flex flex-wrap py-6 rounded shadow-md">

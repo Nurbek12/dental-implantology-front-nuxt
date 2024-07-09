@@ -1,5 +1,5 @@
 <template>
-    <div class="rounded overflow-hidden shadow-lg shadow-black/5">
+    <div class="rounded overflow-hidden shadow-lg shadow-black/5" :class="{'opacity-50':!props.doctor.is_published}">
         <div class="h-[250px] relative">
             <img :src="doctor?.avatar || '/images/nophoto.jpg'" class="w-full h-full object-cover" alt="">
             <span class="absolute px-3 rounded-tr-md bottom-0 left-0 bg-white text-primary-500">

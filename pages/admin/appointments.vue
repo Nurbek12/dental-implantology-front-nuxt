@@ -94,8 +94,8 @@
 
 <script setup lang="ts">
 import lodash from 'lodash'
-import { todayDate, appointment_statuses, getTimeDifferenceInMilliseconds } from '@/constants'
 import type { IAppointment, IDoctor, IPatient, IService, } from '@/types'
+import { todayDate, appointment_statuses, getTimeDifferenceInMilliseconds } from '@/constants'
 
 const { getDoctors } = useDoctors()
 const { getPatients } = usePatients()
