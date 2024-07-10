@@ -26,13 +26,13 @@
                             </div>
                             <div class="top-[30px] absolute left-0 w-full">
                                 <div v-for="ap,j in item.appointments" :key="j" :style="{'height': `${getTimeDifferenceInMilliseconds(ap.end_time, ap.start_time)*60/(60 * 60 * 1000)}px`, 'top':`${
-                                    ((+ap.start_time.split(':')[0])>=14)?
-                                    ((+ap.start_time.split(':')[0])-9)*60-30:
-                                    ((+ap.start_time.split(':')[0])-9)*60}px`}"
+                                    ((timeToDecimal(ap.start_time))>=14)?
+                                    ((timeToDecimal(ap.start_time))-9)*60-30:
+                                    ((timeToDecimal(ap.start_time))-9)*60}px`}"
                                     class="absolute w-full">
                                     <div @click="selectItem(i, '', item, ap)" class="w-full h-full border flex items-center justify-center flex-col cursor-pointer text-white text-center text-sm"
                                         :class="appointment_statuses[ap.status||'PN']?.[1]||'text-black'">
-                                        {{ (ap.patient as IPatient).first_name }} {{ (ap.patient as IPatient).last_name }}:
+                                        {{ (ap.patient as IPatient)?.first_name }} {{ (ap.patient as IPatient)?.last_name }}:
                                         <span class="text-xs">({{ (ap.service as IService)?.name_ru }})</span>
                                     </div>
                                 </div>
@@ -95,7 +95,7 @@
 <script setup lang="ts">
 import lodash from 'lodash'
 import type { IAppointment, IDoctor, IPatient, IService, } from '@/types'
-import { todayDate, appointment_statuses, getTimeDifferenceInMilliseconds } from '@/constants'
+import { todayDate, appointment_statuses, getTimeDifferenceInMilliseconds, timeToDecimal } from '@/constants'
 
 const { getDoctors } = useDoctors()
 const { getPatients } = usePatients()
@@ -259,7 +259,7 @@ const getItems = async (params: any) => {
         loading.value = true
         const a = await getAppointments(params)
         items.value = doctors.value.map(di => {
-            const appointments = a.results.filter(ai => (ai.doctor as any).id === di.id)
+            const appointments = a.results.filter((ai:any) => (ai.doctor as any).id === di.id)
             di.appointments = appointments
             return di
         })

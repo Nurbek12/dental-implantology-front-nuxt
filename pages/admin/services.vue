@@ -103,6 +103,7 @@ const headers = [
     { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
     { name: "Фото", value: "image", sortable: false, balancedText: false, custom: true },
     { name: "Название", value: "name_ru", sortable: true, balancedText: false, custom: false },
+    { name: "KPI процент", value: "kpi_percent", sortable: false, balancedText: false, custom: false },
     { name: "Цена", value: "price", sortable: true, balancedText: false, custom: true },
     { name: "Категория", value: "category", sortable: false, balancedText: false, custom: true },
     { name: "Дата", value: "created_at", sortable: true, balancedText: false, custom: true },
@@ -169,7 +170,7 @@ const save = async () => {
         form_data.delete('image')
         if(file.value) form_data.append('image', file.value)
     
-        if(itemIndex.value !== null) update(itemIndex.value, form_data, service.id)
+        if(itemIndex.value !== null) update(itemIndex.value, form_data, service.slug)
         else create(form_data)
 
         close()

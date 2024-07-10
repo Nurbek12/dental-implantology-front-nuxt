@@ -85,6 +85,14 @@ export const getTimeDifferenceInMilliseconds = (time1: string, time2: string) =>
     return Math.abs(date2 - date1);
 }
 
+export const timeToDecimal = (time: string) => {
+    var parts = time.split(":");
+    var hours = parseInt(parts[0]);
+    var minutes = parseInt(parts[1]);
+
+    return hours + minutes / 60;
+}
+
 export const todayDate = () => {
     const today = new Date();
     const year = today.getFullYear();
