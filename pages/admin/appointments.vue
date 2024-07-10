@@ -67,6 +67,7 @@
                 <site-input v-model="$item.price" label="Цена" type="number" placeholder="Цена" />
                 <div class="flex items-center gap-2">
                     <site-btn type="submit" :disabled="loading||!!$item.id">Сохранить</site-btn>
+                    <site-btn type="submit" v-if="!!$item.id" :disabled="$item.status==='CD'" @click="handleCancel($item.id)">Отменить</site-btn>
                 </div>
             </form>
             
@@ -100,7 +101,7 @@ import { todayDate, appointment_statuses, getTimeDifferenceInMilliseconds, timeT
 const { getDoctors } = useDoctors()
 const { getPatients } = usePatients()
 const { getServices } = useServices()
-const { getAppointments, createAppointment, addProfitForAppointment } = useAppointments()
+const { getAppointments, createAppointment, addProfitForAppointment, updateStatus } = useAppointments()
 
 const itemIndex = ref(-1)
 const dialog = ref(false)
@@ -252,6 +253,18 @@ const handlePay = async (id: any) => {
     } finally {
         loading.value = false
     }
+}
+
+const handleCancel = async (id: number) => {
+    try {
+        const appindex = items.value[itemIndex.value].appointments?.findIndex(ap => ap.id === id)
+        const app = items.value[itemIndex.value].appointments![appindex!]
+        if(!app) return
+        $item.value.status = app.status = 'CD'
+        await updateStatus(id, { status: 'CD' })
+    } catch (error) {
+        console.log(error)
+    }    
 }
 
 const getItems = async (params: any) => {

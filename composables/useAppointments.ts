@@ -15,7 +15,10 @@ export default function useAppointments() {
 
     const addProfitForAppointment = (id: number, data: any) => $fetch(`/appointments/${id}/add_profit/`, { method: 'post', body: data }) 
 
+    const updateStatus = (id: number, data: any) => $fetch(`/appointments/${id}/`, { method: 'patch', body: data }) 
+
     return {
+        updateStatus,
         getAppointments,
         createAppointment,
         updateAppointment,
