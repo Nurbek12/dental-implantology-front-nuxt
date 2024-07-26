@@ -142,8 +142,8 @@ export const getDateRange = (period: 0 | 1 | 2 | 3) => {
             break;
 
         case 3:
-            startDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
-            endDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1);
+            startDate = new Date(today.getFullYear() - 1, 0, 1);
+            endDate = new Date(today.getFullYear() - 1, 11, 31);
             break;
 
         default:
