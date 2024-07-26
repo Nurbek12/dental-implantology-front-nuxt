@@ -47,7 +47,7 @@
             <form @submit.prevent="createItem" class="bg-white w-full space-y-4 mt-4">
                 <site-input v-model="$item.start_time" label="Время начала" type="time" />
                 <site-input v-model="$item.end_time" label="Время окончания" type="time" />
-                <site-auto-complete v-if="!$item.id" v-model="($item.patient as number)" @inputed="searching" :loading="patientLoading" :items="patients" label="Пациент" placeholder="Пациент" :nullvalue="null">
+                <site-auto-complete required v-if="!$item.id" v-model="($item.patient as number)" @inputed="searching" :loading="patientLoading" :items="patients" label="Пациент" placeholder="Пациент" :nullvalue="null">
                     <template #item="acItem">
                         <div class="flex items-center gap-2" @click="acItem.onSelected(`${acItem.item.first_name} ${acItem.item.middle_name } ${acItem.item.last_name}`, acItem.item.id)">
                             <div>
@@ -62,12 +62,12 @@
                 </site-auto-complete>
                 
                 <site-select v-model="$item.status" :items="Object.keys(appointment_statuses).map(k => ({name:appointment_statuses[k as keyof typeof appointment_statuses][0], value:k}))" label="Статус" placeholder="Статус" :nullvalue="null" />
-                <site-select v-model="$item.doctor" :items="doctors" name="first_name" value="id" label="Врач" placeholder="Врач" :nullvalue="null" />
-                <site-select v-model="$item.service" :items="services" @changed="changePrice" name="name_ru" value="id" label="Услуга" placeholder="Услуга" :nullvalue="null" />
+                <site-select required v-model="$item.doctor" :items="doctors" name="first_name" value="id" label="Врач" placeholder="Врач" :nullvalue="null" />
+                <site-select required v-model="$item.service" :items="services" @changed="changePrice" name="name_ru" value="id" label="Услуга" placeholder="Услуга" :nullvalue="null" />
                 <site-input v-model="$item.price" label="Цена" type="number" placeholder="Цена" />
                 <div class="flex items-center gap-2">
                     <site-btn type="submit" :disabled="loading||!!$item.id">Сохранить</site-btn>
-                    <site-btn type="submit" v-if="!!$item.id" :disabled="$item.status==='CD'" @click="handleCancel($item.id)">Отменить</site-btn>
+                    <site-btn type="submit" v-if="!!$item.id" :disabled="['CD','FP'].includes($item.status)" @click="handleCancel($item.id)">Отменить</site-btn>
                 </div>
             </form>
             
@@ -160,9 +160,9 @@ const selectItem = (index: number, hour: string, doctor: IDoctor | null, app?: I
     if(app) {
         Object.assign($item.value, {
             ...app,
-            doctor: (app.doctor as any).id,
-            patient: (app.patient as any).id,
-            service: (app.service as any).id,
+            doctor: (app.doctor as any)?.id || null,
+            patient: (app.patient as any)?.id || null,
+            service: (app.service as any)?.id || null,
         })
         return
     }

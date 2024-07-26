@@ -11,5 +11,7 @@
 
 [+*] Mobile Navigate
 [+] id -> index in table
-[+/-] create new page for "atchot"
+[+/*] create new page for "atchot"
 [+] concat 2 pages [salaries + reports]
+[+] appointment not cancel after complete
+[+*] add validator for create appointment

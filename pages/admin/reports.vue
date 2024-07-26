@@ -3,8 +3,8 @@
         <div class="p-2 rounded border flex justify-between items-center gap-2 bg-white">
             <site-input v-model="filterdate" type="date" placeholder="Поиск" @changed="getItems($event.target.value)" />
             <div class="flex items-center gap-2">
-                <site-btn customColor class="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="dialog1=true" size="small">Добавить прибыль</site-btn>
-                <site-btn customColor class="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="dialog2=true" size="small">Добавить расход</site-btn>
+                <site-btn customColor="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="dialog1=true" size="small">Добавить прибыль</site-btn>
+                <site-btn customColor="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="dialog2=true" size="small">Добавить расход</site-btn>
                 <site-btn @click="dialog3=true" size="small">Добавить заплату</site-btn>
             </div>
         </div>

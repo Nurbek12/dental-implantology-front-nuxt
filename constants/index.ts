@@ -18,6 +18,7 @@ import {
     ReStarSmileLine,
     BxHomeAlt2,
     AkTextAlignJustified,
+    ReMoneyDollarCircleLine,
 } from '@kalimahapps/vue-icons'
 
 export const index_cards = [
@@ -50,9 +51,9 @@ export const admin_links = {
         { title: 'Первоначальные записи', icon: CgList, url: '/admin/initial-records' },
         { title: 'Записи на прием', icon: CaDataTable, url: '/admin/appointments' },
         // { title: 'Записи (для докторов)', icon: CdTable, url: '/admin/appointments-doctors' },
+        { title: 'Зарплата', icon: ReMoneyDollarCircleLine, url: '/admin/salaries' },
         { title: 'Приходы/Расходы', icon: CaReportData, url: '/admin/reports' },
         { title: 'Отчет', icon: TaReport, url: '/admin/report' },
-        // { title: 'Зарплата', icon: ReMoneyDollarCircleLine, url: '/admin/salaries' },
     ],
     "USER": {},
     "DOCTOR": {}
@@ -103,6 +104,56 @@ export const todayDate = () => {
     const day = String(today.getDate()).padStart(2, '0');
 
     return `${year}-${month}-${day}`;
+}
+
+export const getDateRange = (period: 0 | 1 | 2 | 3) => {
+    const today = new Date();
+    let startDate, endDate;
+
+    switch (period) {
+        case 0:
+            const firstDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+            const lastDayOfPreviousMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+
+            if (today.getDate() <= 15) {
+                startDate = new Date(firstDayOfMonth);
+                endDate = new Date(firstDayOfMonth);
+                endDate.setDate(15);
+            } else {
+                startDate = new Date(lastDayOfPreviousMonth);
+                startDate.setDate(startDate.getDate() - 14);
+                endDate = new Date(lastDayOfPreviousMonth);
+            }
+            break;
+
+        case 1:
+            startDate = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+            endDate = new Date(today.getFullYear(), today.getMonth(), 0);
+            break;
+
+        case 2:
+            if (today.getMonth() < 6) {
+                startDate = new Date(today.getFullYear() - 1, 6, 1);
+                endDate = new Date(today.getFullYear() - 1, 11, 31);
+            } else {
+                startDate = new Date(today.getFullYear(), 0, 1);
+                endDate = new Date(today.getFullYear(), 5, 30);
+            }
+            break;
+
+        case 3:
+            startDate = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+            endDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1);
+            break;
+
+        default:
+            throw new Error('Invalid period');
+    }
+
+    return {
+        start_date: startDate.toISOString().split('T')[0],
+        end_date: endDate.toISOString().split('T')[0]
+    }
 }
 
 export const specs = {
