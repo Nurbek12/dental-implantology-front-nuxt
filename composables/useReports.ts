@@ -13,7 +13,20 @@ export default function useReports() {
 
     const addProfit = (body: any) => $fetch<IReport>('/reports/add_profit/', { method: 'post', body })
 
+    const addSalary = (body: any) => $fetch<IReport>('/reports/add_salary/', { method: 'post', body })
+
+    const getRange = (params: any) => $fetch<{
+            aggregated_totals: {
+            total_profit: number,
+            total_consumption: number,
+            net_profit: number
+        },
+        reports: IReport[]
+    }>('/reports/range/', { params })
+
     return {
+        getRange,
+        addSalary,
         addProfit,
         getReports,
         createReport,

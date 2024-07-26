@@ -5,6 +5,7 @@
             <div class="flex items-center gap-2">
                 <site-btn customColor class="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="dialog1=true" size="small">Добавить прибыль</site-btn>
                 <site-btn customColor class="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="dialog2=true" size="small">Добавить расход</site-btn>
+                <site-btn @click="dialog3=true" size="small">Добавить заплату</site-btn>
             </div>
         </div>
 
@@ -18,6 +19,9 @@
                     :loading="loading"
                     hide-bottom
                     hide-top>
+                    <template #table-item-id="{index}">
+                        <span class="text-xs">{{ index+1 }}</span>
+                    </template>
     
                     <template #table-item-patient="{tableItem}">
                         <span class="text-xs text-balance">{{ tableItem?.appointment?.patient?.first_name }} {{ tableItem?.appointment?.patient?.last_name }}</span>
@@ -52,8 +56,15 @@
                     :loading="loading"
                     hide-bottom
                     hide-top>
+                    <template #table-item-id="{index}">
+                        <span class="text-xs">{{ index+1 }}</span>
+                    </template>
                     <template #table-item-created_at="{tableItem}">
                         <span class="text-xs text-balance">{{ new Date(tableItem.created_at!).toLocaleString() }}</span>
+                    </template>
+                    
+                    <template #table-item-doctor="{tableItem}">
+                        <span class="text-xs text-balance">{{ tableItem?.doctor?.first_name }} {{ tableItem?.doctor?.last_name || '-' }}</span>
                     </template>
                     <!-- <template #table-item-actions="{tableItem,index}">
                         <div class="flex gap-1">
@@ -108,11 +119,25 @@
             </site-btn>
         </form>
     </app-dialog>
+
+    <app-dialog rounded title="Выдача заплаты" :open="dialog3" @close-dialog="close">
+        <form @submit.prevent="createSalary" class="mt-4 flex flex-col gap-4">
+            <site-input readonly required v-model="salary.date" type="date" label="Дата заплаты" />
+
+            <site-input required v-model="salary.title" label="Название заплаты" placeholder="Название заплаты" />
+            <site-select required v-model="salary.doctor" :items="doctors" name="first_name" value="id" label="Доктор" placeholder="Доктор" :nullvalue="null" />
+            <site-input required v-model="salary.amount" label="Сумма" placeholder="Сумма" type="number" />
+
+            <site-textarea required v-model="salary.description" label="Описание заплаты" placeholder="Описание заплаты" />
+            
+            <site-btn :disabled="createLoading" type="submit" size="small">{{ createLoading?'Загружается':'Сохранить' }}</site-btn>
+        </form>
+    </app-dialog>
 </template>
 
 <script setup lang="ts">
 import lodash from 'lodash'
-import type { IAppointment, IReport } from '@/types'
+import type { IAppointment, IDoctor, IReport } from '@/types'
 import { todayDate, appointment_statuses } from '~/constants'
 
 definePageMeta({
@@ -120,13 +145,16 @@ definePageMeta({
   middleware: ['auth'],
 })
 
+const { getDoctors } = useDoctors()
 const { getAppointments } = useAppointments()
-const { getReports, addConsumption, addProfit } = useReports()
+const { getReports, addConsumption, addProfit, addSalary } = useReports()
 
 const filterdate = ref('')
 const dialog1 = ref(false)
 const dialog2 = ref(false)
+const dialog3 = ref(false)
 const loading = ref(false)
+const doctors = ref<IDoctor[]>([])
 const item = ref<IReport|null>(null)
 const appoinmentLoading = ref(false)
 const createLoading = ref<boolean>(false)
@@ -145,8 +173,17 @@ const profit = reactive({
     appointment: null,
 })
 
+const salary = reactive({
+    date: '',
+    title: "",
+    description: "",
+    
+    amount: 0,
+    doctor: null,
+})
+
 const headers = [
-    { name: "Прибыль", value: "id", sortable: false, balancedText: false, custom: false },
+    { name: "Прибыль", value: "id", sortable: false, balancedText: false, custom: true },
     { name: "Доктор", value: "doctor", sortable: false, balancedText: false, custom: true },
     { name: "Пациент", value: "patient", sortable: false, balancedText: false, custom: true },
     { name: "Услуга", value: "service", sortable: false, balancedText: false, custom: true },
@@ -157,17 +194,18 @@ const headers = [
 ]
 
 const headers1 = [
-    { name: "Расход", value: "id", sortable: false, balancedText: false, custom: false },
+    { name: "Расход", value: "id", sortable: false, balancedText: false, custom: true },
     { name: "Названия", value: "title", sortable: false, balancedText: false, custom: false },
     { name: "Описания", value: "description", sortable: false, balancedText: false, custom: false },
+    { name: "Доктор", value: "doctor", sortable: false, balancedText: false, custom: true },
     { name: "Оплачено", value: "amount", sortable: false, balancedText: false, custom: false },
-    // { name: "Дата", value: "created_at", sortable: false, balancedText: false, custom: true },
 ]
 
 const initToday = () => {
     const todaydate = todayDate()
     filterdate.value = todaydate
     consumption.date = todaydate
+    salary.date = todaydate
     profit.date = todaydate
     
 }
@@ -177,9 +215,6 @@ const getItems = async (params: any) => {
         loading.value = true
         const data = await getReports(params)
         item.value = data
-        // const data = await getDoctors(params)
-        // items.value = data.results
-        // count.value = data.count
     } catch (error) {
         console.log(error)
     } finally {
@@ -199,6 +234,12 @@ const saveProfit = async () => {
     close()
 }
 
+const createSalary = async () => {
+    const data = await addSalary(salary)
+    item.value = data
+    close()
+}
+
 const close = () => {
     dialog1.value && Object.assign(profit, {
         amount: 0,
@@ -209,15 +250,23 @@ const close = () => {
         title: '',
         description: '',
     })
+    dialog3.value && Object.assign(salary, {
+        amount: 0,
+        comment: "",
+        doctor: null,
+    })
     dialog1.value = false
     dialog2.value = false
+    dialog3.value = false
 }
 
 const init = async () => {
     initToday()
+
     getItems(filterdate.value)
-    const data = await getAppointments({})
-    appointments.value = data.results
+    const [AP, DC] = await Promise.all([getAppointments({}),getDoctors({})])
+    doctors.value = DC.results
+    appointments.value = AP.results
 }
 
 const searching = lodash.debounce(async (e) => {

@@ -13,6 +13,9 @@
                 <div class="hidden lg:block"></div>
                 <site-btn @click="dialog=true" size="small">Добавить</site-btn>
             </template>
+            <template #table-item-id="{index}">
+                <span class="text-xs">{{ index+1 }}</span>
+            </template>
             <template #table-item-doctor="{tableItem}">
                 <span class="text-xs text-balance">{{ tableItem.doctor?.first_name }} {{ tableItem.doctor?.last_name }}</span>
             </template>
@@ -60,7 +63,7 @@ const $item = reactive<ISalary>({
 })
                            
 const headers = [
-    { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
+    { name: "ID", value: "id", sortable: true, balancedText: false, custom: true },
     { name: "Доктор", value: "doctor", sortable: false, balancedText: false, custom: true },
     { name: "Сумма", value: "amount", sortable: true, balancedText: false, custom: false },
     // { name: "Очиство", value: "middle_name", sortable: false, balancedText: false, custom: false },

@@ -17,6 +17,9 @@
                     <img :src="tableItem.image||'/images/nophoto.jpg'" class="w-full h-full object-cover" alt="">
                 </div>
             </template>
+            <template #table-item-id="{index}">
+                <span class="text-xs">{{ index+1 }}</span>
+            </template>
             <template #table-item-created_at="{tableItem}">
                 <span class="text-xs text-balance">{{ new Date(tableItem.created_at!).toLocaleString() }}</span>
             </template>
@@ -100,7 +103,7 @@ const service = reactive<IService>({
 })
 
 const headers = [
-    { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
+    { name: "ID", value: "id", sortable: true, balancedText: false, custom: true },
     { name: "Фото", value: "image", sortable: false, balancedText: false, custom: true },
     { name: "Название", value: "name_ru", sortable: true, balancedText: false, custom: false },
     { name: "KPI процент", value: "kpi_percent", sortable: false, balancedText: false, custom: false },

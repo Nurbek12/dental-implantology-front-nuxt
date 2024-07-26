@@ -12,6 +12,9 @@
                 <div class="hidden lg:block"></div>
                 <site-btn @click="dialog=true" size="small">Добавить</site-btn>
             </template>
+            <template #table-item-id="{index}">
+                <span class="text-xs">{{ index+1 }}</span>
+            </template>
             <template #table-item-image="{tableItem}">
                 <div class="w-[40px] h-[40px] rounded-full overflow-hidden">
                     <img :src="tableItem.avatar||'/images/nophoto.jpg'" alt="" class="w-full h-full object-cover">
@@ -109,7 +112,7 @@ const doctor = reactive<IDoctor>({
 })
                            
 const headers = [
-    { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
+    { name: "ID", value: "id", sortable: true, balancedText: false, custom: true },
     { name: "Фото", value: "image", sortable: false, balancedText: false, custom: true },
     { name: "Имя и фамилия", value: "fisrt_name", sortable: true, balancedText: false, custom: true },
     { name: "Опыт", value: "experiences", sortable: false, balancedText: true, custom: false },

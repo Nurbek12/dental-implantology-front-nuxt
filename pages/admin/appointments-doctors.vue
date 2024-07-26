@@ -21,6 +21,9 @@
                 </div>
             </template>
 
+            <template #table-item-id="{index}">
+                <span class="text-xs">{{ index+1 }}</span>
+            </template>
 
             <template #table-item-patient="{tableItem}">
                 <span class="text-xs text-balance">{{ tableItem?.patient?.first_name }} {{ tableItem?.patient?.last_name }}</span>
@@ -54,7 +57,7 @@
             <site-input v-model="$item.start_time" label="Дата начала" type="time" />
             <site-input v-model="$item.end_time" label="Дата окончания" type="time" />
             
-            <site-auto-complete v-if="!$item.id" v-model="$item.patient" @inputed="searching" :loading="patientLoading" :items="patients" label="Пациент" placeholder="Пациент" :nullvalue="null">
+            <site-auto-complete v-if="!$item.id" v-model="($item.patient as number)" @inputed="searching" :loading="patientLoading" :items="patients" label="Пациент" placeholder="Пациент" :nullvalue="null">
                 <template #item="acItem">
                     <div class="flex items-center gap-2" @click="acItem.onSelected(`${acItem.item.first_name} ${acItem.item.middle_name } ${acItem.item.last_name}`, acItem.item.id)">
                         <div>
@@ -76,6 +79,9 @@
             <div v-if="$item.id" class="mt-6 border-t border-gray-800 border-dashed">
                 <h1 class="my-2">Оплаты</h1>
                 <app-data-table :items="$item.profits!" :loading="false" :headers="profitHeaders" :count="0" hide-bottom hide-top>
+                    <template #table-item-id="{index}">
+                        <span class="text-xs">{{ index+1 }}</span>
+                    </template>
                     <template #table-item-created_at="{tableItem}">
                         <span class="text-xs text-balance">{{ new Date(tableItem.created_at!).toLocaleString() }}</span>
                     </template>
@@ -125,13 +131,13 @@ const $item = ref<IAppointment>({
 })
 
 const profitHeaders = [
-    { name: "Прибыли", value: "id", sortable: false, balancedText: false, custom: false },
+    { name: "Прибыли", value: "id", sortable: false, balancedText: false, custom: true },
     { name: "Цена", value: "amount", sortable: false, balancedText: false, custom: false },
     { name: "Дата создания", value: "created_at", sortable: false, balancedText: false, custom: true },
 ]
 
 const headers = [
-    { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
+    { name: "ID", value: "id", sortable: true, balancedText: false, custom: true },
     { name: "Доктор", value: "doctor", sortable: false, balancedText: false, custom: true },
     { name: "Пациент", value: "patient", sortable: false, balancedText: false, custom: true },
     { name: "Услуга", value: "service", sortable: false, balancedText: false, custom: true },

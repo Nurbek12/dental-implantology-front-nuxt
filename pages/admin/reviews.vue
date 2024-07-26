@@ -7,6 +7,9 @@
             :headers="headers"
             
             @fetching="getItems">
+            <template #table-item-id="{index}">
+                <span class="text-xs">{{ index+1 }}</span>
+            </template>
             <template #table-item-first_name="{tableItem}">
                 <span class="text-xs">{{ tableItem.first_name }} {{ tableItem.last_name }}</span>
             </template>
@@ -36,7 +39,7 @@ definePageMeta({
 const { deleteRating, getRatings } = useRatings()
 
 const headers = [
-    { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
+    { name: "ID", value: "id", sortable: true, balancedText: false, custom: true },
     { name: "Имя и фамилия", value: "first_name", sortable: true, balancedText: false, custom: true },
     { name: "Отзыв", value: "review", sortable: false, balancedText: true, custom: false },
     { name: "Доктор", value: "doctor", sortable: false, balancedText: false, custom: true },

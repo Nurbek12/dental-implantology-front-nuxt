@@ -13,6 +13,9 @@
                 <div class="hidden lg:block"></div>
                 <site-btn @click="dialog=true" size="small">Добавить</site-btn>
             </template>
+            <template #table-item-id="{index}">
+                <span class="text-xs">{{ index+1 }}</span>
+            </template>
             <template #table-item-image="{tableItem}">
                 <div class="w-[40px] h-[40px] rounded-full overflow-hidden">
                     <img :src="tableItem.thumb||'/images/nophoto.jpg'" alt="">
@@ -70,7 +73,7 @@ const $item = reactive<IPatient>({
 })
                            
 const headers = [
-    { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
+    { name: "ID", value: "id", sortable: true, balancedText: false, custom: true },
     { name: "Имя", value: "first_name", sortable: true, balancedText: false, custom: false },
     { name: "Фамилия", value: "last_name", sortable: true, balancedText: false, custom: false },
     { name: "Отчество", value: "middle_name", sortable: true, balancedText: false, custom: false },

@@ -47,7 +47,7 @@
             <form @submit.prevent="createItem" class="bg-white w-full space-y-4 mt-4">
                 <site-input v-model="$item.start_time" label="Время начала" type="time" />
                 <site-input v-model="$item.end_time" label="Время окончания" type="time" />
-                <site-auto-complete v-if="!$item.id" v-model="$item.patient" @inputed="searching" :loading="patientLoading" :items="patients" label="Пациент" placeholder="Пациент" :nullvalue="null">
+                <site-auto-complete v-if="!$item.id" v-model="($item.patient as number)" @inputed="searching" :loading="patientLoading" :items="patients" label="Пациент" placeholder="Пациент" :nullvalue="null">
                     <template #item="acItem">
                         <div class="flex items-center gap-2" @click="acItem.onSelected(`${acItem.item.first_name} ${acItem.item.middle_name } ${acItem.item.last_name}`, acItem.item.id)">
                             <div>
@@ -74,6 +74,9 @@
             <div v-if="$item.id" class="mt-6 pt-4 border-t border-gray-800 border-dashed">
                 <h1 class="my-4">Оплаты</h1>
                 <app-data-table :items="$item.profits!" :loading="false" :headers="profitHeaders" :count="0" hide-bottom hide-top>
+                    <template #table-item-id="{index}">
+                        <span class="text-xs">{{ index+1 }}</span>
+                    </template>
                     <template #table-top-extra>
                         <form @submit.prevent="handlePay($item.id)" class="flex items-center justify-between">
                             <site-input required v-model="profitPrice" label="Цена оплаты" type="number" :min="0" />
@@ -140,7 +143,7 @@ const hours = [
 ]
 
 const profitHeaders = [
-    { name: "Прибыли", value: "id", sortable: false, balancedText: false, custom: false },
+    { name: "Прибыли", value: "id", sortable: false, balancedText: false, custom: true },
     { name: "Цена", value: "amount", sortable: false, balancedText: false, custom: false },
     { name: "Дата создания", value: "created_at", sortable: false, balancedText: false, custom: true },
 ]

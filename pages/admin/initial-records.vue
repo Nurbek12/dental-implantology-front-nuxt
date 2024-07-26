@@ -8,6 +8,9 @@
             :loading="loading"
             
             @fetching="getItems">
+            <template #table-item-id="{index}">
+                <span class="text-xs">{{ index+1 }}</span>
+            </template>
             <template #table-item-created_at="{tableItem}">
                 <span class="text-xs text-balance">{{ new Date(tableItem.created_at!).toLocaleString() }}</span>
             </template>
@@ -37,7 +40,7 @@ const count = ref<number>(0)
 const items = ref<IInitialRecord[]>([])
 
 const headers = [
-    { name: "ID", value: "id", sortable: true, balancedText: false, custom: false },
+    { name: "ID", value: "id", sortable: true, balancedText: false, custom: true },
     { name: "Имя", value: "first_name", sortable: true, balancedText: false, custom: false },
     { name: "Фамилия", value: "last_name", sortable: true, balancedText: false, custom: false },
     { name: "Телефон", value: "phone", sortable: false, balancedText: false, custom: false },

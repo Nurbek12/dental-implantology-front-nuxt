@@ -6,16 +6,18 @@ import {
     HeFilledDoctorMale,
     MaDoctor,
     GlWork,
-    CdTable,
     CgList,
+    GlStatusHealth,
+    CaPhone,
     CaDataTable,
     FaUserInjured,
     CaReportData,
     AnOutlinedMessage,
-    FaListCheck,
     PhTooth,
+    TaReport,
     ReStarSmileLine,
-    ReMoneyDollarCircleLine,
+    BxHomeAlt2,
+    AkTextAlignJustified,
 } from '@kalimahapps/vue-icons'
 
 export const index_cards = [
@@ -47,9 +49,10 @@ export const admin_links = {
         
         { title: 'Первоначальные записи', icon: CgList, url: '/admin/initial-records' },
         { title: 'Записи на прием', icon: CaDataTable, url: '/admin/appointments' },
-        { title: 'Записи (для докторов)', icon: CdTable, url: '/admin/appointments-doctors' },
+        // { title: 'Записи (для докторов)', icon: CdTable, url: '/admin/appointments-doctors' },
         { title: 'Приходы/Расходы', icon: CaReportData, url: '/admin/reports' },
-        { title: 'Зарплата', icon: ReMoneyDollarCircleLine, url: '/admin/salaries' },
+        { title: 'Отчет', icon: TaReport, url: '/admin/report' },
+        // { title: 'Зарплата', icon: ReMoneyDollarCircleLine, url: '/admin/salaries' },
     ],
     "USER": {},
     "DOCTOR": {}
@@ -62,11 +65,11 @@ export const languages = [
 ]
 
 export const site_links = [
-    { title: 'nav.home', url: '/' },
-    { title: 'nav.about', url: '/about' },
-    { title: 'nav.doctors', url: '/doctors' },
-    { title: 'nav.services', url: '/services' },
-    { title: 'nav.contacts', url: '/contact' },
+    { icon: BxHomeAlt2, title: 'nav.home', url: '/' },
+    { icon: AkTextAlignJustified, title: 'nav.about', url: '/about' },
+    { icon: MaDoctor, title: 'nav.doctors', url: '/doctors' },
+    { icon: GlStatusHealth, title: 'nav.services', url: '/services' },
+    { icon: CaPhone, title: 'nav.contacts', url: '/contact' },
 ]
 
 export const getTimeDifferenceInMilliseconds = (time1: string, time2: string) => {
