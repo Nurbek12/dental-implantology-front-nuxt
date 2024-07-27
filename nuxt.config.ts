@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
+  site: { indexable: true },
   modules: ['@nuxt/image', '@nuxtjs/i18n', '@nuxtjs/sitemap', '@nuxtjs/robots'],
   ssr: false,
   css: ['~/assets/css/main.css'],
@@ -37,7 +38,7 @@ export default defineNuxtConfig({
     exclude: ['/admin', '/admin/*', '/login']
   },
   robots: {
-    allow: '/*',
+    allow: '/',
     disallow: '/admin/*',
   },
   postcss: {
@@ -45,6 +46,18 @@ export default defineNuxtConfig({
       tailwindcss: {},
       autoprefixer: {},
     },
+  },
+
+  routeRules: {
+    '/': {
+      ssr: true,
+    },
+    '/login': {
+      ssr: false,
+    },
+    '/admin/**': {
+      ssr: false,
+    }
   },
   
   app: {
@@ -68,7 +81,7 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: 'canonical', href: 'https://' },
-        { rel: 'icon', type: 'image/x-icon', href: '/' }
+        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
       ],
       script: [
         {
