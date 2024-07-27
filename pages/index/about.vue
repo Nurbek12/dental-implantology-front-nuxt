@@ -41,15 +41,15 @@
         </div>
     </div>
 
-    <app-dialog title="Form for reviews" :open="dialog" @close-dialog="dialog=false" rounded>
+    <app-dialog :title="$t('contacts.form-title')" :open="dialog" @close-dialog="dialog=false" rounded>
         <form @submit.prevent="handleReview" class="space-y-4 w-full">
             <div class="grid grid-cols-2 gap-2 w-full mt-4">
-                <site-input v-model="rating.first_name" required label="First Name" placeholder="First Name" />
-                <site-input v-model="rating.last_name" required label="Last Name" placeholder="Last Name" />
+                <site-input v-model="rating.first_name" required :placeholder="$t('form.first-name')" :label="$t('form.first-name')" />
+                <site-input v-model="rating.last_name" required :placeholder="$t('form.last-name')" :label="$t('form.last-name')" />
             </div>
-            <site-textarea v-model="rating.review" required label="Message" placeholder="Message of Appointment" :rows="6" />
+            <site-textarea v-model="rating.review" required :placeholder="$t('form.message-of-review')" :label="$t('form.message')" :rows="6" />
             <site-rating v-model="rating.rate" />
-            <site-btn type="submit">Create an Review</site-btn>
+            <site-btn type="submit">{{ $t('form.send') }}</site-btn>
         </form>
     </app-dialog>
 </template>

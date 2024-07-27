@@ -3,7 +3,7 @@
 [+] Add doctor date
 [+] Fix bug in appointments table with start,end itmes
 [+/+/-] Add autocomplete / fix bug model / testing
-[-] Need add appointments for not active doctors
+[/] Need add appointments for not active doctors
 [+] Need add hours for dinner
 [+] Need not published doctors
 [+] Need sorting in table
@@ -15,3 +15,4 @@
 [+] concat 2 pages [salaries + reports]
 [+] appointment not cancel after complete
 [+*] add validator for create appointment
+[+] Need Add Languages

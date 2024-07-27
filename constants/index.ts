@@ -156,6 +156,62 @@ export const getDateRange = (period: 0 | 1 | 2 | 3) => {
     }
 }
 
+export const getDates = (option: 0 | 1 | 2 | 3) => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1; // Месяцы в JavaScript начинаются с 0
+    const day = today.getDate();
+
+    // Форматирование дат в строку 'гггг-мм-дд'
+    const formatDate = (date: Date) => {
+        const y = date.getFullYear();
+        const m = String(date.getMonth() + 1).padStart(2, '0');
+        const d = String(date.getDate()).padStart(2, '0');
+        return `${y}-${m}-${d}`;
+    };
+
+    switch (option) {
+        case 0:
+            if (day <= 15) {
+                // Сегодня первая половина месяца
+                const prevMonth = month === 1 ? 12 : month - 1;
+                const prevYear = month === 1 ? year - 1 : year;
+                const daysInPrevMonth = new Date(prevYear, prevMonth, 0).getDate();
+                const secondHalfStart = new Date(prevYear, prevMonth - 1, 16);
+                const secondHalfEnd = new Date(prevYear, prevMonth - 1, daysInPrevMonth);
+                return { start_date: formatDate(secondHalfStart), end_date: formatDate(secondHalfEnd) };
+            } else {
+                // Сегодня вторая половина месяца
+                const firstHalfStart = new Date(year, month - 1, 1);
+                const firstHalfEnd = new Date(year, month - 1, 15);
+                return { start_date: formatDate(firstHalfStart), end_date: formatDate(firstHalfEnd) };
+            }
+
+        case 1:
+            const prevMonthStart = new Date(year, month - 2, 1);
+            const prevMonthEnd = new Date(year, month - 1, 0);
+            return { start_date: formatDate(prevMonthStart), end_date: formatDate(prevMonthEnd) };
+
+        case 2:
+            if (month <= 6) {
+                // Текущий месяц в 1-м полугодии
+                const secondHalfYearStart = new Date(year - 1, 6, 1);
+                const secondHalfYearEnd = new Date(year - 1, 11, 31);
+                return { start_date: formatDate(secondHalfYearStart), end_date: formatDate(secondHalfYearEnd) };
+            } else {
+                // Текущий месяц во 2-м полугодии
+                const firstHalfYearStart = new Date(year, 0, 1);
+                const firstHalfYearEnd = new Date(year, 5, 30);
+                return { start_date: formatDate(firstHalfYearStart), end_date: formatDate(firstHalfYearEnd) };
+            }
+
+        case 3:
+            const prevYearStart = new Date(year - 1, 0, 1);
+            const prevYearEnd = new Date(year - 1, 11, 31);
+            return { start_date: formatDate(prevYearStart), end_date: formatDate(prevYearEnd) };
+    }
+}
+
 export const specs = {
     therapy: 'Терапия',
     surgery: 'Хирургия',

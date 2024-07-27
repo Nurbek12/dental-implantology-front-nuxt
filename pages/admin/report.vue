@@ -102,8 +102,8 @@
 
 <script setup lang="ts">
 import * as XLSX from 'xlsx'
+import { getDates } from '~/constants'
 import type { IReport } from '~/types'
-import { getDateRange } from '~/constants'
 import { McLoading2Line } from '@kalimahapps/vue-icons'
 
 definePageMeta({
@@ -145,7 +145,7 @@ const item = computed(() => {
 })
 
 const setFilter = (p: 0 | 1 | 2 | 3) => {
-    const { start_date, end_date } = getDateRange(p)
+    const { start_date, end_date } = getDates(p)
     filterdate.value.start_date = start_date
     filterdate.value.end_date = end_date
     getItems(filterdate.value)

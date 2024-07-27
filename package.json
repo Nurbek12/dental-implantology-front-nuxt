@@ -13,6 +13,8 @@
     "@kalimahapps/vue-icons": "^1.4.0",
     "@nuxt/image": "^1.5.0",
     "@nuxtjs/i18n": "^8.3.0",
+    "@nuxtjs/robots": "^4.0.2",
+    "@nuxtjs/sitemap": "^6.0.0-beta.1",
     "lodash": "^4.17.21",
     "nuxt": "^3.11.1",
     "papaparse": "^5.4.1",

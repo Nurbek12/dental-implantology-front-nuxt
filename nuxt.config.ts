@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: false },
-  modules: ['@nuxt/image', '@nuxtjs/i18n'],
+  modules: ['@nuxt/image', '@nuxtjs/i18n', '@nuxtjs/sitemap', '@nuxtjs/robots'],
   ssr: false,
   css: ['~/assets/css/main.css'],
   i18n: {
@@ -33,10 +33,68 @@ export default defineNuxtConfig({
       api_url: process.env.NUXT_API_URL
     }
   },
+  sitemap: {
+    exclude: ['/admin', '/admin/*', '/login']
+  },
+  robots: {
+    allow: '/*',
+    disallow: '/admin/*',
+  },
   postcss: {
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
+    },
+  },
+  
+  app: {
+    head: {
+      htmlAttrs: {
+        lang: 'ru'
+      },
+      title: 'Dental Implantology | Стоматология в Самарканде',
+      charset: 'utf-8',
+      viewport: 'width=device-width, initial-scale=1',
+      meta: [ 
+        { name:'title', content:'Медицинское Оборудование в Узбекистане'},
+        { name:'description', content:'Профессиональная стоматология в Самарканде. Специализируемся на имплантологии, предлагаем высококачественные услуги по установке зубных имплантов. Запишитесь на консультацию сегодня!' },
+        { name:'keywords', content:'стоматология Самарканд, имплантология, зубные импланты, стоматологические услуги, зубной врач, здоровье зубов' },
+        { name: "author", content: "Dental Implantology" },
+        { name: 'og:title', content: "Стоматология в Самарканде - Dental Implantology" },
+        { name: 'og:description', content: "Профессиональная стоматология в Самарканде. Специализируемся на имплантологии, предлагаем высококачественные услуги по установке зубных имплантов. Запишитесь на консультацию сегодня!" },
+        { name: 'og:image', content: "https://" },
+        { name: 'og:url', content: "https://" },
+        { name: 'og:type', content: "website" },
+      ],
+      link: [
+        { rel: 'canonical', href: 'https://' },
+        { rel: 'icon', type: 'image/x-icon', href: '/' }
+      ],
+      script: [
+        {
+          type: 'application/ld+json',
+          innerHTML: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "name": "Dental Implantology",
+            "url": "",
+            "description": "Профессиональная стоматология в Самарканде. Специализируемся на имплантологии, предлагаем высококачественные услуги по установке зубных имплантов. Запишитесь на консультацию сегодня!",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Dahbed Street, 168А",
+              "addressLocality": "Самарканд",
+              "addressRegion": "Самарканд",
+              "postalCode": "181307",
+              "addressCountry": "Узбекистан"
+            },
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+998662350005",
+              "contactType": "customer service"
+            }
+          })
+        }
+      ],
     },
   },
 })

@@ -28,10 +28,12 @@
     <app-dialog rounded title="Выдача заплаты" :open="dialog" @close-dialog="close">
         <form @submit.prevent="save" class="mt-4 flex flex-col gap-4">
             <site-select required v-model="$item.doctor" :items="doctors" name="first_name" value="id" label="Доктор" placeholder="Доктор" :nullvalue="null" />
+
             <site-input required v-model="$item.amount" label="Сумма" placeholder="Сумма" type="number" />
+            <site-input required v-model="$item.title" label="Название заплаты" placeholder="Название заплаты" />
 
-            <site-textarea required v-model="$item.comment" label="Комментарий" placeholder="Комментарий" />
-
+            <site-textarea required v-model="$item.description" label="Описание заплаты" placeholder="Описание заплаты" />
+            
             <site-btn :disabled="createLoading" type="submit" size="small">{{ createLoading?'Загружается':'Сохранить' }}</site-btn>
         </form>
     </app-dialog>
@@ -58,19 +60,20 @@ const itemIndex = ref<number|null>(null)
 const createLoading = ref<boolean>(false)
 const $item = reactive<ISalary>({
     amount: 0,
-    comment: "",
+    title: "",
     doctor: null,
+    description: "",
 })
                            
 const headers = [
     { name: "ID", value: "id", sortable: true, balancedText: false, custom: true },
     { name: "Доктор", value: "doctor", sortable: false, balancedText: false, custom: true },
-    { name: "Сумма", value: "amount", sortable: true, balancedText: false, custom: false },
-    // { name: "Очиство", value: "middle_name", sortable: false, balancedText: false, custom: false },
-    // { name: "Активность", value: "is_active", sortable: false, balancedText: false, custom: true },
-    { name: "Комментарий", value: "comment", sortable: false, balancedText: false, custom: false },
+    
+    { name: "Названия", value: "title", sortable: false, balancedText: false, custom: false },
+    { name: "Описания", value: "description", sortable: false, balancedText: false, custom: false },
+    { name: "Оплачено", value: "amount", sortable: false, balancedText: false, custom: false },
+
     { name: "Добавлен", value: "created_at", sortable: true, balancedText: false, custom: true },
-    // { name: "Управлять", value: "actions", sortable: false, balancedText: false, custom: true },
 ]
 
 const getItems = async (params: any) => {

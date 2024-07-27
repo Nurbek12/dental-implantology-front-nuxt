@@ -7,7 +7,7 @@
         "contacts": "Bog'lanish"
     },
     "home": {
-        "header-subtitle": "👋Bizning yordamimiz bilan sog'lom tabassum!",
+        "header-subtitle": "👋Yordamimiz bilan sog'lom tabassum!",
         "header-title": "Malakali mutaxassislar va zamonaviy jihozlar",
         "header-description": "Bizning klinikamizda siz tish va tish go'shti kasalliklarini tashxislash va davolashdan o'tishingiz, shuningdek, kelajakda muammolarni oldini olishga yordam beradigan profilaktik muolajalarni o'tkazishingiz mumkin. Shuningdek, biz sizga tabassum ko'rinishini yaxshilashga yordam beradigan kosmetik stomatologiya xizmatlarini taklif etamiz.",
         
@@ -20,101 +20,95 @@
         "home-card-3-title": "Estetik stomatologiya",
         "home-card-3-description": "Kosmetik stomatologiya xizmatlarimiz, jumladan tishlarni oqartirish, yoritgichlar va tishlarni qayta shakllantirish xizmatlarimiz yordamida tabassumingiz ko'rinishini yaxshilang.",
         
-        
-        "home-about-us-subtitle": "More about us",
-        "home-about-us-title": "Welcome to our dental clinic!",
-        "home-about-us-description": "We are glad that you have chosen us to care for your health and the beauty of your smile. Our clinic is one of the leading in the industry, and we pride ourselves on providing our patients with quality services and personalized attention.",
+        "home-about-us-subtitle": "Biz haqimizda ko'proq ma'lumot",
+        "home-about-us-title": "Bizning stomatologiya klinikamizga xush kelibsiz!",
+        "home-about-us-description": "Sizni salomatligingiz va tabassumingiz go'zalligi uchun bizni tanlaganingizdan xursandmiz. Bizning klinika sohaning yetakchilaridan biri hisoblanadi va biz bemorlarimizga sifatli xizmatlar va shaxsiy e'tibor ko'rsatish bilan faxrlanamiz.",
 
-        "home-about-us-item-1": "Qualified specialists and continuous improvement",
-        "home-about-us-item-2": "20 years of experience in dentistry",
-        "home-about-us-item-3": "Modern equipment, individual approach, flexible schedule",
-        "home-about-us-item-4": "Trust and Excellence",
+        "home-about-us-item-1": "Malakali mutaxassislar va uzluksiz takomillashtirish",
+        "home-about-us-item-2": "Stomatologiya sohasida 20 yillik tajriba",
+        "home-about-us-item-3": "Zamonaviy jihozlar, individual yondashuv, moslashuvchan jadval",
+        "home-about-us-item-4": "Ishonch va Mukammallik",
 
-        
-        "home-why-choice-us-subtitle": "Why choose us",
-        "home-why-choice-us-title": "Quality, professionalism and individual approach",
-        "home-why-choice-us-description-1": "Our dental office offers a wide range of services to keep your smile healthy and beautiful. We use only modern equipment and materials that ensure safety and comfort during procedures.",
-        "home-why-choice-us-description-2": "Our team of qualified specialists has extensive experience and is constantly improving their skills to provide services at the highest level. We value the trust of our patients and try to exceed their expectations. Choose us and enjoy a healthy and beautiful smile!",
+        "home-why-choice-us-subtitle": "Nima uchun bizni tanlashingiz kerak",
+        "home-why-choice-us-title": "Sifat, professionallik va individual yondashuv",
+        "home-why-choice-us-description-1": "Bizning stomatologiya kabinetimiz sizning tabassumingizni sog'lom va go'zal saqlash uchun keng turdagi xizmatlarni taklif etadi. Biz faqat zamonaviy uskunalar va materiallardan foydalanamiz, bu esa protseduralar paytida xavfsizlik va qulaylikni ta'minlaydi.",
+        "home-why-choice-us-description-2": "Bizning malakali mutaxassislar jamoamiz keng tajribaga ega va o'z mahoratlarini doimiy ravishda oshirib boradi. Biz bemorlarimizning ishonchini qadrlaymiz va ularning kutganlaridan oshib ketishga harakat qilamiz. Bizni tanlang va sog'lom va go'zal tabassumingizdan zavqlaning!",
 
+        "home-counst-info-1": "Baxtli mijozlar",
+        "home-counst-info-2": "Tajriba yillari",
+        "home-counst-info-3": "Shifokorlar",
+        "home-counst-info-4": "Onlayn uchrashuvlar",
 
-        "home-counst-info-1": "Happy clients",
-        "home-counst-info-2": "Year of experience",
-        "home-counst-info-3": "Doctors",
-        "home-counst-info-4": "Online appointments",
+        "home-services-subtitle": "Bizning xizmatlarimiz",
+        "home-services-title": "Har qanday yosh uchun kompleks stomatologik parvarish",
+        "home-services-description": "Bizning stomatologiya klinikamiz tishlar va milklarni sog'lom va go'zal saqlash uchun keng turdagi xizmatlarni taklif etadi.",
 
-
-        "home-services-subtitle": "Our services",
-        "home-services-title": "Comprehensive dental care for all ages",
-        "home-services-description": "Our dental clinic offers a wide range of services to keep your teeth and gums healthy and beautiful.",
-
-        
-        "home-blog-subtitle": "Our blog",
+        "home-blog-subtitle": "Bizning blog",
         "home-blog-title": "Blog",
-        "home-blog-description": "Welcome to our blog! Here we share useful information and news from the world of dentistry.",
+        "home-blog-description": "Bizning blogimizga xush kelibsiz! Bu erda biz stomatologiya dunyosidan foydali ma'lumotlar va yangiliklarni bo'lishamiz.",
 
-           
-        "home-jumbotron-subtitle": "Regular checkups keep your smile healthy",
-        "home-jumbotron-title": "Why is it important to visit the dentist regularly?",
-        "home-jumbotron-description": "Regular visits to the dentist play a key role in maintaining oral health and preventing serious diseases. In this blog, we'll explain why regular checkups are important, how often you should visit the dentist, and the benefits of doing so. You'll learn how identifying problems early can prevent them from developing and save you time, money and stress in the future. Read our tips and be confident in the health of your smile!"
+        "home-jumbotron-subtitle": "Muntazam tekshiruvlar tabassumingizni sog'lom saqlaydi",
+        "home-jumbotron-title": "Nima uchun stomatologga muntazam tashrif buyurish muhim?",
+        "home-jumbotron-description": "Stomatologga muntazam tashriflar og'iz sog'ligini saqlash va jiddiy kasalliklarning oldini olishda muhim rol o'ynaydi. Ushbu blogda biz muntazam tekshiruvlarning ahamiyati, qachon stomatologga borishingiz kerakligi va bu ishlarning foydalari haqida tushuntiramiz. Muammolarni erta aniqlash ularni rivojlanishidan oldini olish va kelajakda vaqt, pul va stressni tejashga yordam berishini bilib olasiz. Maslahatlarimizni o'qing va tabassumingiz sog'ligiga ishonch hosil qiling!"
     },
     "about": {
-        "subtitle": "Find out more about us",
-        "title": "About our clinic",
-        "description": "Welcome to our dental office, where your smiles are our priority. We offer modern treatment methods and the highest level of care. Learn more about our values ​​and mission.",
+        "subtitle": "Biz haqimizda ko'proq bilib oling",
+        "title": "Bizning klinikamiz haqida",
+        "description": "Bizning stomatologiya ofisimizga xush kelibsiz, bu erda sizning tabassumingiz bizning ustuvor vazifamizdir. Biz zamonaviy davolash usullari va eng yuqori darajadagi parvarishni taklif etamiz. Bizning qadriyatlarimiz va missiyamiz haqida ko'proq bilib oling.",
 
-        "subtitle-1": "About Us",
-        "title-1": "Trust, quality and professionalism",
-        "description-1": "Our dental clinic was founded in 2000 with the goal of providing quality dental services. Over the years, we have accumulated a lot of experience and have become one of the leading clinics in the industry. Our team of qualified specialists is constantly improving their skills to provide services at the highest level.",
-        "description-2": "We value the trust of our patients and try to exceed their expectations. Our clinic is equipped with modern equipment and materials that ensure the safety and comfort of our patients. We offer a wide range of services to keep your teeth and gums healthy and beautiful. Choose us and entrust your smile to the hands of professionals!"
+        "subtitle-1": "Biz haqimizda",
+        "title-1": "Ishonch, sifat va professionallik",
+        "description-1": "Bizning stomatologiya klinikamiz 2000 yilda sifatli stomatologik xizmatlar ko'rsatish maqsadida tashkil etilgan. Yillar davomida biz ko'p tajriba to'pladik va sohaning yetakchi klinikalaridan biriga aylandik. Bizning malakali mutaxassislar jamoamiz xizmatlarni eng yuqori darajada taqdim etish uchun o'z mahoratlarini doimiy ravishda oshirib boradi.",
+        "description-2": "Biz bemorlarimizning ishonchini qadrlaymiz va ularning kutganlaridan oshib ketishga harakat qilamiz. Bizning klinikamiz zamonaviy jihozlar va materiallar bilan jihozlangan bo'lib, bemorlarimizning xavfsizligi va qulayligini ta'minlaydi. Biz tishlar va milklarni sog'lom va go'zal saqlash uchun keng turdagi xizmatlarni taklif etamiz. Bizni tanlang va tabassumingizni mutaxassislar qo'liga topshiring!"
     },
     "doctors": {
-        "subtitle": "Meet our doctors",
-        "title": "Our team of specialists",
-        "description": "Our doctors are experienced and qualified professionals dedicated to their work. Review the biographies and qualifications of our dentists to be confident in your choice."
+        "subtitle": "Bizning shifokorlarimiz bilan tanishing",
+        "title": "Bizning mutaxassislar jamoasi",
+        "description": "Bizning shifokorlarimiz o'z ishiga sodiq tajribali va malakali mutaxassislardir. Bizning stomatologlarimizning tarjimai holi va malakasi bilan tanishib chiqing va tanlovingizga ishonch hosil qiling."
     },
     "services": {
-        "subtitle": "Wide range of treatments",
-        "title": "Our services",
-        "description": "We offer a wide range of dental services, from preventive examinations to complex surgical interventions. Learn more about how we can help you maintain a healthy, beautiful smile."
+        "subtitle": "Keng turdagi davolash usullari",
+        "title": "Bizning xizmatlarimiz",
+        "description": "Biz profilaktik tekshiruvlardan tortib, murakkab jarrohlik aralashuvlariga qadar keng turdagi stomatologik xizmatlarni taklif etamiz. Sog'lom va go'zal tabassumingizni saqlashda sizga qanday yordam berishimiz mumkinligi haqida ko'proq bilib oling."
     },
     "contacts": {
-        "subtitle": "We are in touch",
-        "title": "Contact us",
-        "description": "We are always ready to answer your questions and make an appointment for you. Here you will find our contact information, address and opening hours. We are waiting for you in our clinic!",
-        "form-title": "Contact us",
-        "form-description": "We are always happy to help you",
-        "form-description-1": "Our experts will contact you shortly. Please provide your contact details and briefly describe your request. We value your time and strive to respond to all requests as quickly as possible."
+        "subtitle": "Biz bilan bog'laning",
+        "title": "Biz bilan bog'laning",
+        "description": "Biz har doim sizning savollaringizga javob berishga va uchrashuv belgilashga tayyormiz. Bu erda siz bizning kontakt ma'lumotlarimizni, manzilimizni va ish vaqtini topasiz. Biz sizni klinikamizda kutamiz!",
+        "form-title": "Biz bilan bog'laning",
+        "form-description": "Biz har doim sizga yordam berishga tayyormiz",
+        "form-description-1": "Bizning mutaxassislarimiz tez orada siz bilan bog'lanadi. Iltimos, kontakt ma'lumotlaringizni taqdim eting va so'rovingizni qisqacha tavsiflang. Biz sizning vaqtingizni qadrlaymiz va barcha so'rovlarga iloji boricha tez javob berishga harakat qilamiz."
     },
     "footer": {
-        "description": "We offer a wide range of services to keep your smile healthy. Our experienced specialists use modern technologies and an individual approach to each patient. Contact us to make an appointment and consultation.",
-        "concats-title": "Contacts",
-        "address": "Samarkand, Dakhbed street, 168A",
-        "working-time-tilte": "Opening hours",
-        "sun": "Sunday Closed",
-        "mon": "Monday 09:00–18:00",
-        "tue": "Tuesday 09:00–18:00",
-        "wed": "Wednesday 09:00–18:00",
-        "thu": "Thursday 08:00–18:00",
-        "fri": "Friday 08:00–18:00",
-        "sat": "Saturday 08:00–18:00",
+        "description": "Biz sizning tabassumingizni sog'lom saqlash uchun keng turdagi xizmatlarni taklif etamiz. Bizning tajribali mutaxassislarimiz zamonaviy texnologiyalar va har bir bemorga individual yondashuvdan foydalanadilar. Uchrashuv va maslahat uchun biz bilan bog'laning.",
+        "concats-title": "Kontaktlar",
+        "address": "Samarqand, Daxbed ko'chasi, 168A",
+        "working-time-tilte": "Ish vaqti",
+        "sun": "Yakshanba Yopiq",
+        "mon": "Dushanba 09:00–18:00",
+        "tue": "Seshanba 09:00–18:00",
+        "wed": "Chorshanba 09:00–18:00",
+        "thu": "Payshanba 08:00–18:00",
+        "fri": "Juma 08:00–18:00",
+        "sat": "Shanba 08:00–18:00",
 
-        "links-title": "Quick links",
-        "copy": "© 2024. Dentistry \"Dental Implantology\". All rights reserved."
+        "links-title": "Tezkor havolalar",
+        "copy": "© 2024. Stomatologiya \"Dental Implantology\". Barcha huquqlar himoyalangan."
     },
     "form": {
-        "phone": "Phone",
-        "date": "Date",
-        "address": "Address",
-        "name": "Name",
-        "first-name": "First name",
-        "last-name": "Last name",
-        "email": "Email",
-        "message": "Messages",
+        "phone": "Telefon",
+        "date": "Sana",
+        "address": "Manzil",
+        "name": "Ism",
+        "first-name": "Ism",
+        "last-name": "Familiya",
+        "email": "Elektron pochta",
+        "message": "Xabarlar",
 
-        "create-appointment": "Create an Appointment",
-        "create-review": "Create Review",
-        "review-form-title": "Form for reviews",
-        "message-of-review": "Message of review",
-        "send": "Send"
+        "create-appointment": "Uchrashuv yarating",
+        "create-review": "Sharh yaratish",
+        "review-form-title": "Sharhlar formasi",
+        "message-of-review": "Sharh xabari",
+        "send": "Yuborish"
     }
 }

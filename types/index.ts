@@ -164,7 +164,9 @@ export interface IReport {
 export interface ISalary {
     id?: number
     amount: number
-    comment: string
+    comment?: string
+    title?: string
+    description?: string
     doctor: null | number | IDoctor
     created_at?: string
     updated_at?: string

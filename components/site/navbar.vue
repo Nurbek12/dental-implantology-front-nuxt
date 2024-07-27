@@ -3,7 +3,7 @@
         <div class="container mx-auto py-2">
             <div class="flex items-center justify-between">
                 <nuxt-link to="/">
-                    <img src="/logo.svg" width="180" alt="">
+                    <img src="/logo.svg" class="w-[140px] md:w-[180px]" alt="">
                 </nuxt-link>
                 <div class="hidden md:flex gap-8">
                     <nuxt-link v-for="link in site_links" :key="link.url" class="hover:text-primary-500 font-normal text-gray-500 text-sm" :class="{'text-primary-600':link.url===route.path}" :to="link.url">
@@ -17,7 +17,7 @@
         <div class="bottom-0 left-0 fixed w-full border-t bg-white z-10 md:hidden">
             <div class="container py-4">
                 <div class="grid grid-cols-5 gap-4">
-                    <nuxt-link v-for="link in site_links" :key="link.url" :class="{'text-primary-600':link.url===route.path}" class="hover:text-primary-500 font-normal text-xs flex flex-col gap-1 items-center" :to="link.url">
+                    <nuxt-link v-for="link in site_links" :key="link.url" :class="{'text-primary-600':link.url===route.path}" class="hover:text-primary-500 font-normal text-xs flex flex-col text-nowrap text-ellipsis gap-1 items-center" :to="link.url">
                         <component :is="link.icon" class="size-6" />
                         {{ $t(link.title) }}
                     </nuxt-link>
