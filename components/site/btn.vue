@@ -17,7 +17,7 @@
 <script setup lang="ts">
 const classes = {
     "small": "py-2 px-3 text-xs",
-    "medium": "py-3 px-4",
+    "medium": "py-2 px-4",
     "large": "py-3 px-5",
     "square": "p-1"
 }

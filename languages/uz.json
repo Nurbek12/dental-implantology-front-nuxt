@@ -110,5 +110,10 @@
         "review-form-title": "Sharhlar formasi",
         "message-of-review": "Sharh xabari",
         "send": "Yuborish"
+    },
+    "404": {
+        "title": "Sahifa Topilmadi",
+        "description": "Afsus! Siz izlagan sahifa mavjud emas. Iltimos, URL ni tekshiring yoki bosh sahifaga qayting.",
+        "go-home": "Bosh Sahifaga O'tish"
     }
 }

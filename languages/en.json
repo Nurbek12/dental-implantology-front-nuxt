@@ -116,5 +116,10 @@
         "review-form-title": "Form for reviews",
         "message-of-review": "Message of review",
         "send": "Send"
+    },
+    "404": {
+        "title": "Page Not Found",
+        "description": "Oops! The page you are looking for does not exist. Please check the URL or go back to the homepage.",
+        "go-home": "Go to Home Page"
     }
 }

@@ -1,6 +1,9 @@
 export default defineNuxtRouteMiddleware((to, from) => {
+    if (import.meta.server) {
+        return;
+    }
+
     const { accessToken } = useAuth()
-    // console.log(accessToken.value);
     
     if(!accessToken.value) {
         navigateTo('/login', { external: true })
