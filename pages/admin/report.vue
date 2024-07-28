@@ -164,79 +164,112 @@ const getItems = async (params: {start_date: string, end_date: string}) => {
     }
 }
 
-const calculateColumnWidths = (jsonData: any[], headers: any[]) => {
-    const colWidths = headers.map(header => ({ wch: header.length }));
-    
-    jsonData.forEach(row => {
-        headers.forEach((header, index) => {
-            const cellValue = row[header] ? row[header].toString() : '';
-            colWidths[index].wch = Math.max(colWidths[index].wch, cellValue.length);
-        });
-    });
-
-    return colWidths;
-}
-
 const exportToExcel = (data: any) => {
     const workbook = XLSX.utils.book_new();
 
+    // Function to calculate the maximum width of the content in each column
+    const calculateColumnWidths = (jsonData: any, headers: string[]) => {
+        const colWidths = headers.map(header => ({ wch: header.length }));
+
+        jsonData.forEach((row: any) => {
+            headers.forEach((header, index) => {
+                const cellValue = row[header] ? row[header].toString() : '';
+                colWidths[index].wch = Math.max(colWidths[index].wch, cellValue.length);
+            });
+        });
+
+        return colWidths;
+    };
+
+    // Function to fill a column with a specified color
+    const fillColumnWithColor = (sheet: any, col: number, startRow: number, endRow: number, color: string) => {
+        for (let row = startRow; row <= endRow; row++) {
+            const cellAddress = XLSX.utils.encode_cell({ c: col, r: row });
+            sheet[cellAddress] = {
+                t: 's',
+                s: {
+                    fill: {
+                        patternType: "solid",
+                        fgColor: { rgb: color }
+                    }
+                }
+            };
+        }
+    };
+
     // Create a sheet for aggregated totals
-    const totalsData = {
+    const totalsData = [{
         'Общая прибыль': data.aggregated_totals.total_profit,
         'Общая расход': data.aggregated_totals.total_consumption,
         'Чистая прибыль': data.aggregated_totals.net_profit
-    }
-    const aggregatedTotalsSheet = XLSX.utils.json_to_sheet([totalsData], { header: ['Общая прибыль', 'Общая расход', 'Чистая прибыль'] });
-    aggregatedTotalsSheet['!cols'] = calculateColumnWidths([totalsData], ['Общая прибыль', 'Общая расход', 'Чистая прибыль']);
+    }];
+    const aggregatedTotalsSheet = XLSX.utils.json_to_sheet(totalsData, { header: ['Общая прибыль', 'Общая расход', 'Чистая прибыль'] });
+    aggregatedTotalsSheet['!cols'] = calculateColumnWidths(totalsData, ['Общая прибыль', 'Общая расход', 'Чистая прибыль']);
     XLSX.utils.book_append_sheet(workbook, aggregatedTotalsSheet, 'Агрегированные итоги');
 
     let reportIndex = 1;
     // Create sheets for each report
-    data.reports.forEach((report:any) => {
-        // Preprocess report data
-        const reportData: any = {
-            'Дата': report.date,
-            'Общая прибыль': report.total_profit,
-            'Общая расход': report.total_consumption,
-            'Чистая прибыль': report.net_profit,
-        };
-
-        const reportSheet = XLSX.utils.json_to_sheet([reportData], { header: ['Дата', 'Общая прибыль', 'Общая расход', 'Чистая прибыль'] });
-        reportSheet['!cols'] = calculateColumnWidths([reportData], ['Дата', 'Общая прибыль', 'Общая расход', 'Чистая прибыль']);
-        XLSX.utils.book_append_sheet(workbook, reportSheet, `${reportIndex}. Отчет: ${report.date}`);
+    data.reports.forEach((report: any) => {
+        const sheet = XLSX.utils.aoa_to_sheet([[]]);
 
         // Preprocess profits data
-        const profitsData = report.profits.map((profit:any, index: any) => ({
-            'No.': index+1,
+        const profitsData = report.profits.map((profit: any, index: any) => ({
+            'No.': index + 1,
             'Доктор': profit.appointment.doctor.first_name + ' ' + profit.appointment.doctor.last_name,
             'Пациент': profit.appointment.patient.first_name + ' ' + profit.appointment.patient.last_name,
             'Услуга': profit.appointment.service.name_ru,
             'Оплачено': profit.amount,
             'Дата начала': profit.appointment.start_time,
-            'Дата окончания': profit.appointment.end_time,
+            'Дата окончания': profit.appointment.end_time
         }));
+        const profitsHeaders = ['No.', 'Доктор', 'Пациент', 'Услуга', 'Оплачено', 'Дата начала', 'Дата окончания'];
+        XLSX.utils.sheet_add_aoa(sheet, [profitsHeaders], { origin: 'A1' });
+        XLSX.utils.sheet_add_json(sheet, profitsData, { origin: 'A2', skipHeader: true });
+        sheet['!cols'] = calculateColumnWidths(profitsData, profitsHeaders);
 
-        const profitsSheet = XLSX.utils.json_to_sheet(profitsData, { header: ['No.', 'Доктор', 'Пациент', 'Услуга', 'Оплачено', 'Дата начала', 'Дата окончания'] });
-        profitsSheet['!cols'] = calculateColumnWidths(profitsData, ['No.', 'Доктор', 'Пациент', 'Услуга', 'Оплачено', 'Дата начала', 'Дата окончания']);
-        XLSX.utils.book_append_sheet(workbook, profitsSheet, `Прибыль: ${report.date}`);
+        // Preprocess report data
+        const reportData = [{
+            'Дата': report.date,
+            'Общая прибыль': report.total_profit,
+            'Общая расход': report.total_consumption,
+            'Чистая прибыль': report.net_profit
+        }];
+        const reportHeaders = ['Дата', 'Общая прибыль', 'Общая расход', 'Чистая прибыль'];
+        const reportStartCol = profitsHeaders.length + 1;
+        XLSX.utils.sheet_add_aoa(sheet, [reportHeaders], { origin: XLSX.utils.encode_cell({ c: reportStartCol, r: 0 }) });
+        XLSX.utils.sheet_add_json(sheet, reportData, { origin: XLSX.utils.encode_cell({ c: reportStartCol, r: 1 }), skipHeader: true });
+        sheet['!cols'] = [
+            ...sheet['!cols'],
+            ...new Array(reportStartCol - sheet['!cols'].length).fill({ wch: 10 }),  // Fill in empty columns
+            ...calculateColumnWidths(reportData, reportHeaders)
+        ];
+
+        // Fill the gap column with gray color
+        fillColumnWithColor(sheet, profitsHeaders.length, 0, Math.max(profitsData.length, 1), 'D3D3D3');
 
         // Preprocess consumptions data
-        const consumptionsData = report.consumptions.map((consumption:any, index: any) => ({
-            'No.': index+1,
+        const consumptionsData = report.consumptions.map((consumption: any, index: any) => ({
+            'No.': index + 1,
             'Название': consumption.title,
             'Описание': consumption.description,
-            'Доктор': consumption.doctor?(consumption.doctor?.first_name+' '+consumption.doctor?.last_name):'-',
-            'Оплачено': consumption.amount,
+            'Доктор': consumption.doctor ? (consumption.doctor.first_name + ' ' + consumption.doctor.last_name) : '-',
+            'Оплачено': consumption.amount
         }));
+        const consumptionsHeaders = ['No.', 'Название', 'Описание', 'Доктор', 'Оплачено'];
+        const consumptionsStartRow = Math.max(profitsData.length, 1) + 3; // 3 rows gap below the profits data
+        XLSX.utils.sheet_add_aoa(sheet, [consumptionsHeaders], { origin: `A${consumptionsStartRow}` });
+        XLSX.utils.sheet_add_json(sheet, consumptionsData, { origin: `A${consumptionsStartRow + 1}`, skipHeader: true });
+        sheet['!cols'] = [
+            ...sheet['!cols'],
+            ...calculateColumnWidths(consumptionsData, consumptionsHeaders)
+        ];
 
-        const consumptionsSheet = XLSX.utils.json_to_sheet(consumptionsData, { header: ['No.', 'Название', 'Описание', 'Доктор', 'Оплачено'] });
-        consumptionsSheet['!cols'] = calculateColumnWidths(consumptionsData, ['No.', 'Название', 'Описание', 'Доктор', 'Оплачено']);
-        XLSX.utils.book_append_sheet(workbook, consumptionsSheet, `Расход: ${report.date}`);
-
-        reportIndex+=1
+        XLSX.utils.book_append_sheet(workbook, sheet, `${reportIndex}. Отчет: ${report.date}`);
+        reportIndex += 1;
     });
 
     // Write the workbook to a file
     XLSX.writeFile(workbook, 'reports.xlsx');
-}
+};
+
 </script>
