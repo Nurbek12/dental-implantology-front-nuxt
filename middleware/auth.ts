@@ -1,11 +1,13 @@
-export default defineNuxtRouteMiddleware((to, from) => {
-    if (import.meta.server) {
-        return;
-    }
+export default defineNuxtRouteMiddleware(async (to, from) => {
+    if (import.meta.server) return
 
-    const { accessToken } = useAuth()
+    const cookie = useCookie('access-token').value
     
-    if(!accessToken.value) {
-        navigateTo('/login', { external: true })
-    }
+    if(!cookie) navigateTo('/login', { external: true })
+
+    // const { accessToken } = useAuth()
+    
+    // if(!accessToken.value) {
+    //     navigateTo('/login', { external: true })
+    // }
 })
