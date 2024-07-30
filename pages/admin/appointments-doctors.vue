@@ -54,10 +54,10 @@
     
     <app-dialog :open="dialog" @close-dialog="close" title="Подробности приема" rounded>
         <form @submit.prevent="save" class="bg-white w-full space-y-4 mt-4">
-            <site-input v-model="$item.start_time" label="Дата начала" type="time" />
-            <site-input v-model="$item.end_time" label="Дата окончания" type="time" />
+            <site-input required v-model="$item.start_time" label="Дата начала" type="time" />
+            <site-input required v-model="$item.end_time" label="Дата окончания" type="time" />
             
-            <site-auto-complete v-if="!$item.id" v-model="($item.patient as number)" @inputed="searching" :loading="patientLoading" :items="patients" label="Пациент" placeholder="Пациент" :nullvalue="null">
+            <site-auto-complete required v-if="!$item.id" v-model="($item.patient as number)" @inputed="searching" :loading="patientLoading" :items="patients" label="Пациент" placeholder="Пациент" :nullvalue="null">
                 <template #item="acItem">
                     <div class="flex items-center gap-2" @click="acItem.onSelected(`${acItem.item.first_name} ${acItem.item.middle_name } ${acItem.item.last_name}`, acItem.item.id)">
                         <div>
@@ -70,11 +70,11 @@
                     </div>
                 </template>
             </site-auto-complete>
-            <site-select v-model="$item.status" :items="Object.keys(appointment_statuses).map(k => ({name:appointment_statuses[k as keyof typeof appointment_statuses][0], value:k}))" label="Статус" placeholder="Статус" :nullvalue="null" />
+            <site-select required v-model="$item.status" :items="Object.keys(appointment_statuses).map(k => ({name:appointment_statuses[k as keyof typeof appointment_statuses][0], value:k}))" label="Статус" placeholder="Статус" :nullvalue="null" />
             
-            <site-select v-model="$item.service" :items="services" @changed="changePrice" name="name_ru" value="id" label="Услуга" placeholder="Услуга" :nullvalue="null" />
-            <site-input v-model="$item.price" label="Цена" type="number" placeholder="Цена" />
-            <site-btn type="submit" :disabled="loading||!!$item.id">Сохранить</site-btn>
+            <site-select required v-model="$item.service" :items="services" @changed="changePrice" name="name_ru" value="id" label="Услуга" placeholder="Услуга" :nullvalue="null" />
+            <site-input required v-model="$item.price" label="Цена" type="number" placeholder="Цена" />
+            <site-btn type="submit" :disabled="loading||!!$item.id||$item.service==null">Сохранить</site-btn>
 
             <div v-if="$item.id" class="mt-6 border-t border-gray-800 border-dashed">
                 <h1 class="my-2">Оплаты</h1>

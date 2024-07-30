@@ -165,6 +165,7 @@ export interface ISalary {
     id?: number
     amount: number
     comment?: string
+    date?: string
     title?: string
     description?: string
     doctor: null | number | IDoctor

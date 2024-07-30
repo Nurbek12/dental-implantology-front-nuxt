@@ -27,6 +27,7 @@
     
     <app-dialog rounded title="Выдача заплаты" :open="dialog" @close-dialog="close">
         <form @submit.prevent="save" class="mt-4 flex flex-col gap-4">
+            <site-input required v-model="$item.date" type="date" label="Доктор" placeholder="Доктор" />
             <site-select required v-model="$item.doctor" :items="doctors" name="first_name" value="id" label="Доктор" placeholder="Доктор" :nullvalue="null" />
 
             <site-input required v-model="$item.amount" label="Сумма" placeholder="Сумма" type="number" />
@@ -40,6 +41,7 @@
 </template>
 
 <script setup lang="ts">
+import { todayDate } from '~/constants'
 import type { ISalary, IDoctor } from '@/types'
 
 definePageMeta({
@@ -47,8 +49,9 @@ definePageMeta({
   middleware: ['auth'],
 })
 
+const { addSalary } = useReports()
 const { getDoctors } = useDoctors()
-const { getSalaries, createSalary } = useSalaries()
+const { getSalaries } = useSalaries()
 
 const dialog = ref(false)
 const loading = ref(false)
@@ -59,6 +62,7 @@ const doctors = ref<IDoctor[]>([])
 const itemIndex = ref<number|null>(null)
 const createLoading = ref<boolean>(false)
 const $item = reactive<ISalary>({
+    date: todayDate(),
     amount: 0,
     title: "",
     doctor: null,
@@ -91,7 +95,7 @@ const getItems = async (params: any) => {
 }
 
 const create = async (body: any) => {
-    const data: any = await createSalary(JSON.stringify(body))
+    const data: any = await addSalary(JSON.stringify(body))
     data.doctor = doctors.value.find(d => d.id === data.doctor)
     items.value.unshift(data as any)
 }
@@ -111,9 +115,11 @@ const save = async () => {
 const close = () => {
     delete $item.id
     Object.assign($item, {
+        date: todayDate(),
         amount: 0,
-        comment: "",
+        title: "",
         doctor: null,
+        description: "",
     })
     dialog.value = false
     itemIndex.value = null

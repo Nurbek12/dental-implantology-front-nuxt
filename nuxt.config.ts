@@ -5,6 +5,7 @@ export default defineNuxtConfig({
   modules: ['@nuxt/image', '@nuxtjs/i18n', '@nuxtjs/sitemap', '@nuxtjs/robots'],
   ssr: false,
   css: ['~/assets/css/main.css'],
+
   i18n: {
     locales: [
       {
@@ -29,18 +30,22 @@ export default defineNuxtConfig({
       redirectOn: 'root',
     },
   },
+
   runtimeConfig: {
     public: {
       api_url: process.env.NUXT_API_URL
     }
   },
+
   sitemap: {
     exclude: ['/admin', '/admin/*', '/login']
   },
+
   robots: {
     allow: '/',
     disallow: '/admin/*',
   },
+
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -49,7 +54,7 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    '/': {
+    '/**': {
       ssr: true,
     },
     '/login': {
@@ -59,7 +64,7 @@ export default defineNuxtConfig({
       ssr: false,
     }
   },
-  
+
   app: {
     head: {
       htmlAttrs: {
@@ -110,4 +115,6 @@ export default defineNuxtConfig({
       ],
     },
   },
+
+  compatibilityDate: '2024-07-30',
 })
