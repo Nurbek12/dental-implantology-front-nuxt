@@ -67,7 +67,7 @@
                 <site-input required v-model="$item.price" label="Цена" type="number" placeholder="Цена" />
                 <div class="flex items-center gap-2">
                     <site-btn type="submit" :disabled="loading||!!$item.id||$item.service==null">Сохранить</site-btn>
-                    <site-btn type="submit" v-if="!!$item.id" :disabled="['CD','FP'].includes($item.status)" @click="handleCancel($item.id)">Отменить</site-btn>
+                    <site-btn v-if="!!$item.id" :disabled="['CD','FP'].includes($item.status)" @click="handleCancel($item.id)">Отменить</site-btn>
                 </div>
             </form>
             
@@ -211,17 +211,17 @@ const changePrice = (e: any) => {
 
 const createItem = async () => {
     try {
-        // loading.value = true
-        // const data = await createAppointment($item.value)
-        // const newItem = {
-        //     ...data,
-        //     doctor: doctors.value.find(d => d.id === data.doctor),
-        //     patient: patients.value.find(p => p.id === data.patient),
-        //     service: services.value.find(s => s.id === data.service),
-        //     profits: [],
-        // } as any
-        // items.value[itemIndex.value].appointments?.push(newItem)
-        // close()
+        loading.value = true
+        const data = await createAppointment($item.value)
+        const newItem = {
+            ...data,
+            doctor: doctors.value.find(d => d.id === data.doctor),
+            patient: patients.value.find(p => p.id === data.patient),
+            service: services.value.find(s => s.id === data.service),
+            profits: [],
+        } as any
+        items.value[itemIndex.value].appointments?.push(newItem)
+        close()
     } catch (error) {
         console.log(error)
     } finally {
