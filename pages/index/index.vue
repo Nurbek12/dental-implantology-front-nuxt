@@ -28,7 +28,7 @@
 
             <div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 md:space-y-0 space-y-6">
 
-                <div class="p-4 md:w-1/3 flex flex-col text-center items-center"  v-for="c,i in index_cards" :key="i">
+                <div class="p-4 w-full flex flex-col text-center items-center"  v-for="c,i in index_cards" :key="i">
                     <div class="w-20 h-20 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5 flex-shrink-0">
                         <component class="text-blue-600 w-10 h-10 group-hover:text-white" :is="c.icon"></component>
                     </div>
@@ -56,8 +56,6 @@
                         :title="$t('home.home-about-us-title')"
                         :description="$t('home.home-about-us-description')">
                         <br>
-                        <!-- <p class="text-gray-700">Наша команда состоит из высококвалифицированных стоматологов и медсестер, которые имеют обширный опыт работы и постоянно совершенствуют свои профессиональные навыки. Мы используем только современное оборудование и инновационные технологии, чтобы гарантировать наилучшие результаты и комфорт во время процедур.</p>
-                        <br> -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="text-left flex items-center gap-2" v-for="i in 4" :key="i">
                                 <div>
@@ -67,10 +65,6 @@
                             </div>
                         </div>
                         <br>
-                        <!-- <div class="flex flex-col md:flex-row gap-4 items-start md:items-center">
-                            <site-btn>Узнать больше</site-btn>
-                            <site-btn>Записаться на прием</site-btn>
-                        </div> -->
                     </site-content>
                 </div>
             </div>
@@ -85,7 +79,6 @@
                         :subtitle="$t('home.home-why-choice-us-subtitle')"
                         :title="$t('home.home-why-choice-us-title')"
                         :description="$t('home.home-why-choice-us-description-1')">
-                        <!-- <br> -->
                         <p class="text-gray-700 text-sm md:text-base">{{$t('home.home-why-choice-us-description-2')}}</p>
                     </site-content>
                 </div>
@@ -157,12 +150,10 @@
             <div class="bg-blue-50 rounded-lg p-8">
 
                 <div class="w-full">
-                    <!-- $t('home.home-jumbotron-subtitle') -->
                     <site-content
                         :subtitle="''"
                         :title="$t('home.home-jumbotron-title')"
                         :description="$t('home.home-jumbotron-description')">
-                        <!-- <site-btn>Записаться на прием</site-btn> -->
                     </site-content>
                     
                 </div>

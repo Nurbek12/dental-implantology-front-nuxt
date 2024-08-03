@@ -5,7 +5,6 @@
                 <div class="mb-4">
                     <span class="w-min rounded border border-primary-200 text-primary-500 px-3 py-1.5 text-sm">{{ $t('contacts.subtitle') }}</span>
                 </div>
-                <!-- <h2 class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">{{ $t('contacts.subtitle') }}</h2> -->
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">{{ $t('contacts.title') }}</h1>
                 <p class="lg:w-2/3 mx-auto leading-relaxed text-base">{{ $t('contacts.description') }}</p>
             </div>
@@ -28,7 +27,7 @@
                         <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs">{{ $t('form.email') }}</h2>
                             <a class="text-indigo-500 leading-relaxed">dental@email.com</a>
                         <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs mt-4">{{ $t('form.phone') }}</h2>
-                            <p class="leading-relaxed">+998 66 235 00 05</p>
+                            <p class="leading-relaxed">+998 91 523 33 44</p>
                     </div>
                 </div>
             </div>

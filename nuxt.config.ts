@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   site: { indexable: true },
   modules: ['@nuxt/image', '@nuxtjs/i18n', '@nuxtjs/sitemap', '@nuxtjs/robots'],
-  ssr: false,
+  ssr: true,
   css: ['~/assets/css/main.css'],
 
   i18n: {
@@ -24,11 +24,6 @@ export default defineNuxtConfig({
     defaultLocale: 'ru',
     skipSettingLocaleOnNavigate: true,
     langDir: './languages',
-    detectBrowserLanguage: {
-      useCookie: true,
-      cookieKey: 'i18n_redirected',
-      redirectOn: 'root',
-    },
   },
 
   runtimeConfig: {
@@ -80,12 +75,12 @@ export default defineNuxtConfig({
         { name: "author", content: "Dental Implantology" },
         { name: 'og:title', content: "Стоматология в Самарканде - Dental Implantology" },
         { name: 'og:description', content: "Профессиональная стоматология в Самарканде. Специализируемся на имплантологии, предлагаем высококачественные услуги по установке зубных имплантов. Запишитесь на консультацию сегодня!" },
-        { name: 'og:image', content: "https://" },
-        { name: 'og:url', content: "https://" },
+        { name: 'og:image', content: "https://dr-ikramov.uz/favicon.ico" },
+        { name: 'og:url', content: "https://dr-ikramov.uz" },
         { name: 'og:type', content: "website" },
       ],
       link: [
-        { rel: 'canonical', href: 'https://' },
+        { rel: 'canonical', href: 'https://dr-ikramov.uz' },
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
       ],
       script: [
@@ -107,7 +102,7 @@ export default defineNuxtConfig({
             },
             "contactPoint": {
               "@type": "ContactPoint",
-              "telephone": "+998662350005",
+              "telephone": "+998915233344",
               "contactType": "customer service"
             }
           })

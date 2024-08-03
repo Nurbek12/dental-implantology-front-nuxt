@@ -5,7 +5,6 @@
                 <div class="mb-4">
                     <span class="w-min rounded border border-primary-200 text-primary-500 px-3 py-1.5 text-sm">{{ $t('doctors.subtitle') }}</span>
                 </div>
-                <!-- <h2 class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1">{{ $t('doctors.subtitle') }}</h2> -->
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">{{ $t('doctors.title') }}</h1>
                 <p class="lg:w-2/3 mx-auto leading-relaxed text-base">{{ $t('doctors.description') }}</p>
             </div>

@@ -15,8 +15,6 @@
 </template>
 
 <script setup lang="ts">
-// import {} from '@kalimahapps/vue-icons'
-
 const { handleLogin } = useAuth()
 
 const err = ref(false)

@@ -10,12 +10,24 @@
                         {{ $t(link.title) }}
                     </nuxt-link>
                 </div>
-                <site-language />
+                <div class="flex items-center gap-2">
+                    <a class="md:block hidden" href="tel:+998915233344">
+                        <site-btn size="small">Звонить</site-btn>
+                    </a>
+                    <site-language />
+                </div>
             </div>
         </div>
 
         <div class="bottom-0 left-0 fixed w-full border-t bg-white z-10 md:hidden">
             <div class="container py-4">
+                <div class="relative flex justify-end">
+                    <a href="tel:+998915233344" class="absolute -top-20">
+                        <site-btn size="square" class="shadow-lg animate-bounce p-2">
+                            <CaPhoneFilled class="size-8" />
+                        </site-btn>
+                    </a>
+                </div>
                 <div class="grid grid-cols-5 gap-4">
                     <nuxt-link v-for="link in site_links" :key="link.url" :class="{'text-primary-600':link.url===route.path}" class="hover:text-primary-500 font-normal text-xs flex flex-col text-nowrap text-ellipsis gap-1 items-center" :to="link.url">
                         <component :is="link.icon" class="size-6" />
@@ -29,6 +41,7 @@
 
 <script setup lang="ts">
 import { site_links } from '~/constants'
+import { CaPhoneFilled } from '@kalimahapps/vue-icons'
 
 const route = useRoute()
 const isScrolled = ref(false)

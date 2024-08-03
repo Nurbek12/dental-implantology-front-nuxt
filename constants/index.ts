@@ -17,7 +17,7 @@ import {
     TaReport,
     ReStarSmileLine,
     BxHomeAlt2,
-    AkTextAlignJustified,
+    FlDataUsage,
     ReMoneyDollarCircleLine,
 } from '@kalimahapps/vue-icons'
 
@@ -67,10 +67,11 @@ export const languages = [
 
 export const site_links = [
     { icon: BxHomeAlt2, title: 'nav.home', url: '/' },
-    { icon: AkTextAlignJustified, title: 'nav.about', url: '/about' },
+    { icon: FlDataUsage, title: 'nav.about', url: '/about' },
     { icon: MaDoctor, title: 'nav.doctors', url: '/doctors' },
     { icon: GlStatusHealth, title: 'nav.services', url: '/services' },
     { icon: CaPhone, title: 'nav.contacts', url: '/contact' },
+    // <FlDataUsage/>
 ]
 
 export const getTimeDifferenceInMilliseconds = (time1: string, time2: string) => {

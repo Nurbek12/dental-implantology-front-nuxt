@@ -5,7 +5,6 @@
                 <div class="mb-4">
                     <span class="w-min rounded border border-primary-200 text-primary-500 px-3 py-1.5 text-sm">{{ $t('about.subtitle') }}</span>
                 </div>
-                <!-- <h2 class="text-xs text-indigo-500 tracking-widest font-medium title-font mb-1"></h2> -->
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">{{ $t('about.title') }}</h1>
                 <p class="lg:w-2/3 mx-auto leading-relaxed text-base">{{ $t('about.description') }}</p>
             </div>
@@ -22,7 +21,6 @@
                         :description="$t('about.description-1')">
                         <br>
                         <p class="text-gray-700">{{ $t('about.description-2') }}</p>
-                        <!-- <br> -->
                         <site-btn @click="dialog=true">{{ $t('form.create-review') }}</site-btn>
                     </site-content>
                 </div>
