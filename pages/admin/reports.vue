@@ -1,11 +1,11 @@
 <template>
     <div class="w-full p-2">
-        <div class="p-2 rounded border flex justify-between items-center gap-2 bg-white">
-            <site-input v-model="filterdate" type="date" placeholder="Поиск" @changed="getItems($event.target.value)" />
-            <div class="flex items-center gap-2">
-                <site-btn customColor="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="dialog1=true" size="small">Добавить прибыль</site-btn>
-                <site-btn customColor="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="dialog2=true" size="small">Добавить расход</site-btn>
-                <site-btn @click="dialog3=true" size="small">Добавить заплату</site-btn>
+        <div class="p-2 rounded border flex flex-col w-full md:flex-row justify-between items-center gap-2 bg-white">
+            <site-input class="w-full md:w-fit" v-model="filterdate" type="date" placeholder="Поиск" @changed="getItems($event.target.value)" />
+            <div class="w-full md:w-fit flex items-center sm:flex-row flex-col gap-2">
+                <site-btn class="w-full md:w-fit" customColor="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="dialog1=true" size="small">Добавить прибыль</site-btn>
+                <site-btn class="w-full md:w-fit" customColor="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="dialog2=true" size="small">Добавить расход</site-btn>
+                <site-btn class="w-full md:w-fit" @click="dialog3=true" size="small">Добавить заплату</site-btn>
             </div>
         </div>
 
@@ -112,7 +112,7 @@
             <site-input readonly required v-model="consumption.date" type="date" label="Дата расхода" />
             <site-input required v-model="consumption.title" label="Название расхода" placeholder="Название расхода" />
             <site-input required v-model="consumption.amount" type="number" label="Выплаченная сумма" placeholder="Выплаченная сумма" />
-            <site-textarea required v-model="consumption.description" label="Описание расхода" placeholder="Описание расхода" />
+            <site-textarea v-model="consumption.description" label="Описание расхода" placeholder="Описание расхода" />
             
             <site-btn :disabled="createLoading" type="submit">
                 {{ createLoading?'Загружается':'Сохранить' }}
@@ -128,7 +128,7 @@
             <site-select required v-model="salary.doctor" :items="doctors" name="first_name" value="id" label="Доктор" placeholder="Доктор" :nullvalue="null" />
             <site-input required v-model="salary.amount" label="Сумма" placeholder="Сумма" type="number" />
 
-            <site-textarea required v-model="salary.description" label="Описание заплаты" placeholder="Описание заплаты" />
+            <site-textarea v-model="salary.description" label="Описание заплаты" placeholder="Описание заплаты" />
             
             <site-btn :disabled="createLoading" type="submit" size="small">{{ createLoading?'Загружается':'Сохранить' }}</site-btn>
         </form>
@@ -142,7 +142,7 @@ import { todayDate, appointment_statuses } from '~/constants'
 
 definePageMeta({
   layout: 'admin-layout',
-  middleware: ['auth'],
+  middleware: ['auth', 'role'],
 })
 
 const { getDoctors } = useDoctors()

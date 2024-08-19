@@ -30,7 +30,7 @@ import type { IInitialRecord } from '@/types'
 
 definePageMeta({
   layout: 'admin-layout',
-  middleware: ['auth'],
+  middleware: ['auth', 'role'],
 })
 
 const { getRecords, deleteRecord, updateRecord } = useInitialRecords()

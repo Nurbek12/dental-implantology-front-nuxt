@@ -150,7 +150,7 @@ const profitHeaders = [
 
 definePageMeta({
   layout: 'admin-layout',
-  middleware: ['auth'],
+  middleware: ['auth', 'role'],
 })
 
 const selectItem = (index: number, hour: string, doctor: IDoctor | null, app?: IAppointment) => {

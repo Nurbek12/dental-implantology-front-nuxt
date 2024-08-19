@@ -17,8 +17,11 @@ import {
     TaReport,
     ReStarSmileLine,
     BxHomeAlt2,
+    CdTable,
     FlDataUsage,
     ReMoneyDollarCircleLine,
+    LuUserCog,
+    CoWallet,
 } from '@kalimahapps/vue-icons'
 
 export const index_cards = [
@@ -41,22 +44,26 @@ export const index_blogs = [
 ]
 
 export const admin_links = {
-    "ADMIN": [
+    "SUPERUSER": [
         // { title: 'Главная', icon: AkDashboard, url: '/admin' },
         { title: 'Докторы', icon: HeFilledDoctorMale, url: '/admin/doctors' },
         { title: 'Пациенты', icon: FaUserInjured, url: '/admin/patients' },
         { title: 'Услуги', icon: GlWork, url: '/admin/services' },
         { title: 'Отзывы', icon: AnOutlinedMessage, url: '/admin/reviews' },
-        
+
         { title: 'Первоначальные записи', icon: CgList, url: '/admin/initial-records' },
         { title: 'Записи на прием', icon: CaDataTable, url: '/admin/appointments' },
         // { title: 'Записи (для докторов)', icon: CdTable, url: '/admin/appointments-doctors' },
         { title: 'Зарплата', icon: ReMoneyDollarCircleLine, url: '/admin/salaries' },
         { title: 'Приходы/Расходы', icon: CaReportData, url: '/admin/reports' },
         { title: 'Отчет', icon: TaReport, url: '/admin/report' },
+        { title: 'Профиль', icon: LuUserCog, url: '/admin/profile' },
     ],
-    "USER": {},
-    "DOCTOR": {}
+    "DOCTOR": [
+        { title: 'Записи (для докторов)', icon: CdTable, url: '/admin/appointments-doctors' },
+        { title: 'Кошелек', icon: CoWallet, url: '/admin/wallet' },
+        { title: 'Профиль', icon: LuUserCog, url: '/admin/profile' },
+    ]
 }
 
 export const languages = [
@@ -227,3 +234,66 @@ export const appointment_statuses = {
     "UP": ["Неоплачено", "bg-red-500 hover:bg-red-400 active:bg-red-300", "text-red-500"],
     "CD": ["Отменено", "bg-gray-600 hover:bg-gray-500 active:bg-gray-400", "text-gray-600"],
 }
+
+export const faqs = [
+    {
+        "question": {
+            "uz": "Klinikaning qaysi xizmatlari taklif qilinadi?",
+            "en": "What services does your clinic offer?",
+            "ru": "Какие услуги предоставляет ваша клиника?"
+        },
+        "answer": {
+            "uz": "Biz terapevtik stomatologiya, ortodontiya, jarrohlik stomatologiyasi, parodontologiya, estetik stomatologiya va bolalar stomatologiyasi kabi keng doiradagi stomatologik xizmatlarni taklif etamiz.",
+            "en": "We offer a wide range of dental services, including therapeutic dentistry, orthodontics, surgical dentistry, periodontics, aesthetic dentistry, and pediatric dentistry.",
+            "ru": "Мы предлагаем широкий спектр стоматологических услуг, включая терапевтическую стоматологию, ортодонтию, хирургическую стоматологию, пародонтологию, эстетическую стоматологию и детскую стоматологию."
+        }
+    },
+    {
+        "question": {
+            "uz": "Klinikada qanday shifokorlar ishlaydi?",
+            "en": "What kind of doctors work at the clinic?",
+            "ru": "Какие врачи работают в клинике?"
+        },
+        "answer": {
+            "uz": "Bizning klinikamizda tajribali terapevtlar, ortodontlar, jarrohlar, parodontologlar va bolalar stomatologlari ishlaydi.",
+            "en": "Our clinic employs experienced therapists, orthodontists, surgeons, periodontists, and pediatric dentists.",
+            "ru": "В нашей клинике работают опытные терапевты, ортодонты, хирурги, пародонтологи и детские стоматологи."
+        }
+    },
+    {
+        "question": {
+            "uz": "Klinikada qanday jihozlar mavjud?",
+            "en": "What kind of equipment does the clinic have?",
+            "ru": "Какое оборудование есть в клинике?"
+        },
+        "answer": {
+            "uz": "Bizning klinikamizda zamonaviy diagnostika va davolash uskunalari mavjud. Biz har doim yangi texnologiyalarni qo'llab-quvvatlaymiz.",
+            "en": "Our clinic is equipped with modern diagnostic and treatment equipment. We always support the latest technologies.",
+            "ru": "Наша клиника оснащена современным диагностическим и лечебным оборудованием. Мы всегда поддерживаем новейшие технологии."
+        }
+    },
+    {
+        "question": {
+            "uz": "Klinikada qanday sharoitlar mavjud?",
+            "en": "What kind of facilities does the clinic have?",
+            "ru": "Какие условия есть в клинике?"
+        },
+        "answer": {
+            "uz": "Bizning klinikamizda qulay va zamonaviy sharoitlar mavjud. Biz bemorlarning qulayligini ta'minlaymiz.",
+            "en": "Our clinic offers comfortable and modern facilities. We ensure the comfort of our patients.",
+            "ru": "Наша клиника предлагает комфортные и современные условия. Мы обеспечиваем комфорт наших пациентов."
+        }
+    },
+    {
+        "question": {
+            "uz": "Klinikada qanday qabul tizimi mavjud?",
+            "en": "What kind of appointment system does the clinic have?",
+            "ru": "Какая система записи на прием есть в клинике?"
+        },
+        "answer": {
+            "uz": "Bizning klinikamizda onlayn va telefon orqali qabul tizimi mavjud. Bemorlar osonlikcha qabulga yozilishlari mumkin.",
+            "en": "Our clinic offers an online and telephone appointment system. Patients can easily schedule their appointments.",
+            "ru": "Наша клиника предлагает систему записи на прием онлайн и по телефону. Пациенты могут легко записаться на прием."
+        }
+    }
+]

@@ -21,8 +21,12 @@
 [+] Error with creataning appointment
 [+] Need fix problem with middleware
 [+] change icon of about
-[-] add slider
-[-] check paddings for mobile
-[-] add language "call"
-[-] check seo optimisation (errors with packages)
-[-] change photos site
+[+] add language "call"
+[*] check paddings for mobile
+[+] add slider
+[+/-] check seo optimisation (errors with packages)
+[*] change photos site
+[*/-] check mobile devices
+[+*] Blogs to Faqs
+
+[+/-] { doctors appointment(doctor), balance, profile }

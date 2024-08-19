@@ -33,7 +33,7 @@ import type { IRatings } from '@/types'
 
 definePageMeta({
   layout: 'admin-layout',
-  middleware: ['auth'],
+  middleware: ['auth', 'role'],
 })
 
 const { deleteRating, getRatings } = useRatings()

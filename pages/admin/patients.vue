@@ -52,7 +52,7 @@ import type { IPatient } from '@/types'
 
 definePageMeta({
   layout: 'admin-layout',
-  middleware: ['auth'],
+  middleware: ['auth', 'role'],
 })
 
 const { createPatient, deletePatient, getPatients, updatePatient } = usePatients()

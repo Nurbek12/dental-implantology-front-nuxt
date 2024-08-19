@@ -26,6 +26,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
             }
         },
         onResponseError: ({response, request}) => {
+            let userdata = useUserData()
             let tokenRef = useAuthAccessToken()
             let authToken = useAuthRefreshToken()
             // console.log(authToken.value);
@@ -48,11 +49,13 @@ export default defineNuxtPlugin(async (nuxtApp) => {
                         
                         // console.log(error)
                         // useLogout()
+                        userdata.value = null
                         tokenRef.value = null
                         authToken.value = null
                         navigateTo('/login')
                     })
                 } else {
+                    userdata.value = null
                     tokenRef.value = null
                     authToken.value = null
                     navigateTo('/login')

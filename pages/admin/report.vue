@@ -1,11 +1,11 @@
 <template>
   <div class="w-full p-2">
     <div class="p-2 rounded border flex flex-col sm:flex-row justify-between items-center gap-2 bg-white">
-        <div class="flex items-center gap-2 justify-between w-full md:w-fit">
+        <div class="flex items-center gap-2 justify-between w-full md:w-fit flex-col sm:flex-row">
             <site-input v-model="filterdate.start_date" type="date" class="w-full" />
             <site-input v-model="filterdate.end_date" type="date" class="w-full" />
         </div>
-        <site-btn @click="getItems(filterdate)" customColor="bg-green-700 hover:bg-green-600 active:bg-green-500 disabled:bg-green-400 w-full sm:w-fit" size="small">Скачать отчет</site-btn>
+        <site-btn @click="getItems(filterdate)" customColor="bg-green-700 hover:bg-green-600 active:bg-green-500 disabled:bg-green-400 w-full sm:w-fit" class="text-nowrap" size="small">Скачать отчет</site-btn>
     </div>
     
     <div class="mt-4 p-2 rounded border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 bg-white">
@@ -108,7 +108,7 @@ import { McLoading2Line } from '@kalimahapps/vue-icons'
 
 definePageMeta({
   layout: 'admin-layout',
-  middleware: ['auth']
+  middleware: ['auth', 'role']
 })
 
 const { getRange } = useReports()

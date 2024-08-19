@@ -54,7 +54,7 @@
             
             <site-input required v-model="doctor.phone" label="Телефон" placeholder="Телефон" />
             <site-input required v-model="doctor.birth_date" label="Дата рождения" placeholder="Дата рождения" type="date" />
-      
+            
             <site-select required v-model="doctor.content" :items="Object.keys(specs).map(k => ({name: specs[k as keyof typeof specs], value: k}))" label="Специализация" placeholder="Специализация" :nullvalue="''" />
 
             <site-textarea required v-model="doctor.educations" label="Образование" placeholder="Образование" />
@@ -82,7 +82,7 @@ import type { IDoctor } from '@/types'
 
 definePageMeta({
   layout: 'admin-layout',
-  middleware: ['auth'],
+  middleware: ['auth', 'role'],
 })
 
 const { createDoctor, deleteDoctor, getDoctors, updateDoctor } = useDoctors()
@@ -216,11 +216,4 @@ const close = () => {
     dialog.value = false
     itemIndex.value = null
 }
-
-const init = async () => {
-    // const data = await $fetch('/api/speciality', { params: {page: 1, limit: 1000} })
-    // speciality_list.value = data.result as any
-}
-
-init()
 </script>

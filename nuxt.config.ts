@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   site: { indexable: true },
   modules: ['@nuxt/image', '@nuxtjs/i18n', '@nuxtjs/sitemap', '@nuxtjs/robots'],
-  ssr: true,
+  ssr: false,
   css: ['~/assets/css/main.css'],
 
   i18n: {
@@ -22,8 +22,9 @@ export default defineNuxtConfig({
       },
     ],
     defaultLocale: 'ru',
+    detectBrowserLanguage: false,
     skipSettingLocaleOnNavigate: true,
-    langDir: './languages',
+    langDir: './locales',
   },
 
   runtimeConfig: {

@@ -1,4 +1,7 @@
+import type { IUser, IDoctor } from "~/types"
+
 export const useAuth = () => {
+    const userData = useUserData()
     const accessToken = useAuthAccessToken()
     const refreshToken = useAuthRefreshToken()
     
@@ -12,18 +15,26 @@ export const useAuth = () => {
             method: 'post',
             body
         })
-        // console.log(data);
         
         if(data.access) {
             setTokens(data.access, data.refresh)
+            const { user_type }: any = await handleGetMe(data.access)
             setTimeout(() => {
-                navigateTo('/admin/appointments')
+                navigateTo(user_type === 'SUPERUSER' ? '/admin/appointments' : '/admin/appointments-doctors')
             }, 100);
         }
     }
 
+    const handleGetMe = async (token: string): Promise<IUser & IDoctor> => {
+        const data: any = await $fetch(`/users/me/`, { headers: { Authorization: `Bearer ${token}` } })
+
+        userData.value = data
+        return data
+    }
+
     return {
         accessToken,
+        handleGetMe,
         handleLogin,
     }
 }

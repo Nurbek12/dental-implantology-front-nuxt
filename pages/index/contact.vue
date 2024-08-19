@@ -62,6 +62,14 @@ useHead({
     ]
 })
 
+useSeoMeta({
+  title: 'Контакты - Стоматология "Dental Implantology"',
+  ogTitle: 'Контакты - Стоматология "Dental Implantology"',
+  description: 'Свяжитесь с нами для записи на прием или получения консультации. Адрес, телефон, email и форма обратной связи.',
+  ogDescription: 'Свяжитесь с нами для записи на прием или получения консультации. Адрес, телефон, email и форма обратной связи.',
+//   ogImage: '/',
+})
+
 const { createRecord } = useInitialRecords()
 
 const review = reactive({

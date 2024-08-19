@@ -74,7 +74,7 @@ import type { IService, Service } from '@/types'
 
 definePageMeta({
   layout: 'admin-layout',
-  middleware: ['auth'],
+  middleware: ['auth', 'role'],
 })
 
 const { createService, deleteService, getServices, updateService } = useServices()

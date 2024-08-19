@@ -7,6 +7,7 @@ export interface IDoctor {
     first_name: string
     last_name: string
     date_joined?: string
+    password?: string
     avatar?: string | null
     phone: string
     middle_name: string
@@ -39,7 +40,7 @@ export interface IPatient {
     birth_date: string
     created_at?: string
     updated_at?: string
-    user_type?: "PATIENT"
+    user_type?: "SUPERUSER" | "DOCTOR"
 }
 
 export interface IAdmin extends IPatient {

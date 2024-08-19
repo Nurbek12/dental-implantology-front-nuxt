@@ -33,7 +33,7 @@
             <site-input required v-model="$item.amount" label="Сумма" placeholder="Сумма" type="number" />
             <site-input required v-model="$item.title" label="Название заплаты" placeholder="Название заплаты" />
 
-            <site-textarea required v-model="$item.description" label="Описание заплаты" placeholder="Описание заплаты" />
+            <site-textarea v-model="$item.description" label="Описание заплаты" placeholder="Описание заплаты" />
             
             <site-btn :disabled="createLoading" type="submit" size="small">{{ createLoading?'Загружается':'Сохранить' }}</site-btn>
         </form>
@@ -46,7 +46,7 @@ import type { ISalary, IDoctor } from '@/types'
 
 definePageMeta({
   layout: 'admin-layout',
-  middleware: ['auth'],
+  middleware: ['auth', 'role'],
 })
 
 const { addSalary } = useReports()

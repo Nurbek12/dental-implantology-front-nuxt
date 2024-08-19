@@ -12,7 +12,7 @@
                 </div>
                 <div class="flex items-center gap-2">
                     <a class="md:block hidden" href="tel:+998915233344">
-                        <site-btn size="small">Звонить</site-btn>
+                        <site-btn size="small">{{ $t('nav.call') }}</site-btn>
                     </a>
                     <site-language />
                 </div>

@@ -25,7 +25,7 @@
                     </site-content>
                 </div>
                 <div class="w-0 md:w-[50%]">
-                    <nuxt-img src="/images/bg-3-image.jpg" class="w-[90%] h-[400px] object-cover overflow-hidden rounded" />
+                    <nuxt-img src="/images1/DSCF0195.webp" class="w-[90%] h-[400px] object-cover overflow-hidden rounded" />
                 </div>
             </div>
         </div>
@@ -66,6 +66,15 @@ useHead({
         { name: "keywords", content: "о нас, стоматология, наша команда, стоматологическая клиника" },
     ]
 })
+
+useSeoMeta({
+  title: 'О нас - Стоматология "Dental Implantology"',
+  ogTitle: 'О нас - Стоматология "Dental Implantology"',
+  description: 'Узнайте больше о нашей стоматологической клинике "Dental Implantology", нашей миссии, ценностях и команде профессионалов.',
+  ogDescription: 'Узнайте больше о нашей стоматологической клинике "Dental Implantology", нашей миссии, ценностях и команде профессионалов.',
+//   ogImage: '/',
+})
+
 
 const { getRatings, createRating } = useRatings()
 

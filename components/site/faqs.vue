@@ -1,0 +1,22 @@
+<template>
+    <div class="space-y-4">
+        <div v-for="faq,i in faqs" :key="i" class="w-full">
+            <div @click="f==i?f=-1:f=i" class="p-4 text-lg font-medium cursor-pointer hover:bg-gray-100 rounded flex justify-between items-center">
+                <h1 :class="{'text-primary-600': f==i}">{{ faq.question[$i18n.locale as "uz"] }}</h1>
+                <AkChevronDown v-show="f!==i" />
+                <AkChevronUp v-show="f==i" />
+            </div>
+            <div v-show="f === i" class="p-4">
+                <p class="text-gray-600">{{ faq.answer[$i18n.locale as "uz"] }}</p>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script setup lang="ts">
+import { faqs } from '~/constants'
+import { AkChevronDown, AkChevronUp } from '@kalimahapps/vue-icons';
+
+const f = ref(-1)
+
+</script>

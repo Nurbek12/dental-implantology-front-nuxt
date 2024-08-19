@@ -12,8 +12,8 @@
                 <site-input v-model="filterdate" type="date" placeholder="Поиск" @changed="getItems({date:$event.target.value})" />
                 <div class="hidden lg:block"></div>
                 <div class="hidden lg:block"></div>
-                <site-btn @click="dialog=true" size="small">Добавить</site-btn>
-
+                <site-btn v-if="user?.user_type === 'SUPERUSER'" @click="dialog=true" size="small">Добавить</site-btn>
+                <div v-else class="hidden lg:block"></div>
             </template>
             <template #table-item-image="{tableItem}">
                 <div class="w-[40px] h-[40px] rounded-full overflow-hidden">
@@ -45,8 +45,10 @@
             </template>
             <template #table-item-actions="{tableItem,index}">
                 <div class="flex gap-1">
-                    <site-btn customColor="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="editItem(tableItem, index)" size="small">Изменить</site-btn>
-                    <site-btn customColor="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
+                    <client-only>
+                        <site-btn customColor="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="editItem(tableItem, index)" size="small">Изменить</site-btn>
+                        <site-btn customColor="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
+                    </client-only>
                 </div>
             </template>
         </app-data-table>
@@ -138,7 +140,6 @@ const profitHeaders = [
 
 const headers = [
     { name: "ID", value: "id", sortable: true, balancedText: false, custom: true },
-    { name: "Доктор", value: "doctor", sortable: false, balancedText: false, custom: true },
     { name: "Пациент", value: "patient", sortable: false, balancedText: false, custom: true },
     { name: "Услуга", value: "service", sortable: false, balancedText: false, custom: true },
     { name: "Цена", value: "price", sortable: true, balancedText: false, custom: false },
@@ -146,8 +147,11 @@ const headers = [
     { name: "Дата начала", value: "start_time", sortable: true, balancedText: false, custom: false },
     { name: "Дата окончания", value: "end_time", sortable: true, balancedText: false, custom: false },
     { name: "Дата создания", value: "created_at", sortable: true, balancedText: false, custom: true },
-    { name: "Управление", value: "actions", sortable: false, balancedText: false, custom: true },
 ]
+user.value?.user_type === 'SUPERUSER' && headers.concat([
+    { name: "Доктор", value: "doctor", sortable: false, balancedText: false, custom: true },
+    { name: "Управление", value: "actions", sortable: false, balancedText: false, custom: true },
+])
 
 const changePrice = (e: any) => {
     const service = services.value.find(s => s.id === +e.target.value)
@@ -158,7 +162,8 @@ const changePrice = (e: any) => {
 const getItems = async (params: any) => {
     try {
         loading.value = true
-        const data = await getAppointments({...params,  ordering:'-created_at'})
+        const qs = { ...params,  ordering:'-created_at', ...(user.value?.user_type === 'DOCTOR' ? { doctor: user.value.id } : {})}
+        const data = await getAppointments(qs)
         // doctor=doctorid
         items.value = data.results
         count.value = data.count
@@ -189,7 +194,13 @@ const deleteItem = async (id: number, index: number) => {
 
 const create = async (body: any) => {
     const data = await createAppointment(body)
-    items.value.unshift(data as any)
+    const newItem = {
+        ...data,
+        patient: patients.value.find(p => p.id === data.patient),
+        service: services.value.find(s => s.id === data.service),
+        profits: [],
+    } as any
+    items.value.unshift(newItem)
 }
 
 const update = async (index: number, body: any, id: any) => {
