@@ -15,9 +15,9 @@
             </div>
 
             <div class="w-full">
-                <p v-for="item,i in items" :key="item" class="cursor-pointer px-4 py-2 bg-white hover:bg-gray-50 active:bg-gray-100 border-b">
+                <div v-for="item,i in items" :key="item" class="cursor-pointer px-4 py-2 bg-white hover:bg-gray-50 active:bg-gray-100 border-b">
                     <slot name="item" :item="item" :index="i" @selected="(e1, e2, e3) => {str=e1;model=e2;isOpen=false;emits('updated', e3)}" />
-                </p>
+                </div>
             </div>
         </div>
     </div>

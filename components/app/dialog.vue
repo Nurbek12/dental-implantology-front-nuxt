@@ -28,9 +28,9 @@ onMounted(() => {
   })
 })
 
-// onBeforeUnmount(() => {
-//   window.removeEventListener('keypress', () => {})
-// })
+onBeforeUnmount(() => {
+  window.removeEventListener('keypress', () => {})
+})
 </script>
 
 <style>

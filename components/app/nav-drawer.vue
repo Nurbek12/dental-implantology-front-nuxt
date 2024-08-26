@@ -34,7 +34,6 @@
 <script setup lang="ts">
 import { admin_links } from '@/constants'
 import { BxSolidChevronRight, BxLogOut } from "@kalimahapps/vue-icons"
-// import type { IUser } from '~/types';
 
 const userData = useUserData()
 const token = useAuthAccessToken()
@@ -42,8 +41,6 @@ const rtoken = useAuthRefreshToken()
 
 const route = useRoute()
 const isOpen = ref(false)
-
-// const user = computed<IUser>(() => JSON.parse(userData.value!||"{}"))
 
 const current_router = computed(() => {
     if(route.fullPath.endsWith('/')) return route.fullPath.slice(0, -1)

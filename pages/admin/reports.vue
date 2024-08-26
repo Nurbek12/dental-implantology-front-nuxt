@@ -66,12 +66,6 @@
                     <template #table-item-doctor="{tableItem}">
                         <span class="text-xs text-balance">{{ tableItem?.doctor?.first_name }} {{ tableItem?.doctor?.last_name || '-' }}</span>
                     </template>
-                    <!-- <template #table-item-actions="{tableItem,index}">
-                        <div class="flex gap-1">
-                            <button @click="editItem(tableItem, index)" class="bg-[#23408e] hover:bg-[#385399] active:bg-[#3c67d5] disabled:bg-[#1b2e63] text-white text-xs px-3 py-2 rounded">Изменить</button>
-                            <button @click="deleteItem(tableItem.id!, index)" class="bg-[#23408e] hover:bg-[#385399] active:bg-[#3c67d5] disabled:bg-[#1b2e63] text-white text-xs px-3 py-2 rounded">Удалить</button>
-                        </div>
-                    </template> -->
                 </app-data-table>
             </div>
     

@@ -1,9 +1,6 @@
 <template>
     <div class="relative overflow-hidden">
         <site-carousel />
-        <!-- <div class="w-[50%] h-full right-0 absolute z-0 overflow-hidden">
-            <img src="/images/DSCF1007_4_11zon.webp" class="w-full h-full object-cover" />
-        </div> -->
         <div class="container min-h-screen relative">
             <div class="flex items-center h-[80vh] md:h-screen relative">
                 <div class="w-full mb-20 md:mb-0 md:w-[50%] pr-2 text-center sm:text-left relative z-20">
@@ -12,16 +9,6 @@
                         :title="$t('home.header-title')"
                         :description="$t('home.header-description')" />
                 </div>
-                <!-- <div class="w-[650px] h-[650px] -right-20 absolute z-0 rounded-full overflow-hidden p-4 shadow-lg bg-white">
-                    <img src="/images/DSCF1007_4_11zon.webp" class="w-full h-full object-cover rounded-full" />
-                </div>
-                <div class="w-[300px] h-[300px] right-[480px] top-16 absolute z-10 rounded-full overflow-hidden p-4 shadow-lg bg-white">
-                    <img src="/images/DSCF1004_3_11zon.webp" class="w-full h-full object-cover rounded-full" />
-                </div> -->
-                
-                <!-- <div class="h-full right-0 w-[400px] absolute z-0">
-                    <img src="/images/doctor-image.png" class="w-full h-full object-contain" />
-                </div> -->
             </div>
             <div class="relative h-[140px] md:h-0 mt-5 md:mt-10 md:-translate-y-5 lg:-translate-y-20">
                 <form @submit.prevent="handleRecord" class="absolute bottom-8 rounded-md p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end shadow-lg shadow-black/5 bg-white w-full">
@@ -44,7 +31,7 @@
                         <component class="text-blue-600 w-10 h-10 group-hover:text-white" :is="c.icon"></component>
                     </div>
                     <div class="flex-grow">
-                        <h2 class="text-gray-900 text-lg title-font font-medium mb-3">{{ $t(c.title) }}</h2>
+                        <h1 class="text-gray-900 text-lg title-font font-medium mb-3">{{ $t(c.title) }}</h1>
                         <p class="leading-relaxed text-sm">{{ $t(c.description) }}</p>
                     </div>
                 </div>
@@ -181,7 +168,7 @@ definePageMeta({
 })
 
 useHead({
-    title: "Стоматология \"Dental Implantology\" - Ваш путь к здоровой и красивой улыбке",
+    title: "Стоматология Dental Implantology - Ваш путь к здоровой улыбке",
     meta: [
         { name: "description", content: "Добро пожаловать в стоматологическую клинику \"Dental Implantology\". Мы предлагаем широкий спектр стоматологических услуг для всей семьи в Самарканд." },
         { name: "keywords", content: "стоматология, стоматологическая клиника, зубной врач, лечение зубов, Samarkand" },
@@ -189,8 +176,8 @@ useHead({
 })
 
 useSeoMeta({
-  title: 'Стоматология "Dental Implantology" - Ваш путь к здоровой и красивой улыбке',
-  ogTitle: 'Стоматология "Dental Implantology" - Ваш путь к здоровой и красивой улыбке',
+  title: 'Стоматология Dental Implantology - Ваш путь к здоровой улыбке',
+  ogTitle: 'Стоматология Dental Implantology - Ваш путь к здоровой улыбке',
   description: 'Добро пожаловать в стоматологическую клинику "Dental Implantology". Мы предлагаем широкий спектр стоматологических услуг для всей семьи в Самарканд.',
   ogDescription: 'Добро пожаловать в стоматологическую клинику "Dental Implantology". Мы предлагаем широкий спектр стоматологических услуг для всей семьи в Самарканд.',
 //   ogImage: '/',

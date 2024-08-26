@@ -40,7 +40,9 @@
                         <site-input required v-model="review.last_name" :placeholder="$t('form.last-name')" :label="$t('form.last-name')" />
                     </div>
                     <site-input required v-model="review.phone" placeholder="example@mail.com" :label="$t('form.email')" />
-                    <site-textarea required v-model="review.comment" :placeholder="$t('form.message-of-review')" :label="$t('form.message')" />
+                    <client-only>
+                        <site-textarea required v-model="review.comment" :placeholder="$t('form.message-of-review')" :label="$t('form.message')" />
+                    </client-only>
                     <site-btn type="submit" class="w-full">{{ $t('form.send') }}</site-btn>
                 </div>
                 <p class="text-xs text-gray-500 mt-3">{{ $t('contacts.form-description-1') }}</p>

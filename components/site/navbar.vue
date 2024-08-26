@@ -11,8 +11,8 @@
                     </nuxt-link>
                 </div>
                 <div class="flex items-center gap-2">
-                    <a class="md:block hidden" href="tel:+998915233344">
-                        <site-btn size="small">{{ $t('nav.call') }}</site-btn>
+                    <a class="hidden md:inline-flex py-2 px-3 text-xs items-center justify-center gap-x-2 font-semibold rounded disabled:opacity-50 disabled:pointer-events-none border-2 border-transparent text-white" href="tel:+998915233344">
+                        {{ $t('nav.call') }}
                     </a>
                     <site-language />
                 </div>
@@ -22,11 +22,8 @@
         <div class="bottom-0 left-0 fixed w-full border-t bg-white z-10 md:hidden">
             <div class="container py-4">
                 <div class="relative flex justify-end">
-                    <a href="tel:+998915233344" class="absolute -top-20 animate-bounce">
-                        <site-btn size="square" class="shadow-lg p-2" aria-label="Phone link">
-                            <CaPhoneFilled class="size-8" />
-                        </site-btn>
-                        <!-- TODO: -->
+                    <a href="tel:+998915233344" aria-label="Phone link" class="shadow-lg absolute -top-20 animate-bounce inline-flex p-2 text-sm items-center justify-center gap-x-2 font-semibold rounded disabled:opacity-50 disabled:pointer-events-none border-2 border-transparent text-white">
+                        <CaPhoneFilled class="size-8" />
                     </a>
                 </div>
                 <div class="grid grid-cols-5 gap-4">

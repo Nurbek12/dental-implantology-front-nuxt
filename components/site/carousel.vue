@@ -1,11 +1,13 @@
 <template>
     <div class="absolute z-0 w-full h-full">
-        <transition-group name="slider-animation" appear>
-            <template v-for="img,index in images" :key="index">
-                <nuxt-img v-if="currentIndex === index" loading="lazy"
-                    class="w-full h-full object-cover opacity-15 absolute" :src="img" width="100%" alt="image" />
-            </template>
-        </transition-group>
+        <client-only>
+            <transition-group name="slider-animation" appear>
+                <template v-for="img,index in images" :key="index">
+                    <nuxt-img v-if="currentIndex === index" loading="lazy"
+                        class="w-full h-full object-cover opacity-15 absolute" :src="img" width="100%" alt="image" />
+                </template>
+            </transition-group>
+        </client-only>
     </div>
 </template>
 

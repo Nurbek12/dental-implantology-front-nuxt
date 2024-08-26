@@ -20,7 +20,7 @@
                         </li>
 
                         <li class="text-gray-300 transition hover:opacity-75 text-nowrap">
-                            {{ $t('form.phone') }}: <a href="tel:+998915233344">+998 91 523 33 44</a>
+                            {{ $t('form.phone') }}: <a href="tel:+998915233344">+998&nbsp;91&nbsp;523&nbsp;33&nbsp;44</a>
                         </li>
 
                         <li class="text-gray-300 transition hover:opacity-75 text-nowrap">
