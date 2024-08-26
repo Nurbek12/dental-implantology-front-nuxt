@@ -229,5 +229,5 @@ const handleRecord = async () => {
     }
 }
 
-// init()
+init()
 </script>
