@@ -2,21 +2,20 @@
     <div class="absolute z-0 w-full h-full">
         <transition-group name="slider-animation" appear>
             <template v-for="img,index in images" :key="index">
-                <nuxt-img
-                    v-if="currentIndex === index"
-                    class="w-full h-full object-cover opacity-30 absolute" :src="img" width="100%" alt="image" />
+                <nuxt-img v-if="currentIndex === index" loading="lazy"
+                    class="w-full h-full object-cover opacity-15 absolute" :src="img" width="100%" alt="image" />
             </template>
         </transition-group>
     </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, onBeforeUnmount } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 const images = [
-    '/images1/landing-1.jpg',
-    '/images1/DSCF1082.webp',
-    '/images1/DSCF1004.webp',
+    '/images/landing-1.webp',
+    '/images/DSCF1007_4_11zon.webp',
+    '/images/DSCF1082_8_11zon.webp',
 ]
 let interval: any = null;
 const currentIndex = ref(0);

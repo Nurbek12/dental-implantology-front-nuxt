@@ -52,22 +52,11 @@
         "home-jumbotron-title": "Nima uchun stomatologga muntazam tashrif buyurish muhim?",
         "home-jumbotron-description": "Stomatologga muntazam tashriflar og'iz sog'ligini saqlash va jiddiy kasalliklarning oldini olishda muhim rol o'ynaydi. Ushbu blogda biz muntazam tekshiruvlarning ahamiyati, qachon stomatologga borishingiz kerakligi va bu ishlarning foydalari haqida tushuntiramiz. Muammolarni erta aniqlash ularni rivojlanishidan oldini olish va kelajakda vaqt, pul va stressni tejashga yordam berishini bilib olasiz. Maslahatlarimizni o'qing va tabassumingiz sog'ligiga ishonch hosil qiling!",
 
-        "home-faqs-title": "",
-//         "header": {
-//     "uz": "Tezyurar so'raladigan savollar",
-//     "en": "Frequently Asked Questions",
-//     "ru": "Часто задаваемые вопросы"
-//   },
-//   "subheader": {
-//     "uz": "Bizning klinikamiz haqida ko'proq bilib oling",
-//     "en": "Learn more about our clinic",
-//     "ru": "Узнайте больше о нашей клинике"
-//   },
-//   "description": {
-//     "uz": "Bu yerda siz bizning klinikamiz haqida eng ko'p beriladigan savollarga javoblar topishingiz mumkin. Bizning xizmatlarimiz, shifokorlarimiz va jihozlarimiz haqida ko'proq ma'lumot oling.",
-//     "en": "Here you can find answers to the most frequently asked questions about our clinic. Learn more about our services, doctors, and equipment.",
-//     "ru": "Здесь вы можете найти ответы на наиболее часто задаваемые вопросы о нашей клинике. Узнайте больше о наших услугах, врачах и оборудовании."
-//   },
+        
+        "home-faqs-subtitle": "Ko'p so'raladigan savollar",
+        "home-faqs-title": "Bizning klinikamiz haqida ko'proq bilib oling",
+        "home-faqs-description": "Bu yerda siz bizning klinikamiz haqida eng ko'p beriladigan savollarga javoblar topishingiz mumkin. Bizning xizmatlarimiz, shifokorlarimiz va jihozlarimiz haqida ko'proq ma'lumot oling."
+        
     },
     "about": {
         "subtitle": "Biz haqimizda ko'proq bilib oling",

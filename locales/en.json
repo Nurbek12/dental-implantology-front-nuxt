@@ -56,7 +56,13 @@
            
         "home-jumbotron-subtitle": "Regular checkups keep your smile healthy",
         "home-jumbotron-title": "Why is it important to visit the dentist regularly?",
-        "home-jumbotron-description": "Regular visits to the dentist play a key role in maintaining oral health and preventing serious diseases. In this blog, we'll explain why regular checkups are important, how often you should visit the dentist, and the benefits of doing so. You'll learn how identifying problems early can prevent them from developing and save you time, money and stress in the future. Read our tips and be confident in the health of your smile!"
+        "home-jumbotron-description": "Regular visits to the dentist play a key role in maintaining oral health and preventing serious diseases. In this blog, we'll explain why regular checkups are important, how often you should visit the dentist, and the benefits of doing so. You'll learn how identifying problems early can prevent them from developing and save you time, money and stress in the future. Read our tips and be confident in the health of your smile!",
+
+        
+        "home-faqs-subtitle": "Frequently Asked Questions",
+        "home-faqs-title": "Learn more about our clinic",
+        "home-faqs-description": "Here you can find answers to the most frequently asked questions about our clinic. Learn more about our services, doctors, and equipment."
+        
     },
     "about": {
         "subtitle": "Find out more about us",

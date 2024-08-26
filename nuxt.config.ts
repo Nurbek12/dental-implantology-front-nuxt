@@ -2,8 +2,8 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   site: { indexable: true },
-  modules: ['@nuxt/image', '@nuxtjs/i18n', '@nuxtjs/sitemap', '@nuxtjs/robots'],
-  ssr: false,
+  modules: ['@nuxt/image', '@nuxtjs/i18n', '@nuxtjs/sitemap', '@nuxtjs/robots', 'nuxt-delay-hydration'],
+  ssr: true,
   css: ['~/assets/css/main.css'],
 
   i18n: {
@@ -46,7 +46,23 @@ export default defineNuxtConfig({
     plugins: {
       tailwindcss: {},
       autoprefixer: {},
+      cssnano: process.env.NODE_ENV === 'production' ? { 
+        preset: ['default', { 
+          discardComments: { removeAll: true } 
+        }] 
+      } : false as any
     },
+  },
+
+  sourcemap: {
+    client: true,
+    server: false
+  },
+
+  delayHydration: {
+    // enables nuxt-delay-hydration in dev mode for testing
+    debug: process.env.NODE_ENV === 'development',
+    mode: 'mount'
   },
 
   routeRules: {

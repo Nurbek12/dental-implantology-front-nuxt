@@ -22,6 +22,8 @@
 </template>
 
 <script setup lang="ts">
+const user = useUserData()
+const router = useRouter()
 const tab_data = reactive<any>({})
 
 definePageMeta({
@@ -29,10 +31,6 @@ definePageMeta({
   middleware: ['auth'],
 })
 
-const init = async () => {
-  // const data = await $fetch('/api/info/admin')
-  // Object.assign(tab_data, data)
-}
-
-init()
+if(user.value?.user_type === 'DOCTOR') router.push('/admin/appointments-doctors')
+if(user.value?.user_type === 'SUPERUSER') router.push('/admin/appointments')
 </script>

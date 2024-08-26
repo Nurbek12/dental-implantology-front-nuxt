@@ -57,7 +57,9 @@
                 </div>
             </div>
 
-            <p class="text-xs text-gray-100">&copy; {{ new Date().getFullYear() }}. {{ $t('footer.copy') }}</p>
+            <client-only>
+                <p class="text-xs text-gray-100">&copy; {{ new Date().getFullYear() }}. {{ $t('footer.copy') }}</p>
+            </client-only>
         </div>
     </footer>
 </template>

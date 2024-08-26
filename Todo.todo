@@ -28,5 +28,8 @@
 [*] change photos site
 [*/-] check mobile devices
 [+*] Blogs to Faqs
+[-] need add lang for faqs block
 
 [+/-] { doctors appointment(doctor), balance, profile }
+//  node node_modules/nuxt/bin/nuxt.mjs build --max-old-space-size=4096 
+// node --max-old-space-size=16384 node_modules/nuxt/bin/nuxt.mjs build

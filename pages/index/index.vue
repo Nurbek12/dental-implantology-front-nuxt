@@ -1,17 +1,30 @@
 <template>
-    <div class="relative">
+    <div class="relative overflow-hidden">
         <site-carousel />
-        <div class="container min-h-screen relative z-10">
-            <div class="flex items-center h-[80vh] md:h-screen">
-                <div class="w-full mb-20 md:mb-0 md:w-[50%] pr-2 text-center sm:text-left">
+        <!-- <div class="w-[50%] h-full right-0 absolute z-0 overflow-hidden">
+            <img src="/images/DSCF1007_4_11zon.webp" class="w-full h-full object-cover" />
+        </div> -->
+        <div class="container min-h-screen relative">
+            <div class="flex items-center h-[80vh] md:h-screen relative">
+                <div class="w-full mb-20 md:mb-0 md:w-[50%] pr-2 text-center sm:text-left relative z-20">
                     <site-content
                         :subtitle="$t('home.header-subtitle')"
                         :title="$t('home.header-title')"
                         :description="$t('home.header-description')" />
                 </div>
+                <!-- <div class="w-[650px] h-[650px] -right-20 absolute z-0 rounded-full overflow-hidden p-4 shadow-lg bg-white">
+                    <img src="/images/DSCF1007_4_11zon.webp" class="w-full h-full object-cover rounded-full" />
+                </div>
+                <div class="w-[300px] h-[300px] right-[480px] top-16 absolute z-10 rounded-full overflow-hidden p-4 shadow-lg bg-white">
+                    <img src="/images/DSCF1004_3_11zon.webp" class="w-full h-full object-cover rounded-full" />
+                </div> -->
+                
+                <!-- <div class="h-full right-0 w-[400px] absolute z-0">
+                    <img src="/images/doctor-image.png" class="w-full h-full object-contain" />
+                </div> -->
             </div>
             <div class="relative h-[140px] md:h-0 mt-5 md:mt-10 md:-translate-y-5 lg:-translate-y-20">
-                <form @submit.prevent="handleRecord" class="absolute bottom-8 rounded-md p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end shadow shadow-black/5 bg-white w-full">
+                <form @submit.prevent="handleRecord" class="absolute bottom-8 rounded-md p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 items-end shadow-lg shadow-black/5 bg-white w-full">
                     <site-input v-model="review.first_name" required :icon="BxUser" :label="$t('form.name')" :placeholder="$t('form.name')" />
                     <site-input v-model="review.phone" required :icon="FePhone" :label="$t('form.phone')" :placeholder="$t('form.phone')" />
                     <site-input v-model="review.comment" required :icon="BsCalendarWeek" :label="$t('form.date')" type="date" />
@@ -45,8 +58,8 @@
         <div class="container">
             <div class="h-full flex items-center justify-between gap-8">
                 <div class="hidden md:flex gap-2 w-0 md:w-[50%]">
-                    <nuxt-img src="/images1/DSCF1099.webp" class="w-[50%] h-[450px] object-cover rounded" />
-                    <nuxt-img src="/images1/DSCF1086.webp" class="w-[50%] h-[450px] object-cover rounded" />
+                    <nuxt-img src="/images/DSCF1048_5_11zon.webp" loading="lazy" class="w-[50%] h-[450px] object-cover rounded" />
+                    <nuxt-img src="/images/DSCF1099_11_11zon.webp" loading="lazy" class="w-[50%] h-[450px] object-cover rounded" />
                 </div>
                 <div class="w-full md:w-[50%] text-center sm:text-left">
                     <site-content
@@ -81,7 +94,7 @@
                     </site-content>
                 </div>
                 <div class="w-0 md:w-[50%] hidden md:block">
-                    <img src="/images1/DSCF1074.webp" class="w-full h-[400px] object-cover rounded">
+                    <nuxt-img src="/images/DSCF1074_7_11zon.webp" loading="lazy" class="w-full h-[400px] object-cover rounded" />
                 </div>
             </div>
         </div>
@@ -130,9 +143,9 @@
             <div class="flex justify-center mb-8">
                 <div class="text-center">
                     <site-content
-                        :title="$t('home.home-blog-title')"
-                        :subtitle="$t('home.home-blog-subtitle')"
-                        :description="$t('home.home-blog-description')" />
+                        :title="$t('home.home-faqs-subtitle')"
+                        :subtitle="$t('home.home-faqs-title')"
+                        :description="$t('home.home-faqs-description')" />
                 </div>
             </div>
             
@@ -160,7 +173,7 @@
 
 <script setup lang="ts">
 import type { IService } from '~/types'
-import { index_cards, index_statistics, index_blogs } from '~/constants'
+import { index_cards, index_statistics } from '~/constants'
 import { BxSolidBadgeCheck, BxUser, FePhone, BsCalendarWeek } from '@kalimahapps/vue-icons'
 
 definePageMeta({
@@ -216,5 +229,5 @@ const handleRecord = async () => {
     }
 }
 
-init()
+// init()
 </script>
