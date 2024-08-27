@@ -15,9 +15,9 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
 const images = [
-    '/images/landing-1.webp',
-    '/images/DSCF1007_4_11zon.webp',
-    '/images/DSCF1082_8_11zon.webp',
+    '/images/landing-1_13_11zon.webp',
+    '/images/DSCF1007_4_11zon_4_11zon.webp',
+    '/images/DSCF1082_8_11zon_8_11zon.webp',
 ]
 let interval: any = null;
 const currentIndex = ref(0);

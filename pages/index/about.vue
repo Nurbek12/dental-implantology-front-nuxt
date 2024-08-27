@@ -13,19 +13,18 @@
 
     <div class="relative py-8">
         <div class="container">
-            <div class="h-full flex items-center gap-4">
+            <div class="h-full flex items-end flex-col md:flex-row gap-4">
                 <div class="w-full md:w-[50%] text-center sm:text-left">
                     <site-content
                         :title="$t('about.title-1')"
                         :subtitle="$t('about.subtitle-1')"
                         :description="$t('about.description-1')">
-                        <br>
                         <p class="text-gray-700">{{ $t('about.description-2') }}</p>
                         <site-btn @click="dialog=true">{{ $t('form.create-review') }}</site-btn>
                     </site-content>
                 </div>
-                <div class="w-0 md:w-[50%]">
-                    <nuxt-img src="/images/DSCF0192_1_11zon.webp" loading="lazy" class="w-full h-[400px] object-cover overflow-hidden rounded" />
+                <div class="w-full md:w-[50%] h-full">
+                    <nuxt-img src="/images/DSCF0192_1_11zon_1_11zon.webp" loading="lazy" class="w-full h-[400px] object-cover overflow-hidden rounded" />
                 </div>
             </div>
         </div>
