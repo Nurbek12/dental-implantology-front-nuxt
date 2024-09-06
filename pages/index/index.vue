@@ -45,8 +45,8 @@
         <div class="container">
             <div class="h-full flex items-center justify-between gap-8">
                 <div class="hidden md:flex gap-2 w-0 md:w-[50%]">
-                    <nuxt-img src="/images/DSCF1048_5_11zon_5_11zon.webp" loading="lazy" class="w-[50%] h-[450px] object-cover rounded" />
-                    <nuxt-img src="/images/DSCF1099_11_11zon_11_11zon.webp" loading="lazy" class="w-[50%] h-[450px] object-cover rounded" />
+                    <nuxt-img src="/images/DSCF1048_5_11zon_5_11zon.webp" alt="Dental Imlantalogy" class="w-[50%] h-[450px] object-cover rounded" />
+                    <nuxt-img src="/images/DSCF1099_11_11zon_11_11zon.webp" alt="Dental Imlantalogy" class="w-[50%] h-[450px] object-cover rounded" />
                 </div>
                 <div class="w-full md:w-[50%] text-center sm:text-left">
                     <site-content
@@ -81,7 +81,7 @@
                     </site-content>
                 </div>
                 <div class="w-0 md:w-[50%] hidden md:block">
-                    <nuxt-img src="/images/DSCF1074_7_11zon_7_11zon.webp" loading="lazy" class="w-full h-[400px] object-cover rounded" />
+                    <nuxt-img src="/images/DSCF1074_7_11zon_7_11zon.webp" alt="Service room" class="w-full h-[400px] object-cover rounded" />
                 </div>
             </div>
         </div>

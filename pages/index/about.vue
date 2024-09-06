@@ -24,7 +24,7 @@
                     </site-content>
                 </div>
                 <div class="w-full md:w-[50%] h-full">
-                    <nuxt-img src="/images/DSCF0192_1_11zon_1_11zon.webp" loading="lazy" class="w-full h-[400px] object-cover overflow-hidden rounded" />
+                    <nuxt-img src="/images/DSCF0192_1_11zon_1_11zon.webp" alt="Dental Implantalogy Doctors" class="w-full h-[400px] object-cover overflow-hidden rounded" />
                 </div>
             </div>
         </div>

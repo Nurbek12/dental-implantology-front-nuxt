@@ -3,7 +3,7 @@
         <div class="container mx-auto py-2">
             <div class="flex items-center justify-between">
                 <nuxt-link to="/" aria-label="Logo link for redirect home page">
-                    <nuxt-img src="/logo.svg" loading="lazy" width="140" height="auto" sizes="(max-width: 767px) 140px, 180px" alt="Logo" />
+                    <nuxt-img src="/logo.svg" width="140" height="auto" sizes="(max-width: 767px) 140px, 180px" alt="Logo" />
                 </nuxt-link>
                 <div class="hidden md:flex gap-8">
                     <nuxt-link v-for="link in site_links" :key="link.url" class="hover:text-primary-500 font-normal text-gray-500 text-sm" :class="{'text-primary-600':link.url===route.path}" :to="link.url">
@@ -22,7 +22,7 @@
         <div class="bottom-0 left-0 fixed w-full border-t bg-white z-10 md:hidden">
             <div class="container py-4">
                 <div class="relative flex justify-end">
-                    <a href="tel:+998915233344" aria-label="Phone link" class="shadow-lg absolute -top-20 animate-bounce inline-flex p-2 text-sm items-center justify-center gap-x-2 font-semibold rounded disabled:opacity-50 disabled:pointer-events-none border-2 border-transparent text-white">
+                    <a href="tel:+998915233344" aria-label="Phone link" class="shadow-lg absolute -top-20 animate-bounce inline-flex p-2 text-sm items-center justify-center gap-x-2 font-semibold rounded disabled:opacity-50 disabled:pointer-events-none border-2 border-transparent bg-primary-600 hover:bg-primary-500 active:bg-primary-400 text-white">
                         <CaPhoneFilled class="size-8" />
                     </a>
                 </div>
