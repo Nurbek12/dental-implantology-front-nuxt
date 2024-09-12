@@ -37,8 +37,8 @@
 
         "home-counst-info-1": "Baxtli mijozlar",
         "home-counst-info-2": "Tajriba yillari",
-        "home-counst-info-3": "Shifokorlar",
-        "home-counst-info-4": "Onlayn uchrashuvlar",
+        "home-counst-info-3": "Tajribali shifokorlar",
+        "home-counst-info-4": "Kuniga arizalar",
 
         "home-services-subtitle": "Bizning xizmatlarimiz",
         "home-services-title": "Har qanday yosh uchun kompleks stomatologik parvarish",
@@ -80,8 +80,8 @@
     },
     "contacts": {
         "subtitle": "Biz bilan bog'laning",
-        "title": "Biz bilan bog'laning",
-        "description": "Biz har doim sizning savollaringizga javob berishga va uchrashuv belgilashga tayyormiz. Bu erda siz bizning kontakt ma'lumotlarimizni, manzilimizni va ish vaqtini topasiz. Biz sizni klinikamizda kutamiz!",
+        "title": "Bepul maslahat {tag} beramiz!",
+        "description": "Biz davolanish bo'yicha har qanday savolga javob beramiz {tag} va siz uchun mos dasturni tanlaymiz",
         "form-title": "Biz bilan bog'laning",
         "form-description": "Biz har doim sizga yordam berishga tayyormiz",
         "form-description-1": "Bizning mutaxassislarimiz tez orada siz bilan bog'lanadi. Iltimos, kontakt ma'lumotlaringizni taqdim eting va so'rovingizni qisqacha tavsiflang. Biz sizning vaqtingizni qadrlaymiz va barcha so'rovlarga iloji boricha tez javob berishga harakat qilamiz."

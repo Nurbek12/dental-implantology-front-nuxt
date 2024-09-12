@@ -40,8 +40,8 @@
 
         "home-counst-info-1": "Happy clients",
         "home-counst-info-2": "Year of experience",
-        "home-counst-info-3": "Doctors",
-        "home-counst-info-4": "Online appointments",
+        "home-counst-info-3": "Experienced doctors",
+        "home-counst-info-4": "Appointments per day",
 
 
         "home-services-subtitle": "Our services",
@@ -86,8 +86,8 @@
     },
     "contacts": {
         "subtitle": "We are in touch",
-        "title": "Contact us",
-        "description": "We are always ready to answer your questions and make an appointment for you. Here you will find our contact information, address and opening hours. We are waiting for you in our clinic!",
+        "title": "We will consult {tag} for free!",
+        "description": "We will answer any question about treatment and select {tag} the appropriate program for you.",
         "form-title": "Contact us",
         "form-description": "We are always happy to help you",
         "form-description-1": "Our experts will contact you shortly. Please provide your contact details and briefly describe your request. We value your time and strive to respond to all requests as quickly as possible."

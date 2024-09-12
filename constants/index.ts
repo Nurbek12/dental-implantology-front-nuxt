@@ -31,7 +31,7 @@ export const index_cards = [
 ]
 
 export const index_statistics = [
-    { icon: LaToothSolid, title: "home.home-counst-info-1", count: 1200 },
+    { icon: LaToothSolid, title: "home.home-counst-info-1", count: 5000 },
     { icon: BsHospital, title: "home.home-counst-info-2", count: 15 },
     { icon: HeOutlineDoctorMale, title: "home.home-counst-info-3", count: 70 },
     { icon: BsCalendar2Week, title: "home.home-counst-info-4", count: 40 },
@@ -294,4 +294,13 @@ export const faqs = [
             "ru": "Наша клиника предлагает систему записи на прием онлайн и по телефону. Пациенты могут легко записаться на прием."
         }
     }
+]
+
+export const slider_images = [
+    '/images/DSCF1082_8_11zon_8_11zon.webp',
+    '/images/DSCF0192_11zon.webp',
+    '/images/DSCF1007_4_11zon_4_11zon_11zon.webp',
+    '/images/DSCF1055_6_11zon_6_11zon.webp',
+    '/images/DSCF1074_7_11zon_7_11zon.webp',
+    '/images/DSCF1099_11_11zon_11_11zon.webp'
 ]

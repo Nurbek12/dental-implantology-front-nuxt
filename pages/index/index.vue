@@ -1,9 +1,9 @@
 <template>
     <site-navbar />
 
-    <header class="bg-[#F1F8FF] relative">
+    <header class="bg-[#F1F8FF] relative flex items-center h-full">
         
-        <div class="container min-h-screen h-full relative pt-32 pb-10 md:pb-0">
+        <div class="container h-full relative pt-32 pb-10">
             <tooth-svg class="absolute" />
             <tools-svg class="absolute bottom-80 md:bottom-44 right-0" />
 
@@ -37,6 +37,7 @@
                 </form>
             </div>
         </div>
+        
     </header>
 
     <main>
@@ -57,15 +58,8 @@
         </section>
 
         <section class="py-24 container" id="about">
-            <div class="flex flex-col text-center w-full mb-16">
-                <div class="mb-4">
-                    <span class="w-min rounded border border-primary-200 text-primary-500 px-3 py-1.5 text-sm">{{ $t('about.subtitle') }}</span>
-                </div>
-                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">{{ $t('about.title') }}</h1>
-                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">{{ $t('about.description') }}</p>
-            </div>
-
-            <div class="h-full grid grid-cols-1 lg:grid-cols-2 gap-4">
+            <div class="h-full grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <site-slider :images="slider_images" />
                 <div class="w-full text-center sm:text-left">
                     <site-content
                         :title="$t('home.home-about-us-title')"
@@ -79,71 +73,12 @@
                                 <span class="font-medium">{{ $t('home.home-about-us-item-'+i) }}</span>
                             </div>
                         </div>
-                        <!-- <site-btn @click="dialog=true" class="w-min text-nowrap">{{ $t('form.create-review') }}</site-btn> -->
                     </site-content>
-                </div>
-                <div class="w-full h-full">
-                    <nuxt-img src="/images/DSCF1082_8_11zon_8_11zon.webp" alt="Dental Implantalogy Doctors" class="w-full h-full object-cover overflow-hidden rounded" />
                 </div>
             </div>
         </section>
 
         <section class="py-0 container">
-            <div class="h-full grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div>
-                    <nuxt-img src="/images/DSCF0192_11zon.webp" alt="Dental Imlantalogy" class="w- w-full h-full object-cover rounded" />
-                </div>
-                <div class="w-full text-center sm:text-left">
-                    <!-- :subtitle="$t('home.home-about-us-subtitle')"
-                        :description="$t('home.home-about-us-description')" -->
-                    <site-content
-                        :title="$t('about.title-1')">
-                        <form @submit.prevent="handleReview" class="space-y-4 w-full shadow rounded-lg p-4">
-                            <div class="grid grid-cols-2 gap-2 w-full mt-4">
-                                <site-input v-model="review.first_name" required :placeholder="$t('form.first-name')" :label="$t('form.first-name')" />
-                                <site-input v-model="review.last_name" required :placeholder="$t('form.last-name')" :label="$t('form.last-name')" />
-                            </div>
-                            <site-textarea v-model="review.review" required :placeholder="$t('form.message-of-review')" :label="$t('form.message')" :rows="6" />
-                            <site-rating v-model="review.rate" />
-                            <site-btn type="submit">{{ $t('form.send') }}</site-btn>
-                        </form>
-                    </site-content>
-                </div>
-            </div>
-        </section>
-
-        <!-- <section class="py-12 container">
-            <div class="h-full flex items-center justify-between gap-8">
-                <div class="w-full md:w-[50%] text-center sm:text-left">
-                    <site-content
-                        subtitle=""
-                        :title="$t('about.title-1')"
-                        description="">
-                        <form @submit.prevent="handleReview" class="space-y-4 w-full shadow-lg rounded-lg p-4">
-                            <div class="grid grid-cols-2 gap-2 w-full mt-4">
-                                <site-input v-model="review.first_name" required :placeholder="$t('form.first-name')" :label="$t('form.first-name')" />
-                                <site-input v-model="review.last_name" required :placeholder="$t('form.last-name')" :label="$t('form.last-name')" />
-                            </div>
-                            <site-textarea v-model="review.review" required :placeholder="$t('form.message-of-review')" :label="$t('form.message')" :rows="6" />
-                            <site-rating v-model="review.rate" />
-                            <site-btn type="submit">{{ $t('form.send') }}</site-btn>
-                        </form>
-                    </site-content>
-                </div>
-                <div class="hidden md:flex gap-2 w-0 md:w-[50%]">
-                    <nuxt-img src="/images/DSCF1048_5_11zon_5_11zon.webp" alt="Dental Imlantalogy" class="w-[50%] h-[450px] object-cover rounded" />
-                    <nuxt-img src="/images/DSCF1099_11_11zon_11_11zon.webp" alt="Dental Imlantalogy" class="w-[50%] h-[450px] object-cover rounded" />
-                </div>
-            </div>
-        </section> -->
-        
-        <section class="py-12 container">
-            <div class="grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                <card-review v-for="review,i in reviews" :item="review" :key="i" />
-            </div>
-        </section>
-
-        <section class="py-12 container">
             <div class=" bg-blue-50 p-8 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 
                 <div class="flex items-center gap-4" v-for="c,i in index_statistics" :key="i">
@@ -159,6 +94,12 @@
             </div>
         </section>
 
+        <section class="py-12 container">
+            <div class="grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                <card-review v-for="review,i in reviews" :item="review" :key="i" />
+            </div>
+        </section>
+        
         <section class="py-24 container" id="services">
             <div class="flex flex-col text-center w-full mb-16">
                 <div class="mb-4">
@@ -189,19 +130,6 @@
         </section>
 
         <section class="py-12 container">
-            <div class="flex justify-center mb-8">
-                <div class="text-center">
-                    <site-content
-                        :title="$t('home.home-faqs-subtitle')"
-                        :subtitle="$t('home.home-faqs-title')"
-                        :description="$t('home.home-faqs-description')" />
-                </div>
-            </div>
-            
-            <site-faqs />
-        </section>
-
-        <section class="py-12 container">
             <div class="bg-blue-50 rounded-lg p-8">
 
                 <div class="w-full">
@@ -216,61 +144,72 @@
             </div>
         </section>
 
-        <section class="py-24 container" id="contacts">
-            <div class="flex flex-col text-center w-full mb-14">
-                <div class="mb-4">
-                    <span class="w-min rounded border border-primary-200 text-primary-500 px-3 py-1.5 text-sm">{{ $t('contacts.subtitle') }}</span>
+        <section class="py-12 container">
+            <div class="flex justify-center mb-8">
+                <div class="text-center">
+                    <site-content
+                        :title="$t('home.home-faqs-subtitle')"
+                        :subtitle="$t('home.home-faqs-title')"
+                        :description="$t('home.home-faqs-description')" />
                 </div>
-                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">{{ $t('contacts.title') }}</h1>
-                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">{{ $t('contacts.description') }}</p>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="w-full col-span-1 md:col-span-2 min-h-[700px] md:min-h-[400px] h-full bg-gray-300 rounded-lg overflow-hidden flex items-end justify-start relative">
-                    <iframe width="100%" height="100%" id="gmap_canvas" class="absolute inset-0"
-                        src="https://maps.google.com/maps?q=39.653550,66.97005&t=&z=18&ie=UTF8&iwloc=&output=embed"
-                        frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
-                    </iframe>
+            <site-faqs />
+        </section>
 
-                    <div class="bg-white absolute grid grid-cols-1 md:grid-cols-2 gap-2 p-2 rounded shadow-md m-1">
-                        <div class="h-[150px]">
-                            <nuxt-img class="w-full h-full rounded" src="/images/DSCF1004_3_11zon_3_11zon_11zon.webp" alt="Dental Implantalogy" />
-                        </div>
-                        <div class="p-2">
-                            <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs">{{ $t('form.address') }}</h2>
-                                <p class="mt-1">{{ $t('footer.address') }}</p>
-                            <h2 class="title-font font-semibold text-gray-900 tracking-widest text-xs mt-4">{{ $t('form.phone') }}</h2>
-                                <a class="leading-relaxed" href="tel:+998915233344">+998 91 523 33 44</a>
-                        </div>
-                    </div>
+        <section class="py-24 container" id="contacts">           
+
+            <div class="bg-[#f1f8ff] md:mt-16 rounded-lg p-6 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+                <site-content
+                    :subtitle="$t('contacts.form-title')"
+                    :title="$t('contacts.title', { tag: '' })"
+                    :description="$t('contacts.description', { tag: '' })">
+                    <site-btn @click="dialogContact=true" class="w-min text-nowrap">{{ $t('form.order-call') }}</site-btn>
+                </site-content>
+                <div class="relative w-full hidden md:block">
+                    <nuxt-img class="relative md:absolute -bottom-10 right-0 md:max-w-[500px]" src="/images/DSCF0029.webp" />
                 </div>
-
-                <form @submit.prevent="handleRecord" class="bg-white flex flex-col w-full">
-                    <h2 class="text-gray-900 text-lg mb-1 font-medium title-font">{{ $t('contacts.form-title') }}</h2>
-                    <p class="leading-relaxed mb-5 text-gray-600">{{ $t('contacts.form-description') }}</p>
-                    <div class="space-y-4">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-2 w-full">
-                            <site-input required v-model="record.first_name" :placeholder="$t('form.first-name')" :label="$t('form.first-name')" />
-                            <site-input required v-model="record.last_name" :placeholder="$t('form.last-name')" :label="$t('form.last-name')" />
-                        </div>
-                        <site-input required v-model="record.phone" placeholder="example@mail.com" :label="$t('form.email')" />
-                        <client-only>
-                            <site-textarea required v-model="record.comment" :placeholder="$t('form.message-of-review')" :label="$t('form.message')" />
-                        </client-only>
-                        <site-btn type="submit" class="w-full">{{ $t('form.send') }}</site-btn>
-                    </div>
-                    <p class="text-xs text-gray-500 mt-3">{{ $t('contacts.form-description-1') }}</p>
-                </form>
             </div>
+
         </section>
     </main>
+
+    <app-dialog rounded v-model="dialogReview">
+        <form @submit.prevent="handleReview" class="space-y-4 w-full">
+            <div class="grid grid-cols-2 gap-2 w-full mt-4">
+                <site-input v-model="review.first_name" required :placeholder="$t('form.first-name')" :label="$t('form.first-name')" />
+                <site-input v-model="review.last_name" required :placeholder="$t('form.last-name')" :label="$t('form.last-name')" />
+            </div>
+            <site-textarea v-model="review.review" required :placeholder="$t('form.message-of-review')" :label="$t('form.message')" :rows="6" />
+            <site-rating v-model="review.rate" />
+            <site-btn type="submit">{{ $t('form.send') }}</site-btn>
+        </form>
+    </app-dialog>
+
+    <app-dialog :title="$t('contacts.subtitle')" rounded v-model="dialogContact">
+        <form @submit.prevent="handleRecord" class="bg-white flex flex-col w-full">
+            <p class="leading-relaxed my-2 text-gray-600">{{ $t('contacts.form-description') }}</p>
+            <div class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 w-full">
+                    <site-input required v-model="record.first_name" :placeholder="$t('form.first-name')" :label="$t('form.first-name')" />
+                    <site-input required v-model="record.last_name" :placeholder="$t('form.last-name')" :label="$t('form.last-name')" />
+                </div>
+                <site-input required v-model="record.phone" placeholder="example@mail.com" :label="$t('form.email')" />
+                <client-only>
+                    <site-textarea required v-model="record.comment" :placeholder="$t('form.message-of-review')" :label="$t('form.message')" />
+                </client-only>
+                <site-btn type="submit" class="w-full">{{ $t('form.send') }}</site-btn>
+            </div>
+            <p class="text-xs text-gray-500 mt-3">{{ $t('contacts.form-description-1') }}</p>
+        </form>
+    </app-dialog>
 
     <site-footer />
 </template>
 
 <script setup lang="ts">
 import type { IDoctor, IRatings, IService } from '~/types'
-import { index_cards, index_statistics } from '~/constants'
+import { index_cards, index_statistics, slider_images } from '~/constants'
 import { BxSolidBadgeCheck, BxUser, FePhone, } from '@kalimahapps/vue-icons'
 
 useHead({
@@ -294,6 +233,8 @@ const { createRecord } = useInitialRecords()
 const { getRatings, createRating } = useRatings()
 
 const dialog = ref(false)
+const dialogReview = ref(false)
+const dialogContact = ref(false)
 const doctors = ref<IDoctor[]>([])
 const reviews = ref<IRatings[]>([])
 const services = ref<IService[]>([])

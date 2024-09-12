@@ -1,18 +1,38 @@
 <template>
-    <footer class="bg-slate-900 py-10">
+    <footer class="bg-slate-900 pt-10">
         <div class="mx-auto container space-y-8 pt-4 pb-12 md:pb-4 lg:space-y-16">
             
             <div class="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
-                <div>
+                <div class="col-span-1 md:col-span-2">
                     <div class="text-white font-bold text-xl">
                         Dental Implantology
                     </div>
 
-                    <p class="mt-4 max-w-xs text-gray-300">{{ $t('footer.description') }}</p>
+                    <iframe width="100%" height="280px" class="rounded mt-4" id="gmap_canvas"
+                        src="https://maps.google.com/maps?q=39.653550,66.97005&t=&z=18&ie=UTF8&iwloc=&output=embed"
+                        frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+                    </iframe>
+                    <!-- <p class="mt-4 max-w-xs text-gray-300">{{ $t('footer.description') }}</p> -->
                 </div>
 
                 <div>
                     <p class="font-medium text-gray-200">{{ $t('footer.concats-title') }}:</p>
+
+                    <ul class="mt-6 space-y-4 text-sm">
+                        <li class="text-gray-300 transition hover:opacity-75 text-nowrap">
+                            <a href="https://maps.app.goo.gl/jvA5nAwTy3jL4oe2A" target="_blank">{{ $t('footer.address') }}</a>
+                        </li>
+
+                        <li class="text-gray-300 transition hover:opacity-75 text-nowrap">
+                            {{ $t('form.phone') }}: <a href="tel:+998915233344">+998&nbsp;91&nbsp;523&nbsp;33&nbsp;44</a>
+                        </li>
+
+                        <li class="text-gray-300 transition hover:opacity-75 text-nowrap">
+                            Email: <a href="#">dentalemplament@stomatologyclinic.ru</a>
+                        </li>
+                    </ul>
+
+                    <p class="mt-6 font-medium text-gray-200">{{ $t('footer.concats-title') }}:</p>
 
                     <ul class="mt-6 space-y-4 text-sm">
                         <li class="text-gray-300 transition hover:opacity-75 text-nowrap">
@@ -43,7 +63,7 @@
                     </ul>
                 </div>
 
-                <div>
+                <!-- <div>
                     <p class="font-medium text-gray-200">{{ $t('footer.links-title') }}:</p>
 
                     <ul class="mt-6 space-y-4 text-sm">
@@ -54,7 +74,7 @@
                             <nuxt-link to="/admin/appointments" class="text-gray-300 transition hover:opacity-75">Admin</nuxt-link>
                         </li>
                     </ul>
-                </div>
+                </div> -->
             </div>
 
             <client-only>
