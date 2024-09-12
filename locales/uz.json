@@ -9,8 +9,8 @@
     },
     "home": {
         "header-subtitle": "👋Yordamimiz bilan sog'lom tabassum!",
-        "header-title": "Malakali mutaxassislar va zamonaviy jihozlar",
-        "header-description": "Bizning klinikamizda siz tish va tish go'shti kasalliklarini tashxislash va davolashdan o'tishingiz, shuningdek, kelajakda muammolarni oldini olishga yordam beradigan profilaktik muolajalarni o'tkazishingiz mumkin. Shuningdek, biz sizga tabassum ko'rinishini yaxshilashga yordam beradigan kosmetik stomatologiya xizmatlarini taklif etamiz.",
+        "header-title": "Samarqanddagi eng {tag} yaxshi stomatologiya – {tag} Dental implantologiya {svg} {tag} markazi",
+        "header-description": "Samarqanddagi ishonchli stomatologiyangiz - Tish Implantalogiya Markazi Samarqand shahridagi professional stomatologik yordam uchun Dental Implantalogiya Markaziga murojaat qiling. Bizning jamoamiz tish implantlari, tishlarni oqartirish va tishlarni karisini davolash kabi keng turdagi xizmatlarni taklif etadi. Agar siz Samarqandda estetik stomatologiya yoki etishmayotgan tishlar muammosiga yechim izlayotgan bo'lsangiz, bizning klinikamiz sizning eng yaxshi tanlovingizdir.",
         
         "home-card-1-title": "Profilaktik tekshiruv",
         "home-card-1-description": "Muntazam stomatologik tekshiruvlar tish va tish go'shtini sog'lom saqlashga yordam beradi va jiddiy kasalliklar rivojlanishining oldini oladi",
@@ -100,13 +100,16 @@
         "sat": "Shanba 08:00–18:00",
 
         "links-title": "Tezkor havolalar",
-        "copy": "© 2024. Stomatologiya \"Dental Implantology\". Barcha huquqlar himoyalangan."
+        "copy": "Stomatologiya \"Dental Implantology\". Barcha huquqlar himoyalangan."
     },
     "form": {
-        "phone": "Telefon",
+        "placeholder-phone": "Telefon raqamingizni kiriting",
+        "placeholder-name": "Ism va familiyangizni kiriting",
+        "order-call": "Qo'ng'iroq buyurtma qiling",
+        "phone": "Telefon raqami",
         "date": "Sana",
         "address": "Manzil",
-        "name": "Ism",
+        "name": "Ism Familiya",
         "first-name": "Ism",
         "last-name": "Familiya",
         "email": "Elektron pochta",
@@ -122,5 +125,9 @@
         "title": "Sahifa Topilmadi",
         "description": "Afsus! Siz izlagan sahifa mavjud emas. Iltimos, URL ni tekshiring yoki bosh sahifaga qayting.",
         "go-home": "Bosh Sahifaga O'tish"
+    },
+    "others": {
+        "doctor-rating": "Doktor reytingi",
+        "experience": "Tajriba: {year} yil"
     }
 }

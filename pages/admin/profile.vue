@@ -1,7 +1,7 @@
 <template>
   <div class="w-full p-2 grid grid-cols-1 md:grid-cols-2 gap-4">
     <div class="bg-white px-4 py-0.5 border rounded">
-      <form @submit.prevent="handleUpdateUser" class="mt-4 flex flex-col gap-4">
+      <form @submit.prevent="handleUpdateUser" class="mt-4 flex flex-col gap-4 pb-4">
         <h1 class="text-lg">Изменить Данные</h1>
         
         <div class="flex items-center justify-start">
@@ -45,8 +45,8 @@
 </template>
 
 <script setup lang="ts">
-import type { IUser, IDoctor } from '@/types'
 import { reactive, computed } from 'vue'
+import type { IUser, IDoctor } from '@/types'
 
 definePageMeta({
   layout: 'admin-layout',
@@ -92,6 +92,7 @@ const handleUpdateUser = async () => {
     const data: any = await (user.value?.user_type==='DOCTOR'?updateDoctor(user.value!.id!, profile):updateUser(user.value!.id!, profile))
     Object.assign(user.value!, data)
     Object.assign(profile, data)
+    alert('Данные успешно изменено✅')
   } catch (error) {
       console.log(error)
   }

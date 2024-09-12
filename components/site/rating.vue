@@ -1,7 +1,7 @@
 <template>
-    <div class="flex gap-1 my-2">
+    <div class="flex gap-1">
         <component v-for="i in 5" :is='i>model!?AnOutlinedStar:AnFilledStar'  :key="i"
-            class="text-yellow-400 cursor-pointer w-5 h-5"  @click="changeModel(i)" />
+            class="text-[#FFA63A] cursor-pointer w-5 h-5"  @click="changeModel(i)" />
     </div>
 </template>
 

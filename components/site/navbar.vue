@@ -1,17 +1,19 @@
 <template>
-    <nav class="fixed z-50 w-full transition-all" :class="isScrolled?'shadow-md shadow-black/5 bg-white':'bg-white/0'">
-        <div class="container mx-auto py-2">
+    <nav class="fixed z-50 w-full transition-shadow bg-white" :class="{'shadow-md shadow-black/5':isScrolled}">
+        <div class="container mx-auto py-4">
             <div class="flex items-center justify-between">
-                <nuxt-link to="/" aria-label="Logo link for redirect home page">
+                <a href="#" aria-label="Logo link for redirect home page">
                     <nuxt-img src="/logo.svg" width="140" height="auto" sizes="(max-width: 767px) 140px, 180px" alt="Logo" />
-                </nuxt-link>
+                </a>
+
                 <div class="hidden md:flex gap-8">
-                    <nuxt-link v-for="link in site_links" :key="link.url" class="hover:text-primary-500 font-normal text-gray-500 text-sm" :class="{'text-primary-600':link.url===route.path}" :to="link.url">
+                    <a v-for="link in site_links" :key="link.url" class="hover:text-primary-500 font-semibold text-gray-500 text-sm" :href="link.url">
                         {{ $t(link.title) }}
-                    </nuxt-link>
+                    </a>
                 </div>
+                
                 <div class="flex items-center gap-2">
-                    <a class="hidden md:inline-flex py-2 px-3 text-xs items-center justify-center gap-x-2 font-semibold rounded disabled:opacity-50 disabled:pointer-events-none border-2 border-transparent text-white" href="tel:+998915233344">
+                    <a class="hidden md:inline-flex py-2 px-3 text-xs items-center justify-center gap-x-2 font-semibold rounded disabled:opacity-50 disabled:pointer-events-none border-2 border-transparent bg-primary-600 hover:bg-primary-500 active:bg-primary-400 text-white" href="tel:+998915233344">
                         {{ $t('nav.call') }}
                     </a>
                     <site-language />
@@ -27,10 +29,10 @@
                     </a>
                 </div>
                 <div class="grid grid-cols-5 gap-4">
-                    <nuxt-link v-for="link in site_links" :key="link.url" :class="{'text-primary-600':link.url===route.path}" class="hover:text-primary-500 font-normal text-xs flex flex-col text-nowrap text-ellipsis gap-1 items-center" :to="link.url">
+                    <a v-for="link in site_links" :key="link.url" :class="{'text-primary-600':link.url===route.path}" class="hover:text-primary-500 font-normal text-xs flex flex-col text-nowrap text-ellipsis gap-1 items-center" :href="link.url">
                         <component :is="link.icon" class="size-6" />
                         {{ $t(link.title) }}
-                    </nuxt-link>
+                    </a>
                 </div>
             </div>
         </div>
@@ -52,3 +54,9 @@ onMounted(() => {
     })
 })
 </script>
+
+<style>
+html {
+    scroll-behavior: smooth
+}
+</style>

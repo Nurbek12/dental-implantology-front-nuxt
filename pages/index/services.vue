@@ -40,7 +40,6 @@ useSeoMeta({
   ogTitle: 'Наши услуги - Стоматология "Dental Implantology"',
   description: 'Предлагаем широкий спектр стоматологических услуг: лечение кариеса, имплантация, отбеливание зубов и многое другое. Узнайте больше о наших услугах.',
   ogDescription: 'Предлагаем широкий спектр стоматологических услуг: лечение кариеса, имплантация, отбеливание зубов и многое другое. Узнайте больше о наших услугах.',
-//   ogImage: '/',
 })
 
 const { getServices } = useServices()
@@ -49,7 +48,8 @@ const items = ref<IService[]>([])
 const init = async () => {
     const data = await getServices({page: 1, limit: 12})
     items.value = data.results
+    console.log(1)
 }
 
-init()
+await init()
 </script>

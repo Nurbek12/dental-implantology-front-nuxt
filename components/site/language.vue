@@ -1,7 +1,7 @@
 <template>
     <div class="relative cursor-pointer flex justify-center items-center">
         <client-only>
-            <site-select @changed="setLocale" v-model="locale" :items="languages" name="title" value="lang" />
+            <site-select class="border-2 box-border border-primary-600 text-primary-600 font-bold" @changed="setLocale" v-model="locale" :items="languages" name="l" value="lang" />
         </client-only>
     </div>
 </template>

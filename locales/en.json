@@ -5,12 +5,12 @@
         "doctors": "Doctors",
         "services": "Services",
         "contacts": "Contacts",
-        "call": "Call"
+        "call": "Call now"
     },
     "home": {
         "header-subtitle": "👋Healthy smile with our help!",
-        "header-title": "Qualified specialists and modern equipment",
-        "header-description": "In our clinic, you can undergo diagnosis and treatment of diseases of the teeth and gums, as well as carry out preventive procedures that will help avoid problems in the future. We also offer cosmetic dentistry services to help you improve the appearance of your smile.",
+        "header-title": "The best dentistry {tag} in Samarkand – {tag} Dental Implantology {svg} {tag} Center",
+        "header-description": "Your reliable dentistry in Samarkand - Dental Implantalogy Center For professional dental care in Samarkand, contact the Dental Implantalogy Center. Our team offers a wide range of services, including dental implants, teeth whitening, and tooth decay treatment. If you are looking for aesthetic dentistry or a solution to the problem of missing teeth in Samarkand, our clinic is your best choice.",
         
         "home-card-1-title": "Preventive examination",
         "home-card-1-description": "Regular dental checkups help keep your teeth and gums healthy and prevent the development of serious diseases",
@@ -106,13 +106,16 @@
         "sat": "Saturday 08:00–18:00",
 
         "links-title": "Quick links",
-        "copy": "© 2024. Dentistry \"Dental Implantology\". All rights reserved."
+        "copy": "Dentistry \"Dental Implantology\". All rights reserved."
     },
     "form": {
-        "phone": "Phone",
+        "placeholder-phone": "Enter your phone number",
+        "placeholder-name": "Enter your first and last name",
+        "order-call": "Request a call now",
+        "phone": "Phone number",
         "date": "Date",
         "address": "Address",
-        "name": "Name",
+        "name": "First and last name",
         "first-name": "First name",
         "last-name": "Last name",
         "email": "Email",
@@ -128,5 +131,9 @@
         "title": "Page Not Found",
         "description": "Oops! The page you are looking for does not exist. Please check the URL or go back to the homepage.",
         "go-home": "Go to Home Page"
+    },
+    "others": {
+        "doctor-rating": "Doctor rating",
+        "experience": "Experience: {year} years"
     }
 }

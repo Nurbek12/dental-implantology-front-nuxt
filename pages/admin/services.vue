@@ -105,7 +105,7 @@ const service = reactive<IService>({
 const headers = [
     { name: "ID", value: "id", sortable: true, balancedText: false, custom: true },
     { name: "Фото", value: "image", sortable: false, balancedText: false, custom: true },
-    { name: "Название", value: "name_ru", sortable: true, balancedText: false, custom: false },
+    { name: "Название", value: "name_ru", sortable: true, balancedText: true, custom: false },
     { name: "KPI процент", value: "kpi_percent", sortable: false, balancedText: false, custom: false },
     { name: "Цена", value: "price", sortable: true, balancedText: false, custom: true },
     { name: "Категория", value: "category", sortable: false, balancedText: false, custom: true },

@@ -65,17 +65,17 @@ export const admin_links = {
 }
 
 export const languages = [
-    { lang: 'uz', title: "O'zbek" },
-    { lang: 'ru', title: 'Русский' },
-    { lang: 'en', title: "English" },
+    { l: 'UZ',lang: 'uz', title: "O'zbek" },
+    { l: 'РУ',lang: 'ru', title: 'Русский' },
+    { l: 'EN',lang: 'en', title: "English" },
 ]
 
 export const site_links = [
-    { icon: BxHomeAlt2, title: 'nav.home', url: '/' },
-    { icon: FlDataUsage, title: 'nav.about', url: '/about' },
-    { icon: MaDoctor, title: 'nav.doctors', url: '/doctors' },
-    { icon: GlStatusHealth, title: 'nav.services', url: '/services' },
-    { icon: CaPhone, title: 'nav.contacts', url: '/contact' },
+    { icon: BxHomeAlt2, title: 'nav.home', url: '#' },
+    { icon: FlDataUsage, title: 'nav.about', url: '#about' },
+    { icon: GlStatusHealth, title: 'nav.services', url: '#services' },
+    { icon: MaDoctor, title: 'nav.doctors', url: '#doctors' },
+    { icon: CaPhone, title: 'nav.contacts', url: '#contacts' },
     // <FlDataUsage/>
 ]
 

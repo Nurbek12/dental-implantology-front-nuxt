@@ -31,6 +31,8 @@
 [+] need add lang for faqs block
 [+] need add seo keywords (dental implantalog, dr ikramov, samarkand stomotologiyaa)
 [+] need fix phone link in mobile
+[-] Add history and diagnosis
+[-] remove/add required fields
 
 [+/-] { doctors appointment(doctor), balance, profile }
 //  node node_modules/nuxt/bin/nuxt.mjs build --max-old-space-size=4096 

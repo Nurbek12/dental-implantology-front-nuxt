@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   site: { indexable: true },
   modules: ['@nuxt/image', '@nuxtjs/i18n', '@nuxtjs/sitemap', '@nuxtjs/robots', 'nuxt-delay-hydration'],
-  ssr: true,
+  ssr: false,
   css: ['~/assets/css/main.css'],
 
   i18n: {
@@ -59,11 +59,11 @@ export default defineNuxtConfig({
     server: false
   },
 
-  delayHydration: {
-    // enables nuxt-delay-hydration in dev mode for testing
-    debug: process.env.NODE_ENV === 'development',
-    mode: 'mount'
-  },
+  // delayHydration: {
+  //   // enables nuxt-delay-hydration in dev mode for testing
+  //   debug: process.env.NODE_ENV === 'development',
+  //   mode: 'mount'
+  // },
 
   routeRules: {
     '/**': {
@@ -95,6 +95,7 @@ export default defineNuxtConfig({
         { name: 'og:image', content: "https://dr-ikramov.uz/favicon.ico" },
         { name: 'og:url', content: "https://dr-ikramov.uz" },
         { name: 'og:type', content: "website" },
+        { name: 'og:site_name', content: "Dental Implantology" },
       ],
       link: [
         { rel: 'canonical', href: 'https://dr-ikramov.uz' },

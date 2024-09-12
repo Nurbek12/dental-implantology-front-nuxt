@@ -35,6 +35,7 @@ export interface IPatient {
     last_name: string
     date_joined?: string
     avatar?: string | null
+    address?: string | null
     phone: string
     middle_name: string
     birth_date: string

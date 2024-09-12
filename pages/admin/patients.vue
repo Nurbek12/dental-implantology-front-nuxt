@@ -39,6 +39,7 @@
             <site-input required v-model="$item.last_name" label="Фамилия" placeholder="Фамилия" />
             <site-input required v-model="$item.middle_name" label="Отчество" placeholder="Отчество" />
             <site-input required v-model="$item.phone" label="Телефон" placeholder="Телефон" />
+            <site-input required v-model="$item.address" label="Адрес" placeholder="Адрес" />
 
             <site-input required v-model="$item.birth_date" label="Дата рождения" type="date" />
 
@@ -66,10 +67,11 @@ const itemIndex = ref<number|null>(null)
 const createLoading = ref<boolean>(false)
 const $item = reactive<IPatient>({
     phone: "",
+    address: "",
     last_name: "",
     birth_date: "",
     first_name: "",
-    middle_name: ""
+    middle_name: "",
 })
                            
 const headers = [

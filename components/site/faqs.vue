@@ -1,7 +1,7 @@
 <template>
     <div class="space-y-4">
         <div v-for="faq,i in faqs" :key="i" class="w-full">
-            <div @click="f==i?f=-1:f=i" class="p-4 text-lg font-medium cursor-pointer hover:bg-gray-100 rounded flex justify-between items-center">
+            <div @click="f==i?f=-1:f=i" class="p-4 md:text-lg font-medium cursor-pointer hover:bg-gray-100 rounded flex justify-between items-center">
                 <h1 :class="{'text-primary-600': f==i}">{{ faq.question[$i18n.locale as "uz"] }}</h1>
                 <AkChevronDown v-show="f!==i" />
                 <AkChevronUp v-show="f==i" />
