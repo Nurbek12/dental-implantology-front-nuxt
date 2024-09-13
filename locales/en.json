@@ -134,6 +134,7 @@
     },
     "others": {
         "doctor-rating": "Doctor rating",
-        "experience": "Experience: {year} years"
+        "experience": "Experience: {year} years",
+        "add-comment": "Leave a comment"
     }
 }

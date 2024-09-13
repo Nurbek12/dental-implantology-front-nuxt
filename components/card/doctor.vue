@@ -9,12 +9,9 @@
         </div>
         <div class="p-4">
             <h1 class="text-lg font-medium">{{ props?.doctor?.first_name }} {{ props?.doctor?.middle_name }} {{ props?.doctor?.last_name }}</h1>
-            <p class="text-gray-600">{{ specs[props?.doctor?.content as keyof typeof specs] }}, {{ new Date().getFullYear() - new Date(props?.doctor?.birth_date).getFullYear() }} лет</p>
-            <div class="mt-2 space-y-2">
-                <p class="text-sm text-gray-600" v-show="props?.doctor?.experiences"><span class="font-medium">Опыт:</span> {{ props?.doctor?.experiences }}</p>
-                <!-- <p class="text-sm text-gray-600" v-show="props?.doctor?.certificates"><span class="font-medium">Сертификаты:</span> {{ props?.doctor?.certificates }}</p> -->
-                <!-- <p class="text-sm text-gray-600" v-show="props?.doctor?.educations"><span class="font-medium">Образование:</span> {{ props?.doctor?.educations }}</p> -->
-            </div>
+            <p class="text-gray-600 my-2">{{ specs[props?.doctor?.content as keyof typeof specs] }}, {{ new Date().getFullYear() - new Date(props?.doctor?.birth_date).getFullYear() }} лет</p>
+            <p class="text-sm text-gray-600" v-show="props?.doctor?.experiences"><span class="font-medium">Опыт:</span> {{ props?.doctor?.experiences }}</p>
+            <site-btn size="medium" class="mt-4" @click="$emit('add-comment')">{{ $t('others.add-comment') }}</site-btn>
         </div>
     </div>
 </template>
@@ -23,6 +20,6 @@
 import { specs } from '@/constants'
 import type { IDoctor } from '~/types'
 
-const emits = defineEmits(['logout', 'edit-profile'])
+const emits = defineEmits(['logout', 'edit-profile', 'add-comment'])
 const props = defineProps<{doctor: IDoctor}>()
 </script>

@@ -124,7 +124,7 @@
 
             <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             
-                <card-doctor v-for="doctor,i in doctors" :doctor="doctor" :key="i" />
+                <card-doctor v-for="doctor,i in doctors" :doctor="doctor" :key="i" @add-comment="dialogReview=true,review.doctor=doctor.id" />
                 
             </div>
         </section>
@@ -174,7 +174,7 @@
         </section>
     </main>
 
-    <app-dialog rounded v-model="dialogReview">
+    <app-dialog :title="$t('form.review-form-title')" @close-dialog="review.doctor=null" rounded v-model="dialogReview">
         <form @submit.prevent="handleReview" class="space-y-4 w-full">
             <div class="grid grid-cols-2 gap-2 w-full mt-4">
                 <site-input v-model="review.first_name" required :placeholder="$t('form.first-name')" :label="$t('form.first-name')" />
@@ -208,6 +208,7 @@
 </template>
 
 <script setup lang="ts">
+import { MaskInput } from 'vue-3-mask'
 import type { IDoctor, IRatings, IService } from '~/types'
 import { index_cards, index_statistics, slider_images } from '~/constants'
 import { BxSolidBadgeCheck, BxUser, FePhone, } from '@kalimahapps/vue-icons'
@@ -248,6 +249,7 @@ const record = reactive({
 const review = reactive<IRatings>({
     rate: 0,
     review: "",
+    doctor: null,
     last_name: "",
     first_name: "",
 })

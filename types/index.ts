@@ -113,7 +113,7 @@ export interface IRatings {
     review: string
     created_at?: string
     updated_at?: string
-    doctor?: null | IDoctor | string
+    doctor?: null | IDoctor | number
 }
 
 export interface IAppointment {
