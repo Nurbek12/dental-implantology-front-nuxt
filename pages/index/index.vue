@@ -30,7 +30,7 @@
             </div>
 
             <div class="relative">
-                <form @submit.prevent="handleRecord" class="relative rounded-md p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-end shadow-lg shadow-black/5 bg-white w-full">
+                <form @submit.prevent="handleRecord" class="relative rounded-md p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 items-end bg-white w-full">
                     <site-input v-model="record.first_name" required :icon="BxUser" :label="$t('form.name')" :placeholder="$t('form.placeholder-name')" />
                     <site-input v-model="record.phone" required :icon="FePhone" :label="$t('form.phone')" :placeholder="$t('form.placeholder-phone')" />
                     <site-btn type="submit">{{ $t('form.order-call') }}</site-btn>
@@ -106,10 +106,10 @@
                     <span class="w-min rounded border border-primary-200 text-primary-500 px-3 py-1.5 text-sm">{{ $t('services.subtitle') }}</span>
                 </div>
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">{{ $t('services.title') }}</h1>
-                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">{{ $t('doctors.description') }}</p>
+                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">{{ $t('services.description') }}</p>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <card-service v-for="service,i in services" :item="service" :key="i" />
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <card-service2 v-for="service,i in services" :item="service" :key="i" />
             </div>
         </section>
 
@@ -122,7 +122,7 @@
                 <p class="lg:w-2/3 mx-auto leading-relaxed text-base">{{ $t('doctors.description') }}</p>
             </div>
 
-            <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
             
                 <card-doctor v-for="doctor,i in doctors" :doctor="doctor" :key="i" @add-comment="dialogReview=true,review.doctor=doctor.id" />
                 
@@ -164,7 +164,9 @@
                     :subtitle="$t('contacts.form-title')"
                     :title="$t('contacts.title', { tag: '' })"
                     :description="$t('contacts.description', { tag: '' })">
-                    <site-btn @click="dialogContact=true" class="w-min text-nowrap">{{ $t('form.order-call') }}</site-btn>
+                    <!-- <form action=""> -->
+                        <site-btn @click="dialogContact=true" class="w-min text-nowrap">{{ $t('form.order-call') }}</site-btn>
+                    <!-- </form> -->
                 </site-content>
                 <div class="relative w-full hidden md:block">
                     <nuxt-img class="relative md:absolute -bottom-10 right-0 md:max-w-[500px]" src="/images/DSCF0029.webp" />
@@ -208,9 +210,8 @@
 </template>
 
 <script setup lang="ts">
-import { MaskInput } from 'vue-3-mask'
-import type { IDoctor, IRatings, IService } from '~/types'
-import { index_cards, index_statistics, slider_images } from '~/constants'
+import type { IDoctor, IRatings } from '~/types'
+import { index_cards, index_statistics, slider_images, services } from '~/constants'
 import { BxSolidBadgeCheck, BxUser, FePhone, } from '@kalimahapps/vue-icons'
 
 useHead({
@@ -229,7 +230,6 @@ useHead({
 // })
 
 const { getDoctors } = useDoctors()
-const { getServices } = useServices()
 const { createRecord } = useInitialRecords()
 const { getRatings, createRating } = useRatings()
 
@@ -238,7 +238,6 @@ const dialogReview = ref(false)
 const dialogContact = ref(false)
 const doctors = ref<IDoctor[]>([])
 const reviews = ref<IRatings[]>([])
-const services = ref<IService[]>([])
 const record = reactive({
     phone: "",
     email: "",
@@ -253,15 +252,6 @@ const review = reactive<IRatings>({
     last_name: "",
     first_name: "",
 })
-
-const handleGetServices = async () => {
-    try {
-        const data = await getServices({page: 1, limit: 12})
-        services.value = data.results
-    } catch (error) {
-        console.log(error)
-    }
-}
 
 const handleGetDoctors = async () => {
     try {
@@ -305,7 +295,6 @@ const handleReview = async () => {
 
 const init = async () => {
     await Promise.all([
-        handleGetServices(),
         handleGetDoctors(),
         handleGetReviews()
     ])

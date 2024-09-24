@@ -133,7 +133,7 @@
     },
     "others": {
         "doctor-rating": "Рейтинг врача",
-        "experience": "Опыт: {year} лет",
+        "experience": "Опыт работы: {year} лет",
         "add-comment": "Оставить коментария"
     }
 }

@@ -1,5 +1,5 @@
 <template>
-    <nav class="fixed z-50 w-full transition-all" :class="isScrolled?'shadow-md shadow-black/5 bg-white':'bg-white/0'">
+    <nav class="fixed z-50 w-full transition-all" :class="isScrolled?'bg-white':'bg-white/0'">
         <div class="container mx-auto py-4">
             <div class="flex items-center justify-between">
                 <a href="#" aria-label="Logo link for redirect home page">
