@@ -15,7 +15,7 @@
             </div>
         </div>
 
-        <div class="container pt-4 pb-12 md:pb-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+        <div class="container pt-12 pb-12 md:pb-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
 
             <div class="space-y-4">
                 <div class="text-white font-bold text-xl">
@@ -72,7 +72,7 @@
             </div>
 
             <div class="space-y-4">
-                <iframe width="100%" height="280px" class="rounded mb-4" id="gmap_canvas"
+                <iframe width="100%" height="200px" class="rounded mb-4" id="gmap_canvas"
                     src="https://maps.google.com/maps?q=39.653550,66.97005&t=&z=17&ie=UTF8&iwloc=&output=embed"
                     frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
                 </iframe>

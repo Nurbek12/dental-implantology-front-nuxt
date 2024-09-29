@@ -14,11 +14,10 @@
                         <doctor-back class="absolute scale-[75%] object-bottom translate-y-20 z-0" />
                         <nuxt-img src="/images/dr-ikramov.png" class="w-[360px] h-[460px] relative object-contain object-bottom" alt="Dr. Ikramov" />
                     </div>
-                    <div class="absolute top-10 right-10 rounded-xl w-[240px] h-[130px] p-6 flex justify-center items-center shadow-lg shadow-primary-600/10 bg-white/45">
-                        <p class="font-semibold text-lg relative">
-                            Работаем <span class="text-primary-600">круглосуточно</span> <br> и <span class="text-primary-600">без выходных</span>
+                    <div class="absolute top-10 right-10 rounded-xl w-[240px] h-[130px] p-6 pr-2 flex justify-start items-center shadow-lg shadow-primary-600/10 bg-white/45">
+                        <p class="font-semibold text-lg relative text-left" v-html="$t('home.header-every-day-work', {br: '<br>', tag: '<span class=\'text-primary-600\'>', tagclose: '</span>'})">
                         </p>
-                        <svg-24-7 class="absolute z-0 right-5" />
+                        <svg-24-7 class="absolute z-0 right-2" />
                     </div>
                 </div> 
 
@@ -58,15 +57,15 @@
             </div>
         </section>
 
-        <section class="py-24 container" id="about">
+        <section class="pt-24 pb-20 container" id="about">
             <div class="h-full grid grid-cols-1 lg:grid-cols-2 gap-8">
                 <site-slider :images="slider_images" />
                 <div class="w-full text-center sm:text-left">
                     <site-content
-                        :title="$t('home.home-about-us-title')"
-                        :description="$t('about.description-1')">
-                        <p class="text-gray-700">{{ $t('about.description-2') }}</p>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        :subtitle="$t('about.subtitle')"
+                        :title="$t('home.home-about-us-title')">
+                        <p>{{ $t('about.description-2') }}</p>
+                        <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div class="text-left flex items-center gap-2" v-for="i in 4" :key="i">
                                 <div>
                                     <BxSolidBadgeCheck class="text-blue-500 w-6 h-6" />
@@ -168,22 +167,22 @@
 
         <section class="py-24 container" id="contacts">           
 
-            <div class="bg-[#f1f8ff] md:mt-16 rounded-2xl p-6 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+            <div class="bg-[#f1f8ff] md:mt-16 rounded-2xl p-6 md:p-16 grid grid-cols-1 md:grid-cols-2 gap-6 relative">
 
-                <tooth-svg class="absolute z-0 bottom-5 left-[25%] -rotate-45" />
-                <tools-svg class="absolute bottom-44 left-[40%]" />
+                <tooth-svg class="absolute z-0 bottom-5 left-[25%] -rotate-45 scale-90" />
+                <tools-svg class="absolute bottom-32 left-[44%]" />
                 <site-content
                     :subtitle="$t('contacts.form-title')"
                     :title="$t('contacts.title')"
                     :description="$t('contacts.description')">
-                    <form @submit.prevent="handleRecord" class="space-y-4 md:w-[60%] mt-10 relative">
+                    <form @submit.prevent="handleRecord" class="space-y-4 md:w-[60%] mt-2 relative">
                         <site-input v-model="record.first_name" required :placeholder="$t('form.placeholder-name')" />
                         <site-input v-model="record.phone" required :placeholder="$t('form.placeholder-phone')" />
                         <site-btn type="submit">{{ $t('form.order-call') }}</site-btn>
                     </form>
                 </site-content>
                 <div class="relative w-full hidden md:block">
-                    <nuxt-img class="relative md:absolute -bottom-10 h-[120%] w-[120%] object-contain" src="/images/DSCF0029.webp" />
+                    <nuxt-img class="relative md:absolute -bottom-10 h-[135%] w-[135%] object-contain" src="/images/DSCF0029.webp" />
                 </div>
 
             </div>
@@ -205,13 +204,6 @@ useHead({
         { name: "keywords", content: "стоматология, стоматологическая клиника, зубной врач, лечение зубов, Samarkand" },
     ]
 })
-
-// useSeoMeta({
-//   title: 'Стоматология Dental Implantology - Ваш путь к здоровой улыбке',
-//   ogTitle: 'Стоматология Dental Implantology - Ваш путь к здоровой улыбке',
-//   description: 'Добро пожаловать в стоматологическую клинику "Dental Implantology". Мы предлагаем широкий спектр стоматологических услуг для всей семьи в Самарканд.',
-//   ogDescription: 'Добро пожаловать в стоматологическую клинику "Dental Implantology". Мы предлагаем широкий спектр стоматологических услуг для всей семьи в Самарканд.',
-// })
 
 const { getDoctors } = useDoctors()
 const { createRecord } = useInitialRecords()

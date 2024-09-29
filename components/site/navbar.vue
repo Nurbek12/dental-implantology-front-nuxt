@@ -7,9 +7,18 @@
                 </a>
 
                 <div class="hidden md:flex gap-8">
-                    <a v-for="link in site_links" :key="link.url" class="hover:text-primary-500 font-semibold text-gray-500 text-sm" :href="link.url">
-                        {{ $t(link.title) }}
-                    </a>
+                    <template v-for="link in site_links" :key="link.url">
+                        <template v-if="route.path === '/'">
+                            <a class="hover:text-primary-500 font-semibold text-gray-500 text-sm" :href="link.url">
+                                {{ $t(link.title) }}
+                            </a>
+                        </template>
+                        <template v-else>
+                            <nuxt-link class="hover:text-primary-500 font-semibold text-gray-500 text-sm" :to="'/'+link.url">
+                                {{ $t(link.title) }}
+                            </nuxt-link>
+                        </template>
+                    </template>
                 </div>
                 
                 <div class="flex items-center gap-2">

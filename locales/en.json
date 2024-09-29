@@ -8,6 +8,8 @@
         "call": "Call now"
     },
     "home": {
+        "header-every-day-work": "We work {br} {tag} around the clock {tagclose} {br} and {tag} seven days a week {tagclose}",
+
         "header-subtitle": "Healthy smile with our help!",
         "header-title": "The best dentistry {tag} in Samarkand – {tag} Dental Implantology {svg} {tag} Center",
         "header-description": "Your reliable dentistry in Samarkand - Dental Implantalogy Center For professional dental care in Samarkand, contact the Dental Implantalogy Center. Our team offers a wide range of services, including dental implants, teeth whitening, and tooth decay treatment. If you are looking for aesthetic dentistry or a solution to the problem of missing teeth in Samarkand, our clinic is your best choice.",
@@ -84,6 +86,7 @@
         "title": "Our services",
         "all-services": "All Services",
         "popular-title": "Popular services",
+        "list-of-services": "List of all our services",
         "description": "We offer a wide range of dental services, from preventive examinations to complex surgical interventions. Learn more about how we can help you maintain a healthy, beautiful smile."
     },
     "contacts": {

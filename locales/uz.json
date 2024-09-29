@@ -8,8 +8,10 @@
         "call": "Qo'ng'iroq qilish"
     },
     "home": {
+        "header-every-day-work": "Biz {tag} kechayu {br} kunduz {tagclose} va {tag} har {br} kuni ishlaymiz {tagclose}",
+
         "header-subtitle": "Yordamimiz bilan sog'lom tabassum!",
-        "header-title": "Samarqanddagi eng {tag} yaxshi stomatologiya – {tag} Dental implantologiya {svg} {tag} markazi",
+        "header-title": "Samarqanddagi eng {tag} yaxshi stomatologiya – {tag} Dental Implantalogy {svg} {tag} Center",
         "header-description": "Samarqanddagi ishonchli stomatologiyangiz - Tish Implantalogiya Markazi Samarqand shahridagi professional stomatologik yordam uchun Dental Implantalogiya Markaziga murojaat qiling. Bizning jamoamiz tish implantlari, tishlarni oqartirish va tishlarni karisini davolash kabi keng turdagi xizmatlarni taklif etadi. Agar siz Samarqandda estetik stomatologiya yoki etishmayotgan tishlar muammosiga yechim izlayotgan bo'lsangiz, bizning klinikamiz sizning eng yaxshi tanlovingizdir.",
         
         "home-card-1-title": "Profilaktik tekshiruv",
@@ -78,6 +80,7 @@
         "title": "Bizning xizmatlarimiz",
         "all-services": "Barcha xizmatlar",
         "popular-title": "Ommabop xizmatlar",
+        "list-of-services": "Barcha xizmatlarimiz ro'yxati",
         "description": "Biz profilaktik tekshiruvlardan tortib, murakkab jarrohlik aralashuvlariga qadar keng turdagi stomatologik xizmatlarni taklif etamiz. Sog'lom va go'zal tabassumingizni saqlashda sizga qanday yordam berishimiz mumkinligi haqida ko'proq bilib oling."
     },
     "contacts": {
