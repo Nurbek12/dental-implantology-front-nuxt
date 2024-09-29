@@ -1,25 +1,25 @@
 <template>
     <site-navbar />
 
-    <header class="bg-[#F1F8FF] relative flex items-center h-full">
+    <header class="bg-[#F1F8FF] flex items-center min-h-screen">
         
-        <div class="container h-full relative pt-32 pb-10">
+        <div class="container relative pt-24 pb-10">
             <tooth-svg class="absolute" />
             <tools-svg class="absolute bottom-80 md:bottom-44 right-0" />
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4 h-full relative mb-4 md:mb-0">
+
                 <div class="hidden md:flex px-0 lg:px-20 items-end relative">
                     <div class="flex justify-center items-end">
                         <doctor-back class="absolute scale-[75%] object-bottom translate-y-20 z-0" />
                         <nuxt-img src="/images/dr-ikramov.png" class="w-[360px] h-[460px] relative object-contain object-bottom" alt="Dr. Ikramov" />
                     </div>
-                    <card-doctor-info class="absolute right-10 top-5" :doctor="{
-                        first_name: 'Мехрож',
-                        last_name: 'Икрамов',
-                        middle_name: 'Рустамович',
-                        rating: 4.9,
-                        experience: 12,
-                    }" />
+                    <div class="absolute top-10 right-10 rounded-xl w-[240px] h-[130px] p-6 flex justify-center items-center shadow-lg shadow-primary-600/10 bg-white/45">
+                        <p class="font-semibold text-lg relative">
+                            Работаем <span class="text-primary-600">круглосуточно</span> <br> и <span class="text-primary-600">без выходных</span>
+                        </p>
+                        <svg-24-7 class="absolute z-0 right-5" />
+                    </div>
                 </div> 
 
                 <div class="text-center sm:text-left relative z-20">
@@ -27,6 +27,7 @@
                     <h1 style="line-height: 1.2;" class="text-2xl md:text-4xl font-extrabold font-manarope mt-4 relative" v-html="$t('home.header-title', { tag: '<br>', svg: '<span draw-line></span>' })"></h1>
                     <p class="text-gray-700 text-sm md:text-base mt-4" v-html="$t('home.header-description')"></p>
                 </div>
+
             </div>
 
             <div class="relative">
@@ -94,32 +95,40 @@
             </div>
         </section>
 
-        <section class="py-12 container">
+        <section class="pt-12 container">
             <div class="grid gap-2 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                 <card-review v-for="review,i in reviews" :item="review" :key="i" />
             </div>
         </section>
         
-        <section class="py-24 container" id="services">
+        <section class="pt-24 pb-12 container" id="services">
             <div class="flex flex-col text-center w-full mb-16">
-                <div class="mb-4">
-                    <span class="w-min rounded border border-primary-200 text-primary-500 px-3 py-1.5 text-sm">{{ $t('services.subtitle') }}</span>
+                <div class="mb-2 flex items-center flex-col gap-2">
+                    <svg-subtitle-tooth />
+                    <span class="text-primary-500 text-sm font-semibold">{{ $t('services.subtitle') }}</span>
                 </div>
-                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">{{ $t('services.title') }}</h1>
-                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">{{ $t('services.description') }}</p>
+                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">{{ $t('services.popular-title') }}</h1>
+                <p class="lg:w-2/3 mx-auto leading-relaxed text-sm">{{ $t('services.description') }}</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <card-service2 v-for="service,i in services" :item="service" :key="i" />
+            </div>
+            <div class="flex justify-center pt-12">
+                <nuxt-link to="/services" class="text-primary-600 bg-primary-100 hover:bg-primary-200 px-6 py-2.5 rounded-md text-sm font-bold flex items-center gap-2">
+                    {{ $t('services.all-services') }}
+                    <AkChevronRightSmall class="size-5" />
+                </nuxt-link>
             </div>
         </section>
 
         <section class="py-24 container" id="doctors">
             <div class="flex flex-col text-center w-full mb-10">
-                <div class="mb-4">
-                    <span class="w-min rounded border border-primary-200 text-primary-500 px-3 py-1.5 text-sm">{{ $t('doctors.subtitle') }}</span>
+                <div class="mb-2 flex items-center flex-col gap-2">
+                    <svg-subtitle-tooth />
+                    <span class="text-primary-500 text-sm font-semibold">{{ $t('doctors.subtitle') }}</span>
                 </div>
                 <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">{{ $t('doctors.title') }}</h1>
-                <p class="lg:w-2/3 mx-auto leading-relaxed text-base">{{ $t('doctors.description') }}</p>
+                <p class="lg:w-2/3 mx-auto leading-relaxed text-sm">{{ $t('doctors.description') }}</p>
             </div>
 
             <div class="grid gap-6 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
@@ -129,7 +138,7 @@
             </div>
         </section>
 
-        <section class="py-12 container">
+        <section class="pb-12 container">
             <div class="bg-blue-50 rounded-lg p-8">
 
                 <div class="w-full">
@@ -144,14 +153,14 @@
             </div>
         </section>
 
-        <section class="py-12 container">
-            <div class="flex justify-center mb-8">
-                <div class="text-center">
-                    <site-content
-                        :title="$t('home.home-faqs-subtitle')"
-                        :subtitle="$t('home.home-faqs-title')"
-                        :description="$t('home.home-faqs-description')" />
+        <section class="pt-12 container">
+            <div class="flex flex-col text-center w-full mb-8">
+                <div class="mb-2 flex items-center flex-col gap-2">
+                    <svg-subtitle-tooth />
+                    <span class="text-primary-500 text-sm font-semibold">{{ $t('home.home-faqs-subtitle') }}</span>
                 </div>
+                <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">{{ $t('home.home-faqs-title') }}</h1>
+                <p class="lg:w-2/3 mx-auto leading-relaxed text-sm">{{ $t('home.home-faqs-description') }}</p>
             </div>
             
             <site-faqs />
@@ -159,60 +168,35 @@
 
         <section class="py-24 container" id="contacts">           
 
-            <div class="bg-[#f1f8ff] md:mt-16 rounded-lg p-6 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+            <div class="bg-[#f1f8ff] md:mt-16 rounded-2xl p-6 md:p-10 grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+
+                <tooth-svg class="absolute z-0 bottom-5 left-[25%] -rotate-45" />
+                <tools-svg class="absolute bottom-44 left-[40%]" />
                 <site-content
                     :subtitle="$t('contacts.form-title')"
-                    :title="$t('contacts.title', { tag: '' })"
-                    :description="$t('contacts.description', { tag: '' })">
-                    <!-- <form action=""> -->
-                        <site-btn @click="dialogContact=true" class="w-min text-nowrap">{{ $t('form.order-call') }}</site-btn>
-                    <!-- </form> -->
+                    :title="$t('contacts.title')"
+                    :description="$t('contacts.description')">
+                    <form @submit.prevent="handleRecord" class="space-y-4 md:w-[60%] mt-10 relative">
+                        <site-input v-model="record.first_name" required :placeholder="$t('form.placeholder-name')" />
+                        <site-input v-model="record.phone" required :placeholder="$t('form.placeholder-phone')" />
+                        <site-btn type="submit">{{ $t('form.order-call') }}</site-btn>
+                    </form>
                 </site-content>
                 <div class="relative w-full hidden md:block">
-                    <nuxt-img class="relative md:absolute -bottom-10 right-0 md:max-w-[500px]" src="/images/DSCF0029.webp" />
+                    <nuxt-img class="relative md:absolute -bottom-10 h-[120%] w-[120%] object-contain" src="/images/DSCF0029.webp" />
                 </div>
+
             </div>
 
         </section>
     </main>
-
-    <app-dialog :title="$t('form.review-form-title')" @close-dialog="review.doctor=null" rounded v-model="dialogReview">
-        <form @submit.prevent="handleReview" class="space-y-4 w-full">
-            <div class="grid grid-cols-2 gap-2 w-full mt-4">
-                <site-input v-model="review.first_name" required :placeholder="$t('form.first-name')" :label="$t('form.first-name')" />
-                <site-input v-model="review.last_name" required :placeholder="$t('form.last-name')" :label="$t('form.last-name')" />
-            </div>
-            <site-textarea v-model="review.review" required :placeholder="$t('form.message-of-review')" :label="$t('form.message')" :rows="6" />
-            <site-rating v-model="review.rate" />
-            <site-btn type="submit">{{ $t('form.send') }}</site-btn>
-        </form>
-    </app-dialog>
-
-    <app-dialog :title="$t('contacts.subtitle')" rounded v-model="dialogContact">
-        <form @submit.prevent="handleRecord" class="bg-white flex flex-col w-full">
-            <p class="leading-relaxed my-2 text-gray-600">{{ $t('contacts.form-description') }}</p>
-            <div class="space-y-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-2 w-full">
-                    <site-input required v-model="record.first_name" :placeholder="$t('form.first-name')" :label="$t('form.first-name')" />
-                    <site-input required v-model="record.last_name" :placeholder="$t('form.last-name')" :label="$t('form.last-name')" />
-                </div>
-                <site-input required v-model="record.phone" placeholder="example@mail.com" :label="$t('form.email')" />
-                <client-only>
-                    <site-textarea required v-model="record.comment" :placeholder="$t('form.message-of-review')" :label="$t('form.message')" />
-                </client-only>
-                <site-btn type="submit" class="w-full">{{ $t('form.send') }}</site-btn>
-            </div>
-            <p class="text-xs text-gray-500 mt-3">{{ $t('contacts.form-description-1') }}</p>
-        </form>
-    </app-dialog>
-
     <site-footer />
 </template>
 
 <script setup lang="ts">
 import type { IDoctor, IRatings } from '~/types'
 import { index_cards, index_statistics, slider_images, services } from '~/constants'
-import { BxSolidBadgeCheck, BxUser, FePhone, } from '@kalimahapps/vue-icons'
+import { BxSolidBadgeCheck, BxUser, FePhone, AkChevronRightSmall, } from '@kalimahapps/vue-icons'
 
 useHead({
     title: "Стоматология Dental Implantology - Ваш путь к здоровой улыбке",

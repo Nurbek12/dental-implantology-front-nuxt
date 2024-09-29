@@ -1,7 +1,8 @@
 <template>
     <div class="flex flex-col gap-4">
-        <div v-if="!!subtitle" class="mb-2">
-            <span class="rounded border border-primary-300 text-primary-600 px-2 py-1 md:px-4 md:py-2 text-xs md:text-sm font-medium" v-html="subtitle"></span>
+        <div v-if="!!subtitle" class="flex items-center justify-start gap-2">
+            <svg-subtitle-tooth />
+            <span class="text-primary-600 text-sm md:text-sm font-semibold" v-html="subtitle"></span>
         </div>
         <h1 class="text-2xl md:text-4xl font-medium" v-if="title" v-html="title"></h1>
         <p class="text-gray-700" v-if="description" v-html="description"></p>
@@ -13,6 +14,7 @@
 defineProps<{
     title?: string,
     subtitle?: string,
+    subtitle_inline?: boolean,
     description?: string,
 }>()
 </script>

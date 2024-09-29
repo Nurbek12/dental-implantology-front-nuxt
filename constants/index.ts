@@ -22,6 +22,10 @@ import {
     ReMoneyDollarCircleLine,
     LuUserCog,
     CoWallet,
+    CoBrandTelegramPlane,
+    AnFilledInstagram,
+    LaFacebookF,
+    AkYoutubeFill,
 } from '@kalimahapps/vue-icons'
 
 export const index_cards = [
@@ -76,7 +80,13 @@ export const site_links = [
     { icon: GlStatusHealth, title: 'nav.services', url: '#services' },
     { icon: MaDoctor, title: 'nav.doctors', url: '#doctors' },
     { icon: CaPhone, title: 'nav.contacts', url: '#contacts' },
-    // <FlDataUsage/>
+]
+
+export const social_links = [
+    { icon: CoBrandTelegramPlane, link: 'https://t.me/drikramov' },
+    { icon: AnFilledInstagram, link: 'https://www.instagram.com/drikramov.uz/' },
+    { icon: LaFacebookF, link: 'https://www.facebook.com/people/DrIkramov/100067140900797/' },
+    { icon: AkYoutubeFill, link: 'https://www.youtube.com/channel/UC4snULI68gU11HVJEA_316Q' },
 ]
 
 export const getTimeDifferenceInMilliseconds = (time1: string, time2: string) => {

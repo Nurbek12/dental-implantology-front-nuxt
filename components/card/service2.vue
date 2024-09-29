@@ -1,9 +1,8 @@
 <template>
-    <div class="p-4 rounded-xl space-y-4">
+    <div class="p-6 rounded-[18px] space-y-4 transition-shadow hover:shadow-lg shadow-black/5">
         <img :src="item.icon">
-        <h1 class="text-primary-600 text-xl font-medium">{{ item.title.ru }}</h1>
-        <p class="text-base font-light">{{ item.description.ru }}</p>
-        <button class="px-6 py-2 rounded-full border text-primary-600 border-primary-600 text-sm font-medium">Подробнее</button>
+        <h1 class="text-primary-600 text-lg font-medium">{{ item.title.ru }}</h1>
+        <p class="text-sm font-light text-[#7D7F8C]">{{ item.description.ru }}</p>
     </div>
 </template>
 

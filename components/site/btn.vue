@@ -1,6 +1,6 @@
 <template>
     <button
-        class="inline-flex items-center justify-center gap-x-2 text-sm font-semibold rounded disabled:opacity-50 disabled:pointer-events-none border-2 border-transparent text-white"
+        class="inline-flex items-center justify-center gap-x-2 text-sm font-semibold rounded-md disabled:opacity-50 disabled:pointer-events-none border-2 border-transparent text-white"
         @click="$emit('click')"
         aria-label="button"
         :type="type||'button'"

@@ -8,7 +8,7 @@
         "call": "Call now"
     },
     "home": {
-        "header-subtitle": "👋Healthy smile with our help!",
+        "header-subtitle": "Healthy smile with our help!",
         "header-title": "The best dentistry {tag} in Samarkand – {tag} Dental Implantology {svg} {tag} Center",
         "header-description": "Your reliable dentistry in Samarkand - Dental Implantalogy Center For professional dental care in Samarkand, contact the Dental Implantalogy Center. Our team offers a wide range of services, including dental implants, teeth whitening, and tooth decay treatment. If you are looking for aesthetic dentistry or a solution to the problem of missing teeth in Samarkand, our clinic is your best choice.",
         
@@ -82,6 +82,8 @@
     "services": {
         "subtitle": "Wide range of treatments",
         "title": "Our services",
+        "all-services": "All Services",
+        "popular-title": "Popular services",
         "description": "We offer a wide range of dental services, from preventive examinations to complex surgical interventions. Learn more about how we can help you maintain a healthy, beautiful smile."
     },
     "contacts": {
@@ -94,7 +96,7 @@
     },
     "footer": {
         "description": "We offer a wide range of services to keep your smile healthy. Our experienced specialists use modern technologies and an individual approach to each patient. Contact us to make an appointment and consultation.",
-        "concats-title": "Contacts",
+        "concats-title": "Our contacts",
         "address": "Samarkand, Dakhbed street, 168A",
         "working-time-tilte": "Opening hours",
         "sun": "Sunday Closed",
@@ -104,6 +106,10 @@
         "thu": "Thursday 08:00–18:00",
         "fri": "Friday 08:00–18:00",
         "sat": "Saturday 08:00–18:00",
+        "social-links": "We are on social networks",
+        "social-text": "Subscribe to receive the latest news and special offers for customers",
+        "subtitle": "Another small advertisement for the clinic",
+        "subtitle-2": "Our clinic is open 24 hours a day, 7 days a week!",
 
         "links-title": "Quick links",
         "copy": "Dentistry \"Dental Implantology\". All rights reserved."
@@ -135,6 +141,7 @@
     "others": {
         "doctor-rating": "Doctor rating",
         "experience": "Experience: {year} years",
+        "specialization": "Specialization",
         "add-comment": "Leave a comment"
     }
 }

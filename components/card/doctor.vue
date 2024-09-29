@@ -1,20 +1,12 @@
 <template>
-    <div>
-        <div class="h-[300px] relative overflow-hidden rounded-2xl">
+    <div class="group transition-shadow hover:shadow-lg shadow-black/5 rounded-2xl">
+        <div class="h-[300px] transition-all group-hover:rounded-b-none relative overflow-hidden rounded-2xl">
             <nuxt-img :src="doctor?.avatar || '/images/nophoto.jpg'" class="w-full h-full object-cover relative z-10" alt="" />
-            <!-- <img :src="doctor?.avatar || '/images/nophoto.jpg'" class="w-full h-full object-cover absolute top-0 z-0 opacity-30 blur-sm" alt="" /> -->
         </div>
-        <div class="p-2 space-y-1">
-            <h1 class="font-medium text-lg">{{ doctor.first_name }} {{ doctor.last_name }} {{ doctor.middle_name }}</h1>
-            <p class="text-[#7D7F8C] font-medium"> {{ $t('others.experience', {year: props.doctor.experience}) }}</p>
-            <div class="flex items-end gap-4">
-                <div>
-                    <p class="text-[#7D7F8C] font-medium mb-1">{{ $t('others.doctor-rating') }}:</p>
-                    <site-rating readonly :model-value="Math.ceil(props.doctor.rating!)" />
-                </div>
-                <span class="text-3xl">{{ props.doctor.rating }}/5</span>
-            </div>
-            <!-- <site-btn size="medium" class="mt-4" @click="$emit('add-comment')">{{ $t('others.add-comment') }}</site-btn> -->
+        <div class="p-4 pt-2 space-y-1">
+            <h1 class="font-semibold text-primary-600 text-[20px]">{{ doctor.first_name }} {{ doctor.last_name }} {{ doctor.middle_name }}</h1>
+            <p class="text-[#7D7F8C] font-medium text-sm"> {{ $t('others.experience', {year: props.doctor.experience}) }}</p>
+            <!-- <p class="text-[#7D7F8C] font-medium text-sm"> <b>{{ $t('others.specialization') }}:</b> {{props.doctor}}</p> -->
         </div>
     </div>
 </template>
