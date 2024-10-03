@@ -1,6 +1,4 @@
 <template>
-    <site-navbar />
-
     <header class="bg-[#F1F8FF] flex items-center min-h-screen">
         
         <div class="container relative pt-24 pb-10">
@@ -17,7 +15,7 @@
                     <div class="absolute top-10 right-10 rounded-xl w-[240px] h-[130px] p-6 pr-2 flex justify-start items-center shadow-lg shadow-primary-600/10 bg-white/45">
                         <p class="font-semibold text-lg relative text-left" v-html="$t('home.header-every-day-work', {br: '<br>', tag: '<span class=\'text-primary-600\'>', tagclose: '</span>'})">
                         </p>
-                        <svg-24-7 class="absolute z-0 right-2" />
+                        <svg-24-7 class="absolute z-0 right-4" />
                     </div>
                 </div> 
 
@@ -189,7 +187,6 @@
 
         </section>
     </main>
-    <site-footer />
 </template>
 
 <script setup lang="ts">
@@ -205,13 +202,15 @@ useHead({
     ]
 })
 
-const { getDoctors } = useDoctors()
-const { createRecord } = useInitialRecords()
-const { getRatings, createRating } = useRatings()
+definePageMeta({
+    layout: 'home-layout'
+})
 
-const dialog = ref(false)
+const { getDoctors } = useDoctors()
+const { getRatings } = useRatings()
+const { createRecord } = useInitialRecords()
+
 const dialogReview = ref(false)
-const dialogContact = ref(false)
 const doctors = ref<IDoctor[]>([])
 const reviews = ref<IRatings[]>([])
 const record = reactive({
@@ -261,12 +260,6 @@ const handleRecord = async () => {
             comment: ""  
         })
     }
-}
-
-const handleReview = async () => {
-    await createRating(review)
-    dialog.value = false
-    alert('Successfully sended')
 }
 
 const init = async () => {

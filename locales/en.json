@@ -8,7 +8,7 @@
         "call": "Call now"
     },
     "home": {
-        "header-every-day-work": "We work {br} {tag} around the clock {tagclose} {br} and {tag} seven days a week {tagclose}",
+        "header-every-day-work": "{tag} 24 hours {br} 7 days {tagclose} a weekly {br} at your service",
 
         "header-subtitle": "Healthy smile with our help!",
         "header-title": "The best dentistry {tag} in Samarkand – {tag} Dental Implantology {svg} {tag} Center",

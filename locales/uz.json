@@ -8,7 +8,7 @@
         "call": "Qo'ng'iroq qilish"
     },
     "home": {
-        "header-every-day-work": "Biz {tag} kechayu {br} kunduz {tagclose} va {tag} har {br} kuni ishlaymiz {tagclose}",
+        "header-every-day-work": "{tag} Har {br} kuni 24 soat {tagclose} siz {br} uchun xizmatda",
 
         "header-subtitle": "Yordamimiz bilan sog'lom tabassum!",
         "header-title": "Samarqanddagi eng {tag} yaxshi stomatologiya – {tag} Dental Implantalogy {svg} {tag} Center",
