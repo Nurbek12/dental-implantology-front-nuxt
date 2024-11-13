@@ -21,8 +21,8 @@ const { handleLogin } = useAuth()
 const err = ref(false)
 const loading = ref(false)
 const form_data = reactive({
-    phone: '+998679050005',
-    password: 'password2'
+    phone: '',
+    password: ''
 })
 
 const login = async () => {
