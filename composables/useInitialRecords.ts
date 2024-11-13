@@ -1,17 +1,13 @@
-import type { IInitialRecord } from '~/types'
-
 export const useInitialRecords = () => {
-    const getRecords = (params: any) => $fetch<{
-        count: number
-        page_count: number
-        results: IInitialRecord[]
-    }>(`/initial-records/`, { params })
+    const { $api } = useNuxtApp()
 
-    const createRecord = (data: any) => $fetch(`/initial-records/`, { method: 'post', body: data })
+    const getRecords = (params: any) => $api(`/initial-records`, { params })
 
-    const updateRecord = (id: number, data: Partial<IInitialRecord>) => $fetch(`/initial-records/${id}/`, { method: 'patch', body: data })
+    const createRecord = (data: any) => $api(`/initial-records`, { method: 'post', body: data })
 
-    const deleteRecord = (id: any) => $fetch(`/initial-records/${id}/`, { method: 'delete' })
+    const updateRecord = (id: number, body: any) => $api(`/initial-records/{id}`, { path: { id }, method: 'PATCH', body })
+
+    const deleteRecord = (id: any) => $api(`/initial-records/{id}`, { path: { id },  method: 'DELETE' })
 
     return {
         getRecords,

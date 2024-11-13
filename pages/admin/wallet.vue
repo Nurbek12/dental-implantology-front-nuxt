@@ -11,8 +11,8 @@
             @fetching="getItems">
             <template #table-top>
                 <div class="h-full w-full py-1">Счет: {{ balance }} сумов</div>
-                <div class="hidden lg:block"></div>
-                <div class="hidden lg:block"></div>
+                <div class="hidden md:block"></div>
+                <div class="hidden md:block"></div>
             </template>
             <template #table-item-id="{index}">
                 <span class="text-xs">{{ index+1 }}</span>

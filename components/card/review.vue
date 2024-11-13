@@ -6,15 +6,13 @@
                 <span class="text-sm text-gray-500 group-hover:text-gray-100">{{ new Date(item.created_at!).toDateString() }}</span>
             </client-only>
         </div>
-        <site-rating :model-value="item.rate" readonly />
+        <app-rating :model-value="item.rate" readonly />
         <p class="text-sm">{{ item.review }}</p>
     </div>
 </template>
 
 <script setup lang="ts">
-import type { IRatings } from '~/types'
-
 defineProps<{
-    item: IRatings
+    item: any
 }>()
 </script>

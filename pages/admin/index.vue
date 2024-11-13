@@ -24,13 +24,13 @@
 <script setup lang="ts">
 const user = useUserData()
 const router = useRouter()
-const tab_data = reactive<any>({})
 
 definePageMeta({
   layout: 'admin-layout',
   middleware: ['auth'],
 })
 
-if(user.value?.user_type === 'DOCTOR') router.push('/admin/appointments-doctors')
-if(user.value?.user_type === 'SUPERUSER') router.push('/admin/appointments')
+if(!user.value) router.push('/login')
+if(user.value?.userRole === 'DOCTOR') router.push('/admin/appointments-doctors')
+if(user.value?.userRole === 'ADMIN') router.push('/admin/appointments')
 </script>

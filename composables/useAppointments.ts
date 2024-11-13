@@ -1,28 +1,31 @@
-import type { IAppointment } from "~/types"
+import type { Appointment } from "~/types"
 
 export default function useAppointments() {
-    const getAppointments = (params: any) => $fetch<{
-        count: number
-        page_count: number
-        results: IAppointment[]
-    }>(`/appointments/`, { params })
+    const { $api } = useNuxtApp()
 
-    const createAppointment = (data: any) => $fetch<IAppointment>(`/appointments/`, { method: 'post', body: data })
+    const getAppointments = (params: any) => $api(`/appointments`, { method: 'GET', query: params })
 
-    const updateAppointment = (id: number, data: any) => $fetch(`/appointments/${id}/`, { method: 'put', body: data })
+    const createAppointment = (body: any) => $api(`/appointments`, { method: 'post', body })
 
-    const deleteAppointment = (id: number) => $fetch(`/appointments/${id}/`, { method: 'delete' })
+    const updateAppointment = (id: number, body: any) => $api(`/appointments/{id}`, { path: { id }, method: 'PATCH', body })
 
-    const addProfitForAppointment = (id: number, data: any) => $fetch(`/appointments/${id}/add_profit/`, { method: 'post', body: data }) 
+    const deleteAppointment = (id: number) => $api(`/appointments/{id}`, { path: { id }, method: 'delete' })
 
-    const updateStatus = (id: number, data: any) => $fetch(`/appointments/${id}/`, { method: 'patch', body: data }) 
+
+    const createAppointmentMine = (body: any) => $api(`/appointments/mine`, { method: 'post', body })
+
+    const updateAppointmentMine = (id: number, body: any) => $api(`/appointments/mine/{id}`, { path: { id }, method: 'PATCH', body })
+
+    const deleteAppointmentMine = (id: number) => $api(`/appointments/mine/{id}`, { path: { id }, method: 'delete' })
 
     return {
-        updateStatus,
         getAppointments,
         createAppointment,
         updateAppointment,
         deleteAppointment,
-        addProfitForAppointment,
+        
+        createAppointmentMine,
+        updateAppointmentMine,
+        deleteAppointmentMine,
     }
 }

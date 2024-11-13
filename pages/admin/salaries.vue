@@ -11,7 +11,7 @@
             <template #table-top>
                 <div class="hidden lg:block"></div>
                 <div class="hidden lg:block"></div>
-                <site-btn @click="dialog=true" size="small">Добавить</site-btn>
+                <app-btn @click="dialog=true" size="small">Добавить</app-btn>
             </template>
             <template #table-item-id="{index}">
                 <span class="text-xs">{{ index+1 }}</span>
@@ -25,17 +25,17 @@
         </app-data-table>
     </div>
     
-    <app-dialog rounded title="Выдача заплаты" :open="dialog" @close-dialog="close">
+    <app-dialog rounded title="Выдача заплаты" v-model="dialog" @close-dialog="close">
         <form @submit.prevent="save" class="mt-4 flex flex-col gap-4">
-            <site-input required v-model="$item.date" type="date" label="Доктор" placeholder="Доктор" />
-            <site-select required v-model="$item.doctor" :items="doctors" name="first_name" value="id" label="Доктор" placeholder="Доктор" :nullvalue="null" />
+            <app-input required v-model="$item.date" type="date" label="Доктор" placeholder="Доктор" />
+            <app-select required v-model="$item.doctor" :items="doctors" name="first_name" value="id" label="Доктор" placeholder="Доктор" :nullvalue="null" />
 
-            <site-input required v-model="$item.amount" label="Сумма" placeholder="Сумма" type="number" />
-            <site-input required v-model="$item.title" label="Название заплаты" placeholder="Название заплаты" />
+            <app-input required v-model="$item.amount" label="Сумма" placeholder="Сумма" type="number" />
+            <app-input required v-model="$item.title" label="Название заплаты" placeholder="Название заплаты" />
 
-            <site-textarea v-model="$item.description" label="Описание заплаты" placeholder="Описание заплаты" />
+            <app-textarea v-model="$item.description" label="Описание заплаты" placeholder="Описание заплаты" />
             
-            <site-btn :disabled="createLoading" type="submit" size="small">{{ createLoading?'Загружается':'Сохранить' }}</site-btn>
+            <app-btn :disabled="createLoading" type="submit" size="small">{{ createLoading?'Загружается':'Сохранить' }}</app-btn>
         </form>
     </app-dialog>
 </template>
@@ -50,7 +50,7 @@ definePageMeta({
 })
 
 const { addSalary } = useReports()
-const { getDoctors } = useDoctors()
+// const { getDoctors } = useDoctors()
 const { getSalaries } = useSalaries()
 
 const dialog = ref(false)

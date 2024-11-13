@@ -1,7 +1,7 @@
 <template>
     <div class="border z-30 bg-white fixed md:sticky top-0 h-[100vh] transition-all flex flex-col" :class="isOpen ? 'w-[250px]' : 'w-[57px]'">
         <div class="p-2 flex flex-col gap-1">
-            <nuxt-link v-for="link, i in admin_links[userData?.user_type!]" :key="i" :to="link.url">
+            <nuxt-link v-for="link, i in admin_links[userData?.userRole as 'ADMIN']" :key="i" :to="link.url">
                 <div class="px-2 py-2 rounded w-full overflow-hidden flex whitespace-nowrap items-center gap-6 transition-all"
                     :class="current_router === link.url ? 'bg-primary-600 hover:bg-primary-700 text-white' : 'text-gray-500 hover:bg-gray-400/20'">
                     <div>
@@ -36,8 +36,7 @@ import { admin_links } from '@/constants'
 import { BxSolidChevronRight, BxLogOut } from "@kalimahapps/vue-icons"
 
 const userData = useUserData()
-const token = useAuthAccessToken()
-const rtoken = useAuthRefreshToken()
+const removeAuthData = useRemoveAuthData()
 
 const route = useRoute()
 const isOpen = ref(false)
@@ -49,9 +48,6 @@ const current_router = computed(() => {
 
 const logout = () => {
     if(!confirm('Хотите выйти из аккоунта?')) return
-    userData.value = null
-    token.value = null
-    rtoken.value = null
-    navigateTo('/login')
+    removeAuthData()
 }
 </script>

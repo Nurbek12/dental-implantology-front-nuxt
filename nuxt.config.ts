@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   devtools: { enabled: false },
   site: { indexable: true },
-  modules: ['@nuxt/image', '@nuxtjs/i18n', '@nuxtjs/sitemap', '@nuxtjs/robots', 'nuxt-delay-hydration'],
+  modules: ['nuxt-open-fetch', '@nuxt/image', '@nuxtjs/i18n', '@nuxtjs/sitemap', '@nuxtjs/robots', 'nuxt-delay-hydration'],
   ssr: false,
   css: ['~/assets/css/main.css'],
 
@@ -127,6 +127,15 @@ export default defineNuxtConfig({
         }
       ],
     },
+  },
+
+  openFetch: {
+    disableNuxtPlugin: true,
+    clients: {
+      api: {
+        baseURL: process.env.NUXT_API_URL
+      }
+    }
   },
 
   compatibilityDate: '2024-07-30',

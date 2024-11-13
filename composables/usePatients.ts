@@ -1,24 +1,25 @@
-import type { IPatient } from '~/types'
 
 export const usePatients = () => {
-    const runtimeConfig = useRuntimeConfig()
+    const { $api } = useNuxtApp()
 
-    const getPatients = (params: any) => $fetch<{
-        count: number
-        page_count: number
-        results: IPatient[]
-    }>(`/patients/`, { params })
+    const getPatients = (params: any) => $api('/patients', { params })
 
-    const createPatient = (data: any) => $fetch(`/patients/`, { method: 'post', body: data })
+    const createPatient = (body: any) => $api(`/patients`, { method: 'POST', body })
 
-    const updatePatient = (id: number, data: any) => $fetch(`/patients/${id}/`, { method: 'put', body: data })
+    const deletePatient = (id: any) => $api(`/users/{id}`, { method: 'DELETE', path: { id } })
 
-    const deletePatient = (id: any) => $fetch(`/users/${id}/`, { method: 'delete' })
+    const getPatient = (id: number, params: any = {}) => $api('/patients/{id}', { method: 'GET', path: { id }, query: params })
+
+    const updatePatient = (id: number, body: any) => $api(`/patients/{id}`, { method: 'PATCH', body, path: { id } })
+
+    const changePatientAvatar = (id: number, body: any) => $api('/patients/{id}/change-avatar', { method: "PATCH", path: { id }, body })
 
     return {
+        getPatient,
         getPatients,
         createPatient,
         updatePatient,
-        deletePatient
+        deletePatient,
+        changePatientAvatar,
     }
 }

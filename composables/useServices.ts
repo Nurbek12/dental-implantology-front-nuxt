@@ -1,17 +1,13 @@
-import type { IService } from '~/types'
-
 export default function useServices() {
-    const getServices = (params: any) => $fetch<{
-        count: number
-        page_count: number
-        results: IService[]
-    }>(`/services/`, { params })
+    const { $api } = useNuxtApp()
 
-    const createService = (data: any) => $fetch(`/services/`, { method: 'post', body: data })
+    const getServices = (params: any) => $api(`/services`, { params })
 
-    const updateService = (id: number, data: any) => $fetch(`/services/${id}/`, { method: 'put', body: data })
+    const createService = (body: any) => $api(`/services`, { method: 'POST', body })
 
-    const deleteService = (id: any) => $fetch(`/services/${id}/`, { method: 'delete' })
+    const deleteService = (id: number) => $api(`/services/{id}`, { path: { id }, method: 'DELETE' })
+
+    const updateService = (id: number, body: any) => $api(`/services/{id}`, { path: { id }, method: "PATCH", body })
 
     return {
         getServices,

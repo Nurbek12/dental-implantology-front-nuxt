@@ -1,11 +1,11 @@
 <template>
     <div class="w-full p-2">
         <div class="p-2 rounded border flex flex-col w-full md:flex-row justify-between items-center gap-2 bg-white">
-            <site-input class="w-full md:w-fit" v-model="filterdate" type="date" placeholder="Поиск" @changed="getItems($event.target.value)" />
+            <app-input class="w-full md:w-fit" v-model="filterdate" type="date" placeholder="Поиск" @changed="getItems($event.target.value)" />
             <div class="w-full md:w-fit flex items-center sm:flex-row flex-col gap-2">
-                <site-btn class="w-full md:w-fit" customColor="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="dialog1=true" size="small">Добавить прибыль</site-btn>
-                <site-btn class="w-full md:w-fit" customColor="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="dialog2=true" size="small">Добавить расход</site-btn>
-                <site-btn class="w-full md:w-fit" @click="dialog3=true" size="small">Добавить заплату</site-btn>
+                <app-btn class="w-full md:w-fit" customColor="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="dialog1=true" size="small">Добавить прибыль</app-btn>
+                <app-btn class="w-full md:w-fit" customColor="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="dialog2=true" size="small">Добавить расход</app-btn>
+                <app-btn class="w-full md:w-fit" @click="dialog3=true" size="small">Добавить заплату</app-btn>
             </div>
         </div>
 
@@ -34,7 +34,7 @@
                     </template>
                     
                     <template #table-item-price="{tableItem}">
-                        <span class="text-xs text-balance">{{ tableItem?.appointment?.price }}</span>
+                        <app-price :value="tableItem?.appointment?.price" class="text-xs text-balance" />
                     </template>
                     
                     <template #table-item-end_time="{tableItem}">
@@ -79,9 +79,9 @@
 
     </div>
     
-    <app-dialog rounded title="Добавить прибыль" :open="dialog1" @close-dialog="close">
+    <app-dialog rounded title="Добавить прибыль" v-model="dialog1" @close-dialog="close">
         <form @submit.prevent="saveProfit" class="mt-4 flex flex-col gap-4">
-            <site-auto-complete @updated="profit.amount = $event" v-model="profit.appointment" @inputed="searching" :loading="appoinmentLoading" :items="appointments" label="Прием" placeholder="Прием">
+            <app-auto-complete @updated="profit.amount = $event" v-model="profit.appointment" @inputed="searching" :loading="appoinmentLoading" :items="appointments" label="Прием" placeholder="Прием">
                 <template #item="acItem">
                     <div class="flex items-center gap-2 text-sm" @click="acItem.onSelected(`${acItem.item?.patient?.first_name} ${acItem.item?.patient?.last_name } - ${acItem.item?.service?.name_ru} : ${appointment_statuses[acItem.item?.status as keyof typeof appointment_statuses]?.[0]} . ${new Date(acItem.item?.created_at).toLocaleDateString()}`, acItem.item.id, acItem.item.price)">
                         <span>{{ acItem.item?.patient?.first_name }} {{ acItem.item?.patient?.last_name }} - {{ acItem.item?.service?.name_ru }} : </span>
@@ -91,47 +91,46 @@
                         </span>
                     </div>
                 </template>
-            </site-auto-complete>
-            <site-input readonly required v-model="profit.date" type="date" label="Дата прибыла" />
-            <site-input required v-model="profit.amount" type="number" label="Выплаченная сумма" placeholder="Выплаченная сумма" />
+            </app-auto-complete>
+            <app-input readonly required v-model="profit.date" type="date" label="Дата прибыла" />
+            <app-input required v-model="profit.amount" type="number" label="Выплаченная сумма" placeholder="Выплаченная сумма" />
 
-            <site-btn :disabled="createLoading" type="submit">
+            <app-btn :disabled="createLoading" type="submit">
                 {{ createLoading?'Загружается':'Сохранить' }}
-            </site-btn>
+            </app-btn>
         </form>
     </app-dialog>
 
-    <app-dialog rounded title="Добавить расход" :open="dialog2" @close-dialog="close">
+    <app-dialog rounded title="Добавить расход" v-model="dialog2" @close-dialog="close">
         <form @submit.prevent="saveConsumption" class="mt-4 flex flex-col gap-4">
-            <site-input readonly required v-model="consumption.date" type="date" label="Дата расхода" />
-            <site-input required v-model="consumption.title" label="Название расхода" placeholder="Название расхода" />
-            <site-input required v-model="consumption.amount" type="number" label="Выплаченная сумма" placeholder="Выплаченная сумма" />
-            <site-textarea v-model="consumption.description" label="Описание расхода" placeholder="Описание расхода" />
+            <app-input readonly required v-model="consumption.date" type="date" label="Дата расхода" />
+            <app-input required v-model="consumption.title" label="Название расхода" placeholder="Название расхода" />
+            <app-input required v-model="consumption.amount" type="number" label="Выплаченная сумма" placeholder="Выплаченная сумма" />
+            <app-textarea v-model="consumption.description" label="Описание расхода" placeholder="Описание расхода" />
             
-            <site-btn :disabled="createLoading" type="submit">
+            <app-btn :disabled="createLoading" type="submit">
                 {{ createLoading?'Загружается':'Сохранить' }}
-            </site-btn>
+            </app-btn>
         </form>
     </app-dialog>
 
-    <app-dialog rounded title="Выдача заплаты" :open="dialog3" @close-dialog="close">
+    <app-dialog rounded title="Выдача заплаты" v-model="dialog3" @close-dialog="close">
         <form @submit.prevent="createSalary" class="mt-4 flex flex-col gap-4">
-            <site-input readonly required v-model="salary.date" type="date" label="Дата заплаты" />
+            <app-input readonly required v-model="salary.date" type="date" label="Дата заплаты" />
 
-            <site-input required v-model="salary.title" label="Название заплаты" placeholder="Название заплаты" />
-            <site-select required v-model="salary.doctor" :items="doctors" name="first_name" value="id" label="Доктор" placeholder="Доктор" :nullvalue="null" />
-            <site-input required v-model="salary.amount" label="Сумма" placeholder="Сумма" type="number" />
+            <app-input required v-model="salary.title" label="Название заплаты" placeholder="Название заплаты" />
+            <app-select required v-model="salary.doctor" :items="doctors" name="first_name" value="id" label="Доктор" placeholder="Доктор" :nullvalue="null" />
+            <app-input required v-model="salary.amount" label="Сумма" placeholder="Сумма" type="number" />
 
-            <site-textarea v-model="salary.description" label="Описание заплаты" placeholder="Описание заплаты" />
+            <app-textarea v-model="salary.description" label="Описание заплаты" placeholder="Описание заплаты" />
             
-            <site-btn :disabled="createLoading" type="submit" size="small">{{ createLoading?'Загружается':'Сохранить' }}</site-btn>
+            <app-btn :disabled="createLoading" type="submit" size="small">{{ createLoading?'Загружается':'Сохранить' }}</app-btn>
         </form>
     </app-dialog>
 </template>
 
 <script setup lang="ts">
 import lodash from 'lodash'
-import type { IAppointment, IDoctor, IReport } from '@/types'
 import { todayDate, appointment_statuses } from '~/constants'
 
 definePageMeta({
@@ -139,7 +138,6 @@ definePageMeta({
   middleware: ['auth', 'role'],
 })
 
-const { getDoctors } = useDoctors()
 const { getAppointments } = useAppointments()
 const { getReports, addConsumption, addProfit, addSalary } = useReports()
 

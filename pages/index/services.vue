@@ -13,13 +13,13 @@
 
     <div class="relative container py-12">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <card-service1 v-for="item,i in items" :item="item" :key="i" />
+            <card-service v-for="item,i in items" :item="item" :key="i" />
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import type { IService } from '~/types'
+import type { Procedure } from '~/types'
 
 definePageMeta({
     layout: 'home-layout'
@@ -40,13 +40,12 @@ useSeoMeta({
   ogDescription: 'Предлагаем широкий спектр стоматологических услуг: лечение кариеса, имплантация, отбеливание зубов и многое другое. Узнайте больше о наших услугах.',
 })
 
-const { getServices } = useServices()
-const items = ref<IService[]>([])
+const { getProcedures } = useProcedures()
+const items = ref<Procedure[]>([])
 
 const init = async () => {
-    const data = await getServices({page: 1, limit: 12})
-    items.value = data.results
-    console.log(1)
+    const { data } = await getProcedures({page: 1, perPage: 100})
+    items.value = data as any 
 }
 
 await init()

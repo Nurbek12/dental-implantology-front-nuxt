@@ -1,432 +1,211 @@
-export interface IUser {}
+type UserRole = "ADMIN" | "DOCTOR";
 
-export interface IDoctor {
-    id?: number
-    last_login?: null | string
-    username?: string
-    first_name: string
-    last_name: string
-    date_joined?: string
-    password?: string
-    avatar?: string | null
-    phone: string
-    middle_name: string
-    birth_date: string
-    created_at?: string
-    updated_at?: string
-    user_type: "DOCTOR"
-    licences: string
-    experience: number
-    experiences: string
-    balance?: number
-    educations: string
-    certificates: string
-    content?: string
-    rating?: number
-    appointments?: IAppointment[]
-    is_published: boolean
+export type Specialty = "THERAPIST" | "ORTHOPEDIST" | "ORTHODONTIST" | "SURGEON" | "IMPLANTOLOGIST" | "PERIODONTIST" | "PEDIATRIC_DENTIST" | "DOCTORS_ASSISTANT";
+
+type Gender = "MALE" | "FEMALE";
+
+type XRayType = "INTRAORAL" | "ORTHOPANTOMOGRAM" | "CT" | "UPPER_LOWER_JAW_CT" | "UPPER_LOWER_JAW_AND_TMJ_JOINTS_CT" | "UPPER_JAW_AND_MAXILLARY_SINUSES_CT" | "LATERAL_PROJECTION_TRG" | "DIRECT_PROJECTION_TRG" | "SMV_PROJECTION_TRG" | "FOUR_SECTION_TMJ" | "SIX_SECTION_TMJ" | "OTHER";
+
+type BiteType = "ORTHOGNATHIC" | "PROGNATHIC" | "DIRECT" | "BIPROGNATHIC" | "DEEP" | "OPEN" | "CROSS" | "DISTAL";
+
+export type ToothCondition = "CARIES" | "FILLING" | "DEPULPED" | "PULPITIS" | "PERIODONTITIS" | "CROWN" | "ARTIFICIAL" | "IMPLANT" | "ROOT" | "MOBILITY" | "DEPOSITS" | "REMOVED";
+
+export type PaymentType = "CASH" | "CARD" | "TRANSFER" | "CREDIT";
+
+export type AlertMessageStatuses = 'SUCCESS' | 'INFO' | 'WARNING' | 'ERROR'
+
+export type AlertMessage = {
+  id: number
+  message: string
+  type: AlertMessageStatuses
 }
 
-export interface IPatient {
-    id?: number
-    last_login?: null | string
-    username?: string
-    first_name: string
-    last_name: string
-    date_joined?: string
-    avatar?: string | null
-    address?: string | null
-    phone: string
-    middle_name: string
-    birth_date: string
-    created_at?: string
-    updated_at?: string
-    user_type?: "SUPERUSER" | "DOCTOR"
+export type ToothConditionLocale = {
+  id?: number
+  isEdit?: boolean
+  toothNum: number
+  toothCondition: ToothCondition[]
 }
 
-export interface IAdmin extends IPatient {
-    
+export interface IUser {
+  userId: number
+  userRole: string | UserRole
 }
 
-export interface IUser extends IPatient {
-    
+export interface User {
+  id: number;
+  phone: string;
+  password: string;
+  refreshToken?: string | null;
+  firstName: string;
+  lastName: string;
+  middleName?: string | null;
+  avatar?: string | null;
+  email?: string | null;
+  address?: string | null;
+  birthDate: string;
+  balance: number;
+  specialties: Specialty[];
+  experience?: number | null;
+  content?: string | null;
+  rating: number;
+  isPublished: boolean;
+  role: UserRole;
+  createdAt: string;
+  updatedAt: string;
+  appointments: Appointment[];
+  patients: Patient[];
+  examinations: Examination[];
 }
 
-export interface ISpecialtie {
-    id: number
-    name_en: string
-    name_ru: string
-    name_uz: string
-    image: string
-    is_published: boolean
-    created_at: string
-    updated_at: string
-    doctor: number
-}
-
-export interface IServiceCategory {
-    id: number
-    name_en: string
-    name_ru: string
-    name_uz: string
-    image: string
-    is_published: boolean
-    created_at: string
-    updated_at: string
-}
-
-export interface IService {
-    id?: number
-    image?: string
-    slug: string
-    name_en: string
-    name_ru: string
-    name_uz: string
-    description_en: string
-    description_ru: string
-    description_uz: string
-    price_start: number
-    price_end: number
-    content: string
-    kpi_percent: number
-    is_published: boolean
-    created_at?: string
-    updated_at?: string
-    category?: string | null
-}
-
-export interface IInitialRecord {
-    id?: number,
-    first_name: string,
-    last_name: string,
-    phone: string,
-    comment: string,
-    is_active: boolean
-    created_at?: string
-}
-
-export interface IRatings {
-    id?: number
-    first_name: string
-    last_name: string
-    rate: number
-    review: string
-    created_at?: string
-    updated_at?: string
-    doctor?: null | IDoctor | number
-}
-
-export interface IAppointment {
-    id?: number
-    doctor: IUser | number | null
-    patient: IUser | number | null
-    service: IService | number | null
-    price: number
-    status: "PN" | "FP" | "PP" | "UP" | "CD"
-    date: string
-    start_time: string
-    end_time: string
-    profits?: {
-        id: number,
-        amount: number,
-        created_at: string,
-        updated_at: string,
-        report: number,
-        appointment: number
-    }[]
-    created_at?: string
-    updated_at?: string
-}
-
-export interface IReport {
-    id?: number,
-    profits: {
-        id: number,
-        amount: number,
-        created_at: string,
-        updated_at: string,
-        report: number,
-        appointment: number
-    }[],
-    consumptions: {
-        id: number,
-        title: string,
-        description: string,
-        amount: number,
-        created_at: string,
-        updated_at: string,
-        report: number
-    }[],
-    date: string,
-    total_profit: number,
-    total_consumption: number,
-    net_profit: number,
-}
-
-export interface ISalary {
-    id?: number
-    amount: number
-    comment?: string
-    date?: string
-    title?: string
-    description?: string
-    doctor: null | number | IDoctor
-    created_at?: string
-    updated_at?: string
-}
-
-
-
-
-export interface Stock {
-    id?: number
-    name?: string
-    name_ru: string
-    name_uz?: string
-
-    image?: string
-    thumb?: string
-    slug?: string
-    
-    description_ru: string
-    description_uz: string
-  
-    content: string
-    discount: number
-  
-    start_date: string
-    end_date: string
-  
-    created_at?: string
-    updated_at?: string
-}
-
-export interface Article {
-    id?: number
-    
-    slug?: string
-    author: string
-    title: string
-    description: string
-    image?: string
-    thumb?: string
-    content: string
-    images: string[]
-    publish: boolean
-  
-    created_at?: string
-    updated_at?: string
-}
-  
-export interface Specialty {
-    id?: number
-    name?: string
-    image?: string
-    thumb?: string
-
-    name_ru: string
-    name_uz: string
-  
-    // doctors_id?: string[]
-    doctors?: Doctor[]
-  
-    created_at?: string
-    updated_at?: string
-}
-  
-export interface Doctor {
-    id?: number
-    name?: string
-    image?: string
-    thumb?: string
-    
-    speciality?: Specialty[]
-    reviews?: Review[]
-
-    licences: string[]
-    experience: number | ''
-    experiences: string[]
-    educations: string[]
-    certificates: string[]
-    speciality_id: number[]
-    content: string
-
-    rating: number
-
-    phone?: string
-    tg: string
-    inst: string
-    fb: string
-    in: string
-    publish: boolean
-    laboratory: boolean
-
-    _count?: {
-        reviews?: number
-    }
-  
-    appointments?: Appointment[]
-  
-    created_at?: string
-    updated_at?: string
-}
-  
-export interface Service_Category {
-    id?: number
-    name?: string
-    name_ru: string
-    name_uz: string
-    image?: string
-    thumb?: string
-    
-    is_published?: boolean
-  
-    services?: Service[]
-  
-    created_at?: string
-    updated_at?: string
-}
-  
 export interface Service {
-    id?: number
-    
-    slug?: string
-    image?: string
-    thumb?: string
-    name_ru: string
-    name_uz: string
-  
-    description_ru: string
-    description_uz: string
-
-    category_id?: number | null
-    category?: Service_Category
-
-    content?: string
-  
-    price: number
-    publish: boolean
-  
-    created_at?: string
-    updated_at?: string
+  id: number;
+  title: string;
+  description?: string | null;
+  isPublic: boolean;
+  procedures: Procedure[];
 }
-  
-export interface FAQs {
-    id?: number
-    
-    title_ru?: string
-    title_uz?: string
-    content_ru?: string
-    content_uz?: string
-    publish: boolean
-  
-    created_at?: string
-    updated_at?: string
+
+export interface Procedure {
+  id: number;
+  code?: string | null;
+  title_en: string;
+  title_ru?: string | null;
+  title_uz?: string | null;
+  description_en?: string | null;
+  description_ru?: string | null;
+  description_uz?: string | null;
+  serviceId: number;
+  service: Service;
+  price: number;
+  kpi: number;
+  appointments: Appointment[];
+  treatments: Treatment[];
 }
-  
+
+export interface InitialRecord {
+  id: number;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  notes?: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Patient {
+  id: number;
+  firstName: string;
+  lastName: string;
+  middleName?: string | null;
+  phone: string;
+  additionalPhone?: string | null;
+  avatar?: string | null;
+  email?: string | null;
+  birthDate: string;
+  gender: Gender;
+  age: number;
+  address?: string | null;
+  balance: number;
+  additionalInformation?: any | null;
+  userId: number;
+  createdUser: User;
+  createdAt: string;
+  updatedAt: string;
+  appointments: Appointment[];
+  teeth: Tooth[];
+  initialExamination?: InitialExamination | null;
+}
+
 export interface Appointment {
-    id?: number
-  
-    name: string
-    phone: string
-    doctorid?: string
-    doctor?: Doctor
-    
-    check: boolean
-    
-    created_at?: string
-    updated_at?: string
-}
-  
-export interface Review {
-    id?: number
-  
-    firstname: string
-    lastname?: string
-    message: string
-    publish?: boolean
-    rate: number
-
-    doctor_id?: number
-    doctor?: Doctor
-    
-    created_at?: string
-    updated_at?: string
-}
-  
-export interface Admin {
-    id?: number
-    
-    login: string
-    password: string
-  
-    created_at?: string
-    updated_at?: string
+  id: number;
+  patientId: number;
+  patient: Patient;
+  doctorId: number;
+  doctor: User;
+  procedureId: number;
+  procedure: Procedure;
+  startDate: string;
+  endDate?: string | null;
+  description?: string | null;
+  createdAt: string;
+  updatedAt: string;
 }
 
-export interface News {
-    id?: number
-
-    slug?: string
-    title: string
-    description: string
-    image?: string
-    thumb?: string
-    date: string
-    publish: boolean
-  
-    content: string
-
-    created_at?: string
-    updated_at?: string
+export interface Tooth {
+  id: number;
+  num: number;
+  condition: ToothCondition[];
+  patientId: number;
+  patient: Patient;
+  images: string[];
+  xRayData: XRayData[];
+  examinations: Examination[];
 }
 
-export interface Equipment {
-    id?: number
-  
-    images: string[]
-    title: string
-    description: string
-    publish: boolean
-
-    created_at?: string
-    updated_at?: string
+export interface XRayData {
+  id: number;
+  examinationDate: string;
+  type: XRayType;
+  toothId: number;
+  tooth: Tooth;
+  amount: number;
+  dose: number;
+  conclusion?: string | null;
+  images: string[];
 }
 
-export interface Gallery {
-    id?: number
-    title: string
-    type?: string
-    cover: string
-    images: string[]
-    thumb?: string
-    video?: string
-    publish: boolean
-  
-    created_at?: string
-    updated_at?: string
+export interface InitialExamination {
+  id: number;
+  patientId: number;
+  patient: Patient;
+  toothExaminations: Examination[];
+  biteType?: BiteType | null;
+  indexGreenVermillion: number;
+  indexFedorovVolodkin: number;
+  objectiveExamData?: string | null;
+  oralMucosaCondition?: string | null;
+  xRayLabaratoryData?: string | null;
+  createdAt: string;
+  updatedAt: string;
 }
-  
-export interface Laboratory {
-    id?: number
-    name?: string
-    image?: string
-    thumb?: string
 
-    experience: string
-    education: string
-  
-    content?: String
-  
-    rating?: number
-  
-    phone?: string
-    tg: string
-    inst: string
-    fb: string
-    in: String
-    publish: boolean
-  
-    created_at?: string
-    updated_at?: string
+export interface Examination {
+  id: number;
+  toothId: number;
+  tooth: Tooth;
+  toothCondition: ToothCondition[];
+  userId: number;
+  createdUser: User;
+  isPaid?: boolean | null;
+  isInitial: boolean;
+  initialExaminatinId?: number | null;
+  initialExamination?: InitialExamination | null;
+  treatments: Treatment[];
+  createdAt: string;
+  updatedAt: string;
+  payments: Payment[];
+}
+
+export interface Treatment {
+  id: number;
+  procedureId: number;
+  procedure: Procedure;
+  examinationId: number;
+  examination: Examination;
+  isCompleted: boolean;
+  completedAt?: string | null;
+  price: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface Payment {
+  id: number;
+  examinationId: number;
+  examination: Examination;
+  amount: number;
+  type: PaymentType;
+  createdAt: string;
+  updatedAt: string;
 }

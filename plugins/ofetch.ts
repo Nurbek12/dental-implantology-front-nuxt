@@ -29,9 +29,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
             let userdata = useUserData()
             let tokenRef = useAuthAccessToken()
             let authToken = useAuthRefreshToken()
-            // console.log(authToken.value);
             
-
             if((response.status === 401 || response.status === 419 || response.status === 403)) {
                 if(authToken.value && tokenRef.value == null){
                     useAsyncData(() => 
@@ -45,10 +43,6 @@ export default defineNuxtPlugin(async (nuxtApp) => {
                         const typeofData = data.value as DataValueType
                         tokenRef.value = typeofData.access
                     }).catch((error) => {
-                        // console.log('sd');
-                        
-                        // console.log(error)
-                        // useLogout()
                         userdata.value = null
                         tokenRef.value = null
                         authToken.value = null
@@ -61,9 +55,6 @@ export default defineNuxtPlugin(async (nuxtApp) => {
                     navigateTo('/login')
                 }
             }
-            // else {
-            //     navigateTo('/login')
-            // }
         } 
     })
 })

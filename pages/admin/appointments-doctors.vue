@@ -1,4 +1,8 @@
 <template>
+    <div>Appp</div>
+</template>
+
+<!-- <template>
     <div class="w-full p-2">
         <app-data-table
             hide-search
@@ -9,10 +13,10 @@
             
             @fetching="getItems">
             <template #table-top>
-                <site-input v-model="filterdate" type="date" placeholder="Поиск" @changed="getItems({date:$event.target.value})" />
-                <div class="hidden lg:block"></div>
-                <div class="hidden lg:block"></div>
-                <site-btn v-if="user?.user_type === 'SUPERUSER'" @click="dialog=true" size="small">Добавить</site-btn>
+                <app-input v-model="filterdate" type="date" placeholder="Поиск" @changed="getItems({date:$event.target.value})" />
+                <div class="hidden md:block"></div>
+                <div class="hidden md:block"></div>
+                <app-btn v-if="user?.user_type === 'SUPERUSER'" @click="dialog=true" size="small">Добавить</app-btn>
                 <div v-else class="hidden lg:block"></div>
             </template>
             <template #table-item-image="{tableItem}">
@@ -46,20 +50,20 @@
             <template #table-item-actions="{tableItem,index}">
                 <div class="flex gap-1">
                     <client-only>
-                        <site-btn customColor="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="editItem(tableItem, index)" size="small">Изменить</site-btn>
-                        <site-btn customColor="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
+                        <app-btn customColor="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="editItem(tableItem, index)" size="small">Изменить</app-btn>
+                        <app-btn customColor="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="deleteItem(tableItem.id!, index)" size="small">Удалить</app-btn>
                     </client-only>
                 </div>
             </template>
         </app-data-table>
     </div>
     
-    <app-dialog :open="dialog" @close-dialog="close" title="Подробности приема" rounded>
+    <app-dialog v-model="dialog" @close-dialog="close" title="Подробности приема" rounded>
         <form @submit.prevent="save" class="bg-white w-full space-y-4 mt-4">
-            <site-input required v-model="$item.start_time" label="Дата начала" type="time" />
-            <site-input required v-model="$item.end_time" label="Дата окончания" type="time" />
+            <app-input required v-model="$item.start_time" label="Дата начала" type="time" />
+            <app-input required v-model="$item.end_time" label="Дата окончания" type="time" />
             
-            <site-auto-complete required v-if="!$item.id" v-model="($item.patient as number)" @inputed="searching" :loading="patientLoading" :items="patients" label="Пациент" placeholder="Пациент" :nullvalue="null">
+            <app-auto-complete required v-if="!$item.id" v-model="($item.patient as number)" @inputed="searching" :loading="patientLoading" :items="patients" label="Пациент" placeholder="Пациент" :nullvalue="null">
                 <template #item="acItem">
                     <div class="flex items-center gap-2" @click="acItem.onSelected(`${acItem.item.first_name} ${acItem.item.middle_name } ${acItem.item.last_name}`, acItem.item.id)">
                         <div>
@@ -71,12 +75,12 @@
                         </div>
                     </div>
                 </template>
-            </site-auto-complete>
-            <site-select required v-model="$item.status" :items="Object.keys(appointment_statuses).map(k => ({name:appointment_statuses[k as keyof typeof appointment_statuses][0], value:k}))" label="Статус" placeholder="Статус" :nullvalue="null" />
+            </app-auto-complete>
+            <app-select required v-model="$item.status" :items="Object.keys(appointment_statuses).map(k => ({name:appointment_statuses[k as keyof typeof appointment_statuses][0], value:k}))" label="Статус" placeholder="Статус" :nullvalue="null" />
             
-            <site-select required v-model="$item.service" :items="services" @changed="changePrice" name="name_ru" value="id" label="Услуга" placeholder="Услуга" :nullvalue="null" />
-            <site-input required v-model="$item.price" label="Цена" type="number" placeholder="Цена" />
-            <site-btn type="submit" :disabled="loading||!!$item.id||$item.service==null">Сохранить</site-btn>
+            <app-select required v-model="$item.service" :items="services" @changed="changePrice" name="name_ru" value="id" label="Услуга" placeholder="Услуга" :nullvalue="null" />
+            <app-input required v-model="$item.price" label="Цена" type="number" placeholder="Цена" />
+            <app-btn type="submit" :disabled="loading||!!$item.id||$item.service==null">Сохранить</app-btn>
 
             <div v-if="$item.id" class="mt-6 border-t border-gray-800 border-dashed">
                 <h1 class="my-2">Оплаты</h1>
@@ -148,7 +152,7 @@ const headers = [
     { name: "Дата окончания", value: "end_time", sortable: true, balancedText: false, custom: false },
     { name: "Дата создания", value: "created_at", sortable: true, balancedText: false, custom: true },
 ]
-user.value?.user_type === 'SUPERUSER' && headers.concat([
+user.value?.userRole === 'ADMIN' && headers.concat([
     { name: "Доктор", value: "doctor", sortable: false, balancedText: false, custom: true },
     { name: "Управление", value: "actions", sortable: false, balancedText: false, custom: true },
 ])
@@ -256,4 +260,4 @@ const searching = lodash.debounce(async (e) => {
 }, 500)
 
 init()
-</script>
+</script> -->

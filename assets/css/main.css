@@ -78,6 +78,10 @@
   font-variation-settings: "wdth" 100;
 }
 
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
 span[draw-line] {
   display: inline-flex;
   width: 30px;
@@ -99,4 +103,8 @@ span[draw-line] {
     html {
         font-family: "Manrope", system-ui, sans-serif;
     }
+}
+
+.red-svg {
+  filter: invert(26%) sepia(96%) saturate(2927%) hue-rotate(335deg) brightness(97%) contrast(103%);
 }

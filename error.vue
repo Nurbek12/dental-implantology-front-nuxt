@@ -9,7 +9,7 @@
             <h2 class="text-2xl">{{ $t('404.title') }}</h2>
             <p class="max-w-[500px]">{{ $t('404.description') }}</p>
             <nuxt-link to="/">
-                <site-btn size="medium">{{ $t('404.go-home') }}</site-btn>
+                <app-btn size="medium">{{ $t('404.go-home') }}</app-btn>
             </nuxt-link>
         </div>
     </nuxt-layout>

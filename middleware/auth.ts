@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware(async (to, from) => {
-    const cookie = useCookie('access-token').value
+    const cookie = useAuthAccessToken()
     
-    if(!cookie) navigateTo('/login', { external: true })
+    if(!cookie.value) navigateTo('/login', { external: true })
 })

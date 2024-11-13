@@ -16,8 +16,8 @@
             </template>
             <template #table-item-actions="{tableItem,index}">
                 <div class="flex gap-1">
-                    <site-btn customColor="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="updateStatus(tableItem.id!, index)" size="small" :disabled="!tableItem.is_active">{{tableItem.is_active?'Заверщать':'Просмотрено'}}</site-btn>
-                    <site-btn customColor="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="deleteItem(tableItem.id!, index)" size="small">Удалить</site-btn>
+                    <!-- <app-btn customColor="bg-green-600 hover:bg-green-500 active:bg-green-400 disabled:bg-green-300" @click="updateStatus(tableItem.id!, index)" size="small" :disabled="!tableItem.is_active">{{tableItem.is_active?'Заверщать':'Просмотрено'}}</app-btn> -->
+                    <app-btn customColor="bg-red-600 hover:bg-red-500 active:bg-red-400 disabled:bg-red-300" @click="deleteItem(tableItem.id!, index)" size="small">Удалить</app-btn>
                 </div>
             </template>
         </app-data-table>
@@ -26,35 +26,35 @@
 </template>
 
 <script setup lang="ts">
-import type { IInitialRecord } from '@/types'
+import type { InitialRecord } from '@/types'
 
 definePageMeta({
   layout: 'admin-layout',
   middleware: ['auth', 'role'],
 })
 
-const { getRecords, deleteRecord, updateRecord } = useInitialRecords()
+const { getRecords, deleteRecord } = useInitialRecords()
 
 const loading = ref(false)
 const count = ref<number>(0)
-const items = ref<IInitialRecord[]>([])
+const items = ref<InitialRecord[]>([])
 
 const headers = [
-    { name: "ID", value: "id", sortable: true, balancedText: false, custom: true },
-    { name: "Имя", value: "first_name", sortable: true, balancedText: false, custom: false },
-    { name: "Фамилия", value: "last_name", sortable: true, balancedText: false, custom: false },
+    { name: "No", value: "id", sortable: false, balancedText: false, custom: true },
+    { name: "Имя", value: "firstName", sortable: false, balancedText: false, custom: false },
+    { name: "Фамилия", value: "lastName", sortable: false, balancedText: false, custom: false },
     { name: "Телефон", value: "phone", sortable: false, balancedText: false, custom: false },
-    { name: "Комментарий", value: "comment", sortable: false, balancedText: true, custom: false },
-    { name: "Дата", value: "created_at", sortable: true, balancedText: false, custom: true },
+    { name: "Комментарий", value: "notes", sortable: false, balancedText: true, custom: false },
+    { name: "Дата", value: "createdAt", sortable: false, balancedText: false, custom: true },
     { name: "Управление", value: "actions", sortable: false, balancedText: false, custom: true },
 ]
 
 const getItems = async (params: any) => {
     try {
         loading.value = true
-        const data = await getRecords({...params, ordering: '-created_at'})
-        items.value = data.results
-        count.value = data.count
+        const data = await getRecords({ ...params })
+        items.value = data.data as any
+        count.value = data.meta.total
     } catch (error) {
         console.log(error)
     } finally {
@@ -66,11 +66,5 @@ const deleteItem = async (id: number, index: number) => {
     if(!confirm('Вы хотите удалить это?')) return
     await deleteRecord(id)
     items.value.splice(index, 1)
-}
-
-const updateStatus = async (id: number, index: number) => {
-    if(!confirm('Вы хотите заверщать этот запись?')) return
-    await updateRecord(id, { is_active: false })
-    items.value[index].is_active = false
 }
 </script>

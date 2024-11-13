@@ -1,7 +1,7 @@
 <template>
     <div>
-        <site-navbar />
+        <app-navbar />
         <slot />
-        <site-footer />
+        <app-footer />
     </div>
 </template>

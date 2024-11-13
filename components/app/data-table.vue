@@ -1,6 +1,6 @@
 <template>
-    <div v-show="!props.hideTop" class="p-2 rounded border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 bg-white">
-        <site-input v-show="!props.hideSearch" @inputed="search_items" placeholder="Поиск" />
+    <div v-show="!props.hideTop" class="p-2 rounded border grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 bg-white">
+        <app-input v-show="!props.hideSearch" @inputed="search_items" placeholder="Поиск" />
         <slot name="table-top" :handleFetch="handleFetching" />
     </div>
     <slot name="table-top-extra" :handleFetch="handleFetching" />
@@ -36,7 +36,7 @@
                         </td>
                     </tr>
                     <template v-for="item,i in items" :key="i">
-                        <tr @click="emits('row-click', i)" class="bg-white hover:bg-gray-50 border-b" :class="{'cursor-pointer active:bg-gray-200':props.cursoredRow}">
+                        <tr @click="emits('row-click', i, item)" class="bg-white hover:bg-gray-50 border-b" :class="{'cursor-pointer active:bg-gray-200':props.cursoredRow}">
                             <template v-for="h in props.headers" :key="h.value">
                                 <th scope="row" class="px-6 py-2 font-medium text-gray-900 whitespace-nowrap">
                                     <slot v-if="h.custom" :name="`table-item-${h.value}`" :table-item="item"  :table-value="h.value" :index="i" :open-tr="() => openRow(item.id)" :is-opened="item.id == expandRow" />
@@ -57,26 +57,26 @@
 
     <div v-show="!hideBottom" class="py-2 flex items-center justify-between">
         <div class="border rounded overflow-hidden w-full max-w-[100px]">
-            <select v-model="limit" @change="handleFetching()" class="bg-white px-3 py-2 w-full text-sm outline-none" placeholder="Поиск">
+            <select v-model="perPage" @change="handleFetching()" class="bg-white px-3 py-2 w-full text-sm outline-none" placeholder="Поиск">
                 <option :value="20" selected>20</option>
                 <option :value="50">50</option>
                 <option :value="100">100</option>
             </select>
         </div>
         <div class="border rounded flex items-center justify-between gap-4 bg-white p-2">
-            <span class="text-sm">{{ limit*(page-1)+1 }}-{{ limit*(page-1)+items.length }} / {{ count }}</span>
+            <span class="text-sm">{{ perPage*(page-1)+1 }}-{{ perPage*(page-1)+items.length }} / {{ count }}</span>
             <div class="flex items-center gap-2">
-                <site-btn size="small" :disabled="page===1" @click="page--,handleFetching()">
+                <app-btn size="small" :disabled="page===1" @click="page--,handleFetching()">
                     <AkChevronLeft />
-                </site-btn>
+                </app-btn>
 
-                <site-btn  v-if="totalPages===undefined" size="small" :disabled="page >= Math.ceil(count / limit)" @click="page++,handleFetching()">
+                <app-btn  v-if="totalPages===undefined" size="small" :disabled="page >= Math.ceil(count / perPage)" @click="page++,handleFetching()">
                     <AkChevronRight />
-                </site-btn>
+                </app-btn>
 
-                <site-btn  v-else size="small" :disabled="page >= totalPages" @click="page++,handleFetching()">
+                <app-btn  v-else size="small" :disabled="page >= totalPages" @click="page++,handleFetching()">
                     <AkChevronRight />
-                </site-btn>
+                </app-btn>
             </div>
         </div>
     </div>
@@ -85,7 +85,7 @@
 <script setup lang="ts">
 import lodash from 'lodash'
 import { ref, reactive, computed, toRefs, defineProps, defineEmits } from 'vue'
-import { CaArrowDown, AkChevronRight, AkChevronLeft, McLoading2Line, AnOutlinedSearch } from '@kalimahapps/vue-icons'
+import { CaArrowDown, AkChevronRight, AkChevronLeft, McLoading2Line } from '@kalimahapps/vue-icons'
 
 interface TableHeaders {
     name: string
@@ -116,7 +116,7 @@ const props = defineProps<Props>()
 const { count, items, loading, totalPages } = toRefs(props)
 
 const page = ref(1)
-const limit = ref(20)
+const perPage = ref(20)
 const search = ref('')
 const ordering = ref('')
 const sorting: any = reactive({})
@@ -141,7 +141,7 @@ const queryfilter = computed(() => {
     const qry: any = {}
 
     if(page.value) qry.page = page.value
-    if(limit.value) qry.limit = limit.value
+    if(perPage.value) qry.perPage = perPage.value
     if(search.value?.trim()) qry.search = search.value
 
     props.customFilters?.map(cf => {

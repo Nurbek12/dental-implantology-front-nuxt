@@ -5,28 +5,38 @@ import {
     BsCalendar2Week,
     HeFilledDoctorMale,
     MaDoctor,
-    GlWork,
-    CgList,
     GlStatusHealth,
     CaPhone,
-    CaDataTable,
-    FaUserInjured,
     CaReportData,
     AnOutlinedMessage,
     PhTooth,
     TaReport,
     ReStarSmileLine,
     BxHomeAlt2,
-    CdTable,
     FlDataUsage,
     ReMoneyDollarCircleLine,
     LuUserCog,
-    CoWallet,
     CoBrandTelegramPlane,
     AnFilledInstagram,
     LaFacebookF,
     AkYoutubeFill,
+    LuUser,
+    AkCalendar,
+    LuCog,
+    McInjectionLine,
 } from '@kalimahapps/vue-icons'
+import type { Specialty, ToothCondition, User } from '~/types'
+
+export const admin_settings_links = [
+    { title: 'Докторы', icon: HeFilledDoctorMale, url: '/admin/doctors', description: "Управление и просмотр информации о всех врачах в стоматологической клинике. Это включает добавление новых врачей, обновление существующих профилей врачей и удаление врачей из системы." },
+    { title: 'Услуги', icon: MaDoctor, url: '/admin/services', description: "Управление списком услуг, предлагаемых стоматологической клиникой. В этом разделе можно добавлять новые услуги, обновлять информацию о существующих услугах и удалять услуги, которые больше не предлагаются." },
+    { title: 'Процедуры', icon: McInjectionLine, url: '/admin/procedures', description: "Управление списком процедур, предлагаемых стоматологической клиникой. В этом разделе можно добавлять новые процедуры, обновлять информацию о существующих процедурах и удалять процедуры, которые больше не предлагаются." },
+    { title: 'Первоначальные записи', icon: AnOutlinedMessage, url: '/admin/initial-records', description: "Управление первоначальными записями пациентов. Это включает добавление новых записей, обновление существующих записей и удаление записей, которые больше не актуальны." },
+    { title: 'Зарплата', icon: ReMoneyDollarCircleLine, url: '/admin/salaries', description: "Управление информацией о зарплатах сотрудников клиники. В этом разделе можно просматривать и обновлять данные о зарплатах, а также управлять выплатами." },
+    { title: 'Приходы/Расходы', icon: CaReportData, url: '/admin/reports', description: "Управление финансовыми отчетами, включая приходы и расходы клиники. В этом разделе можно просматривать и анализировать финансовые данные, а также создавать отчеты." },
+    { title: 'Отчет', icon: TaReport, url: '/admin/report', description: "Создание и просмотр различных отчетов, связанных с работой клиники. Это включает отчеты о пациентах, услугах, финансах и других аспектах деятельности клиники." },
+    { title: 'Профиль', icon: LuUserCog, url: '/admin/profile', description: 'Управление профилем пользователя и настройками аккаунта. В этом разделе вы можете обновить личную информацию, изменить пароль, настроить уведомления и управлять другими параметрами, связанными с вашим аккаунтом.' },
+]
 
 export const index_cards = [
     { icon: PhTooth, title: 'home.home-card-1-title', description: 'home.home-card-1-description' },
@@ -41,30 +51,21 @@ export const index_statistics = [
     { icon: BsCalendar2Week, title: "home.home-counst-info-4", count: 40 },
 ]
 
-export const index_blogs = [
-    { title: 'Советы по уходу за зубами', description: 'Чистка зубов два раза в день и регулярное использование зубной нити — это лишь начало. В нашем блоге вы найдете профессиональные советы по уходу за полостью рта, которые помогут сохранить вашу улыбку здоровой и красивой на долгие годы.', image: 'https://img.freepik.com/free-photo/smiling-young-male-dentist-holding-toothbrush_171337-15748.jpg?t=st=1717832995~exp=1717836595~hmac=4b96b353a94dcf4aa121028b0f4c3312240347ac3f964c2d80adb00b2891d1aa&w=900' },
-    { title: 'Современные технологии', description: 'Мир стоматологии постоянно развивается, и мы стремимся использовать самые передовые технологии для лечения наших пациентов. Узнайте больше о новейших достижениях и инновациях в стоматологической сфере, которые делают лечение более эффективным и комфортным.', image: 'https://img.freepik.com/free-photo/close-up-hand-wearing-protective-glove_23-2149164346.jpg?t=st=1717833060~exp=1717836660~hmac=c41feb23efc1a71ef318331a879253660fad1a73b6d2e3fa8ff80ae39cf554e1&w=900' },
-    { title: 'Часто задаваемые вопросы', description: 'Почему нужно удалять зубы мудрости? Что такое имплантация зубов и как она проходит? В этом разделе мы отвечаем на самые популярные вопросы наших пациентов, чтобы вы могли чувствовать себя уверенно и информированно перед визитом к стоматологу.', image: 'https://img.freepik.com/premium-photo/person-holding-pair-scissors-with-question-marks-it_646443-2521.jpg?w=900' },
-]
-
 export const admin_links = {
-    "SUPERUSER": [
-        { title: 'Докторы', icon: HeFilledDoctorMale, url: '/admin/doctors' },
-        { title: 'Пациенты', icon: FaUserInjured, url: '/admin/patients' },
-        { title: 'Услуги', icon: GlWork, url: '/admin/services' },
-        { title: 'Отзывы', icon: AnOutlinedMessage, url: '/admin/reviews' },
-
-        { title: 'Первоначальные записи', icon: CgList, url: '/admin/initial-records' },
-        { title: 'Записи на прием', icon: CaDataTable, url: '/admin/appointments' },
-        { title: 'Зарплата', icon: ReMoneyDollarCircleLine, url: '/admin/salaries' },
-        { title: 'Приходы/Расходы', icon: CaReportData, url: '/admin/reports' },
-        { title: 'Отчет', icon: TaReport, url: '/admin/report' },
-        { title: 'Профиль', icon: LuUserCog, url: '/admin/profile' },
+    "ADMIN": [
+        { title: 'Пациенты', icon: LuUser, url: '/admin/patients' },
+        { title: 'Записи на прием', icon: AkCalendar, url: '/admin/appointments' },
+        { title: 'Настройки', icon: LuCog, url: '/admin/settings' },
     ],
     "DOCTOR": [
-        { title: 'Записи (для докторов)', icon: CdTable, url: '/admin/appointments-doctors' },
-        { title: 'Кошелек', icon: CoWallet, url: '/admin/wallet' },
+        { title: 'Пациенты', icon: LuUser, url: '/admin/patients' },
+        { title: 'Записи на прием', icon: AkCalendar, url: '/admin/appointments' },
         { title: 'Профиль', icon: LuUserCog, url: '/admin/profile' },
+        { title: 'Настройки', icon: LuCog, url: '/admin/settings' },
+        
+        // { title: 'Записи (для докторов)', icon: CdTable, url: '/admin/appointments-doctors' },
+        // { title: 'Кошелек', icon: CoWallet, url: '/admin/wallet' },
+        // { title: 'Профиль', icon: LuUserCog, url: '/admin/profile' },
     ]
 }
 
@@ -228,19 +229,31 @@ export const getDates = (option: 0 | 1 | 2 | 3) => {
     }
 }
 
-export const specs = {
-    therapy: 'Терапия',
-    surgery: 'Хирургия',
-    orthodontics: 'Ортодонтия',
-    orthopedics: 'Ортопедия'
+export const pickNeededUserFields = (user: Partial<User>) => {
+    return {
+        role: user.role,
+        email: user.email,
+        phone: user.phone,
+        avatar: user.avatar,
+        address: user.address,
+        content: user.content,
+        lastName: user.lastName,
+        birthDate: user.birthDate,
+        firstName: user.firstName,
+        middleName: user.middleName,
+        experience: user.experience,
+    }
 }
 
-export const appointment_statuses = {
-    "PN": ["В ожидании", "bg-yellow-400 hover:bg-yellow-300 active:bg-yellow-200", "text-yellow-400"],
-    "FP": ["Полностью оплачено", "bg-green-500 hover:bg-green-400 active:bg-green-300", "text-green-500"],
-    "PP": ["Частично оплачено", "bg-orange-500 hover:bg-orange-400 active:bg-orange-300", "text-orange-500"],
-    "UP": ["Неоплачено", "bg-red-500 hover:bg-red-400 active:bg-red-300", "text-red-500"],
-    "CD": ["Отменено", "bg-gray-600 hover:bg-gray-500 active:bg-gray-400", "text-gray-600"],
+export const specs: Record<Specialty, string> = {
+    SURGEON: "Хирург",
+    THERAPIST: "Терапевт",
+    ORTHOPEDIST: "Ортопед",
+    ORTHODONTIST: "Ортодонт",
+    PERIODONTIST: "Пародонтолог",
+    IMPLANTOLOGIST: "Имплантолог",
+    DOCTORS_ASSISTANT: "Помощник Врача",
+    PEDIATRIC_DENTIST: "Детский Стоматолог",
 }
 
 export const faqs = [
@@ -420,4 +433,72 @@ export const services = [
             ru: 'Предотвратим заболевания, которые возникают из за неправильного положения зубов.',
         }
     }
+]
+
+export const patient_links = [
+    { url: 'appointments', title: 'Записи' },
+    { url: 'initial-examinations', title: 'Лечение' },
+    { url: 'xray', title: 'Рентген' },
+    { url: 'payments', title: 'Оплаты' },
+]
+
+export const therapy_map = [
+    { value: "ROOT", code: "R", title: "Корень" },
+    { value: "CARIES", code: "C", title: "Кариес" },
+    { value: "CROWN", code: "K", title: "Коронка" },
+    { value: "FILLING", code: "Pl", title: "Пломба" },
+    { value: "IMPLANT", code: "I", title: "Имплант" },
+    { value: "PULPITIS", code: "P", title: "Пульпит" },
+    { value: "MOBILITY", code: "П", title: "Подвижность" },
+    { value: "REMOVED", code: "O", title: "Зуб отсутствует" },
+    { value: "DEPOSITS", code: "H", title: "Зубные отложения" },
+    { value: "DEPULPED", code: "Д", title: "Депульпированный" },
+    { value: "PERIODONTITIS", code: "Pt", title: "Периодонтит" },
+    { value: "ARTIFICIAL", code: "A", title: "Искусственный зуб" },
+]
+
+export const tooth_conditions: Record<ToothCondition, string> = {
+    ROOT: "Корень",
+    CROWN: "Коронка",
+    CARIES: "Кариес",
+    IMPLANT: "Имплант",
+    FILLING: "Пломба",
+    REMOVED: "Зуб отсутствует",
+    PULPITIS: "Пульпит",
+    MOBILITY: "Подвижность",
+    DEPOSITS: "Зубные отложения",
+    DEPULPED: "Депульпированный",
+    PERIODONTITIS: "Периодонтит",
+    ARTIFICIAL: "Искусственный зуб",
+}
+
+export const tooth_nums = [
+    [18,17,16,15,14,13,12,11],
+    [21,22,23,24,25,26,27,28],
+    [48,47,46,45,44,43,42,41],
+    [31,32,33,34,35,36,37,38],
+]
+
+export const toothHealthCondition = ["CARIES", "FILLING", "DEPULPED", "PULPITIS", "PERIODONTITIS", "CROWN", "ARTIFICIAL", "ROOT", "MOBILITY", "DEPOSITS"]
+
+export const payment_types = {
+    "CASH": "Наличные",
+    "CARD": "Карта",
+    "TRANSFER": "Передача",
+    "CREDIT": "Кредит"
+}
+
+export const WORKING_HOURS = [
+    "09:00", "09:30",
+    "10:00", "10:30",
+    "11:00", "11:30",
+    "12:00", "12:30",
+    "Обед",
+    "14:00", "14:30",
+    "15:00", "15:30",
+    "16:00", "16:30",
+    "17:00", "17:30",
+    "18:00", "18:30",
+    "19:00", "19:30",
+    "20:00", "20:30",
 ]
