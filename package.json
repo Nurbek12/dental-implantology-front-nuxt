@@ -8,8 +8,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "start": "node .output/server/index.mjs",
-    "postinstall": "nuxt prepare",
-    "generate:client-api": "openapi-generator-cli generate -i http://176.96.243.111:8088/api-yaml -g typescript-fetch -o ./openapi/"
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
     "@kalimahapps/vue-icons": "^1.7.1",

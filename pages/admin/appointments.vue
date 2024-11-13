@@ -1,7 +1,7 @@
 <template>
     <div class="w-full p-2">
         <div class="p-2 rounded border grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-2 bg-white">
-            <app-input v-model="filterdate" type="date" placeholder="Поиск" @changed="getItems({date:$event.target.value})" />
+            <app-input v-model="filterdate" type="date" placeholder="Поиск" @changed='getItems({startDate:`"${$event.target.value}"`})' />
             <div class="hidden md:block"></div>
             <div class="hidden md:block"></div>
             <app-btn @click="dialog=true" size="small">Добавить</app-btn>
@@ -15,11 +15,8 @@
                 </div>
                 <div class="flex-1 overflow-auto scrollbar-hide">
                     <div class="flex w-max">
-                        <div v-for="doctor,i in doctors" :key="i" class="relative">
+                        <div v-for="doctor,i in appointments" :key="i" class="relative">
                             <div class="relative h-[30px] z-10 text-sm px-8 gap-1 flex flex-col items-center justify-center bg-gray-50 border-b border-r">
-                                <!-- <div class="w-[50px] h-[50px] rounded-full overflow-hidden">
-                                    <app-image :src="doctor.avatar!" class="w-full h-full object-cover" />
-                                </div> -->
                                 <span>{{ doctor?.firstName }} {{ doctor?.lastName }}</span>
                             </div>
                             <div>
@@ -28,17 +25,16 @@
                                     class="hover:bg-gray-50 active:bg-gray-100 cursor-pointer h-[30px] flex items-center justify-center text-sm border-b border-r" />
                             </div>
                             <div class="top-[30px] absolute left-0 w-full">
-                                <!-- <div v-for="ap,j in item.appointments" :key="j" :style="{'height': `${getTimeDifferenceInMilliseconds(ap.end_time, ap.start_time)*60/(60 * 60 * 1000)}px`, 'top':`${
-                                    ((timeToDecimal(ap.start_time))>=14)?
-                                    ((timeToDecimal(ap.start_time))-9)*60-30:
-                                    ((timeToDecimal(ap.start_time))-9)*60}px`}"
+                                <div v-for="app,j in doctor.appointments" :key="j" :style="{'height': `${getTimeDifferenceInMilliseconds(app.endDate!, app.startDate!)*60/(60 * 60 * 1000)}px`, 'top':`${
+                                    ((timeToDecimal(app.startDate))>=14)?
+                                    ((timeToDecimal(app.startDate))-9)*60-30:
+                                    ((timeToDecimal(app.startDate))-9)*60}px`}"
                                     class="absolute w-full">
-                                    <div @click="selectItem(i, '', item, ap)" class="w-full h-full border flex items-center justify-center flex-col cursor-pointer text-white text-center text-sm"
-                                        :class="appointment_statuses[ap.status||'PN']?.[1]||'text-black'">
-                                        {{ (ap.patient as IPatient)?.first_name }} {{ (ap.patient as IPatient)?.last_name }}:
-                                        <span class="text-xs">({{ (ap.service as IService)?.name_ru }})</span>
+                                    <div @click="selectItem(i, '', doctor.id, app)" class="w-full h-full border flex items-center justify-center flex-col cursor-pointer text-primary-700 text-center text-sm font-medium bg-primary-100 border-l-4 border-l-primary-600">
+                                        {{ app.patient?.firstName }} {{ app.patient?.lastName }}:
+                                        <span class="text-xs">({{ app.procedure?.title_ru }})</span>
                                     </div>
-                                </div> -->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -63,7 +59,7 @@
                         </div>
                     </template>
                 </app-auto-complete>
-
+                <!-- TODO: Fix autocompolete patient name for update -->
                 <app-input required v-model="$item.startDate" label="Время начала" type="datetime-local" />
                 <app-input required v-model="$item.endDate" @update:model-value="console.log" label="Время окончания" type="datetime-local" />
                 <app-select required v-model="$item.doctorId" :items="doctors" name="firstName" value="id" label="Доктор" placeholder="Доктор" :nullvalue="null" />
@@ -79,7 +75,7 @@
 
 <script setup lang="ts">
 import debounce from 'lodash/debounce'
-import { todayDate, WORKING_HOURS } from '@/constants'
+import { WORKING_HOURS, todayDate, getTimeDifferenceInMilliseconds, timeToDecimal } from '@/constants'
 import type { User, Appointment, Patient, Procedure } from '@/types'
 
 const { getUsers } = useUsers()
@@ -110,14 +106,35 @@ definePageMeta({
   middleware: ['auth', 'role'],
 })
 
+const appointments = computed(() => {
+    return doctors.value.map((doctor) => {
+        return {
+            ...doctor,
+            appointments: items.value.filter((app) => app.doctorId === doctor.id)
+        }
+    })
+})
+
+const searching = debounce(async (e) => {
+    if(!e.target.value?.trim()) return patients.value = []
+    patientLoading.value = true
+    const { data } = await getPatients({page: 1, perPage: 1000, search: e.target.value})
+    patients.value = data as any
+    patientLoading.value = false
+}, 500)
+
 const selectItem = (index: number, hour: string, doctorId: number, app?: Appointment) => {
     dialog.value = true
     itemIndex.value = index
-
-    if(app) {
-        
-        return
-    }
+    
+    if(app) return $item.value = Object.assign({}, {
+        doctorId,
+        patientId: app.patientId,
+        description: app.description,
+        procedureId: app.procedureId,
+        endDate: app.endDate?.slice(0, 16),
+        startDate: app.startDate.slice(0, 16),
+    })
     
     let newTime
     if(hour == "12:30") newTime = "13:00"
@@ -136,23 +153,15 @@ const selectItem = (index: number, hour: string, doctorId: number, app?: Appoint
         newTime = `${newHours}:${newMinutes}`;
     }
     
-    $item.value = {
+    $item.value = Object.assign({}, {
         doctorId,
         description: '',
         patientId: null as any,
         procedureId: null as any,
         startDate: `${todayDate()}T${hour}`,
         endDate: `${todayDate()}T${newTime}`,
-    }
+    })
 }
-
-const searching = debounce(async (e) => {
-    if(!e.target.value?.trim()) return patients.value = []
-    patientLoading.value = true
-    const { data } = await getPatients({page: 1, perPage: 1000, search: e.target.value})
-    patients.value = data as any
-    patientLoading.value = false
-}, 500)
 
 const createItem = async () => {
     try {
@@ -170,7 +179,8 @@ const getItems = async (params: any) => {
     try {
         loading.value = true
         const data = await getAppointments(params)
-        console.log(data);
+        // console.log(data);
+        items.value = (data as any)?.data ?? []
     } catch (error) {
         console.log(error)
     } finally {
@@ -179,23 +189,18 @@ const getItems = async (params: any) => {
 }
 
 const init = async () => {
-    initToday()
+    const todaydate = todayDate()
+    filterdate.value = todaydate
 
     const [doctorsResp, proceduresResp] = await Promise.all([
         getUsers({ role: 'DOCTOR'}),
         getProcedures({page: 1, perPage: 1000})
     ])
     
-    doctors.value = doctorsResp as any
+    doctors.value = (doctorsResp as any).filter((doctor: any) => doctor.role === 'DOCTOR')
     procedures.value = proceduresResp.data as any
 
-    await getItems({groupBy: 'doctor'});
-    // date:todayDate()
-}
-
-const initToday = () => {
-    const todaydate = todayDate()
-    filterdate.value = todaydate
+    await getItems({startDate: `"${todayDate()}"`}); // groupBy: 'doctor'
 }
 
 const close = () => {

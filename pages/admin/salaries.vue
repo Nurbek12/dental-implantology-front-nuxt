@@ -42,7 +42,7 @@
 
 <script setup lang="ts">
 import { todayDate } from '~/constants'
-import type { ISalary, IDoctor } from '@/types'
+// import type { ISalary, IDoctor } from '@/types'
 
 definePageMeta({
   layout: 'admin-layout',
@@ -57,11 +57,11 @@ const dialog = ref(false)
 const loading = ref(false)
 const count = ref<number>(0)
 const pages = ref<number>(0)
-const items = ref<ISalary[]>([])
-const doctors = ref<IDoctor[]>([])
+const items = ref<any[]>([])
+const doctors = ref<any[]>([])
 const itemIndex = ref<number|null>(null)
 const createLoading = ref<boolean>(false)
-const $item = reactive<ISalary>({
+const $item = reactive<any>({
     date: todayDate(),
     amount: 0,
     title: "",
@@ -126,8 +126,8 @@ const close = () => {
 }
 
 const init = async () => {
-    const data = await getDoctors({})
-    doctors.value = data.results
+    // const data = await getDoctors({})
+    // doctors.value = data.results
 }
 
 init()

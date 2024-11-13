@@ -90,26 +90,30 @@ export const social_links = [
     { icon: AkYoutubeFill, link: 'https://www.youtube.com/channel/UC4snULI68gU11HVJEA_316Q' },
 ]
 
-export const getTimeDifferenceInMilliseconds = (time1: string, time2: string) => {
+export const getTimeDifferenceInMilliseconds = (date1: string, date2: string) => {
+    const time1 = new Date(date1).toLocaleTimeString()
+    const time2 = new Date(date2).toLocaleTimeString()
     // Split the time strings into hours and minutes
     const [hours1, minutes1] = time1.split(':').map(Number);
     const [hours2, minutes2] = time2.split(':').map(Number);
 
     // Create Date objects with the same date but different times
-    const date1: any = new Date();
-    date1.setHours(hours1, minutes1, 0, 0);
+    const d1: any = new Date();
+    d1.setHours(hours1, minutes1, 0, 0);
 
-    const date2: any = new Date();
-    date2.setHours(hours2, minutes2, 0, 0);
+    const d2: any = new Date();
+    d2.setHours(hours2, minutes2, 0, 0);
 
     // Calculate the difference in milliseconds
-    return Math.abs(date2 - date1);
+    return Math.abs(d2 - d1);
 }
 
-export const timeToDecimal = (time: string) => {
-    var parts = time.split(":");
-    var hours = parseInt(parts[0]);
-    var minutes = parseInt(parts[1]);
+export const timeToDecimal = (date: string) => {
+    const time = new Date(date).toLocaleTimeString()
+
+    const parts = time.split(":");
+    const hours = parseInt(parts[0]);
+    const minutes = parseInt(parts[1]);
 
     return hours + minutes / 60;
 }

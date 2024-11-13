@@ -29,14 +29,14 @@
 
 <script setup lang="ts">
 import { todayDate } from '~/constants'
-import type { ISalary } from '@/types'
+// import type { ISalary } from '@/types'
 
 definePageMeta({
   layout: 'admin-layout',
   middleware: ['auth'],
 })
 
-const { handleGetMe } = useAuth()
+// const { handleGetMe } = useAuth()
 const { getSalaries } = useSalaries()
 
 const balance = ref(0)
@@ -44,7 +44,7 @@ const loading = ref(false)
 const user = useUserData()
 const count = ref<number>(0)
 const pages = ref<number>(0)
-const items = ref<ISalary[]>([])
+const items = ref<any[]>([])
           
 const headers = [
     { name: "ID", value: "id", sortable: true, balancedText: false, custom: true },
@@ -57,10 +57,10 @@ const headers = [
 const getItems = async (params: any) => {
     try {
         loading.value = true
-        const data = await getSalaries({doctor: user.value?.id, ordering: '-created_at', ...params})
-        pages.value = data.page_count
-        items.value = data.results
-        count.value = data.count
+        // const data = await getSalaries({doctor: user.value?.id, ordering: '-created_at', ...params})
+        // pages.value = data.page_count
+        // items.value = data.results
+        // count.value = data.count
     } catch (error) {
         console.log(error)
     } finally {
@@ -71,8 +71,8 @@ const getItems = async (params: any) => {
 const init = async () => {
     const token = useAuthAccessToken()
     if(!token) return
-    const data = await handleGetMe(token.value!)
-    balance.value = data.balance!
+    // const data = await handleGetMe(token.value!)
+    // balance.value = data.balance!
 }
 
 init()

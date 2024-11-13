@@ -81,7 +81,7 @@
     
     <app-dialog rounded title="Добавить прибыль" v-model="dialog1" @close-dialog="close">
         <form @submit.prevent="saveProfit" class="mt-4 flex flex-col gap-4">
-            <app-auto-complete @updated="profit.amount = $event" v-model="profit.appointment" @inputed="searching" :loading="appoinmentLoading" :items="appointments" label="Прием" placeholder="Прием">
+            <!-- <app-auto-complete @updated="profit.amount = $event" v-model="profit.appointment" @inputed="searching" :loading="appoinmentLoading" :items="appointments" label="Прием" placeholder="Прием">
                 <template #item="acItem">
                     <div class="flex items-center gap-2 text-sm" @click="acItem.onSelected(`${acItem.item?.patient?.first_name} ${acItem.item?.patient?.last_name } - ${acItem.item?.service?.name_ru} : ${appointment_statuses[acItem.item?.status as keyof typeof appointment_statuses]?.[0]} . ${new Date(acItem.item?.created_at).toLocaleDateString()}`, acItem.item.id, acItem.item.price)">
                         <span>{{ acItem.item?.patient?.first_name }} {{ acItem.item?.patient?.last_name }} - {{ acItem.item?.service?.name_ru }} : </span>
@@ -91,7 +91,7 @@
                         </span>
                     </div>
                 </template>
-            </app-auto-complete>
+            </app-auto-complete> -->
             <app-input readonly required v-model="profit.date" type="date" label="Дата прибыла" />
             <app-input required v-model="profit.amount" type="number" label="Выплаченная сумма" placeholder="Выплаченная сумма" />
 
@@ -130,8 +130,8 @@
 </template>
 
 <script setup lang="ts">
-import lodash from 'lodash'
-import { todayDate, appointment_statuses } from '~/constants'
+import debounce from 'lodash/debounce'
+import { todayDate } from '~/constants'
 
 definePageMeta({
   layout: 'admin-layout',
@@ -146,11 +146,11 @@ const dialog1 = ref(false)
 const dialog2 = ref(false)
 const dialog3 = ref(false)
 const loading = ref(false)
-const doctors = ref<IDoctor[]>([])
-const item = ref<IReport|null>(null)
+const doctors = ref<any[]>([])
+const item = ref<any|null>(null)
 const appoinmentLoading = ref(false)
 const createLoading = ref<boolean>(false)
-const appointments = ref<IAppointment[]>([])
+const appointments = ref<any[]>([])
 
 const consumption = reactive({
     date: '',
@@ -256,17 +256,17 @@ const init = async () => {
     initToday()
 
     getItems(filterdate.value)
-    const [AP, DC] = await Promise.all([getAppointments({}),getDoctors({})])
-    doctors.value = DC.results
-    appointments.value = AP.results
+    // const [AP, DC] = await Promise.all([getAppointments({}),getDoctors({})])
+    // doctors.value = DC.results
+    // appointments.value = AP.results
 }
 
-const searching = lodash.debounce(async (e) => {
+const searching = debounce(async (e) => {
     if(!e.target.value?.trim()) return appointments.value = []
-    appoinmentLoading.value = true
-    const p = await getAppointments({page: 1, limit: 1000, search: e.target.value, ordering: '-created_at'})
-    appointments.value = p.results
-    appoinmentLoading.value = false
+    // appoinmentLoading.value = true
+    // const p = await getAppointments({page: 1, limit: 1000, search: e.target.value, ordering: '-created_at'})
+    // appointments.value = p.results
+    // appoinmentLoading.value = false
 }, 500)
 
 init()
